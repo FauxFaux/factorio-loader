@@ -1,3 +1,5 @@
 /target
 .idea/
 __pycache__
+app.js
+node_modules/

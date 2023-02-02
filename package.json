@@ -1,0 +1,15 @@
+{
+  "name": "factorio-loader",
+  "version": "0.0.0",
+  "description": "",
+  "scripts": {},
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "@babel/cli": "^7",
+    "@babel/core": "^7",
+    "@babel/preset-env": "^7",
+    "@babel/preset-typescript": "^7"
+  }
+}
