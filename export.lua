@@ -1,13 +1,8 @@
 for _, ty in ipairs({
     "assembling-machine",
-    "straight-rail", "curved-rail",
-    "assembling-machine",
     "train-stop",
-    "loader",
-    "inserter",
     "roboport",
     "radar",
-    "container",
     "train-stop-input",
     "tags" }) do
     local all
