@@ -1,4 +1,4 @@
-use anyhow::{bail, Result};
+use anyhow::{anyhow, bail, Result};
 use nom::branch::alt;
 use nom::bytes::complete::{escaped_transform, tag};
 use nom::character::complete::{alpha1, char, digit1, multispace0, none_of};
@@ -9,11 +9,41 @@ use nom::IResult;
 
 type Table = Vec<(Option<String>, Value)>;
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, Clone, PartialEq)]
 pub enum Value {
     Object(Table),
     String(String),
     Float(f64),
+}
+
+impl Value {
+    pub fn table(&self) -> Result<&Table> {
+        match self {
+            Value::Object(t) => Ok(t),
+            _ => Err(anyhow!("expected table but found {self:?}")),
+        }
+    }
+    pub fn string(&self) -> Result<String> {
+        match self {
+            Value::String(t) => Ok(t.clone()),
+            _ => Err(anyhow!("expected string but found {self:?}")),
+        }
+    }
+    pub fn f64(&self) -> Result<f64> {
+        match self {
+            Value::Float(t) => Ok(*t),
+            _ => Err(anyhow!("expected float but found {self:?}")),
+        }
+    }
+    pub fn get(&self, key: &str) -> Result<Value> {
+        Ok(self
+            .table()?
+            .iter()
+            .find(|(k, _)| *k == Some(key.to_string()))
+            .ok_or(anyhow!("no matching key"))?
+            .1
+            .clone())
+    }
 }
 
 // atom: number or string
