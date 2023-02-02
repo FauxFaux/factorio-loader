@@ -8,12 +8,15 @@ for _, ty in ipairs({
     "roboport",
     "radar",
     "container",
-    "tags"}) do
+    "train-stop-input",
+    "tags" }) do
     local all
     if ty == "tags" then
         all = game.player.force.find_chart_tags('nauvis')
+    elseif ty == "train-stop-input" then
+        all = game.get_surface('nauvis').find_entities_filtered({ name = "logistic-train-stop-input" })
     else
-        all = game.get_surface('nauvis').find_entities_filtered({ type = ty });
+        all = game.get_surface('nauvis').find_entities_filtered({ type = ty })
     end
     local t = {};
     for _, v in pairs(all) do
@@ -29,6 +32,19 @@ for _, ty in ipairs({
             pcall(function()
                 a[#a + 1] = v.get_recipe().name
             end)
+        end
+        if ty == "train-stop" then
+            a[#a + 1] = v.backer_name
+        end
+        if ty == "train-stop-input" then
+            for name, def in pairs({green = defines.wire_type.green, red = defines.wire_type.red}) do
+                a[#a + 1] = name
+                for _, s in pairs(v.get_circuit_network(def).signals) do
+                    a[#a + 1] = s.signal.type
+                    a[#a + 1] = s.signal.name
+                    a[#a + 1] = s.count
+                end
+            end
         end
         t[#t + 1] = table.concat(a, "\036")
     end
