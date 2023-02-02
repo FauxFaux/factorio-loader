@@ -9,26 +9,24 @@ from typing import Iterable, Tuple
 
 
 def main():
-    state = collections.defaultdict(collections.Counter)
-    for arg in sys.argv[1:]:
-        basename = os.path.basename(arg)
-        ty = os.path.splitext(basename)[0]
-        content = open(arg).read()
-        doc = map(lambda x: x.split('\036'), content.split('\035'))
-        handler = handlers.get(ty, fallback)
-        for line in doc:
-            [x, y, _, name] = line[:4]
-            (bx, by) = to_block(x, y)
-            crap = line[4:]
-            wanted = handler(name, crap)
-            if wanted:
-                state[(bx, by)][wanted] += 1
+    base = sys.argv[1]
+    state = collections.defaultdict(dict)
+    for block, name, _ in load(base, 'tags'):
+        state[block]['tags'].append(name)
 
     for (block, items) in state.items():
         print(block)
         for (item, count) in items.items():
             print(f" * {item}: {count}")
 
+
+def load(base: str, kind: str):
+    content = open(os.path.join(base, f"{kind}.rec")).read()
+    for line in map(lambda x: x.split('\036'), content.split('\035')):
+        [x, y, _, name] = line[:4]
+        block = to_block(x, y)
+        ext = line[4:]
+        yield block, name, ext
 
 
 def fallback(name: str, rest: list):
@@ -39,6 +37,7 @@ def assembler(name: str, rest: list):
     if len(rest) > 0:
         return 'ass', name, rest[0]
     return 'ass', name, None
+
 
 def tags(name: str, _: list):
     return 'tag', name
@@ -69,6 +68,7 @@ def to_block(x: float, y: float) -> Tuple[int, int]:
     bx = math.floor(x / w)
 
     return bx, by
+
 
 handlers = {
     "assembling-machine": assembler,
