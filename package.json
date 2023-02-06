@@ -3,8 +3,10 @@
   "version": "0.0.0",
   "description": "",
   "scripts": {
+    "format": "prettier --write '**/*.{ts,tsx}'",
     "lint": "tsc",
-    "format": "prettier --write '**/*.ts?'"
+    "test": "true # no tests yet",
+    "watch": "webpack --watch"
   },
   "author": "",
   "license": "ISC",

@@ -1,5 +1,5 @@
 #!/usr/bin/env -S npx babel-node -x .ts
-import * as fs from "fs";
+import * as fs from 'fs';
 
 const base = process.argv[2];
 
@@ -24,10 +24,7 @@ export type BlockContent = {
 };
 
 function main() {
-  const byBlock: Record<
-    string,
-    BlockContent
-  > = {};
+  const byBlock: Record<string, BlockContent> = {};
   const getBlock = (id: BlockId) => {
     const sid = String(id);
     if (!byBlock[sid]) {
@@ -40,12 +37,12 @@ function main() {
     return byBlock[sid];
   };
 
-  for (const obj of load("tags")) {
+  for (const obj of load('tags')) {
     const block = getBlock(obj.block);
     block.tags.push(obj.name);
   }
 
-  for (const obj of load("assembling-machine")) {
+  for (const obj of load('assembling-machine')) {
     const block = getBlock(obj.block);
     const label = `${obj.name} making ${obj.ext[0]}`;
     if (!block.asm[label]) {
@@ -55,8 +52,8 @@ function main() {
   }
 
   const stopNames: [Coord, string][] = [];
-  for (const obj of load("train-stop")) {
-    if (obj.name !== "logistic-train-stop") continue;
+  for (const obj of load('train-stop')) {
+    if (obj.name !== 'logistic-train-stop') continue;
     stopNames.push([obj.pos, obj.ext[0]]);
   }
 
@@ -70,10 +67,10 @@ function main() {
     throw new Error(`unable to find name for ${pos}`);
   }
 
-  for (const obj of load("train-stop-input")) {
+  for (const obj of load('train-stop-input')) {
     const block = getBlock(obj.block);
     const name = nearbyStationName(obj.pos);
-    const splitPoint = obj.ext.indexOf("red");
+    const splitPoint = obj.ext.indexOf('red');
     const red = obj.ext.slice(1, splitPoint);
     const green = obj.ext.slice(splitPoint + 1);
     block.stop.push({
@@ -97,10 +94,10 @@ function signals(arr: string[]): [string, string, number][] {
 function load(kind: string) {
   const items: { block: BlockId; name: string; ext: string[]; pos: Coord }[] =
     [];
-  const content = fs.readFileSync(`${base}/${kind}.rec`, { encoding: "utf-8" });
+  const content = fs.readFileSync(`${base}/${kind}.rec`, { encoding: 'utf-8' });
   for (const line of content
-    .split("\x1d") // (\035)
-    .map((record) => record.split("\x1e"))) {
+    .split('\x1d') // (\035)
+    .map((record) => record.split('\x1e'))) {
     // (\036)
     const [x, y, dir, name, ...ext] = line;
     const pos = [parseFloat(x), parseFloat(y)] as const;
