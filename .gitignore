@@ -4,3 +4,4 @@ __pycache__
 app.js
 node_modules/
 dist/
+web/bundle.js*

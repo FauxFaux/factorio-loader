@@ -18,6 +18,7 @@
     "@babel/core": "^7",
     "@babel/node": "^7",
     "@babel/plugin-transform-react-jsx": "^7",
+    "@babel/plugin-transform-react-jsx-source": "^7.19.6",
     "@babel/preset-env": "^7",
     "@babel/preset-typescript": "^7",
     "@types/node": "^16",
