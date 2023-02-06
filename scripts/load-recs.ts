@@ -1,3 +1,4 @@
+#!/usr/bin/env -S npx babel-node -x .ts
 import * as fs from "fs";
 
 const base = process.argv[2];

@@ -1,3 +1,5 @@
+#!/usr/bin/env -S npx babel-node -x .ts
+
 import type { BlockContent } from './load-recs';
 import * as fs from 'fs';
 

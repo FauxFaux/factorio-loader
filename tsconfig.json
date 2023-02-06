@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "es2020",
+    "lib": ["es2020"],
+    "module": "commonjs",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "incremental": true,
+    "pretty": true,
+
+    "strict": true,
+
+    "noUnusedLocals": true,
+    "skipLibCheck": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact",
+
+    "isolatedModules": true,
+    "esModuleInterop": true
+  },
+  "include": ["./web/**/*", "./scripts/**/*"],
+}
