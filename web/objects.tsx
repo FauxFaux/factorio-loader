@@ -41,6 +41,8 @@ export class Recipe extends Component<{ name: string }, { expando?: boolean }> {
     props: { name: string },
     state: { expando?: boolean },
   ): ComponentChild {
+    if (!props.name || props.name === 'undefined')
+      return <span>nothing at all (nothing at all)</span>;
     const recipe = data.recipes[props.name];
     if (!recipe) return <span class="error">UNKNOWN RECIPE {props.name}</span>;
     if (!state.expando)
@@ -61,7 +63,7 @@ export class Recipe extends Component<{ name: string }, { expando?: boolean }> {
           this.setState({ expando: false });
         }}
       >
-        <h2>{recipe.localised_name}</h2>
+        <h4>{recipe.localised_name}</h4>
         Ingredients:
         <ul>
           {recipe.ingredients?.map((ing) => (
