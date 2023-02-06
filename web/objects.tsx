@@ -1,12 +1,5 @@
 import { Component, ComponentChild, createRef } from 'preact';
-
-import itemsData from '../data/items.json';
-import recipesData from '../data/recipes.json';
-import fluidsData from '../data/fluids.json';
-
-const items = itemsData as unknown as Record<string, JItem>;
-const fluids = fluidsData as unknown as Record<string, JFluid>;
-const recipes = recipesData as unknown as Record<string, JRecipe>;
+import { data } from './index';
 
 export interface JItem {
   group: { name: string };
@@ -48,7 +41,7 @@ export class Recipe extends Component<{ name: string }, { expando?: boolean }> {
     props: { name: string },
     state: { expando?: boolean },
   ): ComponentChild {
-    const recipe = recipes[props.name];
+    const recipe = data.recipes[props.name];
     if (!recipe) return <span class="error">UNKNOWN RECIPE {props.name}</span>;
     if (!state.expando)
       return (
@@ -118,7 +111,7 @@ export class Item extends Component<{ name: string }, {}> {
   ref = createRef();
 
   render(props: { name: string }): ComponentChild {
-    const item = items[props.name];
+    const item = data.items[props.name];
     if (!item) return <span class="error">UNKNOWN ITEM {props.name}</span>;
 
     // this works at a JS level but the UI library seems to give up if you have more than like THREE
@@ -139,7 +132,7 @@ export class Item extends Component<{ name: string }, {}> {
 
 export class Fluid extends Component<{ name: string }, {}> {
   render(props: { name: string }): ComponentChild {
-    const fluid = fluids[props.name];
+    const fluid = data.fluids[props.name];
     if (!fluid) return <span class="error">UNKNOWN FLUID {props.name}</span>;
 
     return (
