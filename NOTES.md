@@ -4,6 +4,8 @@ cargo run --release -- --factorio-dir ~/ins/factorio-1-1-76 export ~/ins/factori
 <a.json jq keys
 jq .recipe_prototypes a.json > recp-full.json
 jq .item_prototypes a.json > items.json
+jq .fluid_prototypes a.json > f.json
 <recp-full.json jq -cS 'map({ (.name): { localised_name, category, ingredients, products, category } }) | add' > ~/code/factorio-loader/data/recipes.json
 <items.json jq -cS 'with_entries(.value |= { type, localised_name, stack_size, wire_count, group, subgroup })' > ~/code/factorio-loader/data/items.json
+<f.json jq -Sc 'with_entries(.value |= { type, localised_name, group, subgroup })' > ~/code/factorio-loader/data/fluids.json
 ```

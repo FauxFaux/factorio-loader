@@ -44,7 +44,7 @@ function main() {
 
   for (const obj of load('assembling-machine')) {
     const block = getBlock(obj.block);
-    const label = `${obj.name} making ${obj.ext[0]}`;
+    const label = `${obj.name}\0${obj.ext[0]}`;
     if (!block.asm[label]) {
       block.asm[label] = 0;
     }
@@ -99,7 +99,7 @@ function load(kind: string) {
     .split('\x1d') // (\035)
     .map((record) => record.split('\x1e'))) {
     // (\036)
-    const [x, y, dir, name, ...ext] = line;
+    const [x, y, _dir, name, ...ext] = line;
     const pos = [parseFloat(x), parseFloat(y)] as const;
     const block = toBlock(pos);
     items.push({ block, name, ext, pos });

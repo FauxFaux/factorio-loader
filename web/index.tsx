@@ -3,6 +3,7 @@ import { Component, render } from 'preact';
 
 import docData from '../data/data.json';
 import { BlockContent } from '../scripts/load-recs';
+import { Item, ItemOrFluid, Recipe } from './objects';
 const doc = docData as unknown as Record<string, BlockContent>;
 
 class App extends Component {
@@ -28,11 +29,15 @@ class App extends Component {
           <li>
             Assemblers:
             <ul>
-              {sorted.map(([label, count]) => (
-                <li>
-                  {count} * {label}
-                </li>
-              ))}
+              {sorted.map(([label, count]) => {
+                const [machine, recipe] = label.split('\0');
+                return (
+                  <li>
+                    {count} * <Item name={machine} /> making{' '}
+                    <Recipe name={recipe} />
+                  </li>
+                );
+              })}
             </ul>
           </li>,
         );
@@ -53,7 +58,8 @@ class App extends Component {
                     <ul>
                       {nonVirt.map(([kind, name, count]) => (
                         <li>
-                          {count} * {kind}:{name}
+                          {count} *{' '}
+                          <ItemOrFluid type={kind as any} name={name} />
                         </li>
                       ))}
                     </ul>
