@@ -17,6 +17,7 @@
     "skipLibCheck": true,
     "jsx": "react-jsx",
     "jsxImportSource": "preact",
+    "resolveJsonModule": true,
 
     "isolatedModules": true,
     "esModuleInterop": true

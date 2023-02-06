@@ -1,9 +1,9 @@
 import 'preact/debug';
 import { Component, render } from 'preact';
 
-import * as docData from '../data/data.json';
+import docData from '../data/data.json';
 import { BlockContent } from '../scripts/load-recs';
-const doc = docData as Record<string, BlockContent>;
+const doc = docData as unknown as Record<string, BlockContent>;
 
 class App extends Component {
   render() {
@@ -12,38 +12,36 @@ class App extends Component {
     for (const [loc, obj] of Object.entries(doc)) {
       blocks.push(
         <h1>
-          <a name="${loc}" href="#${loc}">
-            ${loc}
+          <a name={loc} href={'#' + loc}>
+            {loc}
           </a>
         </h1>,
       );
       const list = [];
       if (obj.tags.length) {
-        list.push(<li>Tags: ${obj.tags.sort().join(', ')}</li>);
+        list.push(<li>Tags: {obj.tags.sort().join(', ')}</li>);
       }
       if (Object.keys(obj.asm).length) {
-        const asmList = [];
-        for (const [label, count] of Object.entries(obj.asm).sort(
-          ([, a], [, b]) => b - a,
-        )) {
-          asmList.push(
-            <li>
-              ${count} * ${label}
-            </li>,
-          );
-        }
+        const sorted = Object.entries(obj.asm).sort(([, a], [, b]) => b - a);
 
         list.push(
           <li>
-            Assemblers: <ul>${asmList}</ul>
+            Assemblers:
+            <ul>
+              {sorted.map(([label, count]) => (
+                <li>
+                  {count} * {label}
+                </li>
+              ))}
+            </ul>
           </li>,
         );
       }
 
       if (obj.stop.length) {
         list.push(
-          <>
-            <li>Train stops</li>
+          <li>
+            Train stops
             <ul>
               {obj.stop.map((stop) => {
                 const nonVirt = stop.items
@@ -51,11 +49,11 @@ class App extends Component {
                   .filter(([kind]) => kind !== 'virtual');
                 return (
                   <li>
-                    ${stop.name}
+                    {stop.name}
                     <ul>
                       {nonVirt.map(([kind, name, count]) => (
                         <li>
-                          ${count} * ${kind}:${name}
+                          {count} * {kind}:{name}
                         </li>
                       ))}
                     </ul>
@@ -63,14 +61,12 @@ class App extends Component {
                 );
               })}
             </ul>
-          </>,
+          </li>,
         );
       }
       blocks.push(list);
     }
-    return (
-      <ul>{blocks}</ul>
-    );
+    return <ul>{blocks}</ul>;
   }
 }
 
