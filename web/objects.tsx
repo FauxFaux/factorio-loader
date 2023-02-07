@@ -148,3 +148,52 @@ export class Fluid extends Component<{ name: string }, {}> {
     );
   }
 }
+
+export class IoFDetail extends Component<{
+  name: string;
+  type: 'item' | 'fluid';
+}> {
+  render(props: { name: string; type: 'item' | 'fluid' }) {
+    const obj = (props.type === 'item' ? data.items : data.fluids)[props.name];
+    if (!obj)
+      return (
+        <span>
+          unknown {props.type} {props.name}
+        </span>
+      );
+
+    const recipies = Object.entries(data.recipes).filter(
+      ([, recipe]) =>
+        undefined !==
+        recipe.products.find(
+          (prod) => prod.type === props.type && prod.name === props.name,
+        ),
+    );
+
+    return (
+      <div class="container-fluid">
+        <h2>{obj.localised_name}</h2>
+        <p>Type: {props.type}</p>
+        <p>Internal name: {props.name}</p>
+        <p>
+          Group: {obj.group?.name}, subgroup: {obj.subgroup?.name}
+        </p>
+        <ul>
+          {recipies.map(([name, recipe]) => (
+            <li>
+              <Recipe name={name} /> (<span class="font-monospace">{name}</span>
+              ) from
+              <ul class="list-group list-group-horizontal">
+                {recipe.ingredients.map((ing) => (
+                  <li class={'list-group-item'}>
+                    <ItemOrFluid type={ing.type} name={ing.name} />
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+}

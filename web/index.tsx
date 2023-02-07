@@ -1,8 +1,10 @@
 import 'preact/debug';
 import { Component, render } from 'preact';
+import Router from 'preact-router';
+import { createHashHistory } from 'history';
 
 import type { BlockContent } from '../scripts/load-recs';
-import type { JFluid, JItem, JRecipe } from './objects';
+import { IoFDetail, JFluid, JItem, JRecipe } from './objects';
 import { BigList } from './big-list';
 
 export const data = {
@@ -14,7 +16,20 @@ export const data = {
 
 class App extends Component {
   render() {
-    return <BigList />;
+    return (
+      <Router history={createHashHistory() as any}>
+        <Home path="/" />
+        <BigList path="/big" />
+        <IoFDetail path="/item/:name" type="item" />
+        <IoFDetail path="/fluid/:name" type="fluid" />
+      </Router>
+    );
+  }
+}
+
+class Home extends Component {
+  render() {
+    return <a href="/big">big</a>;
   }
 }
 
