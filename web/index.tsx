@@ -46,10 +46,38 @@ function ingredientList() {
       }
     }
   }
+
+  const recipesByProduct: Record<string, Set<string>> = {};
+  for (const [name, recipe] of Object.entries(data.recipes)) {
+    for (const product of recipe.products) {
+      const packed = `${product.type}:${product.name}`;
+      if (!recipesByProduct[packed]) recipesByProduct[packed] = new Set();
+      recipesByProduct[packed].add(name);
+    }
+  }
+
   return Object.entries(blockByProduct)
     .sort()
     .map(([product, block]) => {
       const [type, name] = product.split(':', 2);
+      const recipes = [
+        ...new Set(
+          [...recipesByProduct[product]].map(
+            (name) => data.recipes[name].localised_name,
+          ),
+        ),
+      ].sort();
+      const recipeSummary =
+        recipes.length === 1 &&
+        recipes[0] === (data as any)[`${type}s`][name].localised_name ? (
+          <></>
+        ) : recipes.length <= 3 ? (
+          <span>({recipes.join('; ')})</span>
+        ) : (
+          <abbr title={recipes.join(', ')}>
+            ({recipes.slice(0, 2).join('; ') + `; or ${recipes.length} others`})
+          </abbr>
+        );
       return (
         <li>
           <a name={`item-${name}`} href={`#item-${name}`}>
@@ -64,7 +92,8 @@ function ingredientList() {
                 </a>
               </span>
             );
-          })}
+          })}{' '}
+          {recipeSummary}
         </li>
       );
     });
@@ -120,5 +149,8 @@ export function init(element: HTMLElement) {
     );
     element.innerHTML = '';
     render(<App />, element);
-  })().catch((e) => (element.innerHTML = e.toString()));
+  })().catch((e) => {
+    console.error(e);
+    element.innerHTML = e.toString();
+  });
 }
