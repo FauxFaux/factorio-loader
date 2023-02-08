@@ -92,14 +92,16 @@ function ingredientList() {
 function blockList() {
   const blocks = [];
 
-  for (const [loc, obj] of Object.entries(data.doc)) {
-    blocks.push(
-      <h2>
-        <a name={loc} href={'#' + loc}>
-          {loc}
-        </a>
-      </h2>,
-    );
+  for (const [loc] of Object.entries(data.doc)) {
+    blocks.push(<BlockPage loc={loc} />);
+  }
+  return blocks;
+}
+
+export class BlockPage extends Component<{ loc: string }> {
+  render(props: { loc: string }) {
+    const loc = props.loc;
+    const obj = data.doc[loc];
     const list = [];
     if (obj.tags.length) {
       list.push(<li>Tags: {obj.tags.sort().join(', ')}</li>);
@@ -119,7 +121,12 @@ function blockList() {
         </li>,
       );
     }
-    blocks.push(list);
+
+    return (
+      <p>
+        <h2>{loc}</h2>
+        {list}
+      </p>
+    );
   }
-  return blocks;
 }

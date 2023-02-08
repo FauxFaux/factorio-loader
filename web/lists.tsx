@@ -57,6 +57,11 @@ export class StationList extends Component<
             <li>
               <RenderIcons text={name} />{' '}
               {stops.length !== 1 ? `(${stops.length} stops)` : ''}
+              {stops.map(({ blockNo }) => (
+                <a style="padding: 0 4px" href={`/block/${blockNo}`}>
+                  {blockNo}
+                </a>
+              ))}
             </li>
           ))}
           {found.length >= (state.limit ?? Infinity) ? <li>...</li> : <></>}

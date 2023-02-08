@@ -5,7 +5,7 @@ import { createHashHistory } from 'history';
 
 import type { BlockContent } from '../scripts/load-recs';
 import { IoFDetail, JFluid, JItem, JRecipe } from './objects';
-import { BigList } from './big-list';
+import { BigList, BlockPage } from './big-list';
 import { StationList, ItemList } from './lists';
 
 export const data = {
@@ -24,6 +24,7 @@ class App extends Component {
         <BigList path="/big" />
         <IoFDetail path="/item/:name" type="item" name="from the path" />
         <IoFDetail path="/fluid/:name" type="fluid" name="from the path" />
+        <BlockPage path="/block/:loc" loc="from the path" />
       </Router>
     );
   }
