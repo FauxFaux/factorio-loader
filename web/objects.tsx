@@ -1,5 +1,6 @@
 import { Component, ComponentChild, createRef } from 'preact';
 import { data } from './index';
+import { ItemIcon } from './lists';
 
 export interface JItem {
   group: { name: string };
@@ -64,6 +65,19 @@ export class Recipe extends Component<{ name: string }, { expando?: boolean }> {
         }}
       >
         <h4>{recipe.localised_name}</h4>
+        <RecipeInOut name={props.name} />
+      </p>
+    );
+  }
+}
+
+export class RecipeInOut extends Component<{ name: string }> {
+  render(props: { name: string }) {
+    const recipe = data.recipes[props.name];
+    if (!recipe) throw new Error(`unknown recipe: ${recipe}`);
+
+    return (
+      <div>
         Ingredients:
         <ul>
           {recipe.ingredients?.map((ing) => (
@@ -88,7 +102,7 @@ export class Recipe extends Component<{ name: string }, { expando?: boolean }> {
             );
           })}
         </ul>
-      </p>
+      </div>
     );
   }
 }
@@ -120,14 +134,15 @@ export class Item extends Component<{ name: string }, {}> {
     // useEffect(() => new Tooltip(this.ref.current).dispose, [this.ref]);
 
     return (
-      <abbr
+      <a
         ref={this.ref}
+        href={`/item/${props.name}`}
         class="item"
         data-bs-toggle="tooltip"
         title={`item ${props.name} (${item.stack_size})`}
       >
         {item.localised_name}
-      </abbr>
+      </a>
     );
   }
 }
@@ -162,7 +177,7 @@ export class IoFDetail extends Component<{
         </span>
       );
 
-    const recipies = Object.entries(data.recipes).filter(
+    const recipes = Object.entries(data.recipes).filter(
       ([, recipe]) =>
         undefined !==
         recipe.products.find(
@@ -170,30 +185,101 @@ export class IoFDetail extends Component<{
         ),
     );
 
+    const dataByRecipe: Record<
+      string,
+      { asms: Record<string, number>; blocks: Set<string> }
+    > = {};
+    for (const [block, { asm }] of Object.entries(data.doc)) {
+      for (const [label, count] of Object.entries(asm)) {
+        const [machine, recipe] = label.split('\0');
+        // TODO: comically inefficient
+        if (!recipes.map(([name]) => name).includes(recipe)) continue;
+        if (!dataByRecipe[recipe])
+          dataByRecipe[recipe] = { asms: {}, blocks: new Set() };
+        const d = dataByRecipe[recipe];
+        if (!d.asms[machine]) d.asms[machine] = 0;
+        d.asms[machine] += count;
+        d.blocks.add(block);
+      }
+    }
+
+    function totalAssemblersMaking(a: string) {
+      return Object.values(dataByRecipe[a]?.asms ?? {}).reduce(
+        (prev, curr) => prev + curr,
+        0,
+      );
+    }
+
     return (
       <div class="container-fluid">
         <h2>{obj.localised_name}</h2>
         <p>Type: {props.type}</p>
+        <p>
+          Icon: <ItemIcon name={props.name} alt={props.name} />
+        </p>
         <p>Internal name: {props.name}</p>
         <p>
           Group: {obj.group?.name}, subgroup: {obj.subgroup?.name}
         </p>
-        <ul>
-          {recipies.map(([name, recipe]) => (
-            <li>
-              <Recipe name={name} /> (<span class="font-monospace">{name}</span>
-              ) from
-              <ul class="list-group list-group-horizontal">
-                {recipe.ingredients.map((ing) => (
-                  <li class={'list-group-item'}>
-                    <ItemOrFluid type={ing.type} name={ing.name} />
-                  </li>
-                ))}
-              </ul>
-            </li>
-          ))}
-        </ul>
+        <p>Ways to make:</p>
+        <p>
+          {recipes
+            .sort(([a], [b]) => a.localeCompare(b))
+            .sort(
+              ([a], [b]) => totalAssemblersMaking(b) - totalAssemblersMaking(a),
+            )
+            .map(([name, recipe]) => {
+              const counts = dataByRecipe[name];
+
+              let inUse;
+              if (counts) {
+                inUse = (
+                  <p>
+                    Factory is using this recipe in:
+                    <ul>
+                      {Object.entries(counts.asms).map(([machine, count]) => (
+                        <li>
+                          {count} * <Item name={machine} />
+                        </li>
+                      ))}
+                    </ul>
+                    In these blocks:
+                    <ul>
+                      {[...counts.blocks].map((block) => (
+                        <li>
+                          <BlockLine block={block} />
+                        </li>
+                      ))}
+                    </ul>
+                  </p>
+                );
+              } else {
+                inUse = 'Factory does not use this recipe';
+              }
+
+              return (
+                <p>
+                  <h3>
+                    {recipe.localised_name} (
+                    <span class="font-monospace">{name}</span>)
+                  </h3>
+                  <p>{inUse}</p>
+                  <RecipeInOut name={name} />
+                </p>
+              );
+            })}
+        </p>
       </div>
+    );
+  }
+}
+
+class BlockLine extends Component<{ block: string }> {
+  render(props: { block: string }) {
+    return (
+      <span>
+        {props.block} ({data.doc[props.block].tags.sort().join(', ')})
+      </span>
     );
   }
 }

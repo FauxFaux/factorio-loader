@@ -58,11 +58,11 @@ class Home extends Component {
         <div class="row">
           <div class="col">
             <h2>Stations</h2>
-            <StationList />
+            <StationList limit={100} />
           </div>
           <div class="col">
             <h2>Items</h2>
-            <ItemList />
+            <ItemList limit={100} />
           </div>
         </div>
       </div>

@@ -9,7 +9,10 @@ function smatch(name: string, props: { search?: string }) {
   return name.toLowerCase().includes(props.search.toLowerCase());
 }
 
-export class StationList extends Component<{}, { search?: string }> {
+export class StationList extends Component<
+  { limit?: number },
+  { search?: string }
+> {
   stations: Record<string, { blockNo: string; stop: Stop }[]> = {};
 
   constructor() {
@@ -27,7 +30,18 @@ export class StationList extends Component<{}, { search?: string }> {
     this.setState({ search });
   };
 
-  render(state: {}, props: { search?: string }): ComponentChild {
+  render(
+    state: { limit?: number },
+    props: { search?: string },
+  ): ComponentChild {
+    const found = Object.entries(this.stations)
+      .filter(([name]) => {
+        if (!props.search) return true;
+        // TODO: proper string comparison
+        // TODO: search other attributes
+        return smatch(name, props);
+      })
+      .sort(([a], [b]) => compareWithoutIcons(a, b));
     return (
       <div>
         <p>
@@ -39,20 +53,13 @@ export class StationList extends Component<{}, { search?: string }> {
           ></input>
         </p>
         <ul>
-          {Object.entries(this.stations)
-            .filter(([name]) => {
-              if (!props.search) return true;
-              // TODO: proper string comparison
-              // TODO: search other attributes
-              return smatch(name, props);
-            })
-            .sort(([a], [b]) => compareWithoutIcons(a, b))
-            .map(([name, stops]) => (
-              <li>
-                <RenderIcons text={name} />{' '}
-                {stops.length !== 1 ? `(${stops.length} stops)` : ''}
-              </li>
-            ))}
+          {found.slice(0, state.limit ?? Infinity).map(([name, stops]) => (
+            <li>
+              <RenderIcons text={name} />{' '}
+              {stops.length !== 1 ? `(${stops.length} stops)` : ''}
+            </li>
+          ))}
+          {found.length >= (state.limit ?? Infinity) ? <li>...</li> : <></>}
         </ul>
       </div>
     );
@@ -112,13 +119,46 @@ function compareWithoutIcons(a: string, b: string) {
   return ap.trim().localeCompare(bp.trim(), 'en', { sensitivity: 'base' });
 }
 
-export class ItemList extends Component {
+export class ItemList extends Component<
+  { limit?: number },
+  { search?: string }
+> {
+  itemMeta: Record<string, { factories: number }> = {};
+
+  constructor() {
+    super();
+    for (const block of Object.values(data.doc)) {
+      for (const [label, count] of Object.entries(block.asm)) {
+        const [, recipe] = label.split('\0');
+        for (const product of data.recipes[recipe]?.products ?? []) {
+          if (product.type !== 'item') {
+            continue;
+          }
+          if (!this.itemMeta[product.name])
+            this.itemMeta[product.name] = { factories: 0 };
+          this.itemMeta[product.name].factories += count;
+        }
+      }
+    }
+  }
+
   onInput = (e: any) => {
     const search = e.target.value;
     this.setState({ search });
   };
 
-  render(state: {}, props: { search?: string }): ComponentChild {
+  render(
+    state: { limit?: number },
+    props: { search?: string },
+  ): ComponentChild {
+    const found = Object.entries(data.items)
+      .filter(([name, item]) => {
+        // TODO: search other attributes?
+        return smatch(name, props) || smatch(item.localised_name, props);
+      })
+      .sort(([, { localised_name: a }], [, { localised_name: b }]) =>
+        compareWithoutIcons(a, b),
+      );
     return (
       <div>
         <p>
@@ -129,21 +169,22 @@ export class ItemList extends Component {
             placeholder="Search items (i.e. not fluids) ..."
           ></input>
         </p>
-        <ul>
-          {Object.entries(data.items)
-            .filter(([name, item]) => {
-              // TODO: search other attributes?
-              return smatch(name, props) || smatch(item.localised_name, props);
-            })
-            .sort(([, { localised_name: a }], [, { localised_name: b }]) =>
-              compareWithoutIcons(a, b),
-            )
-            .map(([name, item]) => (
-              <li>
-                <ItemIcon name={name} alt={name} /> <Item name={name} />
-              </li>
-            ))}
-        </ul>
+        <table>
+          {found.slice(0, state.limit ?? Infinity).map(([name, item]) => (
+            <tr class="item-list">
+              <td title="being made in x factories">
+                {this.itemMeta[name]?.factories}
+              </td>
+              <td>
+                <ItemIcon name={name} alt={name} />
+              </td>
+              <td>
+                <Item name={name} />
+              </td>
+            </tr>
+          ))}
+          {found.length >= (state.limit ?? Infinity) ? <li>...</li> : <></>}
+        </table>
       </div>
     );
   }
