@@ -40,16 +40,6 @@ const header = (
             </a>
           </li>
           <li>
-            <a href="#" className="nav-link px-2 text-white">
-              Recipes
-            </a>
-          </li>
-          <li>
-            <a href="#" className="nav-link px-2 text-white">
-              Map
-            </a>
-          </li>
-          <li>
             <a href="/big" className="nav-link px-2 text-white">
               Big ol' dump
             </a>
@@ -71,6 +61,7 @@ class Home extends Component {
             <StationList />
           </div>
           <div class="col">
+            <h2>Items</h2>
             <ItemList />
           </div>
         </div>

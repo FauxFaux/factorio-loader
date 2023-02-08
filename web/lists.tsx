@@ -1,9 +1,26 @@
 import { Component, ComponentChild } from 'preact';
 import { data } from './index';
 import { Stop } from '../scripts/load-recs';
+import { Item } from './objects';
+
+function smatch(name: string, props: { search?: string }) {
+  // TODO: proper string comparison
+  if (!props.search) return true;
+  return name.toLowerCase().includes(props.search.toLowerCase());
+}
 
 export class StationList extends Component<{}, { search?: string }> {
   stations: Record<string, { blockNo: string; stop: Stop }[]> = {};
+
+  constructor() {
+    super();
+    for (const [blockNo, { stop: stops }] of Object.entries(data.doc)) {
+      for (const stop of stops) {
+        if (!this.stations[stop.name]) this.stations[stop.name] = [];
+        this.stations[stop.name].push({ blockNo, stop });
+      }
+    }
+  }
 
   onInput = (e: any) => {
     const search = e.target.value;
@@ -11,14 +28,6 @@ export class StationList extends Component<{}, { search?: string }> {
   };
 
   render(state: {}, props: { search?: string }): ComponentChild {
-    if (Object.keys(this.stations).length === 0) {
-      for (const [blockNo, { stop: stops }] of Object.entries(data.doc)) {
-        for (const stop of stops) {
-          if (!this.stations[stop.name]) this.stations[stop.name] = [];
-          this.stations[stop.name].push({ blockNo, stop });
-        }
-      }
-    }
     return (
       <div>
         <p>
@@ -35,7 +44,7 @@ export class StationList extends Component<{}, { search?: string }> {
               if (!props.search) return true;
               // TODO: proper string comparison
               // TODO: search other attributes
-              return name.toLowerCase().includes(props.search.toLowerCase());
+              return smatch(name, props);
             })
             .sort(([a], [b]) => compareWithoutIcons(a, b))
             .map(([name, stops]) => (
@@ -46,6 +55,18 @@ export class StationList extends Component<{}, { search?: string }> {
             ))}
         </ul>
       </div>
+    );
+  }
+}
+
+export class ItemIcon extends Component<{ name: string; alt: string }> {
+  render(props: { name: string; alt: string }): ComponentChild {
+    return (
+      <span
+        className="icon-sprite"
+        title={props.alt}
+        style={`background: url("../data/icons.png") ${data.icons[props.name]}`}
+      />
     );
   }
 }
@@ -63,12 +84,11 @@ export class RenderIcons extends Component<{ text: string }> {
       const name = ma[2];
       if (data.icons[name]) {
         parts.push(
-          <span
-            class="icon-sprite"
-            title={`${type} ${name} (${
+          <ItemIcon
+            name={name}
+            alt={`${type} ${name} (${
               (data as any)[`${type}s`]?.[name]?.localised_name
             })`}
-            style={`background: url("../data/icons.png") ${data.icons[name]}`}
           />,
         );
       } else {
@@ -85,15 +105,46 @@ export class RenderIcons extends Component<{ text: string }> {
 }
 
 function compareWithoutIcons(a: string, b: string) {
-  const stripIcons = /\[[a-z0-9-]+=[a-z0-9-]+]/;
-  const normaliseSpace = /\s+/;
+  const stripIcons = /\[[a-z0-9-]+=[a-z0-9-]+]/g;
+  const normaliseSpace = /\/|\s+/g;
   const ap = a.replace(stripIcons, ' ').replace(normaliseSpace, ' ');
   const bp = b.replace(stripIcons, ' ').replace(normaliseSpace, ' ');
   return ap.trim().localeCompare(bp.trim(), 'en', { sensitivity: 'base' });
 }
 
 export class ItemList extends Component {
-  render(): ComponentChild {
-    return <span>hello</span>;
+  onInput = (e: any) => {
+    const search = e.target.value;
+    this.setState({ search });
+  };
+
+  render(state: {}, props: { search?: string }): ComponentChild {
+    return (
+      <div>
+        <p>
+          <input
+            type="text"
+            onInput={this.onInput}
+            class="form-control"
+            placeholder="Search items (i.e. not fluids) ..."
+          ></input>
+        </p>
+        <ul>
+          {Object.entries(data.items)
+            .filter(([name, item]) => {
+              // TODO: search other attributes?
+              return smatch(name, props) || smatch(item.localised_name, props);
+            })
+            .sort(([, { localised_name: a }], [, { localised_name: b }]) =>
+              compareWithoutIcons(a, b),
+            )
+            .map(([name, item]) => (
+              <li>
+                <ItemIcon name={name} alt={name} /> <Item name={name} />
+              </li>
+            ))}
+        </ul>
+      </div>
+    );
   }
 }
