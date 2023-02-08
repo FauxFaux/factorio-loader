@@ -1,0 +1,14 @@
+.block-link {
+  border: 1px solid grey;
+  padding: 1px;
+  margin: 2px;
+}
+
+.icon-sprite {
+  width: 64px;
+  height: 64px;
+  zoom: 0.4;
+  border: 0;
+  display: inline-block;
+  vertical-align: middle;
+}

@@ -17,10 +17,11 @@ function distSq(a: Coord, b: Coord) {
 
 type Signal = [string, string, number];
 
+export type Stop = { name: string; settings: Signal[]; items: Signal[] };
 export type BlockContent = {
   tags: string[];
   asm: Record<string, number>;
-  stop: { name: string; settings: Signal[]; items: Signal[] }[];
+  stop: Stop[];
 };
 
 function main() {

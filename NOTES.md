@@ -8,4 +8,5 @@ jq .fluid_prototypes a.json > f.json
 <recp-full.json jq -cS 'map({ (.name): { localised_name, category, ingredients, products, category } }) | add' > ~/code/factorio-loader/data/recipes.json
 <items.json jq -cS 'with_entries(.value |= { type, localised_name, stack_size, wire_count, group, subgroup })' > ~/code/factorio-loader/data/items.json
 <f.json jq -Sc 'with_entries(.value |= { type, localised_name, group, subgroup })' > ~/code/factorio-loader/data/fluids.json
+jq -c '.icons|map({key:.id, value:.position})|from_entries' script-output/factoriolab-export/data.json > data/icons.json
 ```
