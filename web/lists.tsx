@@ -4,25 +4,48 @@ import { Stop } from '../scripts/load-recs';
 
 export class StationList extends Component<{}, { search?: string }> {
   stations: Record<string, { blockNo: string; stop: Stop }[]> = {};
+
+  onInput = (e: any) => {
+    const search = e.target.value;
+    this.setState({ search });
+  };
+
   render(state: {}, props: { search?: string }): ComponentChild {
-    for (const [blockNo, { stop: stops }] of Object.entries(data.doc)) {
-      for (const stop of stops) {
-        if (!this.stations[stop.name]) this.stations[stop.name] = [];
-        this.stations[stop.name].push({ blockNo, stop });
+    if (Object.keys(this.stations).length === 0) {
+      for (const [blockNo, { stop: stops }] of Object.entries(data.doc)) {
+        for (const stop of stops) {
+          if (!this.stations[stop.name]) this.stations[stop.name] = [];
+          this.stations[stop.name].push({ blockNo, stop });
+        }
       }
     }
-
     return (
-      <ul>
-        {Object.entries(this.stations)
-          .sort(([a], [b]) => compareWithoutIcons(a, b))
-          .map(([name, stops]) => (
-            <li>
-              <RenderIcons text={name} />{' '}
-              {stops.length !== 1 ? `(${stops.length} stops)` : ''}
-            </li>
-          ))}
-      </ul>
+      <div>
+        <p>
+          <input
+            type="text"
+            onInput={this.onInput}
+            class="form-control"
+            placeholder="Search station names..."
+          ></input>
+        </p>
+        <ul>
+          {Object.entries(this.stations)
+            .filter(([name]) => {
+              if (!props.search) return true;
+              // TODO: proper string comparison
+              // TODO: search other attributes
+              return name.toLowerCase().includes(props.search.toLowerCase());
+            })
+            .sort(([a], [b]) => compareWithoutIcons(a, b))
+            .map(([name, stops]) => (
+              <li>
+                <RenderIcons text={name} />{' '}
+                {stops.length !== 1 ? `(${stops.length} stops)` : ''}
+              </li>
+            ))}
+        </ul>
+      </div>
     );
   }
 }
