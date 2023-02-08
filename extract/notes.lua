@@ -7,3 +7,4 @@ for _, ty in ipairs({"straight-rail", "curved-rail", "splitter", "assembling-mac
 for _, ty in ipairs({"assembling-machine"}) do local all = game.get_surface('nauvis').find_entities_filtered({type=ty}); local t = {}; for k,v in pairs(all) do local a = {name=v.name, position=v.position, direction=v.direction}; if v.get_recipe() ~= nil then a.recipe=v.get_recipe().name end t[#t+1]=a; end; game.write_file(ty .. ".lua", serpent.block(t)) end
 local t = {}; for _, tag in pairs(game.player.force.find_chart_tags('nauvis')) do t[#t+1] = { text=tag.text, position=tag.position} end; game.write_file("tag.lua", serpent.block(t))
 -- tr $'\x1e' '\t' | tr $'\x1d' '\n'
+game.take_screenshot({zoom=0.04, position={x=0,y=768},resolution={x=4096,y=4096}, path="screenshot.jpg",quality=70,daytime=1})
