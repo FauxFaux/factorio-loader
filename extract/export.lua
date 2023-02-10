@@ -1,5 +1,7 @@
 for _, ty in ipairs({
     "assembling-machine",
+    "mining-drill",
+    "lab",
     "train-stop",
     "roboport",
     "radar",
