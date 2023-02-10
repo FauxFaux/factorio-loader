@@ -166,13 +166,14 @@ export class Fluid extends Component<{ name: string }, {}> {
     if (!fluid) return <span class="error">UNKNOWN FLUID {props.name}</span>;
 
     return (
-      <abbr
+      <a
         class="fluid"
         data-bs-toggle="tooltip"
+        href={`/fluid/${props.name}`}
         title={`fluid ${props.name}`}
       >
         {fluid.localised_name}
-      </abbr>
+      </a>
     );
   }
 }
@@ -223,19 +224,11 @@ export class IoFDetail extends Component<{
       );
     }
 
-    return (
-      <div class="container-fluid">
-        <h2>{obj.localised_name}</h2>
-        <p>Type: {props.type}</p>
+    let storage;
+    if (props.type === 'item') {
+      storage = (
         <p>
-          Icon: <ItemIcon name={props.name} alt={props.name} />
-        </p>
-        <p>Internal name: {props.name}</p>
-        <p>
-          Group: {obj.group?.name}, subgroup: {obj.subgroup?.name}
-        </p>
-        <p>
-          Storage:{' '}
+          Storage:
           <ul>
             {Object.entries(data.doc)
               .map(([no, brick]) => [no, brick.items[props.name]] as const)
@@ -248,6 +241,25 @@ export class IoFDetail extends Component<{
               ))}
           </ul>
         </p>
+      );
+    } else {
+      storage = (
+        <p>Storage info is only available for items (including barrels).</p>
+      );
+    }
+
+    return (
+      <div class="container-fluid">
+        <h2>{obj.localised_name}</h2>
+        <p>Type: {props.type}</p>
+        <p>
+          Icon: <ItemIcon name={props.name} alt={props.name} />
+        </p>
+        <p>Internal name: {props.name}</p>
+        <p>
+          Group: {obj.group?.name}, subgroup: {obj.subgroup?.name}
+        </p>
+        {storage}
         <p>Ways to make:</p>
         <p>
           {recipes
