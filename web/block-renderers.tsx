@@ -1,6 +1,7 @@
 import { Component } from 'preact';
 import { BlockContent } from '../scripts/load-recs';
 import { Item, ItemOrFluid, Recipe } from './objects';
+import { RenderIcons } from './lists';
 
 export class Assemblers extends Component<{ asm: BlockContent['asm'] }> {
   render(props: { asm: BlockContent['asm'] }) {
@@ -30,7 +31,7 @@ export class TrainStops extends Component<{ stop: BlockContent['stop'] }> {
             .filter(([kind]) => kind !== 'virtual');
           return (
             <li>
-              {stop.name}
+              <RenderIcons text={stop.name} />
               <ul>
                 {nonVirt.map(([kind, name, count]) => (
                   <li>

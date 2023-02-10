@@ -19,13 +19,16 @@ export const data = {
 class App extends Component {
   render() {
     return (
-      <Router history={createHashHistory() as any}>
-        <Home path="/" />
-        <BigList path="/big" />
-        <IoFDetail path="/item/:name" type="item" name="from the path" />
-        <IoFDetail path="/fluid/:name" type="fluid" name="from the path" />
-        <BlockPage path="/block/:loc" loc="from the path" />
-      </Router>
+      <div className="container">
+        <div className="row">{header}</div>
+        <Router history={createHashHistory() as any}>
+          <Home path="/" />
+          <BigList path="/big" />
+          <IoFDetail path="/item/:name" type="item" name="from the path" />
+          <IoFDetail path="/fluid/:name" type="fluid" name="from the path" />
+          <BlockPage path="/block/:loc" loc="from the path" />
+        </Router>
+      </div>
     );
   }
 }
@@ -40,11 +43,6 @@ const header = (
               Home
             </a>
           </li>
-          <li>
-            <a href="/big" className="nav-link px-2 text-white">
-              Big ol' dump
-            </a>
-          </li>
         </ul>
       </div>
     </div>
@@ -54,17 +52,14 @@ const header = (
 class Home extends Component {
   render() {
     return (
-      <div class="container">
-        <div class="row">{header}</div>
-        <div class="row">
-          <div class="col">
-            <h2>Stations</h2>
-            <StationList limit={100} />
-          </div>
-          <div class="col">
-            <h2>Items</h2>
-            <ItemList limit={100} />
-          </div>
+      <div class="row">
+        <div class="col">
+          <h2>Stations</h2>
+          <StationList limit={100} />
+        </div>
+        <div class="col">
+          <h2>Items</h2>
+          <ItemList limit={100} />
         </div>
       </div>
     );

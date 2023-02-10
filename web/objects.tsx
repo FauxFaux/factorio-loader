@@ -278,7 +278,8 @@ class BlockLine extends Component<{ block: string }> {
   render(props: { block: string }) {
     return (
       <span>
-        {props.block} ({data.doc[props.block].tags.sort().join(', ')})
+        <a href={'/block/' + props.block}>{props.block}</a> (
+        {data.doc[props.block].tags.sort().join(', ')})
       </span>
     );
   }
