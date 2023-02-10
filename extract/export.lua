@@ -2,6 +2,8 @@ for _, ty in ipairs({
     "assembling-machine",
     "mining-drill",
     "lab",
+    "container",
+    "logistic-container",
     "train-stop",
     "roboport",
     "radar",
@@ -34,12 +36,28 @@ for _, ty in ipairs({
             a[#a + 1] = v.backer_name
         end
         if ty == "train-stop-input" then
-            for name, def in pairs({green = defines.wire_type.green, red = defines.wire_type.red}) do
+            for name, def in pairs({ green = defines.wire_type.green, red = defines.wire_type.red }) do
                 a[#a + 1] = name
                 for _, s in pairs(v.get_circuit_network(def).signals) do
                     a[#a + 1] = s.signal.type
                     a[#a + 1] = s.signal.name
                     a[#a + 1] = s.count
+                end
+            end
+        end
+        if ty == "mining-drill" then
+            print(v.prototype.resource_categories)
+            for name, _true in pairs(v.prototype.resource_categories) do
+                a[#a + 1] = name
+            end
+        end
+        if ty == "container" or ty == "logistic-container" then
+            local oi = v.get_output_inventory()
+            if oi ~= nil then
+                for item, count in pairs(oi.get_contents()) do
+                    print(item, count)
+                    a[#a + 1] = item
+                    a[#a + 1] = count
                 end
             end
         end

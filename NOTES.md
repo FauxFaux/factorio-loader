@@ -10,3 +10,6 @@ jq .fluid_prototypes a.json > f.json
 <f.json jq -Sc 'with_entries(.value |= { type, localised_name, group, subgroup })' > ~/code/factorio-loader/data/fluids.json
 jq -c '.icons|map({key:.id, value:.position})|from_entries' script-output/factoriolab-export/data.json > data/icons.json
 ```
+
+ * https://wiki.factorio.com/Prototype_definitions
+ * mining-drill includes: > This prototype type is used by burner mining drill, electric mining drill and pumpjack in vanilla.
