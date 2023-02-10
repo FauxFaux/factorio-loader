@@ -234,6 +234,20 @@ export class IoFDetail extends Component<{
         <p>
           Group: {obj.group?.name}, subgroup: {obj.subgroup?.name}
         </p>
+        <p>
+          Storage:{' '}
+          <ul>
+            {Object.entries(data.doc)
+              .map(([no, brick]) => [no, brick.items[props.name]] as const)
+              .filter(([, count]) => count > 0)
+              .sort(([, a], [, b]) => b - a)
+              .map(([no, count]) => (
+                <li>
+                  {humanise(count)} in <BlockLine block={no} />
+                </li>
+              ))}
+          </ul>
+        </p>
         <p>Ways to make:</p>
         <p>
           {recipes
@@ -285,6 +299,14 @@ export class IoFDetail extends Component<{
       </div>
     );
   }
+}
+
+export function humanise(count: number) {
+  if (count > 1e6)
+    return <abbr title={`${count}`}>{(count / 1e6).toFixed() + 'M'}</abbr>;
+  if (count > 1e3)
+    return <abbr title={`${count}`}>{(count / 1e3).toFixed() + 'k'}</abbr>;
+  return count;
 }
 
 class BlockLine extends Component<{ block: string }> {

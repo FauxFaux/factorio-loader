@@ -1,5 +1,5 @@
 import { Component } from 'preact';
-import { ItemOrFluid } from './objects';
+import { humanise, Item, ItemOrFluid } from './objects';
 import { Assemblers, TrainStops } from './block-renderers';
 import { data } from './index';
 import { fromBlock } from '../scripts/magic';
@@ -145,6 +145,23 @@ export class BlockPage extends Component<{ loc: string }> {
       list.push(
         <li>
           Train stops: <TrainStops stop={obj.stop} />
+        </li>,
+      );
+    }
+
+    if (Object.keys(obj.items).length !== 0) {
+      list.push(
+        <li>
+          Storing:
+          <ul>
+            {Object.entries(obj.items)
+              .sort(([, a], [, b]) => b - a)
+              .map(([name, count]) => (
+                <li>
+                  {humanise(count)} * <Item name={name} />
+                </li>
+              ))}
+          </ul>
         </li>,
       );
     }

@@ -1,6 +1,6 @@
 import { Component } from 'preact';
 import { BlockContent } from '../scripts/load-recs';
-import { Item, ItemOrFluid, Recipe } from './objects';
+import { ColonJoined, Item, ItemOrFluid, Recipe } from './objects';
 import { RenderIcons } from './lists';
 import { data } from './index';
 
@@ -45,16 +45,20 @@ export class Assemblers extends Component<{ asm: BlockContent['asm'] }> {
             );
           })}
         </ul>
-        Wanted:
+        Consumes, but does not produce:
         <ul>
           {wanted.map((x) => (
-            <li>{x}</li>
+            <li>
+              <ColonJoined label={x} />
+            </li>
           ))}
         </ul>
-        Exports:
+        Produces, but does not consume:
         <ul>
           {exports.map((x) => (
-            <li>{x}</li>
+            <li>
+              <ColonJoined label={x} />
+            </li>
           ))}
         </ul>
       </>

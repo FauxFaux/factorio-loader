@@ -20,6 +20,7 @@ export type BlockContent = {
   tags: string[];
   asm: Record<string, number>;
   stop: Stop[];
+  items: Record<string, number>;
 };
 
 function main() {
@@ -31,6 +32,7 @@ function main() {
         tags: [],
         asm: {},
         stop: [],
+        items: {},
       };
     }
     return byBlock[sid];
@@ -77,6 +79,25 @@ function main() {
       settings: signals(red),
       items: signals(green),
     });
+  }
+
+  function addItems(block: BlockContent, obj: { ext: string[] }) {
+    for (let i = 0; i < obj.ext.length; i += 2) {
+      const itemName = obj.ext[i];
+      const itemCount = parseInt(obj.ext[i + 1]);
+      if (!block.items[itemName]) block.items[itemName] = 0;
+      block.items[itemName] += itemCount;
+    }
+  }
+
+  for (const obj of load('container')) {
+    const block = getBlock(obj.block);
+    addItems(block, obj);
+  }
+
+  for (const obj of load('logistic-container')) {
+    const block = getBlock(obj.block);
+    addItems(block, obj);
   }
 
   console.log(JSON.stringify(byBlock));
