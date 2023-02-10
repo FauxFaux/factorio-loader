@@ -4,26 +4,32 @@ import { Item, ItemOrFluid, Recipe } from './objects';
 import { RenderIcons } from './lists';
 import { data } from './index';
 
-export class Assemblers extends Component<{ asm: BlockContent['asm'] }> {
-  render(props: { asm: BlockContent['asm'] }) {
-    const inputs: Set<string> = new Set();
-    const outputs: Set<string> = new Set();
-    for (const [label] of Object.entries(props.asm)) {
-      const [, recipe] = label.split('\0');
-      const recp = data.recipes[recipe];
-      if (!recp) continue;
+export function recipeDifference(asm: BlockContent['asm']) {
+  const inputs: Set<string> = new Set();
+  const outputs: Set<string> = new Set();
+  for (const [label] of Object.entries(asm)) {
+    const [, recipe] = label.split('\0');
+    const recp = data.recipes[recipe];
+    if (!recp) continue;
 
-      for (const ing of recp.ingredients ?? []) {
-        inputs.add(`${ing.type}:${ing.name}`);
-      }
-
-      for (const prod of recp.products ?? []) {
-        outputs.add(`${prod.type}:${prod.name}`);
-      }
+    for (const ing of recp.ingredients ?? []) {
+      inputs.add(`${ing.type}:${ing.name}`);
     }
 
-    const wanted = [...inputs].filter((input) => !outputs.has(input));
-    const exports = [...outputs].filter((output) => !inputs.has(output));
+    for (const prod of recp.products ?? []) {
+      outputs.add(`${prod.type}:${prod.name}`);
+    }
+  }
+
+  const wanted = [...inputs].filter((input) => !outputs.has(input));
+  const exports = [...outputs].filter((output) => !inputs.has(output));
+
+  return { wanted, exports };
+}
+
+export class Assemblers extends Component<{ asm: BlockContent['asm'] }> {
+  render(props: { asm: BlockContent['asm'] }) {
+    const { wanted, exports } = recipeDifference(props.asm);
 
     const sorted = Object.entries(props.asm).sort(([, a], [, b]) => b - a);
     return (

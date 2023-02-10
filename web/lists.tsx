@@ -116,7 +116,7 @@ export class RenderIcons extends Component<{ text: string }> {
   }
 }
 
-function compareWithoutIcons(a: string, b: string) {
+export function compareWithoutIcons(a: string, b: string) {
   const stripIcons = /\[[a-z0-9-]+=[a-z0-9-]+]/g;
   const normaliseSpace = /\/|\s+/g;
   const ap = a.replace(stripIcons, ' ').replace(normaliseSpace, ' ');

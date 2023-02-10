@@ -107,6 +107,19 @@ export class RecipeInOut extends Component<{ name: string }> {
   }
 }
 
+export class ColonJoined extends Component<{ label: string }> {
+  render(props: { label: string }) {
+    const [type, name] = props.label.split(':', 2);
+    if (type === 'item' || type === 'fluid')
+      return <ItemOrFluid type={type} name={name} />;
+    return (
+      <span>
+        <i>{type}</i>: {name}
+      </span>
+    );
+  }
+}
+
 export class ItemOrFluid extends Component<{
   name: string;
   type: 'item' | 'fluid';

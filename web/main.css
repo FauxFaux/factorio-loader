@@ -18,3 +18,14 @@
   text-align: right;
   padding: 5px;
 }
+
+.wtb td {
+  vertical-align: top;
+  border-bottom: 1px solid white;
+  padding-bottom: 1em;
+  padding-top: 1em;
+}
+
+.wtb th {
+  text-align: center;
+}

@@ -7,6 +7,7 @@ import type { BlockContent } from '../scripts/load-recs';
 import { IoFDetail, JFluid, JItem, JRecipe } from './objects';
 import { BigList, BlockPage } from './big-list';
 import { StationList, ItemList } from './lists';
+import { WhatTheBrick } from './what-the-brick';
 
 export const data = {
   doc: {} as Record<string, BlockContent>,
@@ -24,6 +25,7 @@ class App extends Component {
         <Router history={createHashHistory() as any}>
           <Home path="/" />
           <BigList path="/big" />
+          <WhatTheBrick path="/what-the-brick" />
           <IoFDetail path="/item/:name" type="item" name="from the path" />
           <IoFDetail path="/fluid/:name" type="fluid" name="from the path" />
           <BlockPage path="/block/:loc" loc="from the path" />
@@ -39,8 +41,18 @@ const header = (
       <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
         <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
           <li>
-            <a href="#" className="nav-link px-2 text-secondary">
-              Home
+            <a href="/" className="nav-link px-2 text-white">
+              Station / Item search
+            </a>
+          </li>
+          <li>
+            <a href="/what-the-brick" className="nav-link px-2 text-white">
+              What the brick?!
+            </a>
+          </li>
+          <li>
+            <a href="/big" className="nav-link px-2 text-white">
+              Big ol' dump
             </a>
           </li>
         </ul>

@@ -99,12 +99,9 @@ function blockList() {
   return blocks;
 }
 
-export class BlockPage extends Component<{ loc: string }> {
+export class BlockThumb extends Component<{ loc: string }> {
   render(props: { loc: string }) {
-    const loc = props.loc;
-    const obj = data.doc[loc];
-    const list = [];
-    let [lxs, lys] = loc.split(',');
+    let [lxs, lys] = props.loc.split(',');
     const lx = parseInt(lxs);
     const ly = parseInt(lys);
     const [bx, by] = fromBlock([lx, ly]);
@@ -117,13 +114,22 @@ export class BlockPage extends Component<{ loc: string }> {
     my *= scale;
     mx += 2048;
     my += 2048;
-    list.push(
+    return (
       <a href={`https://factorio.lorier.net/mar2022/#1/nauvis/18/${bx}/${by}`}>
         <span
           style={`display: inline-block; width: 250px; height: 166px; background: url('../data/screenshot.jpg') -${mx}px -${my}px`}
         />
-      </a>,
+      </a>
     );
+  }
+}
+
+export class BlockPage extends Component<{ loc: string }> {
+  render(props: { loc: string }) {
+    const loc = props.loc;
+    const obj = data.doc[loc];
+    const list = [];
+    list.push(<BlockThumb loc={loc} />);
     if (obj.tags.length) {
       list.push(<li>Tags: {obj.tags.sort().join(', ')}</li>);
     }
