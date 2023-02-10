@@ -1,10 +1,8 @@
 #!/usr/bin/env -S npx babel-node -x .ts
 import * as fs from 'fs';
+import { toBlock } from './magic';
 
 const base = process.argv[2];
-
-const [ox, oy] = [-14, -47];
-const [w, h] = [192, 128];
 
 type Coord = readonly [number, number];
 type BlockId = Coord;
@@ -106,18 +104,6 @@ function load(kind: string) {
     items.push({ block, name, ext, pos });
   }
   return items;
-}
-
-function toBlock([x, y]: readonly [number, number]) {
-  x -= ox;
-  y -= oy;
-  const by = Math.floor(y / h);
-  if (Math.abs(by) % 2 == 1) {
-    x -= w / 2;
-  }
-  const bx = Math.floor(x / w);
-
-  return [bx, by] as const;
 }
 
 main();
