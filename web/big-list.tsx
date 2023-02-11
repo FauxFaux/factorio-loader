@@ -136,7 +136,7 @@ export class BlockPage extends Component<{ loc: string }> {
     if (Object.keys(obj.asm).length) {
       list.push(
         <li>
-          Assemblers: <Assemblers asm={obj.asm} />
+          Assemblers: <Assemblers brick={obj} />
         </li>,
       );
     }

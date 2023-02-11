@@ -4,10 +4,10 @@ import { ColonJoined, Item, ItemOrFluid, Recipe } from './objects';
 import { RenderIcons } from './lists';
 import { data } from './index';
 
-export function recipeDifference(asm: BlockContent['asm']) {
+export function recipeDifference(brick: BlockContent) {
   const inputs: Set<string> = new Set();
   const outputs: Set<string> = new Set();
-  for (const [label] of Object.entries(asm)) {
+  for (const [label] of Object.entries(brick.asm)) {
     const [, recipe] = label.split('\0');
     const recp = data.recipes[recipe];
     if (!recp) continue;
@@ -21,17 +21,24 @@ export function recipeDifference(asm: BlockContent['asm']) {
     }
   }
 
+  if (brick.boilers > 0) {
+    inputs.add('fluid:water');
+    outputs.add('fluid:steam');
+  }
+
   const wanted = [...inputs].filter((input) => !outputs.has(input));
   const exports = [...outputs].filter((output) => !inputs.has(output));
 
   return { wanted, exports };
 }
 
-export class Assemblers extends Component<{ asm: BlockContent['asm'] }> {
-  render(props: { asm: BlockContent['asm'] }) {
-    const { wanted, exports } = recipeDifference(props.asm);
+export class Assemblers extends Component<{ brick: BlockContent }> {
+  render(props: { brick: BlockContent }) {
+    const { wanted, exports } = recipeDifference(props.brick);
 
-    const sorted = Object.entries(props.asm).sort(([, a], [, b]) => b - a);
+    const sorted = Object.entries(props.brick.asm).sort(
+      ([, a], [, b]) => b - a,
+    );
     return (
       <>
         <ul>

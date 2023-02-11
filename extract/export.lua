@@ -1,6 +1,8 @@
 for _, ty in ipairs({
     "assembling-machine",
     "mining-drill",
+    "boiler",
+    "furnace",
     "lab",
     "container",
     "logistic-container",
@@ -46,16 +48,25 @@ for _, ty in ipairs({
             end
         end
         if ty == "mining-drill" then
-            print(v.prototype.resource_categories)
             for name, _true in pairs(v.prototype.resource_categories) do
                 a[#a + 1] = name
+            end
+        end
+        if ty == "boiler" then
+            pcall(function()
+                a[#a + 1] = v.mode
+            end)
+        end
+        if ty == "furnace" then
+            local prev = v.previous_recipe
+            if prev ~= nil then
+                a[#a + 1] = prev.name
             end
         end
         if ty == "container" or ty == "logistic-container" then
             local oi = v.get_output_inventory()
             if oi ~= nil then
                 for item, count in pairs(oi.get_contents()) do
-                    print(item, count)
                     a[#a + 1] = item
                     a[#a + 1] = count
                 end

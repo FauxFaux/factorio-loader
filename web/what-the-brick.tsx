@@ -19,7 +19,7 @@ export class WhatTheBrick extends Component {
             <th>doesn't want but produces</th>
           </tr>
           {Object.entries(data.doc).map(([no, brick]) => {
-            const { wanted, exports } = recipeDifference(brick.asm);
+            const { wanted, exports } = recipeDifference(brick);
             return (
               <tr>
                 <td>

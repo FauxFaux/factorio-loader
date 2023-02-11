@@ -21,6 +21,7 @@ export type BlockContent = {
   asm: Record<string, number>;
   stop: Stop[];
   items: Record<string, number>;
+  boilers: number;
 };
 
 function main() {
@@ -33,6 +34,7 @@ function main() {
         asm: {},
         stop: [],
         items: {},
+        boilers: 0,
       };
     }
     return byBlock[sid];
@@ -50,6 +52,21 @@ function main() {
       block.asm[label] = 0;
     }
     block.asm[label]++;
+  }
+
+  // close enough, eh
+  for (const obj of load('furnace')) {
+    const block = getBlock(obj.block);
+    const label = `${obj.name}\0${obj.ext[0]}`;
+    if (!block.asm[label]) {
+      block.asm[label] = 0;
+    }
+    block.asm[label]++;
+  }
+
+  for (const obj of load('boiler')) {
+    const block = getBlock(obj.block);
+    block.boilers += 1;
   }
 
   const stopNames: [Coord, string][] = [];
