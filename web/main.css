@@ -19,7 +19,7 @@
   padding: 5px;
 }
 
-.wtb td {
+.wtb > tr > td {
   vertical-align: top;
   border-bottom: 1px solid white;
   padding-bottom: 1em;

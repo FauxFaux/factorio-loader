@@ -114,9 +114,7 @@ export class StationStatus extends Component {
 
     type Settings = Record<string, number>;
 
-    const providerObjs: any[] = [];
-
-    for (const [loc, stop] of providers) {
+    const providerObjs = providers.map(([loc, stop]) => {
       const declaring = provideStationPurpose(stop.name);
 
       const settings: Settings = Object.fromEntries(
@@ -144,14 +142,22 @@ export class StationStatus extends Component {
         health[declared] = (available[declared] ?? 0) / expected;
       }
 
-      providerObjs.push({ stop: [loc, stop], health, available, settings });
-    }
+      return { stop: [loc, stop], health, available, settings } as const;
+    });
 
     return (
       <>
         <div className="row">
           <h2>Provider-like things</h2>
-          <ul>
+          <p>
+            Congratulations on waiting for this page to load! This shows the{' '}
+            <i>percentage satisfaction</i> of a train by a provider. If the
+            stack size is 5, and the LTN stack requirement is 10, a train is
+            assumed to want 50 items. If there are 40 items present, the
+            satisfaction is 40/50 = 80%. If there are 500 items present, the
+            satisfaction is 1,000%.
+          </p>
+          <table class="wtb">
             {providerObjs
               .sort(({ health: a }, { health: b }) => {
                 console.log(Object.values(a));
@@ -160,33 +166,37 @@ export class StationStatus extends Component {
                 );
               })
               .map(({ stop, health, available, settings }) => (
-                <li>
-                  <StopLine stop={stop} />
-                  <table>
-                    {Object.entries(health)
-                      .sort(([, a], [, b]) => a - b)
-                      .map(([item, health]) => (
-                        <tr>
-                          <td>
-                            {(health * 100).toLocaleString('en', {
-                              maximumFractionDigits: 0,
-                            })}
-                            %
-                          </td>
-                          <td>
-                            <ItemIcon name={item} alt={item} />
-                          </td>
-                          <td>
-                            <Item name={item} />
-                          </td>
-                        </tr>
-                      ))}
-                  </table>
+                <tr>
+                  <td>
+                    <StopLine stop={stop} />
+                  </td>
+                  <td>
+                    <table>
+                      {Object.entries(health)
+                        .sort(([, a], [, b]) => a - b)
+                        .map(([item, health]) => (
+                          <tr>
+                            <td>
+                              {(health * 100).toLocaleString('en', {
+                                maximumFractionDigits: 0,
+                              })}
+                              %
+                            </td>
+                            <td>
+                              <ItemIcon name={item} alt={item} />
+                            </td>
+                            <td>
+                              <Item name={item} />
+                            </td>
+                          </tr>
+                        ))}
+                    </table>
+                  </td>
                   {/*{JSON.stringify(available)}*/}
                   {/*{JSON.stringify(settings)}*/}
-                </li>
+                </tr>
               ))}
-          </ul>
+          </table>
         </div>
         <div class="row">
           <h2>Names not matching a known pattern</h2>
@@ -213,7 +223,7 @@ export class StationStatus extends Component {
   }
 }
 
-class StopLine extends Component<{ stop: [string, Stop] }> {
+class StopLine extends Component<{ stop: readonly [string, Stop] }> {
   render(props: { stop: [string, Stop] }) {
     const stop = props.stop[1];
     const loc = props.stop[0];
