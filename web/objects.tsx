@@ -1,6 +1,13 @@
 import { Component, ComponentChild, createRef } from 'preact';
 import { data } from './index';
 import { ItemIcon } from './lists';
+import {
+  ltnMinTransfer,
+  settingsMap,
+  Stat,
+  stations,
+  StopLine,
+} from './station-status';
 
 export interface JItem {
   group: { name: string };
@@ -226,9 +233,35 @@ export class IoFDetail extends Component<{
 
     let storage;
     if (props.type === 'item') {
+      const stops = stations().flatMap(([loc, stop]) => {
+        const record = stop.items.find(
+          ([type, name, value]) =>
+            value > 0 && type === props.type && name == props.name,
+        );
+        if (!record) {
+          return [];
+        }
+
+        // 2: value
+        const actualItemsAvailable = record[2];
+        const settings = settingsMap(stop);
+        const min = ltnMinTransfer(data.items[props.name], settings);
+        return [[[loc, stop], actualItemsAvailable, min] as const];
+      });
       storage = (
         <p>
-          Storage:
+          <h3>LTN availability:</h3>
+          <table className="ltn-avail">
+            {stops
+              .sort(
+                ([, avalue, amin], [, bvalue, bmin]) =>
+                  bvalue / bmin - avalue / amin,
+              )
+              .map(([stop, value, min]) => (
+                <LtnAvailability stop={stop} avail={value} min={min} />
+              ))}
+          </table>
+          <h3>Storage:</h3>
           <ul>
             {Object.entries(data.doc)
               .map(([no, brick]) => [no, brick.items[props.name]] as const)
@@ -250,17 +283,17 @@ export class IoFDetail extends Component<{
 
     return (
       <div class="container-fluid">
-        <h2>{obj.localised_name}</h2>
-        <p>Type: {props.type}</p>
+        <h2>
+          <ItemIcon name={props.name} alt={props.name} /> {obj.localised_name}
+        </h2>
         <p>
-          Icon: <ItemIcon name={props.name} alt={props.name} />
-        </p>
-        <p>Internal name: {props.name}</p>
-        <p>
-          Group: {obj.group?.name}, subgroup: {obj.subgroup?.name}
+          type: <span className="font-monospace">{props.type}</span>;
+          internal-name:<span class="font-monospace">{props.name}</span>; group:
+          <span class="font-monospace">{obj.group?.name}</span>; subgroup:
+          <span class="font-monospace">{obj.subgroup?.name}</span>.
         </p>
         {storage}
-        <p>Ways to make:</p>
+        <h3>Ways to make:</h3>
         <p>
           {recipes
             .sort(([a], [b]) => a.localeCompare(b))
@@ -298,10 +331,10 @@ export class IoFDetail extends Component<{
 
               return (
                 <p>
-                  <h3>
+                  <h5>
                     {recipe.localised_name} (
                     <span class="font-monospace">{name}</span>)
-                  </h3>
+                  </h5>
                   <p>{inUse}</p>
                   <RecipeInOut name={name} />
                 </p>
@@ -313,12 +346,71 @@ export class IoFDetail extends Component<{
   }
 }
 
+interface LtnAvailabilityProps {
+  stop: Stat;
+
+  /** how much is available right now */
+  avail: number;
+
+  /** how much LTN is waiting for */
+  min: number;
+}
+export class LtnAvailability extends Component<LtnAvailabilityProps> {
+  render(props: LtnAvailabilityProps) {
+    const health = (props.avail / props.min) * 100;
+    return (
+      <tr>
+        <td>{humanise(props.avail)}</td>
+        <td>
+          <abbr
+            class={`ltn-health-${
+              health < 100 ? 'red' : health > 300 ? 'green' : 'yellow'
+            }`}
+            title={`${humaniseNo(props.avail)} available / ${humaniseNo(
+              props.min,
+            )} minimum train load`}
+          >
+            {health.toLocaleString('en', { maximumFractionDigits: 0 })}%
+          </abbr>
+        </td>
+        <td>
+          <StopLine stop={props.stop} />
+        </td>
+      </tr>
+    );
+  }
+}
+
+export function humaniseNo(count: number): string {
+  if (count > 1e6)
+    return (
+      (count / 1e6).toLocaleString('en', { maximumFractionDigits: 0 }) + 'M'
+    );
+  if (count > 1e3)
+    return (
+      (count / 1e3).toLocaleString('en', { maximumFractionDigits: 0 }) + 'k'
+    );
+  return count.toLocaleString('en', { maximumFractionDigits: 0 });
+}
+
 export function humanise(count: number) {
   if (count > 1e6)
-    return <abbr title={`${count}`}>{(count / 1e6).toFixed() + 'M'}</abbr>;
+    return (
+      <abbr
+        title={`${count.toLocaleString('en', { maximumFractionDigits: 0 })}`}
+      >
+        {(count / 1e6).toFixed() + 'M'}
+      </abbr>
+    );
   if (count > 1e3)
-    return <abbr title={`${count}`}>{(count / 1e3).toFixed() + 'k'}</abbr>;
-  return count;
+    return (
+      <abbr
+        title={`${count.toLocaleString('en', { maximumFractionDigits: 0 })}`}
+      >
+        {(count / 1e3).toFixed() + 'k'}
+      </abbr>
+    );
+  return <abbr title="just a piddly digit">{count}</abbr>;
 }
 
 class BlockLine extends Component<{ block: string }> {

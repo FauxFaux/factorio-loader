@@ -3,7 +3,7 @@ import { data } from './index';
 import { Stop } from '../scripts/load-recs';
 import { cleanupName, ItemIcon, RenderIcons } from './lists';
 import { singularize } from 'inflection';
-import { Item } from './objects';
+import { Item, JItem } from './objects';
 
 function strIEq(a: string, b: string): boolean {
   return (
@@ -82,13 +82,47 @@ export function provideStationPurpose(name: string): Set<string> {
   return matches;
 }
 
+export type Stat = readonly [string, Stop];
+
+export function stations(): Stat[] {
+  return Object.entries(data.doc).flatMap(([loc, brick]) =>
+    brick.stop.map((stop) => [loc, stop] as const),
+  );
+}
+
+export function itemMap(stop: Stop): Record<string, number> {
+  return Object.fromEntries(
+    stop.items
+      .filter(([kind]) => kind === 'item')
+      .map(([, name, value]) => [name, value] as const),
+  );
+}
+
+interface LtnSettings {
+  'ltn-provider-stack-threshold'?: number;
+  'ltn-provider-threshold'?: number;
+
+  // there are other options here, they're present in the data but I have not mapped them
+}
+
+export function settingsMap(stop: Stop): LtnSettings {
+  return Object.fromEntries(
+    stop.settings
+      .filter(([kind, name]) => kind === 'virtual' && name.startsWith('ltn-'))
+      .map(([, name, value]) => [name, value] as const),
+  );
+}
+
+export function ltnMinTransfer(item: JItem, settings: LtnSettings) {
+  const expectedByStack =
+    item.stack_size * (settings['ltn-provider-stack-threshold'] ?? 10);
+  const expectedByCount = settings['ltn-provider-threshold'] ?? 1;
+  return Math.max(expectedByStack, expectedByCount);
+}
+
 export class StationStatus extends Component {
   render() {
-    const stops = Object.entries(data.doc).flatMap(([loc, brick]) =>
-      brick.stop.map((stop) => [loc, stop] as const),
-    );
-
-    type Stat = [string, Stop];
+    const stops = stations();
 
     const providers: Stat[] = [];
     const requesters: Stat[] = [];
@@ -112,34 +146,19 @@ export class StationStatus extends Component {
       }
     }
 
-    type Settings = Record<string, number>;
-
     const providerObjs = providers.map(([loc, stop]) => {
       const declaring = provideStationPurpose(stop.name);
 
-      const settings: Settings = Object.fromEntries(
-        stop.settings
-          .filter(
-            ([kind, name]) => kind === 'virtual' && name.startsWith('ltn-'),
-          )
-          .map(([, name, value]) => [name, value] as const),
-      );
+      const settings = settingsMap(stop);
 
-      const available = Object.fromEntries(
-        stop.items
-          .filter(([kind]) => kind === 'item')
-          .map(([, name, value]) => [name, value] as const),
-      );
+      const available = itemMap(stop);
 
       const health: Record<string, number> = {};
 
       for (const declared of declaring) {
         const item = data.items[declared];
-        const expectedByStack =
-          item.stack_size * (settings['ltn-provider-stack-threshold'] ?? 10);
-        const expectedByCount = settings['ltn-provider-threshold'] ?? 1;
-        const expected = Math.max(expectedByStack, expectedByCount);
-        health[declared] = (available[declared] ?? 0) / expected;
+        health[declared] =
+          (available[declared] ?? 0) / ltnMinTransfer(item, settings);
       }
 
       return { stop: [loc, stop], health, available, settings } as const;
@@ -223,7 +242,7 @@ export class StationStatus extends Component {
   }
 }
 
-class StopLine extends Component<{ stop: readonly [string, Stop] }> {
+export class StopLine extends Component<{ stop: readonly [string, Stop] }> {
   render(props: { stop: [string, Stop] }) {
     const stop = props.stop[1];
     const loc = props.stop[0];

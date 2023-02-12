@@ -29,3 +29,31 @@
 .wtb th {
   text-align: center;
 }
+
+.ltn-health-red {
+  color: red;
+}
+
+.ltn-health-yellow {
+  color: yellow;
+}
+
+.ltn-health-green {
+  color: green;
+}
+
+.ltn-avail > tr > td {
+  padding: 0.3em 0.5em;
+}
+
+.ltn-avail {
+  margin-bottom: 1em;
+}
+
+.ltn-avail > tr > td:first-child {
+  text-align: right;
+}
+
+.ltn-avail > tr > td:nth-child(2) {
+  text-align: right;
+}
