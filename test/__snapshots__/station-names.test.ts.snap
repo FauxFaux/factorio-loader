@@ -8,7 +8,13 @@ Set {
 
 exports[`Auog Bonemeal Provide 1`] = `
 Set {
-  "bone-meal",
+  "bonemeal",
+}
+`;
+
+exports[`Chemical Science Pack Provide (from science!) 1`] = `
+Set {
+  "chemical-science-pack",
 }
 `;
 
@@ -21,6 +27,12 @@ Set {
 exports[`Iron Ore Provide 1`] = `
 Set {
   "iron-ore",
+}
+`;
+
+exports[`Laboratory Instruments Provide 1`] = `
+Set {
+  "lab-instrument",
 }
 `;
 

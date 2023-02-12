@@ -14,6 +14,8 @@ test.each([
   'Incubated Petri Dish Provide',
   'Useless Provide',
   'Auog Bonemeal Provide',
+  'Chemical Science Pack Provide (from science!)',
+  'Laboratory Instruments Provide',
 ])('%s', (name) => {
   expect(provideStationPurpose(name)).toMatchSnapshot();
 });

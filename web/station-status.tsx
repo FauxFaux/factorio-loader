@@ -2,6 +2,31 @@ import { Component } from 'preact';
 import { data } from './index';
 import { Stop } from '../scripts/load-recs';
 import { cleanupName, RenderIcons } from './lists';
+import { singularize } from 'inflection';
+
+function strIEq(a: string, b: string): boolean {
+  return (
+    0 ===
+    a.localeCompare(b, 'en', {
+      sensitivity: 'base',
+      usage: 'search',
+    })
+  );
+}
+
+export function closelyMatchesItemName(label: string): string | null {
+  switch (label.toLowerCase()) {
+    case 'auog bonemeal':
+      return 'bonemeal';
+  }
+  for (const [name, item] of Object.entries(data.items)) {
+    if (strIEq(label, item.localised_name) || strIEq(singularize(label), item.localised_name)) {
+      return name;
+    }
+  }
+
+  return null;
+}
 
 export function provideStationPurpose(name: string): Set<string> {
   const matches = new Set<string>();
@@ -12,20 +37,11 @@ export function provideStationPurpose(name: string): Set<string> {
     }
   }
   name = cleanupName(name);
-  let ma = name.match(/^([a-zA-Z ]+) Provide$/);
+  let ma = name.match(/^([a-z0-9 ]+) Provide/i);
   if (ma) {
-    const label = ma[1];
-    for (const [name, item] of Object.entries(data.items)) {
-      if (
-        0 ===
-        label.localeCompare(item.localised_name, 'en', {
-          sensitivity: 'base',
-          usage: 'search',
-        })
-      ) {
-        matches.add(name);
-        break;
-      }
+    const item = closelyMatchesItemName(ma[1]);
+    if (item) {
+      matches.add(item);
     }
   }
   return matches;
@@ -45,16 +61,17 @@ export class StationStatus extends Component {
     const bugs: Stat[] = [];
 
     for (const [loc, stop] of stops) {
-      if (/\bProvide\b/i.exec(stop.name) && !/empty barrel/i.exec(stop.name)) {
-        providers.push([loc, stop]);
-      } else if (/\b(?:Request|drop)\b/i.exec(stop.name)) {
-        requesters.push([loc, stop]);
-      } else if (
+      if (
         /empty barrel/i.exec(stop.name) ||
+        /storehouse provide/i.exec(stop.name) ||
         /passenger stop/.exec(stop.name) ||
         /virtual-signal=ltn-depot/.exec(stop.name)
       ) {
         boring.push([loc, stop]);
+      } else if (/\bProvide\b/i.exec(stop.name)) {
+        providers.push([loc, stop]);
+      } else if (/\b(?:Request|drop)\b/i.exec(stop.name)) {
+        requesters.push([loc, stop]);
       } else {
         bugs.push([loc, stop]);
       }
