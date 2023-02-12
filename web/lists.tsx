@@ -118,7 +118,7 @@ export class RenderIcons extends Component<{ text: string }> {
 
 export function cleanupName(name: string) {
   const stripIcons = /\[[a-z0-9-]+=[a-z0-9-]+]/g;
-  const normaliseSpace = /\/|\s+/g;
+  const normaliseSpace = /\s+/g;
   return name.replace(stripIcons, ' ').replace(normaliseSpace, ' ').trim();
 }
 

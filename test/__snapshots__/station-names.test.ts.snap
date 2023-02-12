@@ -18,6 +18,14 @@ Set {
 }
 `;
 
+exports[`High Power Resistors / Ceramic Capacitors / Air-Core Conductor Provide 1`] = `
+Set {
+  "resistor1",
+  "capacitor1",
+  "inductor1",
+}
+`;
+
 exports[`Incubated Petri Dish Provide 1`] = `
 Set {
   "petri-dish-bacteria",
@@ -37,3 +45,9 @@ Set {
 `;
 
 exports[`Useless Provide 1`] = `Set {}`;
+
+exports[`slaked lime Provide Station 1`] = `
+Set {
+  "slacked-lime-barrel",
+}
+`;
