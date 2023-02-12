@@ -8,6 +8,7 @@ import { IoFDetail, JFluid, JItem, JRecipe } from './objects';
 import { BigList, BlockPage } from './big-list';
 import { StationList, ItemList } from './lists';
 import { WhatTheBrick } from './what-the-brick';
+import { StationStatus } from './station-status';
 
 export const data = {
   doc: {} as Record<string, BlockContent>,
@@ -26,6 +27,7 @@ class App extends Component {
           <Home path="/" />
           <BigList path="/big" />
           <WhatTheBrick path="/what-the-brick" />
+          <StationStatus path="/station-status" />
           <IoFDetail path="/item/:name" type="item" name="from the path" />
           <IoFDetail path="/fluid/:name" type="fluid" name="from the path" />
           <BlockPage path="/block/:loc" loc="from the path" />
@@ -48,6 +50,11 @@ const header = (
           <li>
             <a href="/what-the-brick" className="nav-link px-2 text-white">
               What the brick?!
+            </a>
+          </li>
+          <li>
+            <a href="/station-status" className="nav-link px-2 text-white">
+              Station status
             </a>
           </li>
           <li>

@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[item=duralumin] Duralumin Provide 1`] = `
+Set {
+  "duralumin",
+}
+`;
+
+exports[`Auog Bonemeal Provide 1`] = `
+Set {
+  "bone-meal",
+}
+`;
+
+exports[`Incubated Petri Dish Provide 1`] = `
+Set {
+  "petri-dish-bacteria",
+}
+`;
+
+exports[`Iron Ore Provide 1`] = `
+Set {
+  "iron-ore",
+}
+`;
+
+exports[`Useless Provide 1`] = `Set {}`;

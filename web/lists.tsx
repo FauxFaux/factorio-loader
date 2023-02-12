@@ -116,12 +116,16 @@ export class RenderIcons extends Component<{ text: string }> {
   }
 }
 
-export function compareWithoutIcons(a: string, b: string) {
+export function cleanupName(name: string) {
   const stripIcons = /\[[a-z0-9-]+=[a-z0-9-]+]/g;
   const normaliseSpace = /\/|\s+/g;
-  const ap = a.replace(stripIcons, ' ').replace(normaliseSpace, ' ');
-  const bp = b.replace(stripIcons, ' ').replace(normaliseSpace, ' ');
-  return ap.trim().localeCompare(bp.trim(), 'en', { sensitivity: 'base' });
+  return name.replace(stripIcons, ' ').replace(normaliseSpace, ' ').trim();
+}
+
+export function compareWithoutIcons(a: string, b: string) {
+  return cleanupName(a).localeCompare(cleanupName(b), 'en', {
+    sensitivity: 'base',
+  });
 }
 
 export class ItemList extends Component<
