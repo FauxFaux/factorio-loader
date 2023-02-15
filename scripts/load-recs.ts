@@ -138,6 +138,8 @@ function load(kind: string) {
     // (\036)
     const [x, y, _dir, name, ...ext] = line;
     const pos = [parseFloat(x), parseFloat(y)] as const;
+    if (!Number.isFinite(pos[0]) || !Number.isFinite(pos[1]))
+      throw new Error(`invalid x/y: ${x}/${y}`);
     const block = toBlock(pos);
     items.push({ block, name, ext, pos });
   }
