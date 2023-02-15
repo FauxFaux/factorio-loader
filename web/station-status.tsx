@@ -253,8 +253,21 @@ export class StopLine extends Component<{ stop: readonly [string, Stop] }> {
     const loc = props.stop[0];
     return (
       <span>
-        <RenderIcons text={stop.name} /> (<a href={`/block/${loc}`}>{loc}</a>)
+        <RenderIcons text={stop.name} /> (<BlockLink loc={loc} />)
       </span>
+    );
+  }
+}
+
+export class BlockLink extends Component<{ loc: string }> {
+  render(props: { loc: string }) {
+    return (
+      <a
+        href={`/block/${props.loc}`}
+        title={data.doc[props.loc].tags.sort().join(', ')}
+      >
+        {props.loc}
+      </a>
     );
   }
 }
