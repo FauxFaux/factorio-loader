@@ -233,7 +233,7 @@ export class IoFDetail extends Component<{
 
     let storage;
     if (props.type === 'item') {
-      const stops = stations().flatMap(([loc, stop]) => {
+      const providers = stations().flatMap(([loc, stop]) => {
         const record = stop.items.find(
           ([type, name, value]) =>
             value > 0 && type === props.type && name == props.name,
@@ -248,17 +248,56 @@ export class IoFDetail extends Component<{
         const min = ltnMinTransfer(data.items[props.name], settings);
         return [[[loc, stop], actualItemsAvailable, min] as const];
       });
+      const requests = stations().flatMap(([loc, stop]) => {
+        const record = stop.combinator.find(
+          ([type, name, value]) =>
+            value < 0 && type === props.type && name == props.name,
+        );
+        if (!record) {
+          return [];
+        }
+        const computed = stop.items.find(
+          ([type, name, value]) =>
+            value < 0 && type === props.type && name == props.name,
+        );
+
+        // 2: value
+        const wantedItems = record[2];
+        const actualMinusWanted = computed?.[2] ?? 0;
+        // want 100: wanted = -100
+        // actualMinusWanted -80 means there's 20 real items
+        // percentage satisfaction: 20/100 = 20%
+        return [
+          [[loc, stop], actualMinusWanted - wantedItems, -wantedItems] as const,
+        ];
+      });
       storage = (
         <p>
           <h3>LTN availability:</h3>
           <table className="ltn-avail">
-            {stops
+            {providers
               .sort(
                 ([, avalue, amin], [, bvalue, bmin]) =>
                   bvalue / bmin - avalue / amin,
               )
               .map(([stop, value, min]) => (
                 <LtnAvailability stop={stop} avail={value} min={min} />
+              ))}
+          </table>
+          <h3>LTN requests:</h3>
+          <table className="ltn-avail">
+            {requests
+              .sort(
+                ([, avalue, awanted], [, bvalue, bwanted]) =>
+                  avalue / awanted - bvalue / bwanted,
+              )
+              .map(([stop, value, wanted]) => (
+                <LtnAvailability
+                  stop={stop}
+                  avail={value}
+                  min={wanted}
+                  decimate={true}
+                />
               ))}
           </table>
           <h3>Storage:</h3>
@@ -354,21 +393,29 @@ interface LtnAvailabilityProps {
 
   /** how much LTN is waiting for */
   min: number;
+
+  /** colour at 1/10th */
+  decimate?: boolean;
 }
 export class LtnAvailability extends Component<LtnAvailabilityProps> {
   render(props: LtnAvailabilityProps) {
     const health = (props.avail / props.min) * 100;
+    const dec = props.decimate ? 10 : 1;
     return (
       <tr>
         <td>{humanise(props.avail)}</td>
         <td>
           <abbr
             class={`ltn-health-${
-              health < 100 ? 'red' : health > 300 ? 'green' : 'yellow'
+              health < 100 / dec
+                ? 'red'
+                : health > 300 / dec
+                ? 'green'
+                : 'yellow'
             }`}
             title={`${humaniseNo(props.avail)} available / ${humaniseNo(
               props.min,
-            )} minimum train load`}
+            )} expected`}
           >
             {health.toLocaleString('en', { maximumFractionDigits: 0 })}%
           </abbr>
