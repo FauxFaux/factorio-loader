@@ -5,3 +5,5 @@ app.js
 node_modules/
 dist/
 web/bundle.js*
+?.dot
+?.svg
