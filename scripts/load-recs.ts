@@ -15,7 +15,12 @@ function distSq(a: Coord, b: Coord) {
 
 type Signal = [string, string, number];
 
-export type Stop = { name: string; settings: Signal[]; items: Signal[] };
+export type Stop = {
+  name: string;
+  settings: Signal[];
+  items: Signal[];
+  combinator: Signal[];
+};
 export type BlockContent = {
   tags: string[];
   asm: Record<string, number>;
@@ -75,26 +80,45 @@ function main() {
     stopNames.push([obj.pos, obj.ext[0]]);
   }
 
-  function nearbyStationName(pos: Coord): string {
+  function nearbyStation(pos: Coord, maxDist: number): [Coord, string] {
     for (const [stopLoc, stopName] of stopNames) {
       const d = distSq(pos, stopLoc);
-      if (d < 1) {
-        return stopName;
+      if (d < maxDist) {
+        return [stopLoc, stopName];
       }
     }
     throw new Error(`unable to find name for ${pos}`);
   }
 
+  const stopCombinator: Record<string, string[]> = {};
+
+  for (const obj of load('constant-combinator')) {
+    if (obj.name !== 'constant-combinator') continue;
+    let stop;
+    try {
+      stop = nearbyStation(obj.pos, 3);
+    } catch {
+      continue;
+    }
+
+    const loc = String(stop[0]);
+
+    if (!stopCombinator[loc]) stopCombinator[loc] = [];
+    stopCombinator[loc].push(...obj.ext);
+  }
+
   for (const obj of load('train-stop-input')) {
     const block = getBlock(obj.block);
-    const name = nearbyStationName(obj.pos);
+    const [stopLoc, name] = nearbyStation(obj.pos, 1);
     const splitPoint = obj.ext.indexOf('red');
     const red = obj.ext.slice(1, splitPoint);
     const green = obj.ext.slice(splitPoint + 1);
+    const comb = stopCombinator[String(stopLoc)];
     block.stop.push({
       name,
       settings: signals(red),
       items: signals(green),
+      combinator: comb ? signals(comb) : [],
     });
   }
 

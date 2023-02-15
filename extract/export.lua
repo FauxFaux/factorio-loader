@@ -10,6 +10,7 @@ for _, ty in ipairs({
     "roboport",
     "radar",
     "train-stop-input",
+    "constant-combinator",
     "tags" }) do
     local all
     if ty == "tags" then
@@ -69,6 +70,16 @@ for _, ty in ipairs({
                 for item, count in pairs(oi.get_contents()) do
                     a[#a + 1] = item
                     a[#a + 1] = count
+                end
+            end
+        end
+        if ty == "constant-combinator" then
+            local cb = v.get_control_behavior()
+            for _, s in pairs(cb.parameters) do
+                if s.signal.name ~= nil then
+                    a[#a + 1] = s.signal.type
+                    a[#a + 1] = s.signal.name
+                    a[#a + 1] = s.count
                 end
             end
         end
