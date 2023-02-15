@@ -1,8 +1,12 @@
-#!/usr/bin/env -S npx babel-node -x .ts
+#!/usr/bin/env -S npx babel-node -x .ts,.tsx
 import * as fs from 'fs';
 import { toBlock } from './magic';
+import { isProvideStation, provideStationPurpose } from '../web/station-status';
+import { initOnNode } from './data-hack-for-node';
 
 const base = process.argv[2];
+
+initOnNode(['doc']);
 
 type Coord = readonly [number, number];
 type BlockId = Coord;
@@ -19,6 +23,7 @@ export type Stop = {
   name: string;
   settings: Signal[];
   items: Signal[];
+  provides: [string, string][];
   combinator: Signal[];
 };
 export type BlockContent = {
@@ -118,6 +123,9 @@ function main() {
       name,
       settings: signals(red),
       items: signals(green),
+      provides: isProvideStation(name)
+        ? [...provideStationPurpose(name)].map((v) => ['item', v])
+        : [],
       combinator: comb ? signals(comb) : [],
     });
   }

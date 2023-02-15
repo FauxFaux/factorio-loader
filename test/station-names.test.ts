@@ -1,12 +1,7 @@
 import { provideStationPurpose } from '../web/station-status';
-import { data } from '../web';
-import { readFileSync } from 'fs';
+import { initOnNode } from '../scripts/data-hack-for-node';
 
-for (const key of Object.keys(data)) {
-  (data as any)[key] = JSON.parse(
-    readFileSync(require.resolve(`../data/${key}.json`), { encoding: 'utf-8' }),
-  );
-}
+initOnNode();
 
 test.each([
   '[item=duralumin] Duralumin Provide',

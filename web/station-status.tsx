@@ -120,6 +120,10 @@ export function ltnMinTransfer(item: JItem, settings: LtnSettings) {
   return Math.max(expectedByStack, expectedByCount);
 }
 
+export function isProvideStation(name: string): boolean {
+  return !!/\bProvide\b/i.exec(name);
+}
+
 export class StationStatus extends Component {
   render() {
     const stops = stations();
@@ -137,7 +141,7 @@ export class StationStatus extends Component {
         /virtual-signal=ltn-depot/.exec(stop.name)
       ) {
         boring.push([loc, stop]);
-      } else if (/\bProvide\b/i.exec(stop.name)) {
+      } else if (stop.provides.length > 0) {
         providers.push([loc, stop]);
       } else if (/\b(?:Request|drop)\b/i.exec(stop.name)) {
         requesters.push([loc, stop]);
@@ -147,7 +151,7 @@ export class StationStatus extends Component {
     }
 
     const providerObjs = providers.map(([loc, stop]) => {
-      const declaring = provideStationPurpose(stop.name);
+      const declaring = stop.provides;
 
       const settings = settingsMap(stop);
 
@@ -155,7 +159,8 @@ export class StationStatus extends Component {
 
       const health: Record<string, number> = {};
 
-      for (const declared of declaring) {
+      for (const [type, declared] of declaring) {
+        if (type !== 'item') continue;
         const item = data.items[declared];
         health[declared] =
           (available[declared] ?? 0) / ltnMinTransfer(item, settings);
