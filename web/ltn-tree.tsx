@@ -6,6 +6,19 @@ import { LtnSummary, Measurement } from './ltn-summary';
 
 const denyList = new Set(['item:empty-barrel', 'item:py-storehouse-mk01']);
 
+const nth = [
+  'Primary',
+  'Secondary',
+  'Tertiary',
+  'Quaternary',
+  'Quinary',
+  'Senary',
+  'Septenary',
+  'Octonary',
+  'Nonary',
+  'Denary',
+];
+
 type TreeProps = {
   type: 'item' | 'fluid';
   name: string;
@@ -13,83 +26,87 @@ type TreeProps = {
   alreadySeen?: string[];
 };
 
+function getProviders(colon: string) {
+  return Object.entries(computed.ltnSummary)
+    .map(
+      ([loc, summ]) =>
+        [loc, summ, summ.provides[colon], summ.looses[colon]] as const,
+    )
+    .filter(([, , provide, loose]) => !!provide || !!loose)
+    .sort(
+      comparing(([, , provide, loose]) => {
+        return provide
+          ? -provide.actual / provide.expected
+          : 5 + -loose.actual / loose.expected;
+      }),
+    );
+}
+
 export class LtnTree extends Component<TreeProps> {
   render(props: TreeProps) {
-    const colon = objToColon(props);
-    const providers = Object.entries(computed.ltnSummary)
-      .filter(([, summ]) => colon in summ.provides)
-      .sort(
-        comparing(([, summ]) => {
-          const provide = summ.provides[colon];
-          return -provide.actual / provide.expected;
-        }),
-      );
-    const looses = Object.entries(computed.ltnSummary)
-      .filter(([, summ]) => colon in summ.looses)
-      .sort(
-        comparing(([, summ]) => {
-          const provide = summ.looses[colon];
-          return -provide.actual / provide.expected;
-        }),
-      );
-    const shortages = providers
-      .flatMap(([, summ]) => getShortages(summ))
-      .sort(measurementZeroFirst);
-    if (0 === shortages.length) {
-      shortages.push(
-        ...looses
-          .flatMap(([, summ]) => getShortages(summ))
-          .sort(measurementZeroFirst),
-      );
-    }
-    const interestingShortages = shortages.filter(
-      ([item]) =>
-        !(props.alreadySeen ?? []).includes(item) && !denyList.has(item),
-    );
-    const alreadySeen = [
-      ...(props.alreadySeen ?? []),
-      ...shortages.map(([item]) => item),
+    let toProcess = [objToColon(props)];
+    const blocks = [
+      <p>
+        Attempt to debug why a product isn't available, under the assumption
+        that every brick perfectly transforms its inputs into its outputs; that
+        is, if an input is missing, it must mean because there's a "secondary"
+        brick which has an input missing, and so on, until none of the bricks in
+        the chain have missing inputs.
+      </p>,
+      <p>
+        (The <span class="ltn-tree__tile--naughty">ugly background</span> means
+        that the station doing the provision is not labelled as such, so may
+        flicker in and out of existence. Please fix the name.)
+      </p>,
     ];
 
-    return (
-      <>
-        <div class="row ltn-tree__header">
-          <h3>
-            <ColonJoined label={colon} /> could be provided by:
-          </h3>
-        </div>
-        {providers.map(([loc, summ]) => (
-          <TreeTile
-            loc={loc}
-            thisProvide={summ.provides[colon]}
-            summ={summ}
-            naughty={false}
-          />
-        ))}
-        {looses.map(([loc, summ]) => (
-          <TreeTile
-            loc={loc}
-            thisProvide={summ.looses[colon]}
-            summ={summ}
-            naughty={true}
-          />
-        ))}
-        {interestingShortages.length ? (
-          <p>
-            From this, I'm inferring that there's a shortage of{' '}
-            {interestingShortages.join(', ')}.
-          </p>
-        ) : (
-          <></>
-        )}
-        {interestingShortages.map(([item]) => {
-          const [type, name] = splitColon(item);
-          return (
-            <LtnTree type={type as any} name={name} alreadySeen={alreadySeen} />
-          );
-        })}
-      </>
-    );
+    for (let i = 0; i < 10; ++i) {
+      let nextRound: Colon[] = [];
+      for (const colon of toProcess) {
+        const providers = getProviders(colon);
+        const shortages = providers
+          .flatMap(([, summ]) => getShortages(summ))
+          .filter(([item]) => !denyList.has(item))
+          .sort(measurementZeroFirst)
+          .map(([item]) => item);
+        shortages.forEach((item) => denyList.add(item));
+        nextRound.push(...shortages);
+        blocks.push(
+          <div className="row ltn-tree__header">
+            <h3>
+              {nth[i]} product <ColonJoined label={colon} /> could be provided
+              by:
+            </h3>
+          </div>,
+        );
+
+        blocks.push(
+          ...providers.map(([loc, summ, provide, loose]) => (
+            <TreeTile
+              loc={loc}
+              thisProvide={provide ?? loose}
+              summ={summ}
+              naughty={!!loose}
+            />
+          )),
+        );
+      }
+
+      // blocks.push(
+      //   <div class="row ltn-tree__header">
+      //     <h3>
+      //       {i}-thary products:{' '}
+      //       {nextRound.map((colon) => (
+      //         <ColonJoined label={colon} />
+      //       ))}
+      //     </h3>
+      //   </div>,
+      // );
+
+      toProcess = nextRound;
+    }
+
+    return blocks;
   }
 }
 
@@ -137,16 +154,27 @@ const Shortages = (p: { requests: Record<Colon, Measurement> }) => {
   return (
     <table class="table table-borderless">
       <tbody>
-        {shortages.map(([colon, meas]) => (
-          <tr>
-            <td style="text-align: right">
-              <LtnPercent actual={meas.actual} expected={meas.expected} />
-            </td>
-            <td style="width: 15em">
-              <ColonJoined label={colon} />
-            </td>
-          </tr>
-        ))}
+        {shortages.map(([colon, meas]) => {
+          const [type, name] = splitColon(colon);
+          return (
+            <tr>
+              <td style="text-align: right">
+                <LtnPercent actual={meas.actual} expected={meas.expected} />
+              </td>
+              <td style="width: 15em">
+                <ColonJoined label={colon} />
+              </td>
+              <td>
+                <a
+                  href={`/ltn-tree/${type}/${name}`}
+                  title="focus in on this problem"
+                >
+                  🎯
+                </a>
+              </td>
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );
