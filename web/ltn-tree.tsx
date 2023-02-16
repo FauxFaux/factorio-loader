@@ -4,8 +4,6 @@ import { computed, data } from './index';
 import { BlockLink, Colon, objToColon, splitColon } from './station-status';
 import { LtnSummary, Measurement } from './ltn-summary';
 
-const denyList = new Set(['item:empty-barrel', 'item:py-storehouse-mk01']);
-
 const nth = [
   'Primary',
   'Secondary',
@@ -44,6 +42,7 @@ function getProviders(colon: string) {
 
 export class LtnTree extends Component<TreeProps> {
   render(props: TreeProps) {
+    const denyList = new Set(['item:empty-barrel', 'item:py-storehouse-mk01']);
     let toProcess = [objToColon(props)];
     const blocks = [
       <p>
