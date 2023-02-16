@@ -27,40 +27,35 @@ export class LtnTree extends Component<{
         }),
       );
     return (
-      <>
-        <div class="row">
-          <h3>
-            <ItemOrFluid name={props.name} type={props.type} /> could be
-            provided by:
-          </h3>
-        </div>
-        <div className="row">
-          {providers.map(([loc, summ]) => (
-            <TreeTile
-              loc={loc}
-              thisProvide={summ.provides[colon]}
-              summ={summ}
-            />
-          ))}
-        </div>
-        {looses.length ? (
-          <div className="row">
-            <h3>
-              <ItemOrFluid name={props.name} type={props.type} /> is also
-              available from NOT APPROVED stations in...
-            </h3>
+      <div class="row">
+        <table class="table">
+          <tbody>
+            <tr>
+              <td colSpan={3}>
+                <h3>
+                  <ColonJoined label={colon} /> could be provided by:
+                </h3>
+              </td>
+            </tr>
+            {providers.map(([loc, summ]) => (
+              <TreeTile
+                loc={loc}
+                thisProvide={summ.provides[colon]}
+                summ={summ}
+                naughty={false}
+              />
+            ))}
             {looses.map(([loc, summ]) => (
               <TreeTile
                 loc={loc}
                 thisProvide={summ.looses[colon]}
                 summ={summ}
+                naughty={true}
               />
             ))}
-          </div>
-        ) : (
-          <></>
-        )}
-      </>
+          </tbody>
+        </table>
+      </div>
     );
   }
 }
@@ -69,18 +64,23 @@ const TreeTile = (p: {
   loc: string;
   thisProvide: Measurement;
   summ: LtnSummary;
+  naughty: boolean;
 }) => {
   return (
-    <div class="tree-tile">
-      <h4>
+    <tr class={p.naughty ? 'ltn-tree--naughty' : ''}>
+      <td>
         <LtnPercent
           actual={p.thisProvide.actual}
           expected={p.thisProvide.expected}
-        />{' '}
-        from <BlockLink loc={p.loc} /> {data.doc[p.loc].tags.sort().join(', ')}
-      </h4>
-      <Shortages requests={p.summ.requests} />
-    </div>
+        />
+      </td>
+      <td>
+        <BlockLink loc={p.loc} /> {data.doc[p.loc].tags.sort().join(', ')}
+      </td>
+      <td>
+        <Shortages requests={p.summ.requests} />
+      </td>
+    </tr>
   );
 };
 
@@ -90,24 +90,23 @@ const Shortages = (p: { requests: Record<Colon, Measurement> }) => {
   );
   if (0 === shortages.length) {
     return (
-      <p>
-        No apparent shortages, all {Object.keys(p.requests).length} requests are
-        satisfied.
-      </p>
+      <p>No apparent shortages ({Object.keys(p.requests).length} requests).</p>
     );
   }
   return (
-    <table>
-      {shortages.sort(measurementZeroFirst).map(([colon, meas]) => (
-        <tr>
-          <td style="text-align: right">
-            <LtnPercent actual={meas.actual} expected={meas.expected} />
-          </td>
-          <td>
-            <ColonJoined label={colon} />
-          </td>
-        </tr>
-      ))}
+    <table style="width: 20em">
+      <tbody>
+        {shortages.sort(measurementZeroFirst).map(([colon, meas]) => (
+          <tr>
+            <td style="text-align: right">
+              <LtnPercent actual={meas.actual} expected={meas.expected} />
+            </td>
+            <td>
+              <ColonJoined label={colon} />
+            </td>
+          </tr>
+        ))}
+      </tbody>
     </table>
   );
 };

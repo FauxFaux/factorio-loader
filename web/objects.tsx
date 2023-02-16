@@ -124,7 +124,7 @@ export class ColonJoined extends Component<{ label: string }> {
     if (type === 'item' || type === 'fluid') {
       return (
         <span>
-          <ItemIcon name={name} alt={name} />
+          <ItemIcon name={name} alt={name} />{' '}
           <ItemOrFluid type={type} name={name} />
         </span>
       );

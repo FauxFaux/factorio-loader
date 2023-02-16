@@ -57,3 +57,7 @@
 .ltn-avail > tr > td:nth-child(2) {
   text-align: right;
 }
+
+.ltn-tree--naughty {
+  background-color: #420000;
+}
