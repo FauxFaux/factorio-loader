@@ -8,7 +8,9 @@ import { IoFDetail, JFluid, JItem, JRecipe } from './objects';
 import { BigList, BlockPage } from './big-list';
 import { StationList, ItemList } from './lists';
 import { WhatTheBrick } from './what-the-brick';
-import { StationStatus } from './station-status';
+import { Colon, StationStatus } from './station-status';
+import { LtnTree } from './ltn-tree';
+import { LtnSummary, Measurement, precomputeLtnSummary } from './ltn-summary';
 
 export const data = {
   doc: {} as Record<string, BlockContent>,
@@ -17,6 +19,10 @@ export const data = {
   fluids: {} as Record<string, JFluid>,
   recipes: {} as Record<string, JRecipe>,
 } as const;
+
+export const computed = {
+  ltnSummary: {} as Record<string, LtnSummary>,
+};
 
 class App extends Component {
   render() {
@@ -31,6 +37,11 @@ class App extends Component {
           <IoFDetail path="/item/:name" type="item" name="from the path" />
           <IoFDetail path="/fluid/:name" type="fluid" name="from the path" />
           <BlockPage path="/block/:loc" loc="from the path" />
+          <LtnTree
+            path="/ltn-tree/:type/:name"
+            type="item"
+            name="from the path"
+          />
         </Router>
       </div>
     );
@@ -98,10 +109,15 @@ export function init(element: HTMLElement) {
         async (k) => ((data as any)[k] = await get(`../data/${k}.json`)),
       ),
     );
+    precompute();
     element.innerHTML = '';
     render(<App />, element);
   })().catch((e) => {
     console.error(e);
     element.innerHTML = e.toString();
   });
+}
+
+function precompute() {
+  computed.ltnSummary = precomputeLtnSummary();
 }

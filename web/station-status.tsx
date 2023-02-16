@@ -135,6 +135,10 @@ export function objToColon(p: { type: string; name: string }): Colon {
   return `${p.type}:${p.name}`;
 }
 
+export function isRegular(colon: Colon): boolean {
+  return colon.startsWith('item:') || colon.startsWith('fluid:');
+}
+
 interface LtnSettings {
   'ltn-provider-stack-threshold'?: number;
   'ltn-provider-threshold'?: number;

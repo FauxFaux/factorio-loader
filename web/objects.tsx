@@ -11,6 +11,7 @@ import {
   stations,
   StopLine,
 } from './station-status';
+import { Measurement } from './ltn-summary';
 
 export interface JItem {
   group: { name: string };
@@ -328,6 +329,11 @@ export class IoFDetail extends Component<{
           <span class="font-monospace">{obj.group?.name}</span>; subgroup:
           <span class="font-monospace">{obj.subgroup?.name}</span>.
         </p>
+        <p>
+          <a href={`/ltn-tree/${props.type}/${props.name}`}>
+            Debug availability
+          </a>
+        </p>
         {storage}
         <h3>Ways to make:</h3>
         <p>
@@ -396,26 +402,15 @@ interface LtnAvailabilityProps {
 }
 export class LtnAvailability extends Component<LtnAvailabilityProps> {
   render(props: LtnAvailabilityProps) {
-    const health = (props.avail / props.min) * 100;
-    const dec = props.decimate ? 10 : 1;
     return (
       <tr>
         <td>{humanise(props.avail)}</td>
         <td>
-          <abbr
-            class={`ltn-health-${
-              health < 100 / dec
-                ? 'red'
-                : health > 300 / dec
-                ? 'green'
-                : 'yellow'
-            }`}
-            title={`${humaniseNo(props.avail)} available / ${humaniseNo(
-              props.min,
-            )} expected`}
-          >
-            {health.toLocaleString('en', { maximumFractionDigits: 0 })}%
-          </abbr>
+          <LtnPercent
+            actual={props.avail}
+            expected={props.min}
+            decimate={props.decimate}
+          />{' '}
         </td>
         <td>
           <StopLine stop={props.stop} />
@@ -424,6 +419,23 @@ export class LtnAvailability extends Component<LtnAvailabilityProps> {
     );
   }
 }
+
+export const LtnPercent = (props: Measurement & { decimate?: boolean }) => {
+  const health = (props.actual / props.expected) * 100;
+  const dec = props.decimate ? 10 : 1;
+  return (
+    <abbr
+      className={`ltn-health-${
+        health < 100 / dec ? 'red' : health > 300 / dec ? 'green' : 'yellow'
+      }`}
+      title={`${humaniseNo(props.actual)} available / ${humaniseNo(
+        props.expected,
+      )} expected`}
+    >
+      {health.toLocaleString('en', { maximumFractionDigits: 0 })}%
+    </abbr>
+  );
+};
 
 export function humaniseNo(count: number): string {
   if (count > 1e6)
