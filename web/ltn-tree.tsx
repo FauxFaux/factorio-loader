@@ -1,14 +1,20 @@
 import { Component } from 'preact';
-import { ColonJoined, ItemOrFluid, LtnPercent } from './objects';
+import { ColonJoined, LtnPercent } from './objects';
 import { computed, data } from './index';
-import { BlockLink, Colon, objToColon } from './station-status';
+import { BlockLink, Colon, objToColon, splitColon } from './station-status';
 import { LtnSummary, Measurement } from './ltn-summary';
 
-export class LtnTree extends Component<{
+const denyList = new Set(['item:empty-barrel', 'item:py-storehouse-mk01']);
+
+type TreeProps = {
   type: 'item' | 'fluid';
   name: string;
-}> {
-  render(props: { type: 'item' | 'fluid'; name: string }) {
+
+  alreadySeen?: string[];
+};
+
+export class LtnTree extends Component<TreeProps> {
+  render(props: TreeProps) {
     const colon = objToColon(props);
     const providers = Object.entries(computed.ltnSummary)
       .filter(([, summ]) => colon in summ.provides)
@@ -26,36 +32,63 @@ export class LtnTree extends Component<{
           return -provide.actual / provide.expected;
         }),
       );
+    const shortages = providers
+      .flatMap(([, summ]) => getShortages(summ))
+      .sort(measurementZeroFirst);
+    if (0 === shortages.length) {
+      shortages.push(
+        ...looses
+          .flatMap(([, summ]) => getShortages(summ))
+          .sort(measurementZeroFirst),
+      );
+    }
+    const interestingShortages = shortages.filter(
+      ([item]) =>
+        !(props.alreadySeen ?? []).includes(item) && !denyList.has(item),
+    );
+    const alreadySeen = [
+      ...(props.alreadySeen ?? []),
+      ...shortages.map(([item]) => item),
+    ];
+
     return (
-      <div class="row">
-        <table class="table">
-          <tbody>
-            <tr>
-              <td colSpan={3}>
-                <h3>
-                  <ColonJoined label={colon} /> could be provided by:
-                </h3>
-              </td>
-            </tr>
-            {providers.map(([loc, summ]) => (
-              <TreeTile
-                loc={loc}
-                thisProvide={summ.provides[colon]}
-                summ={summ}
-                naughty={false}
-              />
-            ))}
-            {looses.map(([loc, summ]) => (
-              <TreeTile
-                loc={loc}
-                thisProvide={summ.looses[colon]}
-                summ={summ}
-                naughty={true}
-              />
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <>
+        <div class="row ltn-tree__header">
+          <h3>
+            <ColonJoined label={colon} /> could be provided by:
+          </h3>
+        </div>
+        {providers.map(([loc, summ]) => (
+          <TreeTile
+            loc={loc}
+            thisProvide={summ.provides[colon]}
+            summ={summ}
+            naughty={false}
+          />
+        ))}
+        {looses.map(([loc, summ]) => (
+          <TreeTile
+            loc={loc}
+            thisProvide={summ.looses[colon]}
+            summ={summ}
+            naughty={true}
+          />
+        ))}
+        {interestingShortages.length ? (
+          <p>
+            From this, I'm inferring that there's a shortage of{' '}
+            {interestingShortages.join(', ')}.
+          </p>
+        ) : (
+          <></>
+        )}
+        {interestingShortages.map(([item]) => {
+          const [type, name] = splitColon(item);
+          return (
+            <LtnTree type={type as any} name={name} alreadySeen={alreadySeen} />
+          );
+        })}
+      </>
     );
   }
 }
@@ -67,41 +100,49 @@ const TreeTile = (p: {
   naughty: boolean;
 }) => {
   return (
-    <tr class={p.naughty ? 'ltn-tree--naughty' : ''}>
-      <td>
+    <div
+      class={
+        'row ltn-tree__tile ' + (p.naughty ? 'ltn-tree__tile--naughty' : '')
+      }
+    >
+      <div class="col-md-1" style="text-align: right">
         <LtnPercent
           actual={p.thisProvide.actual}
           expected={p.thisProvide.expected}
         />
-      </td>
-      <td>
+      </div>
+      <div class="col-md-7">
         <BlockLink loc={p.loc} /> {data.doc[p.loc].tags.sort().join(', ')}
-      </td>
-      <td>
+      </div>
+      <div class="col-md-4">
         <Shortages requests={p.summ.requests} />
-      </td>
-    </tr>
+      </div>
+    </div>
   );
 };
 
+function getShortages(summ: { requests: Record<Colon, Measurement> }) {
+  return Object.entries(summ.requests)
+    .filter(([, meas]) => meas.actual / meas.expected < 0.5)
+    .sort(measurementZeroFirst);
+}
+
 const Shortages = (p: { requests: Record<Colon, Measurement> }) => {
-  const shortages = Object.entries(p.requests).filter(
-    ([, meas]) => meas.actual / meas.expected < 0.5,
-  );
+  const shortages = getShortages(p);
   if (0 === shortages.length) {
     return (
       <p>No apparent shortages ({Object.keys(p.requests).length} requests).</p>
     );
   }
   return (
-    <table style="width: 20em">
+    <table class="table table-borderless">
       <tbody>
-        {shortages.sort(measurementZeroFirst).map(([colon, meas]) => (
+        {shortages.map(([colon, meas]) => (
           <tr>
             <td style="text-align: right">
               <LtnPercent actual={meas.actual} expected={meas.expected} />
             </td>
-            <td>
+            <td style="width: 15em">
               <ColonJoined label={colon} />
             </td>
           </tr>

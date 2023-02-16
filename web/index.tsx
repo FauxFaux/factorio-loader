@@ -118,6 +118,6 @@ export function init(element: HTMLElement) {
   });
 }
 
-function precompute() {
+export function precompute() {
   computed.ltnSummary = precomputeLtnSummary();
 }

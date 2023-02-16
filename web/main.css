@@ -58,6 +58,18 @@
   text-align: right;
 }
 
-.ltn-tree--naughty {
+.ltn-tree__header h3 {
+  padding-top: 4em;
+  padding-bottom: 1em;
+  border-bottom: 1px solid white;
+}
+
+.ltn-tree__tile {
+  padding-bottom: 5px;
+  padding-top: 5px;
+  border-bottom: 1px solid white;
+}
+
+.ltn-tree__tile--naughty {
   background-color: #420000;
 }

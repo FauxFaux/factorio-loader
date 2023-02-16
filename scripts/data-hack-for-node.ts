@@ -1,5 +1,5 @@
 import { readFileSync } from 'fs';
-import { data } from '../web';
+import { data, precompute } from '../web';
 
 export function initOnNode(exclude: string[] = []) {
   for (const key of Object.keys(data)) {
@@ -10,4 +10,5 @@ export function initOnNode(exclude: string[] = []) {
       }),
     );
   }
+  precompute();
 }

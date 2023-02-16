@@ -115,6 +115,12 @@ export function colonMapCombinator(stop: Stop): Record<Colon, number> {
   );
 }
 
+export function splitColon(colon: Colon): [string, string] {
+  const splut = colon.split(':', 2);
+  if (splut.length === 2) return splut as [string, string];
+  throw new Error(`invalid colon ${colon}`);
+}
+
 export function fromColon(key: string): ['item', JItem] | ['fluid', JFluid] {
   if (key.startsWith('item:')) {
     return ['item', data.items[key.slice('item:'.length)]];
