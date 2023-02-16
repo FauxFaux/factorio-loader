@@ -2,7 +2,10 @@ import { Component, ComponentChild, createRef } from 'preact';
 import { data } from './index';
 import { ItemIcon } from './lists';
 import {
+  colonMapCombinator,
+  colonMapItems,
   ltnMinTransfer,
+  objToColon,
   settingsMap,
   Stat,
   stations,
@@ -117,8 +120,14 @@ export class RecipeInOut extends Component<{ name: string }> {
 export class ColonJoined extends Component<{ label: string }> {
   render(props: { label: string }) {
     const [type, name] = props.label.split(':', 2);
-    if (type === 'item' || type === 'fluid')
-      return <ItemOrFluid type={type} name={name} />;
+    if (type === 'item' || type === 'fluid') {
+      return (
+        <span>
+          <ItemIcon name={name} alt={name} />
+          <ItemOrFluid type={type} name={name} />
+        </span>
+      );
+    }
     return (
       <span>
         <i>{type}</i>: {name}
@@ -233,37 +242,25 @@ export class IoFDetail extends Component<{
 
     let storage;
     if (props.type === 'item') {
+      const colon = objToColon(props);
       const providers = stations().flatMap(([loc, stop]) => {
-        const record = stop.items.find(
-          ([type, name, value]) =>
-            value > 0 && type === props.type && name == props.name,
-        );
-        if (!record) {
+        const actualItemsAvailable = colonMapItems(stop)[colon];
+        if (!(actualItemsAvailable > 0)) {
           return [];
         }
 
-        // 2: value
-        const actualItemsAvailable = record[2];
         const settings = settingsMap(stop);
-        const min = ltnMinTransfer(data.items[props.name], settings);
+        const min = ltnMinTransfer(colon, settings);
         return [[[loc, stop], actualItemsAvailable, min] as const];
       });
       const requests = stations().flatMap(([loc, stop]) => {
-        const record = stop.combinator.find(
-          ([type, name, value]) =>
-            value < 0 && type === props.type && name == props.name,
-        );
-        if (!record) {
+        const wantedItems = colonMapCombinator(stop)[colon];
+        if (!(wantedItems < 0)) {
           return [];
         }
-        const computed = stop.items.find(
-          ([type, name, value]) =>
-            value < 0 && type === props.type && name == props.name,
-        );
+        const computed = colonMapItems(stop)[colon];
 
-        // 2: value
-        const wantedItems = record[2];
-        const actualMinusWanted = computed?.[2] ?? 0;
+        const actualMinusWanted = computed ?? 0;
         // want 100: wanted = -100
         // actualMinusWanted -80 means there's 20 real items
         // percentage satisfaction: 20/100 = 20%

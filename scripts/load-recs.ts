@@ -17,15 +17,25 @@ function distSq(a: Coord, b: Coord) {
   return dx * dx + dy * dy;
 }
 
+/** type, name, count
+ * e.g. "item", "empty-barrel", -9000
+ */
 type Signal = [string, string, number];
 
 export type Stop = {
+  /** the in-game, encoded name of the station */
   name: string;
+  /** signals on the 'settings' wire, typically ltn configuration like stack size */
   settings: Signal[];
+  /** signals on the 'items' wire, positive for provide, negative for *outstanding* requests */
   items: Signal[];
+  /** information *from the name* about what this station provides */
+  // type, name
   provides: [string, string][];
+  /** information from nearby combinators about what this station may be requesting */
   combinator: Signal[];
 };
+
 export type BlockContent = {
   tags: string[];
   asm: Record<string, number>;

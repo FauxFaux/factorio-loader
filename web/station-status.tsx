@@ -1,9 +1,9 @@
 import { Component } from 'preact';
 import { data } from './index';
 import { Stop } from '../scripts/load-recs';
-import { cleanupName, ItemIcon, RenderIcons } from './lists';
+import { cleanupName, RenderIcons } from './lists';
 import { singularize } from 'inflection';
-import { Item, JItem } from './objects';
+import { ColonJoined, JFluid, JItem } from './objects';
 
 function strIEq(a: string, b: string): boolean {
   return (
@@ -98,6 +98,43 @@ export function itemMap(stop: Stop): Record<string, number> {
   );
 }
 
+export type Colon = string;
+
+export function colonMapItems(stop: Stop): Record<Colon, number> {
+  return Object.fromEntries(
+    stop.items.map(
+      ([type, name, value]) => [tupleToColon([type, name]), value] as const,
+    ),
+  );
+}
+export function colonMapCombinator(stop: Stop): Record<Colon, number> {
+  return Object.fromEntries(
+    stop.combinator.map(
+      ([type, name, value]) => [tupleToColon([type, name]), value] as const,
+    ),
+  );
+}
+
+export function fromColon(key: string): ['item', JItem] | ['fluid', JFluid] {
+  if (key.startsWith('item:')) {
+    return ['item', data.items[key.slice('item:'.length)]];
+  }
+
+  if (key.startsWith('fluid:')) {
+    return ['fluid', data.fluids[key.slice('fluid:'.length)]];
+  }
+
+  throw new Error(`invalid colon'd name: "${key}"`);
+}
+
+export function tupleToColon([type, name]: [string, string]): Colon {
+  return `${type}:${name}`;
+}
+
+export function objToColon(p: { type: string; name: string }): Colon {
+  return `${p.type}:${p.name}`;
+}
+
 interface LtnSettings {
   'ltn-provider-stack-threshold'?: number;
   'ltn-provider-threshold'?: number;
@@ -113,9 +150,12 @@ export function settingsMap(stop: Stop): LtnSettings {
   );
 }
 
-export function ltnMinTransfer(item: JItem, settings: LtnSettings) {
+export function ltnMinTransfer(colon: Colon, settings: LtnSettings) {
+  const [type, item] = fromColon(colon);
   const expectedByStack =
-    item.stack_size * (settings['ltn-provider-stack-threshold'] ?? 10);
+    type === 'item'
+      ? item.stack_size * (settings['ltn-provider-stack-threshold'] ?? 10)
+      : 0;
   const expectedByCount = settings['ltn-provider-threshold'] ?? 1;
   return Math.max(expectedByStack, expectedByCount);
 }
@@ -155,15 +195,14 @@ export class StationStatus extends Component {
 
       const settings = settingsMap(stop);
 
-      const available = itemMap(stop);
+      const available = colonMapItems(stop);
 
       const health: Record<string, number> = {};
 
-      for (const [type, declared] of declaring) {
-        if (type !== 'item') continue;
-        const item = data.items[declared];
-        health[declared] =
-          (available[declared] ?? 0) / ltnMinTransfer(item, settings);
+      for (const tuple of declaring) {
+        const colon = tupleToColon(tuple);
+        health[colon] =
+          (available[colon] ?? 0) / ltnMinTransfer(colon, settings);
       }
 
       return { stop: [loc, stop], health, available, settings } as const;
@@ -198,7 +237,7 @@ export class StationStatus extends Component {
                     <table>
                       {Object.entries(health)
                         .sort(([, a], [, b]) => a - b)
-                        .map(([item, health]) => (
+                        .map(([colon, health]) => (
                           <tr>
                             <td>
                               {(health * 100).toLocaleString('en', {
@@ -207,10 +246,7 @@ export class StationStatus extends Component {
                               %
                             </td>
                             <td>
-                              <ItemIcon name={item} alt={item} />
-                            </td>
-                            <td>
-                              <Item name={item} />
+                              <ColonJoined label={colon} />
                             </td>
                           </tr>
                         ))}
