@@ -1,4 +1,4 @@
-import { Stat, StopLine } from './station-status';
+import { Stat, StopLine } from './pages/station-status';
 import { Component } from 'preact';
 import { Measurement } from './ltn-summary';
 

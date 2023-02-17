@@ -7,7 +7,7 @@ import {
   objToColon,
   settingsMap,
   stations,
-} from '../station-status';
+} from './station-status';
 import { humanise, LtnAvailability } from '../ltn-avail';
 import { ItemIcon } from '../lists';
 import { BlockLine, Item, RecipeInOut } from '../objects';

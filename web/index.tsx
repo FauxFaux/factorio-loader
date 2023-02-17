@@ -7,10 +7,11 @@ import type { BlockContent } from '../scripts/load-recs';
 
 import { IoFDetail } from './pages/objects';
 import { BigList, BlockPage } from './pages/big-list';
+import { StationStatus } from './pages/station-status';
+import { WhatTheBrick } from './pages/what-the-brick';
+
 import { JFluid, JItem, JRecipe } from './objects';
 import { StationList, ItemList } from './lists';
-import { WhatTheBrick } from './what-the-brick';
-import { StationStatus } from './station-status';
 import { LtnTree } from './ltn-tree';
 import { LtnSummary, precomputeLtnSummary } from './ltn-summary';
 

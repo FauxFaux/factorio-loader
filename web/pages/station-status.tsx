@@ -1,9 +1,10 @@
 import { Component } from 'preact';
-import { data } from './index';
-import { Stop } from '../scripts/load-recs';
-import { cleanupName, RenderIcons } from './lists';
 import { singularize } from 'inflection';
-import { ColonJoined, JFluid, JItem } from './objects';
+
+import { data } from '../index';
+import { Stop } from '../../scripts/load-recs';
+import { cleanupName, RenderIcons } from '../lists';
+import { ColonJoined, JFluid, JItem } from '../objects';
 
 function strIEq(a: string, b: string): boolean {
   return (

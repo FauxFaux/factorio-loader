@@ -1,4 +1,4 @@
-import { provideStationPurpose } from '../web/station-status';
+import { provideStationPurpose } from '../web/pages/station-status';
 import { initOnNode } from '../scripts/data-hack-for-node';
 
 initOnNode();

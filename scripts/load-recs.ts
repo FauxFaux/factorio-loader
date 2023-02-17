@@ -1,7 +1,7 @@
 #!/usr/bin/env -S npx babel-node -x .ts,.tsx
 import * as fs from 'fs';
 import { toBlock } from './magic';
-import { isProvideStation, provideStationPurpose } from '../web/station-status';
+import { isProvideStation, provideStationPurpose } from '../web/pages/station-status';
 import { initOnNode } from './data-hack-for-node';
 import { data } from '../web';
 

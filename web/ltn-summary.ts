@@ -7,7 +7,7 @@ import {
   ltnMinTransfer,
   settingsMap,
   tupleToColon,
-} from './station-status';
+} from './pages/station-status';
 import { BlockContent } from '../scripts/load-recs';
 
 export interface Measurement {
