@@ -4,8 +4,10 @@ import Router from 'preact-router';
 import { createHashHistory } from 'history';
 
 import type { BlockContent } from '../scripts/load-recs';
-import { IoFDetail, JFluid, JItem, JRecipe } from './objects';
-import { BigList, BlockPage } from './big-list';
+
+import { IoFDetail } from './pages/objects';
+import { BigList, BlockPage } from './pages/big-list';
+import { JFluid, JItem, JRecipe } from './objects';
 import { StationList, ItemList } from './lists';
 import { WhatTheBrick } from './what-the-brick';
 import { StationStatus } from './station-status';

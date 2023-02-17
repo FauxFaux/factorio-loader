@@ -1,9 +1,10 @@
 import { Component } from 'preact';
-import { Item, ItemOrFluid } from './objects';
-import { Assemblers, TrainStops } from './block-renderers';
-import { data } from './index';
-import { fromBlock } from '../scripts/magic';
-import { humanise } from './ltn-avail';
+
+import { Item, ItemOrFluid } from '../objects';
+import { Assemblers, TrainStops } from '../block-renderers';
+import { data } from '../index';
+import { fromBlock } from '../../scripts/magic';
+import { humanise } from '../ltn-avail';
 
 export class BigList extends Component {
   render() {

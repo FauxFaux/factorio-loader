@@ -1,7 +1,7 @@
 import { Component } from 'preact';
 import { data } from './index';
 import { compareWithoutIcons, RenderIcons } from './lists';
-import { BlockThumb } from './big-list';
+import { BlockThumb } from './pages/big-list';
 import { recipeDifference } from './block-renderers';
 import { ColonJoined } from './objects';
 
