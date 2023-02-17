@@ -1,8 +1,9 @@
 import { Component } from 'preact';
-import { ColonJoined, LtnPercent } from './objects';
+import { ColonJoined } from './objects';
 import { computed, data } from './index';
 import { BlockLink, Colon, objToColon, splitColon } from './station-status';
 import { LtnSummary, Measurement } from './ltn-summary';
+import { LtnPercent } from './ltn-avail';
 
 const nth = [
   'Primary',
