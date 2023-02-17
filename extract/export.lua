@@ -1,3 +1,8 @@
+function tlen(T)
+    local count = 0
+    for _ in pairs(T) do count = count + 1 end
+    return count
+end
 for _, ty in ipairs({
     "assembling-machine",
     "mining-drill",
@@ -87,3 +92,25 @@ for _, ty in ipairs({
     end
     game.write_file(ty .. ".rec", table.concat(t, "\035"))
 end
+local t = {}
+for name, v in pairs(game.player.force.technologies) do
+    if v.enabled then
+        local a = { name }
+        if v.researched then
+            a[#a + 1] = 1
+        else
+            a[#a + 1] = 0
+        end
+        a[#a + 1] = tlen(v.prerequisites)
+        for pre, _ in pairs(v.prerequisites) do
+            a[#a + 1] = pre
+        end
+        for _, eff in pairs(v.effects) do
+            if eff.type == "unlock-recipe" then
+                a[#a + 1] = eff.recipe
+            end
+        end
+        t[#t + 1] = table.concat(a, "\036")
+    end
+end
+game.write_file("technologies.rec", table.concat(t, "\035"))

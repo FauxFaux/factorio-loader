@@ -3,10 +3,11 @@ import * as fs from 'fs';
 import { toBlock } from './magic';
 import { isProvideStation, provideStationPurpose } from '../web/station-status';
 import { initOnNode } from './data-hack-for-node';
+import { data } from '../web';
 
 const base = process.argv[2];
 
-initOnNode(['doc']);
+initOnNode(['doc', 'technologies']);
 
 type Coord = readonly [number, number];
 type BlockId = Coord;
@@ -159,7 +160,28 @@ function main() {
     addItems(block, obj);
   }
 
-  console.log(JSON.stringify(byBlock));
+  const technologies: (typeof data)['technologies'] = {};
+  for (const tech of loadCells('technologies')) {
+    const [name, researchedS, preCntS, ...rest] = tech;
+    const researched = researchedS === '1';
+    const preCnt = parseInt(preCntS);
+    const requires = rest.slice(0, preCnt).sort();
+    const unlocks = rest.slice(preCnt).sort();
+    technologies[name] = {
+      researched,
+      requires,
+      unlocks,
+    };
+  }
+
+  fs.writeFileSync(
+    'data/technologies.json',
+    JSON.stringify(sortByKeys(technologies)),
+    { encoding: 'utf-8' },
+  );
+  fs.writeFileSync('data/doc.json', JSON.stringify(byBlock), {
+    encoding: 'utf-8',
+  });
 }
 
 function signals(arr: string[]): [string, string, number][] {
@@ -173,10 +195,7 @@ function signals(arr: string[]): [string, string, number][] {
 function load(kind: string) {
   const items: { block: BlockId; name: string; ext: string[]; pos: Coord }[] =
     [];
-  const content = fs.readFileSync(`${base}/${kind}.rec`, { encoding: 'utf-8' });
-  for (const line of content
-    .split('\x1d') // (\035)
-    .map((record) => record.split('\x1e'))) {
+  for (const line of loadCells(kind)) {
     // (\036)
     const [x, y, _dir, name, ...ext] = line;
     const pos = [parseFloat(x), parseFloat(y)] as const;
@@ -186,6 +205,22 @@ function load(kind: string) {
     items.push({ block, name, ext, pos });
   }
   return items;
+}
+
+function loadCells(kind: string): string[][] {
+  return loadLines(kind).map((record) => record.split('\x1e'));
+}
+
+function loadLines(kind: string): string[] {
+  return fs
+    .readFileSync(`${base}/${kind}.rec`, { encoding: 'utf-8' })
+    .split('\x1d'); // (\035)
+}
+
+function sortByKeys<T>(obj: Record<string, T>): Record<string, T> {
+  return Object.fromEntries(
+    Object.entries(obj).sort(([a], [b]) => a.localeCompare(b)),
+  );
 }
 
 main();

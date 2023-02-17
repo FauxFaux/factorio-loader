@@ -18,6 +18,14 @@ export const data = {
   icons: {} as Record<string, string>,
   fluids: {} as Record<string, JFluid>,
   recipes: {} as Record<string, JRecipe>,
+  technologies: {} as Record<
+    string,
+    {
+      researched: boolean;
+      requires: string[];
+      unlocks: string[];
+    }
+  >,
 } as const;
 
 export const computed = {
