@@ -1,9 +1,10 @@
 import { Component } from 'preact';
 import { ColonJoined } from './objects';
 import { computed, data } from './index';
-import { BlockLink, Colon, objToColon, splitColon } from './pages/station-status';
+import { BlockLink } from './pages/station-status';
 import { LtnSummary, Measurement } from './ltn-summary';
 import { LtnPercent } from './ltn-avail';
+import { Colon, objToColon, splitColon } from './muffler/colon';
 
 const nth = [
   'Primary',

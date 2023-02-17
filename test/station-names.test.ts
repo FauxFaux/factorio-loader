@@ -1,4 +1,4 @@
-import { provideStationPurpose } from '../web/pages/station-status';
+import { provideStationPurpose } from '../web/muffler/stations';
 import { initOnNode } from '../scripts/data-hack-for-node';
 
 initOnNode();

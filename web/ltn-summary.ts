@@ -1,14 +1,12 @@
 import { data } from '.';
 import {
-  Colon,
   colonMapCombinator,
   colonMapItems,
-  isRegular,
   ltnMinTransfer,
   settingsMap,
-  tupleToColon,
-} from './pages/station-status';
+} from './muffler/stations';
 import { BlockContent } from '../scripts/load-recs';
+import { Colon, isRegular, tupleToColon } from './muffler/colon';
 
 export interface Measurement {
   actual: number;

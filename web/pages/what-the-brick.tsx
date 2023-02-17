@@ -1,10 +1,11 @@
 import { Component } from 'preact';
 
 import { data } from '../index';
-import { compareWithoutIcons, RenderIcons } from '../lists';
+import { RenderIcons } from '../lists';
 import { BlockThumb } from './big-list';
 import { recipeDifference } from '../block-renderers';
 import { ColonJoined } from '../objects';
+import { compareWithoutIcons } from '../muffler/names';
 
 export class WhatTheBrick extends Component {
   render() {

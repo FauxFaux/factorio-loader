@@ -2,6 +2,7 @@ import { Component, ComponentChild } from 'preact';
 import { data } from './index';
 import { Stop } from '../scripts/load-recs';
 import { Item } from './objects';
+import { compareWithoutIcons } from './muffler/names';
 
 function smatch(name: string, props: { search?: string }) {
   // TODO: proper string comparison
@@ -114,18 +115,6 @@ export class RenderIcons extends Component<{ text: string }> {
     parts.push(text.slice(prev));
     return <>{parts}</>;
   }
-}
-
-export function cleanupName(name: string) {
-  const stripIcons = /\[[a-z0-9-]+=[a-z0-9-]+]/g;
-  const normaliseSpace = /\s+/g;
-  return name.replace(stripIcons, ' ').replace(normaliseSpace, ' ').trim();
-}
-
-export function compareWithoutIcons(a: string, b: string) {
-  return cleanupName(a).localeCompare(cleanupName(b), 'en', {
-    sensitivity: 'base',
-  });
 }
 
 export class ItemList extends Component<

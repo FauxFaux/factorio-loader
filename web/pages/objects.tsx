@@ -1,16 +1,17 @@
 import { Component } from 'preact';
 import { data } from '../index';
+import { LtnAvailability } from '../ltn-avail';
+import { ItemIcon } from '../lists';
+import { BlockLine, Item, RecipeInOut } from '../objects';
+import { objToColon } from '../muffler/colon';
 import {
   colonMapCombinator,
   colonMapItems,
   ltnMinTransfer,
-  objToColon,
   settingsMap,
   stations,
-} from './station-status';
-import { humanise, LtnAvailability } from '../ltn-avail';
-import { ItemIcon } from '../lists';
-import { BlockLine, Item, RecipeInOut } from '../objects';
+} from '../muffler/stations';
+import { humanise } from '../muffler/human';
 
 export class IoFDetail extends Component<{
   name: string;
