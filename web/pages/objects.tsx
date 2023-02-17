@@ -29,30 +29,46 @@ export class IoFDetail extends Component<{
     const colon = objToColon(props);
 
     return (
-      <div class="container-fluid">
-        <h2>
-          <ItemIcon name={props.name} alt={props.name} /> {obj.localised_name}
-        </h2>
-        <p>
-          type: <span className="font-monospace">{props.type}</span>;
-          internal-name:<span class="font-monospace">{props.name}</span>; group:
-          <span class="font-monospace">{obj.group?.name}</span>; subgroup:
-          <span class="font-monospace">{obj.subgroup?.name}</span>.
-        </p>
-        <p>
-          <a href={`/ltn-tree/${props.type}/${props.name}`}>
-            Debug availability
-          </a>
-        </p>
-        <h3>LTN availability:</h3>
-        <LtnProvides colon={colon} />
-        <h3>LTN requests:</h3>
-        <LtnRequests colon={colon} />
-        <h3>Storage:</h3>
-        <Storage type={props.type} name={props.name} />
-        <h3>Ways to make:</h3>
-        <RecipeUsage type={props.type} name={props.name} />
-      </div>
+      <>
+        <div class="row">
+          <h2>
+            <ItemIcon name={props.name} alt={props.name} /> {obj.localised_name}
+          </h2>
+          <p>
+            type: <span className="font-monospace">{props.type}</span>;
+            stack-size:
+            <span className="font-monospace">
+              {props.type === 'item'
+                ? data.items[props.name].stack_size
+                : 'fluid'}
+            </span>
+            ; internal-name:<span class="font-monospace">{props.name}</span>;
+            group:
+            <span class="font-monospace">{obj.group?.name}</span>; subgroup:
+            <span class="font-monospace">{obj.subgroup?.name}</span>.
+          </p>
+        </div>
+        <div class="row">
+          <div className="col">
+            <h3>
+              LTN availability (
+              <a href={`/ltn-tree/${props.type}/${props.name}`}>debug</a>):
+            </h3>
+            <LtnProvides colon={colon} />
+            <h3>LTN requests:</h3>
+            <LtnRequests colon={colon} />
+          </div>
+          <div className="col">
+            <h3>Storage:</h3>
+            <Storage type={props.type} name={props.name} />
+          </div>
+        </div>
+
+        <div className="row">
+          <h3>Ways to make:</h3>
+          <RecipeUsage type={props.type} name={props.name} />
+        </div>
+      </>
     );
   }
 }
@@ -151,6 +167,8 @@ class RecipeUsage extends Component<{ type: string; name: string }> {
         ),
     );
 
+    const inUse = new Set(recipes.map(([name]) => name));
+
     const dataByRecipe: Record<
       string,
       { asms: Record<string, number>; blocks: Set<string> }
@@ -158,8 +176,7 @@ class RecipeUsage extends Component<{ type: string; name: string }> {
     for (const [block, { asm }] of Object.entries(data.doc)) {
       for (const [label, count] of Object.entries(asm)) {
         const [machine, recipe] = label.split('\0');
-        // TODO: comically inefficient
-        if (!recipes.map(([name]) => name).includes(recipe)) continue;
+        if (!inUse.has(recipe)) continue;
         if (!dataByRecipe[recipe])
           dataByRecipe[recipe] = { asms: {}, blocks: new Set() };
         const d = dataByRecipe[recipe];
