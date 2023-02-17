@@ -2,7 +2,7 @@ import { Component } from 'preact';
 import { data } from '../index';
 import { LtnAvailability } from '../ltn-avail';
 import { ItemIcon } from '../lists';
-import { BlockLine, Item, RecipeInOut } from '../objects';
+import { BlockLine, Item, ItemOrFluid } from '../objects';
 import { objToColon } from '../muffler/colon';
 import {
   colonMapCombinator,
@@ -65,7 +65,7 @@ export class IoFDetail extends Component<{
         </div>
 
         <div className="row">
-          <h3>Ways to make:</h3>
+          <h3>Recipes in use in factory, most assemblers first:</h3>
           <RecipeUsage type={props.type} name={props.name} />
         </div>
       </>
@@ -193,17 +193,20 @@ class RecipeUsage extends Component<{ type: string; name: string }> {
       );
     }
 
-    return recipes
+    const rows = recipes
+      .filter(([a]) => totalAssemblersMaking(a) > 0)
       .sort(([a], [b]) => a.localeCompare(b))
       .sort(([a], [b]) => totalAssemblersMaking(b) - totalAssemblersMaking(a))
       .map(([name, recipe]) => {
         const counts = dataByRecipe[name];
 
-        let inUse;
-        if (counts) {
-          inUse = (
-            <p>
-              Factory is using this recipe in:
+        return (
+          <tr>
+            <td>
+              {recipe.localised_name} (
+              <span class="font-monospace">{name}</span>)
+            </td>
+            <td>
               <ul>
                 {Object.entries(counts.asms).map(([machine, count]) => (
                   <li>
@@ -211,7 +214,8 @@ class RecipeUsage extends Component<{ type: string; name: string }> {
                   </li>
                 ))}
               </ul>
-              In these blocks:
+            </td>
+            <td>
               <ul>
                 {[...counts.blocks].map((block) => (
                   <li>
@@ -219,22 +223,49 @@ class RecipeUsage extends Component<{ type: string; name: string }> {
                   </li>
                 ))}
               </ul>
-            </p>
-          );
-        } else {
-          inUse = 'Factory does not use this recipe';
-        }
-
-        return (
-          <p>
-            <h5>
-              {recipe.localised_name} (
-              <span class="font-monospace">{name}</span>)
-            </h5>
-            <p>{inUse}</p>
-            <RecipeInOut name={name} />
-          </p>
+            </td>
+            <td>
+              <ul>
+                {recipe.ingredients?.map((ing) => (
+                  <li>
+                    {ing.amount} *{' '}
+                    <ItemOrFluid type={ing.type} name={ing.name} />
+                  </li>
+                ))}
+              </ul>
+            </td>
+            <td>
+              <ul>
+                {recipe.products?.map((prod) => {
+                  let statSuffix = '';
+                  if (prod.probability && prod.probability !== 1) {
+                    statSuffix = ` @ ${prod.probability * 100}%`;
+                  }
+                  return (
+                    <li>
+                      {prod.amount} *{' '}
+                      <ItemOrFluid type={prod.type} name={prod.name} />
+                      {statSuffix}
+                    </li>
+                  );
+                })}
+              </ul>
+            </td>
+          </tr>
         );
       });
+
+    return (
+      <table class="table">
+        <thead>
+          <th>Recipe name</th>
+          <th>Assemblers making</th>
+          <th>Bricks</th>
+          <th>Inputs</th>
+          <th>Outputs</th>
+        </thead>
+        <tbody>{rows}</tbody>
+      </table>
+    );
   }
 }
