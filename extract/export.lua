@@ -11,6 +11,7 @@ for _, ty in ipairs({
     "lab",
     "container",
     "logistic-container",
+    "storage-tank",
     "train-stop",
     "roboport",
     "radar",
@@ -73,6 +74,15 @@ for _, ty in ipairs({
             local oi = v.get_output_inventory()
             if oi ~= nil then
                 for item, count in pairs(oi.get_contents()) do
+                    a[#a + 1] = item
+                    a[#a + 1] = count
+                end
+            end
+        end
+        if ty == "storage-tank" then
+            local oi = v.get_fluid_contents()
+            if oi ~= nil then
+                for item, count in pairs(oi) do
                     a[#a + 1] = item
                     a[#a + 1] = count
                 end

@@ -241,82 +241,78 @@ export class IoFDetail extends Component<{
       );
     }
 
-    let storage;
-    if (props.type === 'item') {
-      const colon = objToColon(props);
-      const providers = stations().flatMap(([loc, stop]) => {
-        const actualItemsAvailable = colonMapItems(stop)[colon];
-        if (!(actualItemsAvailable > 0)) {
-          return [];
-        }
+    const colon = objToColon(props);
+    const providers = stations().flatMap(([loc, stop]) => {
+      const actualItemsAvailable = colonMapItems(stop)[colon];
+      if (!(actualItemsAvailable > 0)) {
+        return [];
+      }
 
-        const settings = settingsMap(stop);
-        const min = ltnMinTransfer(colon, settings);
-        return [[[loc, stop], actualItemsAvailable, min] as const];
-      });
-      const requests = stations().flatMap(([loc, stop]) => {
-        const wantedItems = colonMapCombinator(stop)[colon];
-        if (!(wantedItems < 0)) {
-          return [];
-        }
-        const computed = colonMapItems(stop)[colon];
+      const settings = settingsMap(stop);
+      const min = ltnMinTransfer(colon, settings);
+      return [[[loc, stop], actualItemsAvailable, min] as const];
+    });
+    const requests = stations().flatMap(([loc, stop]) => {
+      const wantedItems = colonMapCombinator(stop)[colon];
+      if (!(wantedItems < 0)) {
+        return [];
+      }
+      const computed = colonMapItems(stop)[colon];
 
-        const actualMinusWanted = computed ?? 0;
-        // want 100: wanted = -100
-        // actualMinusWanted -80 means there's 20 real items
-        // percentage satisfaction: 20/100 = 20%
-        return [
-          [[loc, stop], actualMinusWanted - wantedItems, -wantedItems] as const,
-        ];
-      });
-      storage = (
-        <p>
-          <h3>LTN availability:</h3>
-          <table className="ltn-avail">
-            {providers
-              .sort(
-                ([, avalue, amin], [, bvalue, bmin]) =>
-                  bvalue / bmin - avalue / amin,
-              )
-              .map(([stop, value, min]) => (
-                <LtnAvailability stop={stop} avail={value} min={min} />
-              ))}
-          </table>
-          <h3>LTN requests:</h3>
-          <table className="ltn-avail">
-            {requests
-              .sort(
-                ([, avalue, awanted], [, bvalue, bwanted]) =>
-                  avalue / awanted - bvalue / bwanted,
-              )
-              .map(([stop, value, wanted]) => (
-                <LtnAvailability
-                  stop={stop}
-                  avail={value}
-                  min={wanted}
-                  decimate={true}
-                />
-              ))}
-          </table>
-          <h3>Storage:</h3>
-          <ul>
-            {Object.entries(data.doc)
-              .map(([no, brick]) => [no, brick.items[props.name]] as const)
-              .filter(([, count]) => count > 0)
-              .sort(([, a], [, b]) => b - a)
-              .map(([no, count]) => (
-                <li>
-                  {humanise(count)} in <BlockLine block={no} />
-                </li>
-              ))}
-          </ul>
-        </p>
-      );
-    } else {
-      storage = (
-        <p>Storage info is only available for items (including barrels).</p>
-      );
-    }
+      const actualMinusWanted = computed ?? 0;
+      // want 100: wanted = -100
+      // actualMinusWanted -80 means there's 20 real items
+      // percentage satisfaction: 20/100 = 20%
+      return [
+        [[loc, stop], actualMinusWanted - wantedItems, -wantedItems] as const,
+      ];
+    });
+    const storage = (
+      <p>
+        <h3>LTN availability:</h3>
+        <table className="ltn-avail">
+          {providers
+            .sort(
+              ([, avalue, amin], [, bvalue, bmin]) =>
+                bvalue / bmin - avalue / amin,
+            )
+            .map(([stop, value, min]) => (
+              <LtnAvailability stop={stop} avail={value} min={min} />
+            ))}
+        </table>
+        <h3>LTN requests:</h3>
+        <table className="ltn-avail">
+          {requests
+            .sort(
+              ([, avalue, awanted], [, bvalue, bwanted]) =>
+                avalue / awanted - bvalue / bwanted,
+            )
+            .map(([stop, value, wanted]) => (
+              <LtnAvailability
+                stop={stop}
+                avail={value}
+                min={wanted}
+                decimate={true}
+              />
+            ))}
+        </table>
+        <h3>Storage:</h3>
+        <ul>
+          {Object.entries(data.doc)
+            .map(
+              ([no, brick]) =>
+                [no, brick[`${props.type}s`][props.name]] as const,
+            )
+            .filter(([, count]) => count > 0)
+            .sort(([, a], [, b]) => b - a)
+            .map(([no, count]) => (
+              <li>
+                {humanise(count)} in <BlockLine block={no} />
+              </li>
+            ))}
+        </ul>
+      </p>
+    );
 
     return (
       <div class="container-fluid">

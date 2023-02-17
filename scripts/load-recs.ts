@@ -42,6 +42,7 @@ export type BlockContent = {
   asm: Record<string, number>;
   stop: Stop[];
   items: Record<string, number>;
+  fluids: Record<string, number>;
   boilers: number;
 };
 
@@ -55,6 +56,7 @@ function main() {
         asm: {},
         stop: [],
         items: {},
+        fluids: {},
         boilers: 0,
       };
     }
@@ -141,23 +143,28 @@ function main() {
     });
   }
 
-  function addItems(block: BlockContent, obj: { ext: string[] }) {
+  function addItems(items: Record<string, number>, obj: { ext: string[] }) {
     for (let i = 0; i < obj.ext.length; i += 2) {
       const itemName = obj.ext[i];
       const itemCount = parseInt(obj.ext[i + 1]);
-      if (!block.items[itemName]) block.items[itemName] = 0;
-      block.items[itemName] += itemCount;
+      if (!items[itemName]) items[itemName] = 0;
+      items[itemName] += itemCount;
     }
   }
 
   for (const obj of load('container')) {
     const block = getBlock(obj.block);
-    addItems(block, obj);
+    addItems(block.items, obj);
   }
 
   for (const obj of load('logistic-container')) {
     const block = getBlock(obj.block);
-    addItems(block, obj);
+    addItems(block.items, obj);
+  }
+
+  for (const obj of load('storage-tank')) {
+    const block = getBlock(obj.block);
+    addItems(block.fluids, obj);
   }
 
   const technologies: (typeof data)['technologies'] = {};
