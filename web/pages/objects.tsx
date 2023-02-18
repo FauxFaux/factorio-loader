@@ -162,9 +162,13 @@ class RecipeUsage extends Component<{ type: string; name: string }> {
     const recipes = Object.entries(data.recipes).filter(
       ([, recipe]) =>
         undefined !==
-        recipe.products.find(
-          (prod) => prod.type === props.type && prod.name === props.name,
-        ),
+          recipe.products.find(
+            (prod) => prod.type === props.type && prod.name === props.name,
+          ) ||
+        undefined !==
+          recipe.ingredients?.find(
+            (ing) => ing.type === props.type && ing.name === props.name,
+          ),
     );
 
     const inUse = new Set(recipes.map(([name]) => name));
