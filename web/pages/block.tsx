@@ -1,6 +1,6 @@
 import { Component } from 'preact';
 
-import { ColonJoined, Item } from '../objects';
+import { ColonJoined, Item, TagList } from '../objects';
 import { Assemblers, recipeDifference, TrainStops } from '../block-renderers';
 import { data } from '../index';
 import { fromBlock } from '../../scripts/magic';
@@ -60,7 +60,7 @@ export class BlockPage extends Component<{ loc: string }> {
       <>
         <div class="row">
           <h2>
-            {loc} ({obj.tags.sort().join(', ')})
+            {loc} (<TagList tags={obj.tags} />)
           </h2>
         </div>
         <div class="row">

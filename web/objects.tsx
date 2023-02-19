@@ -1,6 +1,6 @@
 import { Component, ComponentChild, createRef } from 'preact';
 import { data } from './index';
-import { ItemIcon } from './lists';
+import { ItemIcon, RenderIcons } from './lists';
 
 export interface JItem {
   group: { name: string };
@@ -189,7 +189,22 @@ export class BlockLine extends Component<{ block: string }> {
     return (
       <span>
         <a href={'/block/' + props.block}>{props.block}</a> (
-        {data.doc[props.block].tags.sort().join(', ')})
+        <TagList tags={data.doc[props.block].tags} />)
+      </span>
+    );
+  }
+}
+
+export class TagList extends Component<{ tags: string[] }> {
+  render(props: { tags: string[] }) {
+    return (
+      <span>
+        {props.tags.sort().map((tag, i) => (
+          <>
+            <RenderIcons text={tag} />
+            {i !== props.tags.length - 1 ? ', ' : ''}
+          </>
+        ))}
       </span>
     );
   }

@@ -1,7 +1,6 @@
 import { Component } from 'preact';
-import { ColonJoined } from './objects';
-import { computed, data } from './index';
-import { BlockLink } from './pages/station-status';
+import { BlockLine, ColonJoined } from './objects';
+import { computed } from './index';
 import { LtnSummary, Measurement } from './ltn-summary';
 import { LtnPercent } from './ltn-avail';
 import { Colon, objToColon, splitColon } from './muffler/colon';
@@ -130,7 +129,7 @@ const TreeTile = (p: {
         />
       </div>
       <div class="col-md-7">
-        <BlockLink loc={p.loc} /> {data.doc[p.loc].tags.sort().join(', ')}
+        <BlockLine block={p.loc} />
       </div>
       <div class="col-md-4">
         <Shortages requests={p.summ.requests} />
