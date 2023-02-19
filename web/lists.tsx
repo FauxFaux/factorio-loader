@@ -1,7 +1,7 @@
 import { Component, ComponentChild } from 'preact';
 import { data } from './index';
 import { Stop } from '../scripts/load-recs';
-import { Item, ItemOrFluid } from './objects';
+import { ItemOrFluid } from './objects';
 import { compareWithoutIcons } from './muffler/names';
 import { Colon, objToColon, tupleToColon } from './muffler/colon';
 

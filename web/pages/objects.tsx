@@ -1,8 +1,8 @@
 import { Component } from 'preact';
-import { data } from '../index';
+import { computed, data } from '../index';
 import { LtnAvailability } from '../ltn-avail';
 import { ItemIcon } from '../lists';
-import { BlockLine, Item, ItemOrFluid } from '../objects';
+import { BlockLine, Fluid, Item, ItemOrFluid } from '../objects';
 import { objToColon } from '../muffler/colon';
 import {
   colonMapCombinator,
@@ -29,6 +29,11 @@ export class IoFDetail extends Component<{
     const colon = objToColon(props);
     const stats = data.prodStats[colon];
 
+    const barrelled =
+      props.type === 'fluid' ? computed.fluidBarrel[props.name] : undefined;
+    const unBarrelled =
+      props.type === 'item' ? computed.barrelFluid[props.name] : undefined;
+
     return (
       <>
         <div class="row">
@@ -49,6 +54,28 @@ export class IoFDetail extends Component<{
             <span class="font-monospace">{obj.subgroup?.name}</span>.
           </p>
         </div>
+        {barrelled ? (
+          <div class="row">
+            <p>
+              <span className="font-monospace">barrelled-form:</span>
+              <ItemIcon name={barrelled} alt={barrelled} />{' '}
+              <Item name={barrelled} />
+            </p>
+          </div>
+        ) : (
+          <></>
+        )}
+        {unBarrelled ? (
+          <div class="row">
+            <p>
+              <span className="font-monospace">fluid-form:</span>
+              <ItemIcon name={unBarrelled} alt={unBarrelled} />{' '}
+              <Fluid name={unBarrelled} />
+            </p>
+          </div>
+        ) : (
+          <></>
+        )}
         <div class="row">
           <div className="col">
             <h3>
@@ -62,7 +89,16 @@ export class IoFDetail extends Component<{
           <div className="col">
             <h3>Storage:</h3>
             <Storage type={props.type} name={props.name} />
-            <h3>Production stats</h3>
+            <h3>
+              Production stats{' '}
+              {unBarrelled ? (
+                <>
+                  (see <Fluid name={unBarrelled} />)
+                </>
+              ) : (
+                ''
+              )}
+            </h3>
             <table class="table prod-stats">
               <thead>
                 <tr>
@@ -70,6 +106,7 @@ export class IoFDetail extends Component<{
                   <th>Production</th>
                   <th>Consumption</th>
                 </tr>
+                3
               </thead>
               <tbody>
                 <tr>
