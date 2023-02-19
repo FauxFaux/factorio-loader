@@ -2,7 +2,7 @@ import { Component } from 'preact';
 
 import { data } from '../index';
 import { RenderIcons } from '../lists';
-import { BlockThumb } from './big-list';
+import { BlockThumb } from './block';
 import { recipeDifference } from '../block-renderers';
 import { ColonJoined } from '../objects';
 import { compareWithoutIcons } from '../muffler/names';

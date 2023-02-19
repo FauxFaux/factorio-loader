@@ -6,7 +6,7 @@ import { createHashHistory } from 'history';
 import type { BlockContent } from '../scripts/load-recs';
 
 import { IoFDetail } from './pages/objects';
-import { BlockPage } from './pages/big-list';
+import { BlockPage } from './pages/block';
 import { StationStatus } from './pages/station-status';
 import { WhatTheBrick } from './pages/what-the-brick';
 

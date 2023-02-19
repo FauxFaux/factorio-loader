@@ -1,6 +1,6 @@
 import { Component } from 'preact';
 import { BlockContent } from '../scripts/load-recs';
-import { ColonJoined, Item, ItemOrFluid, Recipe } from './objects';
+import { Item, ItemOrFluid, Recipe } from './objects';
 import { RenderIcons } from './lists';
 import { data } from './index';
 
@@ -34,8 +34,6 @@ export function recipeDifference(brick: BlockContent) {
 
 export class Assemblers extends Component<{ brick: BlockContent }> {
   render(props: { brick: BlockContent }) {
-    const { wanted, exports } = recipeDifference(props.brick);
-
     const sorted = Object.entries(props.brick.asm).sort(
       ([, a], [, b]) => b - a,
     );
@@ -51,22 +49,6 @@ export class Assemblers extends Component<{ brick: BlockContent }> {
               </li>
             );
           })}
-        </ul>
-        Consumes, but does not produce:
-        <ul>
-          {wanted.map((x) => (
-            <li>
-              <ColonJoined label={x} />
-            </li>
-          ))}
-        </ul>
-        Produces, but does not consume:
-        <ul>
-          {exports.map((x) => (
-            <li>
-              <ColonJoined label={x} />
-            </li>
-          ))}
         </ul>
       </>
     );

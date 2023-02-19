@@ -1,7 +1,7 @@
 import { Component } from 'preact';
 
-import { Item } from '../objects';
-import { Assemblers, TrainStops } from '../block-renderers';
+import { ColonJoined, Item } from '../objects';
+import { Assemblers, recipeDifference, TrainStops } from '../block-renderers';
 import { data } from '../index';
 import { fromBlock } from '../../scripts/magic';
 import { humanise } from '../muffler/human';
@@ -37,25 +37,6 @@ export class BlockPage extends Component<{ loc: string }> {
     const obj = data.doc[loc];
     const list = [];
     list.push(<BlockThumb loc={loc} />);
-    if (obj.tags.length) {
-      list.push(<li>Tags: {obj.tags.sort().join(', ')}</li>);
-    }
-    if (Object.keys(obj.asm).length) {
-      list.push(
-        <li>
-          Assemblers: <Assemblers brick={obj} />
-        </li>,
-      );
-    }
-
-    if (obj.stop.length) {
-      list.push(
-        <li>
-          Train stops: <TrainStops stop={obj.stop} />
-        </li>,
-      );
-    }
-
     if (Object.keys(obj.items).length !== 0) {
       list.push(
         <li>
@@ -73,11 +54,57 @@ export class BlockPage extends Component<{ loc: string }> {
       );
     }
 
+    const { wanted, exports } = recipeDifference(obj);
+
     return (
-      <p>
-        <h2>{loc}</h2>
-        {list}
-      </p>
+      <>
+        <div class="row">
+          <h2>
+            {loc} ({obj.tags.sort().join(', ')})
+          </h2>
+        </div>
+        <div class="row">
+          <div class="col">
+            <BlockThumb loc={loc} />
+            <h3>Train stops</h3>
+            <TrainStops stop={obj.stop} />
+          </div>
+          <div class="col">
+            <h3 title="..but does not consume">Produces</h3>
+            <ul>
+              {exports.map((x) => (
+                <li>
+                  <ColonJoined label={x} />
+                </li>
+              ))}
+            </ul>
+            <h3 title="..but does not produce">Consumes</h3>
+            <ul>
+              {wanted.map((x) => (
+                <li>
+                  <ColonJoined label={x} />
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div class="col">
+            <h3>Storing</h3>
+            <ul>
+              {Object.entries(obj.items)
+                .sort(([, a], [, b]) => b - a)
+                .map(([name, count]) => (
+                  <li>
+                    {humanise(count)} * <Item name={name} />
+                  </li>
+                ))}
+            </ul>
+          </div>
+        </div>
+        <div class="row">
+          <h3>Assemblers</h3>
+          <Assemblers brick={obj} />
+        </div>
+      </>
     );
   }
 }
