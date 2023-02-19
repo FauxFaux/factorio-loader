@@ -2,6 +2,7 @@
 
 import { data } from '../web';
 import { initOnNode } from './data-hack-for-node';
+import { tupleToColon } from '../web/muffler/colon';
 
 initOnNode();
 
@@ -10,8 +11,8 @@ function main() {
   const included = new Set<string>();
   for (const [, obj] of Object.entries(data.doc)) {
     for (const stop of obj.stop) {
-      for (const [type, item] of stop.provides) {
-        included.add(`${type}:${item}`);
+      for (const provides of stop.provides) {
+        included.add(tupleToColon(provides));
       }
     }
   }
@@ -26,7 +27,7 @@ function main() {
       for (const [type, item, value] of stop.combinator) {
         if (item === 'empty-barrel') continue;
         if (type !== 'virtual' && value < 0) {
-          const key = `${type}:${item}`;
+          const key = tupleToColon([type, item]);
           if (included.has(key)) {
             console.log(`  "${key}" -> "${block}"`);
           }

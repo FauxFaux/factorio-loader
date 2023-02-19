@@ -1,8 +1,9 @@
 import { Component, ComponentChild } from 'preact';
 import { data } from './index';
 import { Stop } from '../scripts/load-recs';
-import { Item } from './objects';
+import { Item, ItemOrFluid } from './objects';
 import { compareWithoutIcons } from './muffler/names';
+import { Colon, objToColon, tupleToColon } from './muffler/colon';
 
 function smatch(name: string, props: { search?: string }) {
   // TODO: proper string comparison
@@ -121,7 +122,7 @@ export class ItemList extends Component<
   { limit?: number },
   { search?: string }
 > {
-  itemMeta: Record<string, { factories: number }> = {};
+  itemAsms: Record<Colon, number> = {};
 
   constructor() {
     super();
@@ -129,12 +130,9 @@ export class ItemList extends Component<
       for (const [label, count] of Object.entries(block.asm)) {
         const [, recipe] = label.split('\0');
         for (const product of data.recipes[recipe]?.products ?? []) {
-          if (product.type !== 'item') {
-            continue;
-          }
-          if (!this.itemMeta[product.name])
-            this.itemMeta[product.name] = { factories: 0 };
-          this.itemMeta[product.name].factories += count;
+          const colon = objToColon(product);
+          if (!this.itemAsms[colon]) this.itemAsms[colon] = 0;
+          this.itemAsms[colon] += count;
         }
       }
     }
@@ -149,7 +147,10 @@ export class ItemList extends Component<
     state: { limit?: number },
     props: { search?: string },
   ): ComponentChild {
-    const found = Object.entries(data.items)
+    const found = [
+      ...Object.entries(data.items).map(([n, i]) => [n, i, 'item'] as const),
+      ...Object.entries(data.fluids).map(([n, i]) => [n, i, 'fluid'] as const),
+    ]
       .filter(([name, item]) => {
         // TODO: search other attributes?
         return smatch(name, props) || smatch(item.localised_name, props);
@@ -164,20 +165,20 @@ export class ItemList extends Component<
             type="text"
             onInput={this.onInput}
             class="form-control"
-            placeholder="Search items (i.e. not fluids) ..."
+            placeholder="Search items and fluids..."
           ></input>
         </p>
         <table>
-          {found.slice(0, state.limit ?? Infinity).map(([name, item]) => (
+          {found.slice(0, state.limit ?? Infinity).map(([name, item, type]) => (
             <tr class="item-list">
               <td title="being made in x factories">
-                {this.itemMeta[name]?.factories}
+                {this.itemAsms[tupleToColon([type, name])]}
               </td>
               <td>
                 <ItemIcon name={name} alt={name} />
               </td>
               <td>
-                <Item name={name} />
+                <ItemOrFluid type={type} name={name} />
               </td>
             </tr>
           ))}

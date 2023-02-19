@@ -7,6 +7,7 @@ import {
   isProvideStation,
   provideStationPurpose,
 } from '../web/muffler/stations';
+import { tupleToColon } from '../web/muffler/colon';
 
 const base = process.argv[2];
 
@@ -195,7 +196,7 @@ function main() {
     for (const direction of ['input', 'output'] as const) {
       for (const line of loadCells(`${type}-${direction}`)) {
         const [name, totalS, ...extS] = line;
-        const colon = `${type}:${name}`;
+        const colon = tupleToColon([type, name]);
         if (!prodStats[colon]) prodStats[colon] = {};
         const total = parseInt(totalS);
         const perTime = extS.map((v) => parseFloat(v));
