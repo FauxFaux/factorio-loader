@@ -14,6 +14,7 @@ import { JFluid, JItem, JRecipe } from './objects';
 import { StationList, ItemList } from './lists';
 import { LtnTree } from './ltn-tree';
 import { LtnSummary, precomputeLtnSummary } from './ltn-summary';
+import { Colon } from './muffler/colon';
 
 export const data = {
   doc: {} as Record<string, BlockContent>,
@@ -21,7 +22,7 @@ export const data = {
   icons: {} as Record<string, string>,
   fluids: {} as Record<string, JFluid>,
   recipes: {} as Record<string, JRecipe>,
-  itemStats: {} as Record<string, { input?: FlowStats; output?: FlowStats }>,
+  prodStats: {} as Record<Colon, { input?: FlowStats; output?: FlowStats }>,
   technologies: {} as Record<
     string,
     {

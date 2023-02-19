@@ -10,7 +10,7 @@ import {
 
 const base = process.argv[2];
 
-initOnNode(['doc', 'technologies', 'itemStats']);
+initOnNode(['doc', 'technologies', 'prodStats']);
 
 type Coord = readonly [number, number];
 type BlockId = Coord;
@@ -190,24 +190,22 @@ function main() {
     { encoding: 'utf-8' },
   );
 
-  const itemStats: (typeof data)['itemStats'] = {};
-  for (const line of loadCells('item-input')) {
-    const [name, totalS, ...extS] = line;
-    if (!itemStats[name]) itemStats[name] = {};
-    const total = parseInt(totalS);
-    const perTime = extS.map((v) => parseFloat(v));
-    itemStats[name].input = { total, perTime };
-  }
-  for (const line of loadCells('item-output')) {
-    const [name, totalS, ...extS] = line;
-    if (!itemStats[name]) itemStats[name] = {};
-    const total = parseInt(totalS);
-    const perTime = extS.map((v) => parseFloat(v));
-    itemStats[name].output = { total, perTime };
+  const prodStats: (typeof data)['prodStats'] = {};
+  for (const type of ['item', 'fluid'] as const) {
+    for (const direction of ['input', 'output'] as const) {
+      for (const line of loadCells(`${type}-${direction}`)) {
+        const [name, totalS, ...extS] = line;
+        const colon = `${type}:${name}`;
+        if (!prodStats[colon]) prodStats[colon] = {};
+        const total = parseInt(totalS);
+        const perTime = extS.map((v) => parseFloat(v));
+        prodStats[colon][direction] = { total, perTime };
+      }
+    }
   }
   fs.writeFileSync(
-    'data/itemStats.json',
-    JSON.stringify(sortByKeys(itemStats)),
+    'data/prodStats.json',
+    JSON.stringify(sortByKeys(prodStats)),
     {
       encoding: 'utf-8',
     },
