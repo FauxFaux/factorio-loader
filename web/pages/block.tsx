@@ -1,6 +1,6 @@
 import { Component } from 'preact';
 
-import { ColonJoined, Item, TagList } from '../objects';
+import { ColonJoined, Item, ItemOrFluid, TagList } from '../objects';
 import { Assemblers, recipeDifference, TrainStops } from '../block-renderers';
 import { data } from '../index';
 import { fromBlock } from '../../scripts/magic';
@@ -90,11 +90,18 @@ export class BlockPage extends Component<{ loc: string }> {
           <div class="col">
             <h3>Storing</h3>
             <ul>
-              {Object.entries(obj.items)
+              {[
+                ...Object.entries(obj.items).map(
+                  ([k, v]) => [k, v, 'item'] as const,
+                ),
+                ...Object.entries(obj.fluids).map(
+                  ([k, v]) => [k, v, 'fluid'] as const,
+                ),
+              ]
                 .sort(([, a], [, b]) => b - a)
-                .map(([name, count]) => (
+                .map(([name, count, type]) => (
                   <li>
-                    {humanise(count)} * <Item name={name} />
+                    {humanise(count)} * <ItemOrFluid type={type} name={name} />
                   </li>
                 ))}
             </ul>
