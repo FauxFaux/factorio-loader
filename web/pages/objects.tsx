@@ -106,7 +106,6 @@ export class IoFDetail extends Component<{
                   <th>Production</th>
                   <th>Consumption</th>
                 </tr>
-                3
               </thead>
               <tbody>
                 <tr>
