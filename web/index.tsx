@@ -6,7 +6,7 @@ import { createHashHistory } from 'history';
 import type { BlockContent } from '../scripts/load-recs';
 
 import { IoFDetail } from './pages/objects';
-import { BigList, BlockPage } from './pages/big-list';
+import { BlockPage } from './pages/big-list';
 import { StationStatus } from './pages/station-status';
 import { WhatTheBrick } from './pages/what-the-brick';
 
@@ -42,7 +42,6 @@ class App extends Component {
         <div className="row">{header}</div>
         <Router history={createHashHistory() as any}>
           <Home path="/" />
-          <BigList path="/big" />
           <WhatTheBrick path="/what-the-brick" />
           <StationStatus path="/station-status" />
           <IoFDetail path="/item/:name" type="item" name="from the path" />
@@ -77,11 +76,6 @@ const header = (
           <li>
             <a href="/station-status" className="nav-link px-2 text-white">
               Station status
-            </a>
-          </li>
-          <li>
-            <a href="/big" className="nav-link px-2 text-white">
-              Big ol' dump
             </a>
           </li>
         </ul>
