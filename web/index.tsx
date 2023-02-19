@@ -21,6 +21,7 @@ export const data = {
   icons: {} as Record<string, string>,
   fluids: {} as Record<string, JFluid>,
   recipes: {} as Record<string, JRecipe>,
+  itemStats: {} as Record<string, { input?: FlowStats; output?: FlowStats }>,
   technologies: {} as Record<
     string,
     {
@@ -30,6 +31,11 @@ export const data = {
     }
   >,
 } as const;
+
+export interface FlowStats {
+  total: number;
+  perTime: number[];
+}
 
 export const computed = {
   ltnSummary: {} as Record<string, LtnSummary>,

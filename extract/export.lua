@@ -1,6 +1,8 @@
 function tlen(T)
     local count = 0
-    for _ in pairs(T) do count = count + 1 end
+    for _ in pairs(T) do
+        count = count + 1
+    end
     return count
 end
 for _, ty in ipairs({
@@ -124,3 +126,37 @@ for name, v in pairs(game.player.force.technologies) do
     end
 end
 game.write_file("technologies.rec", table.concat(t, "\035"))
+
+local ps = game.player.force.item_production_statistics
+local fpi = defines.flow_precision_index
+for _, input in pairs({ true, false }) do
+    local t = {}
+    local counts
+    if input then
+        counts = ps.input_counts
+    else
+        counts = ps.output_counts
+    end
+    local direction
+    if input then
+        direction = "input"
+    else
+        direction = "output"
+    end
+    for k, v in pairs(counts) do
+        local a = { k, v }
+        for _, precision in pairs({
+            fpi.five_seconds,
+            fpi.one_minute,
+            fpi.ten_minutes,
+            fpi.one_hour,
+            fpi.ten_hours,
+            fpi.fifty_hours,
+            fpi.two_hundred_fifty_hours,
+            fpi.one_thousand_hours }) do
+            a[#a + 1] = ps.get_flow_count({ name = k, input = input, precision_index = precision })
+        end
+        t[#t + 1] = table.concat(a, "\036")
+    end
+    game.write_file("item-" .. direction .. ".rec", table.concat(t, "\035"))
+end

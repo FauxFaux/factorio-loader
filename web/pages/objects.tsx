@@ -27,6 +27,7 @@ export class IoFDetail extends Component<{
       );
 
     const colon = objToColon(props);
+    const stats = data.itemStats[props.name];
 
     return (
       <>
@@ -61,6 +62,45 @@ export class IoFDetail extends Component<{
           <div className="col">
             <h3>Storage:</h3>
             <Storage type={props.type} name={props.name} />
+            {props.type === 'item' ? (
+              <>
+                <h3>Production stats</h3>
+                <table class="table prod-stats">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>Production</th>
+                      <th>Consumption</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Total</td>
+                      <td>{humanise(stats?.input?.total)}</td>
+                      <td>{humanise(stats?.output?.total)}</td>
+                    </tr>
+                    {[
+                      '5s',
+                      '1m',
+                      '10m',
+                      '1h',
+                      '10h',
+                      '50h',
+                      '250h',
+                      '1000h',
+                    ].map((x, i) => (
+                      <tr>
+                        <td>{x}</td>
+                        <td>{humanise(stats?.input?.perTime?.[i])}/min</td>
+                        <td>{humanise(stats?.output?.perTime?.[i])}/min</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </>
+            ) : (
+              <></>
+            )}
           </div>
         </div>
 

@@ -10,7 +10,7 @@ import {
 
 const base = process.argv[2];
 
-initOnNode(['doc', 'technologies']);
+initOnNode(['doc', 'technologies', 'itemStats']);
 
 type Coord = readonly [number, number];
 type BlockId = Coord;
@@ -189,6 +189,30 @@ function main() {
     JSON.stringify(sortByKeys(technologies)),
     { encoding: 'utf-8' },
   );
+
+  const itemStats: (typeof data)['itemStats'] = {};
+  for (const line of loadCells('item-input')) {
+    const [name, totalS, ...extS] = line;
+    if (!itemStats[name]) itemStats[name] = {};
+    const total = parseInt(totalS);
+    const perTime = extS.map((v) => parseFloat(v));
+    itemStats[name].input = { total, perTime };
+  }
+  for (const line of loadCells('item-output')) {
+    const [name, totalS, ...extS] = line;
+    if (!itemStats[name]) itemStats[name] = {};
+    const total = parseInt(totalS);
+    const perTime = extS.map((v) => parseFloat(v));
+    itemStats[name].output = { total, perTime };
+  }
+  fs.writeFileSync(
+    'data/itemStats.json',
+    JSON.stringify(sortByKeys(itemStats)),
+    {
+      encoding: 'utf-8',
+    },
+  );
+
   fs.writeFileSync('data/doc.json', JSON.stringify(byBlock), {
     encoding: 'utf-8',
   });

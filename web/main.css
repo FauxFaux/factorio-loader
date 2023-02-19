@@ -73,3 +73,7 @@
 .ltn-tree__tile--naughty {
   background-color: #420000;
 }
+
+.prod-stats td, .prod-stats th {
+  text-align: right;
+}

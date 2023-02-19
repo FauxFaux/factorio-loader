@@ -10,7 +10,8 @@ export function humaniseNo(count: number): string {
   return count.toLocaleString('en', { maximumFractionDigits: 0 });
 }
 
-export function humanise(count: number) {
+export function humanise(count: number | undefined) {
+  if (count === undefined) return <abbr title="data absent">?</abbr>;
   if (count > 1e6)
     return (
       <abbr
@@ -27,5 +28,5 @@ export function humanise(count: number) {
         {(count / 1e3).toFixed() + 'k'}
       </abbr>
     );
-  return <abbr title="just a piddly digit">{count}</abbr>;
+  return <abbr title="just a piddly digit">{count.toFixed()}</abbr>;
 }
