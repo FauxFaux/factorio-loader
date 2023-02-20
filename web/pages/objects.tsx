@@ -34,6 +34,10 @@ export class IoFDetail extends Component<{
     const unBarrelled =
       props.type === 'item' ? computed.barrelFluid[props.name] : undefined;
 
+    const flowDia = data.flowDiagrams.includes(colon)
+      ? `../data/flow-svgs/${colon.replace(':', '-')}.svg`
+      : undefined;
+
     return (
       <>
         <div class="row">
@@ -130,6 +134,20 @@ export class IoFDetail extends Component<{
         <div className="row">
           <h3>Recipes in use in factory, most assemblers first:</h3>
           <RecipeUsage type={props.type} name={props.name} />
+        </div>
+
+        <div className="row">
+          {flowDia ? (
+            <a href={flowDia}>
+              <img
+                style="filter: invert(0.86); max-width: 100%"
+                src={flowDia}
+                alt="A (likely completely useless) LTN flow chat"
+              />
+            </a>
+          ) : (
+            <></>
+          )}
         </div>
       </>
     );

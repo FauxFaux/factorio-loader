@@ -23,6 +23,7 @@ export const data = {
   fluids: {} as Record<string, JFluid>,
   recipes: {} as Record<string, JRecipe>,
   prodStats: {} as Record<Colon, { input?: FlowStats; output?: FlowStats }>,
+  flowDiagrams: [] as string[],
   technologies: {} as Record<
     string,
     {

@@ -4,7 +4,9 @@
 
 import { initOnNode } from './data-hack-for-node';
 import * as fs from 'fs';
+import { mkdirSync, renameSync, rmSync } from 'fs';
 import { data } from '../web';
+import { execSync } from 'child_process';
 
 initOnNode();
 
@@ -24,15 +26,37 @@ const raw = fs
     shipment: line.shipment as Record<string, number>,
   }));
 
-function main() {
-  console.log('digraph {rankdir="LR";');
+const stopLookup: Record<number, string> = {};
+for (const [loc, obj] of Object.entries(data.doc)) {
+  for (const stop of obj.stop) {
+    stopLookup[stop.stopId] = loc;
+  }
+}
 
-  const stopLookup: Record<number, string> = {};
-  for (const [loc, obj] of Object.entries(data.doc)) {
-    for (const stop of obj.stop) {
-      stopLookup[stop.stopId] = loc;
+const imgDir = 'data/flow-svgs';
+
+function main() {
+  rmSync(imgDir, { force: true, recursive: true });
+  mkdirSync(imgDir);
+  const items = new Set<string>();
+  for (const flow of raw) {
+    for (const item of Object.keys(flow.shipment)) {
+      items.add(item);
     }
   }
+  items.delete('item,empty-barrel');
+  for (const item of items) {
+    oneItem(item);
+  }
+  fs.writeFileSync(
+    'data/flowDiagrams.json',
+    JSON.stringify([...items].map((item) => item.replace(',', ':')).sort()),
+  );
+}
+
+function oneItem(target: string) {
+  let dot = '';
+  dot += 'digraph {rankdir="LR";';
 
   const routes: Record<string, Record<string, number>> = {};
 
@@ -40,17 +64,17 @@ function main() {
     const key = `${stopLookup[flow.from]}|${stopLookup[flow.to]}`;
     if (!routes[key]) routes[key] = {};
     for (const [item, count] of Object.entries(flow.shipment)) {
-      if (
-        item !== 'item,coke' &&
-        item !== 'item,acetylene-barrel' &&
-        item !== 'item,ammonia-barrel' &&
-        item !== 'item,flue-gas-barrel' &&
-        item !== 'item,syngas-barrel'
-      )
-        continue;
+      if (item !== target) continue;
       routes[key][item] = (routes[key][item] || 0) + count;
     }
   }
+
+  const mean =
+    Object.values(routes)
+      .map((route) => Object.values(route).reduce((a, b) => a + b, 0))
+      .reduce((a, b) => a + b, 0) /
+    Object.values(routes).filter((route) => Object.keys(route).length !== 0)
+      .length;
 
   for (const [key, shipment] of Object.entries(routes)) {
     if (0 === Object.keys(shipment).length) continue;
@@ -61,12 +85,16 @@ function main() {
     const items = Object.entries(shipment)
       .map(([item, count]) => `${item.replace(/.*,/, '')}*${count}`)
       .join(', ');
-    console.log(
-      `"${from}" -> "${to}" [label="${items}",penwidth=${total / 10000}]`,
-    );
+    dot += `"${from}" -> "${to}" [label="${items}",penwidth=${total / mean}]`;
   }
 
-  console.log('}');
+  dot += '}';
+
+  fs.writeFileSync('temp.dot', dot);
+
+  console.log(`rendering ${target}...`);
+  execSync('circo -Tsvg temp.dot > temp.svg', { stdio: 'inherit' });
+  renameSync('temp.svg', `${imgDir}/${target.replace(',', '-')}.svg`);
 }
 
 main();
