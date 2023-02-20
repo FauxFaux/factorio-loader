@@ -8,4 +8,4 @@ for key, entity in pairs(surface.find_entities_filtered({force="enemy"})) do
     entity.destroy()
 end
 
-game.speed=2
+game.speed=3

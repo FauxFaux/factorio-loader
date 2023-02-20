@@ -45,6 +45,7 @@ for _, ty in ipairs({
         end
         if ty == "train-stop" then
             a[#a + 1] = v.backer_name
+            a[#a + 1] = v.unit_number
         end
         if ty == "train-stop-input" then
             for name, def in pairs({ green = defines.wire_type.green, red = defines.wire_type.red }) do

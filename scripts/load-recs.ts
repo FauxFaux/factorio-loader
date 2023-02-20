@@ -30,6 +30,8 @@ type Signal = [string, string, number];
 export type Stop = {
   /** the in-game, encoded name of the station */
   name: string;
+  /** save-persistent number of the stop */
+  stopId: number;
   /** signals on the 'settings' wire, typically ltn configuration like stack size */
   settings: Signal[];
   /** signals on the 'items' wire, positive for provide, negative for *outstanding* requests */
@@ -96,17 +98,17 @@ function main() {
     block.boilers += 1;
   }
 
-  const stopNames: [Coord, string][] = [];
+  const stopNames: [Coord, string, number][] = [];
   for (const obj of load('train-stop')) {
     if (obj.name !== 'logistic-train-stop') continue;
-    stopNames.push([obj.pos, obj.ext[0]]);
+    stopNames.push([obj.pos, obj.ext[0], parseInt(obj.ext[1])]);
   }
 
-  function nearbyStation(pos: Coord, maxDist: number): [Coord, string] {
-    for (const [stopLoc, stopName] of stopNames) {
+  function nearbyStation(pos: Coord, maxDist: number): [Coord, string, number] {
+    for (const [stopLoc, stopName, stopId] of stopNames) {
       const d = distSq(pos, stopLoc);
       if (d < maxDist) {
-        return [stopLoc, stopName];
+        return [stopLoc, stopName, stopId];
       }
     }
     throw new Error(`unable to find name for ${pos}`);
@@ -131,13 +133,14 @@ function main() {
 
   for (const obj of load('train-stop-input')) {
     const block = getBlock(obj.block);
-    const [stopLoc, name] = nearbyStation(obj.pos, 1);
+    const [stopLoc, name, stopId] = nearbyStation(obj.pos, 1);
     const splitPoint = obj.ext.indexOf('red');
     const red = obj.ext.slice(1, splitPoint);
     const green = obj.ext.slice(splitPoint + 1);
     const comb = stopCombinator[String(stopLoc)];
     block.stop.push({
       name,
+      stopId,
       settings: signals(red),
       items: signals(green),
       provides: isProvideStation(name)
