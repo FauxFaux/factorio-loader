@@ -24,9 +24,9 @@
 <!-- 0,10 (item=meat Meat)&#45;&gt;&#45;5,&#45;2 (item=auog Auog beach resort and cannibal workhouse) -->
 <g id="edge1" class="edge">
 <title>0,10 (item=meat Meat)&#45;&gt;&#45;5,&#45;2 (item=auog Auog beach resort and cannibal workhouse)</title>
-<path fill="none" stroke="black" stroke-width="0.95" d="M240.7,-18C260.04,-18 280.79,-18 302.22,-18"/>
-<polygon fill="black" stroke="black" stroke-width="0.95" points="302.45,-21.5 312.45,-18 302.45,-14.5 302.45,-21.5"/>
-<text text-anchor="middle" x="271.46" y="-6.8" font-family="Times,serif" font-size="14.00">meat*43232</text>
+<path fill="none" stroke="black" stroke-width="0.92" d="M240.7,-18C260.04,-18 280.79,-18 302.22,-18"/>
+<polygon fill="black" stroke="black" stroke-width="0.92" points="302.45,-21.5 312.45,-18 302.45,-14.5 302.45,-21.5"/>
+<text text-anchor="middle" x="271.46" y="-6.8" font-family="Times,serif" font-size="14.00">meat*51424</text>
 </g>
 <!-- 4,7 (Cottonguts) -->
 <g id="node3" class="node">
@@ -37,9 +37,9 @@
 <!-- 4,7 (Cottonguts)&#45;&gt;&#45;5,&#45;2 (item=auog Auog beach resort and cannibal workhouse) -->
 <g id="edge2" class="edge">
 <title>4,7 (Cottonguts)&#45;&gt;&#45;5,&#45;2 (item=auog Auog beach resort and cannibal workhouse)</title>
-<path fill="none" stroke="black" stroke-width="1.05" d="M974.42,-18C955.65,-18 934.8,-18 912.83,-18"/>
-<polygon fill="black" stroke="black" stroke-width="1.05" points="912.66,-14.5 902.66,-18 912.66,-21.5 912.66,-14.5"/>
-<text text-anchor="middle" x="921.62" y="-6.8" font-family="Times,serif" font-size="14.00">meat*47920</text>
+<path fill="none" stroke="black" stroke-width="1.08" d="M974.42,-18C955.65,-18 934.8,-18 912.83,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1.08" points="912.66,-14.5 902.66,-18 912.66,-21.5 912.66,-14.5"/>
+<text text-anchor="middle" x="921.62" y="-6.8" font-family="Times,serif" font-size="14.00">meat*60400</text>
 </g>
 </g>
 </svg>

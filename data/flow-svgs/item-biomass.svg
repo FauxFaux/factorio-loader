@@ -24,9 +24,9 @@
 <!-- &#45;5,&#45;3 (Biomass (from Seaweed))&#45;&gt;&#45;3,8 (Urea) -->
 <g id="edge1" class="edge">
 <title>&#45;5,&#45;3 (Biomass (from Seaweed))&#45;&gt;&#45;3,8 (Urea)</title>
-<path fill="none" stroke="black" stroke-width="1.15" d="M1237.45,-33.09C1095.31,-58.15 813.78,-107.79 688.19,-129.94"/>
-<polygon fill="black" stroke="black" stroke-width="1.15" points="687.21,-126.56 677.97,-131.74 688.43,-133.45 687.21,-126.56"/>
-<text text-anchor="middle" x="907.32" y="-85.31" font-family="Times,serif" font-size="14.00">biomass*79936</text>
+<path fill="none" stroke="black" stroke-width="1.25" d="M1237.45,-33.09C1095.31,-58.15 813.78,-107.79 688.19,-129.94"/>
+<polygon fill="black" stroke="black" stroke-width="1.25" points="687.21,-126.56 677.97,-131.74 688.43,-133.45 687.21,-126.56"/>
+<text text-anchor="middle" x="907.32" y="-85.31" font-family="Times,serif" font-size="14.00">biomass*98928</text>
 </g>
 <!-- &#45;1,6 (Flimble&#39;s Slaughterhouse and Daycare Centre, Auog Products) -->
 <g id="node3" class="node">
@@ -37,9 +37,9 @@
 <!-- &#45;5,&#45;3 (Biomass (from Seaweed))&#45;&gt;&#45;1,6 (Flimble&#39;s Slaughterhouse and Daycare Centre, Auog Products) -->
 <g id="edge2" class="edge">
 <title>&#45;5,&#45;3 (Biomass (from Seaweed))&#45;&gt;&#45;1,6 (Flimble&#39;s Slaughterhouse and Daycare Centre, Auog Products)</title>
-<path fill="none" stroke="black" stroke-width="1.03" d="M1353.87,-35.81C1455.87,-94.7 1782.2,-283.11 1896.62,-349.17"/>
-<polygon fill="black" stroke="black" stroke-width="1.03" points="1895.03,-352.29 1905.44,-354.26 1898.53,-346.23 1895.03,-352.29"/>
-<text text-anchor="middle" x="1569.75" y="-196.29" font-family="Times,serif" font-size="14.00">biomass*71280</text>
+<path fill="none" stroke="black" stroke-width="1.11" d="M1353.87,-35.81C1455.87,-94.7 1782.2,-283.11 1896.62,-349.17"/>
+<polygon fill="black" stroke="black" stroke-width="1.11" points="1895.03,-352.29 1905.44,-354.26 1898.53,-346.23 1895.03,-352.29"/>
+<text text-anchor="middle" x="1569.75" y="-196.29" font-family="Times,serif" font-size="14.00">biomass*88032</text>
 </g>
 <!-- &#45;6,&#45;2 (item=fertilizer Fertiliser) -->
 <g id="node4" class="node">
@@ -50,9 +50,9 @@
 <!-- &#45;5,&#45;3 (Biomass (from Seaweed))&#45;&gt;&#45;6,&#45;2 (item=fertilizer Fertiliser) -->
 <g id="edge3" class="edge">
 <title>&#45;5,&#45;3 (Biomass (from Seaweed))&#45;&gt;&#45;6,&#45;2 (item=fertilizer Fertiliser)</title>
-<path fill="none" stroke="black" stroke-width="0.4" d="M1292.17,-35.81C1131.34,-128.67 389.49,-556.98 209.2,-661.06"/>
-<polygon fill="black" stroke="black" stroke-width="0.4" points="207.22,-658.16 200.31,-666.2 210.72,-664.23 207.22,-658.16"/>
-<text text-anchor="middle" x="695.19" y="-352.24" font-family="Times,serif" font-size="14.00">biomass*28000</text>
+<path fill="none" stroke="black" stroke-width="0.48" d="M1292.17,-35.81C1131.34,-128.67 389.49,-556.98 209.2,-661.06"/>
+<polygon fill="black" stroke="black" stroke-width="0.48" points="207.22,-658.16 200.31,-666.2 210.72,-664.23 207.22,-658.16"/>
+<text text-anchor="middle" x="695.19" y="-352.24" font-family="Times,serif" font-size="14.00">biomass*38000</text>
 </g>
 <!-- 2,4 (Formica and Phenolic boards) -->
 <g id="node5" class="node">
@@ -63,8 +63,8 @@
 <!-- &#45;5,&#45;3 (Biomass (from Seaweed))&#45;&gt;2,4 (Formica and Phenolic boards) -->
 <g id="edge4" class="edge">
 <title>&#45;5,&#45;3 (Biomass (from Seaweed))&#45;&gt;2,4 (Formica and Phenolic boards)</title>
-<path fill="none" stroke="black" stroke-width="1.24" d="M1307.8,-36.14C1183.7,-184.03 338.79,-1190.96 191.51,-1366.48"/>
-<polygon fill="black" stroke="black" stroke-width="1.24" points="188.78,-1364.3 185.03,-1374.21 194.14,-1368.8 188.78,-1364.3"/>
+<path fill="none" stroke="black" stroke-width="1.08" d="M1307.8,-36.14C1183.7,-184.03 338.79,-1190.96 191.51,-1366.48"/>
+<polygon fill="black" stroke="black" stroke-width="1.08" points="188.78,-1364.3 185.03,-1374.21 194.14,-1368.8 188.78,-1364.3"/>
 <text text-anchor="middle" x="694.16" y="-705.11" font-family="Times,serif" font-size="14.00">biomass*86112</text>
 </g>
 <!-- 0,10 (item=meat Meat) -->
@@ -76,9 +76,9 @@
 <!-- &#45;5,&#45;3 (Biomass (from Seaweed))&#45;&gt;0,10 (item=meat Meat) -->
 <g id="edge5" class="edge">
 <title>&#45;5,&#45;3 (Biomass (from Seaweed))&#45;&gt;0,10 (item=meat Meat)</title>
-<path fill="none" stroke="black" stroke-width="1.11" d="M1316.45,-36.06C1250.89,-216.17 715.38,-1687.49 635.18,-1907.83"/>
-<polygon fill="black" stroke="black" stroke-width="1.11" points="631.84,-1906.78 631.71,-1917.37 638.42,-1909.17 631.84,-1906.78"/>
-<text text-anchor="middle" x="920.31" y="-975.75" font-family="Times,serif" font-size="14.00">biomass*76640</text>
+<path fill="none" stroke="black" stroke-width="1.07" d="M1316.45,-36.06C1250.89,-216.17 715.38,-1687.49 635.18,-1907.83"/>
+<polygon fill="black" stroke="black" stroke-width="1.07" points="631.84,-1906.78 631.71,-1917.37 638.42,-1909.17 631.84,-1906.78"/>
+<text text-anchor="middle" x="920.31" y="-975.75" font-family="Times,serif" font-size="14.00">biomass*84880</text>
 </g>
 <!-- &#45;4,2 (This line not currently using manure, Ralesia seeds) -->
 <g id="node8" class="node">
@@ -89,9 +89,9 @@
 <!-- &#45;5,&#45;3 (Biomass (from Seaweed))&#45;&gt;&#45;4,2 (This line not currently using manure, Ralesia seeds) -->
 <g id="edge8" class="edge">
 <title>&#45;5,&#45;3 (Biomass (from Seaweed))&#45;&gt;&#45;4,2 (This line not currently using manure, Ralesia seeds)</title>
-<path fill="none" stroke="black" stroke-width="0.27" d="M1323.02,-36.26C1323.02,-223.9 1323.02,-1798.82 1323.02,-2030.14"/>
-<polygon fill="black" stroke="black" stroke-width="0.27" points="1319.52,-2030.41 1323.02,-2040.41 1326.52,-2030.41 1319.52,-2030.41"/>
-<text text-anchor="middle" x="1267.52" y="-1037" font-family="Times,serif" font-size="14.00">biomass*18864</text>
+<path fill="none" stroke="black" stroke-width="0.28" d="M1323.02,-36.26C1323.02,-223.9 1323.02,-1798.82 1323.02,-2030.14"/>
+<polygon fill="black" stroke="black" stroke-width="0.28" points="1319.52,-2030.41 1323.02,-2040.41 1326.52,-2030.41 1319.52,-2030.41"/>
+<text text-anchor="middle" x="1267.52" y="-1037" font-family="Times,serif" font-size="14.00">biomass*22080</text>
 </g>
 <!-- &#45;5,5 (fluid=flue&#45;gas Flue gas) -->
 <g id="node9" class="node">
@@ -102,8 +102,8 @@
 <!-- &#45;5,&#45;3 (Biomass (from Seaweed))&#45;&gt;&#45;5,5 (fluid=flue&#45;gas Flue gas) -->
 <g id="edge14" class="edge">
 <title>&#45;5,&#45;3 (Biomass (from Seaweed))&#45;&gt;&#45;5,5 (fluid=flue&#45;gas Flue gas)</title>
-<path fill="none" stroke="black" stroke-width="1.92" d="M1329.6,-36.08C1390.3,-202.86 1852.27,-1472.09 1926.63,-1676.41"/>
-<polygon fill="black" stroke="black" stroke-width="1.92" points="1923.45,-1677.89 1930.16,-1686.09 1930.03,-1675.5 1923.45,-1677.89"/>
+<path fill="none" stroke="black" stroke-width="1.67" d="M1329.6,-36.08C1390.3,-202.86 1852.27,-1472.09 1926.63,-1676.41"/>
+<polygon fill="black" stroke="black" stroke-width="1.67" points="1923.45,-1677.89 1930.16,-1686.09 1930.03,-1675.5 1923.45,-1677.89"/>
 <text text-anchor="middle" x="1568.12" y="-860.04" font-family="Times,serif" font-size="14.00">biomass*132928</text>
 </g>
 <!-- &#45;2,4 (fluid=drilling&#45;fluid&#45;0 Drilling fluid 1, Biomass) -->
@@ -115,51 +115,51 @@
 <!-- &#45;2,4 (fluid=drilling&#45;fluid&#45;0 Drilling fluid 1, Biomass)&#45;&gt;&#45;3,8 (Urea) -->
 <g id="edge10" class="edge">
 <title>&#45;2,4 (fluid=drilling&#45;fluid&#45;0 Drilling fluid 1, Biomass)&#45;&gt;&#45;3,8 (Urea)</title>
-<path fill="none" stroke="black" stroke-width="0.96" d="M2148.05,-1020.31C1951,-906.54 875.76,-285.75 662.08,-162.38"/>
-<polygon fill="black" stroke="black" stroke-width="0.96" points="663.53,-159.18 653.12,-157.21 660.03,-165.24 663.53,-159.18"/>
-<text text-anchor="middle" x="1349.57" y="-595.14" font-family="Times,serif" font-size="14.00">biomass*66672</text>
+<path fill="none" stroke="black" stroke-width="0.92" d="M2148.05,-1020.31C1951,-906.54 875.76,-285.75 662.08,-162.38"/>
+<polygon fill="black" stroke="black" stroke-width="0.92" points="663.53,-159.18 653.12,-157.21 660.03,-165.24 663.53,-159.18"/>
+<text text-anchor="middle" x="1349.57" y="-595.14" font-family="Times,serif" font-size="14.00">biomass*72912</text>
 </g>
 <!-- &#45;2,4 (fluid=drilling&#45;fluid&#45;0 Drilling fluid 1, Biomass)&#45;&gt;&#45;1,6 (Flimble&#39;s Slaughterhouse and Daycare Centre, Auog Products) -->
 <g id="edge11" class="edge">
 <title>&#45;2,4 (fluid=drilling&#45;fluid&#45;0 Drilling fluid 1, Biomass)&#45;&gt;&#45;1,6 (Flimble&#39;s Slaughterhouse and Daycare Centre, Auog Products)</title>
-<path fill="none" stroke="black" stroke-width="0.63" d="M2172.49,-1020.07C2138.94,-927.9 1987.48,-511.77 1946.81,-400.02"/>
-<polygon fill="black" stroke="black" stroke-width="0.63" points="1950.04,-398.66 1943.33,-390.46 1943.46,-401.06 1950.04,-398.66"/>
-<text text-anchor="middle" x="2004.15" y="-713.85" font-family="Times,serif" font-size="14.00">biomass*43424</text>
+<path fill="none" stroke="black" stroke-width="0.71" d="M2172.49,-1020.07C2138.94,-927.9 1987.48,-511.77 1946.81,-400.02"/>
+<polygon fill="black" stroke="black" stroke-width="0.71" points="1950.04,-398.66 1943.33,-390.46 1943.46,-401.06 1950.04,-398.66"/>
+<text text-anchor="middle" x="2004.15" y="-713.85" font-family="Times,serif" font-size="14.00">biomass*56112</text>
 </g>
 <!-- &#45;2,4 (fluid=drilling&#45;fluid&#45;0 Drilling fluid 1, Biomass)&#45;&gt;&#45;6,&#45;2 (item=fertilizer Fertiliser) -->
 <g id="edge13" class="edge">
 <title>&#45;2,4 (fluid=drilling&#45;fluid&#45;0 Drilling fluid 1, Biomass)&#45;&gt;&#45;6,&#45;2 (item=fertilizer Fertiliser)</title>
-<path fill="none" stroke="black" stroke-width="0.4" d="M2084.53,-1021.56C1747.06,-962.05 604.02,-760.5 265.1,-700.74"/>
-<polygon fill="black" stroke="black" stroke-width="0.4" points="265.53,-697.26 255.07,-698.97 264.31,-704.16 265.53,-697.26"/>
-<text text-anchor="middle" x="1119.32" y="-864.95" font-family="Times,serif" font-size="14.00">biomass*28000</text>
+<path fill="none" stroke="black" stroke-width="0.38" d="M2084.53,-1021.56C1747.06,-962.05 604.02,-760.5 265.1,-700.74"/>
+<polygon fill="black" stroke="black" stroke-width="0.38" points="265.53,-697.26 255.07,-698.97 264.31,-704.16 265.53,-697.26"/>
+<text text-anchor="middle" x="1119.32" y="-864.95" font-family="Times,serif" font-size="14.00">biomass*30000</text>
 </g>
 <!-- &#45;2,4 (fluid=drilling&#45;fluid&#45;0 Drilling fluid 1, Biomass)&#45;&gt;2,4 (Formica and Phenolic boards) -->
 <g id="edge16" class="edge">
 <title>&#45;2,4 (fluid=drilling&#45;fluid&#45;0 Drilling fluid 1, Biomass)&#45;&gt;2,4 (Formica and Phenolic boards)</title>
-<path fill="none" stroke="black" stroke-width="0.03" d="M2084.53,-1054.9C1747.75,-1114.29 608.66,-1315.14 267.18,-1375.35"/>
-<polygon fill="black" stroke="black" stroke-width="0.03" points="266.55,-1371.91 257.31,-1377.09 267.77,-1378.8 266.55,-1371.91"/>
-<text text-anchor="middle" x="1124.86" y="-1218.93" font-family="Times,serif" font-size="14.00">biomass*2032</text>
+<path fill="none" stroke="black" stroke-width="0.05" d="M2084.53,-1054.9C1747.75,-1114.29 608.66,-1315.14 267.18,-1375.35"/>
+<polygon fill="black" stroke="black" stroke-width="0.05" points="266.55,-1371.91 257.31,-1377.09 267.77,-1378.8 266.55,-1371.91"/>
+<text text-anchor="middle" x="1124.86" y="-1218.93" font-family="Times,serif" font-size="14.00">biomass*4320</text>
 </g>
 <!-- &#45;2,4 (fluid=drilling&#45;fluid&#45;0 Drilling fluid 1, Biomass)&#45;&gt;0,10 (item=meat Meat) -->
 <g id="edge7" class="edge">
 <title>&#45;2,4 (fluid=drilling&#45;fluid&#45;0 Drilling fluid 1, Biomass)&#45;&gt;0,10 (item=meat Meat)</title>
-<path fill="none" stroke="black" stroke-width="1.01" d="M2148.05,-1056.15C1951.75,-1169.49 883.89,-1786.02 664.54,-1912.66"/>
-<polygon fill="black" stroke="black" stroke-width="1.01" points="662.53,-1909.78 655.62,-1917.81 666.03,-1915.84 662.53,-1909.78"/>
-<text text-anchor="middle" x="1350.8" y="-1488.2" font-family="Times,serif" font-size="14.00">biomass*70160</text>
+<path fill="none" stroke="black" stroke-width="1.06" d="M2148.05,-1056.15C1951.75,-1169.49 883.89,-1786.02 664.54,-1912.66"/>
+<polygon fill="black" stroke="black" stroke-width="1.06" points="662.53,-1909.78 655.62,-1917.81 666.03,-1915.84 662.53,-1909.78"/>
+<text text-anchor="middle" x="1350.8" y="-1488.2" font-family="Times,serif" font-size="14.00">biomass*84400</text>
 </g>
 <!-- &#45;2,4 (fluid=drilling&#45;fluid&#45;0 Drilling fluid 1, Biomass)&#45;&gt;&#45;4,2 (This line not currently using manure, Ralesia seeds) -->
 <g id="edge6" class="edge">
 <title>&#45;2,4 (fluid=drilling&#45;fluid&#45;0 Drilling fluid 1, Biomass)&#45;&gt;&#45;4,2 (This line not currently using manure, Ralesia seeds)</title>
 <path fill="none" stroke="black" stroke-width="0.16" d="M2163.87,-1056.37C2060.94,-1179.04 1467.14,-1886.7 1344.99,-2032.28"/>
 <polygon fill="black" stroke="black" stroke-width="0.16" points="1342,-2030.39 1338.26,-2040.3 1347.37,-2034.89 1342,-2030.39"/>
-<text text-anchor="middle" x="1698.93" y="-1548.12" font-family="Times,serif" font-size="14.00">biomass*11344</text>
+<text text-anchor="middle" x="1698.93" y="-1548.12" font-family="Times,serif" font-size="14.00">biomass*12928</text>
 </g>
 <!-- &#45;2,4 (fluid=drilling&#45;fluid&#45;0 Drilling fluid 1, Biomass)&#45;&gt;&#45;5,5 (fluid=flue&#45;gas Flue gas) -->
 <g id="edge9" class="edge">
 <title>&#45;2,4 (fluid=drilling&#45;fluid&#45;0 Drilling fluid 1, Biomass)&#45;&gt;&#45;5,5 (fluid=flue&#45;gas Flue gas)</title>
-<path fill="none" stroke="black" stroke-width="5.28" d="M2172.49,-1056.39C2138.94,-1148.56 1987.48,-1564.69 1946.81,-1676.44"/>
-<polygon fill="black" stroke="black" stroke-width="5.28" points="1942.41,-1675.02 1943.33,-1686 1951.09,-1678.18 1942.41,-1675.02"/>
-<text text-anchor="middle" x="1999.65" y="-1370.21" font-family="Times,serif" font-size="14.00">biomass*365552</text>
+<path fill="none" stroke="black" stroke-width="5.44" d="M2172.49,-1056.39C2138.94,-1148.56 1987.48,-1564.69 1946.81,-1676.44"/>
+<polygon fill="black" stroke="black" stroke-width="5.44" points="1942.27,-1674.97 1943.33,-1686 1951.22,-1678.23 1942.27,-1674.97"/>
+<text text-anchor="middle" x="1999.65" y="-1370.21" font-family="Times,serif" font-size="14.00">biomass*432016</text>
 </g>
 <!-- &#45;7,&#45;4 (Isomer&#39;s Slaughterhouse and Daycare Centre, Bone Meal) -->
 <g id="node10" class="node">
@@ -183,8 +183,8 @@
 <!-- &#45;2,4 (fluid=drilling&#45;fluid&#45;0 Drilling fluid 1, Biomass)&#45;&gt;&#45;3,&#45;2 (Depot) -->
 <g id="edge15" class="edge">
 <title>&#45;2,4 (fluid=drilling&#45;fluid&#45;0 Drilling fluid 1, Biomass)&#45;&gt;&#45;3,&#45;2 (Depot)</title>
-<path fill="none" stroke="black" stroke-width="0.36" d="M2197.27,-1056.51C2253.92,-1113.52 2427.41,-1288.09 2492.26,-1353.34"/>
-<polygon fill="black" stroke="black" stroke-width="0.36" points="2490.08,-1356.11 2499.61,-1360.74 2495.05,-1351.18 2490.08,-1356.11"/>
+<path fill="none" stroke="black" stroke-width="0.31" d="M2197.27,-1056.51C2253.92,-1113.52 2427.41,-1288.09 2492.26,-1353.34"/>
+<polygon fill="black" stroke="black" stroke-width="0.31" points="2490.08,-1356.11 2499.61,-1360.74 2495.05,-1351.18 2490.08,-1356.11"/>
 <text text-anchor="middle" x="2289.26" y="-1208.73" font-family="Times,serif" font-size="14.00">biomass*25008</text>
 </g>
 </g>

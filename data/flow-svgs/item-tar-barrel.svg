@@ -24,9 +24,9 @@
 <!-- 3,1 (Mining Brick)&#45;&gt;0,3 () -->
 <g id="edge1" class="edge">
 <title>3,1 (Mining Brick)&#45;&gt;0,3 ()</title>
-<path fill="none" stroke="black" stroke-width="5.05" d="M2582.2,-1292.99C2535.84,-1404.91 2289.03,-2000.77 2232.94,-2136.17"/>
-<polygon fill="black" stroke="black" stroke-width="5.05" points="2228.7,-2134.87 2228.96,-2145.8 2236.87,-2138.25 2228.7,-2134.87"/>
-<text text-anchor="middle" x="2347.07" y="-1718.38" font-family="Times,serif" font-size="14.00">tar&#45;barrel*39584</text>
+<path fill="none" stroke="black" stroke-width="4.97" d="M2582.2,-1292.99C2535.84,-1404.91 2289.03,-2000.77 2232.94,-2136.17"/>
+<polygon fill="black" stroke="black" stroke-width="4.97" points="2228.77,-2134.9 2228.96,-2145.8 2236.8,-2138.23 2228.77,-2134.9"/>
+<text text-anchor="middle" x="2347.07" y="-1718.38" font-family="Times,serif" font-size="14.00">tar&#45;barrel*46256</text>
 </g>
 <!-- 3,6 (Phosphoric Acid and Phosphine gas) -->
 <g id="node3" class="node">
@@ -37,9 +37,9 @@
 <!-- 3,1 (Mining Brick)&#45;&gt;3,6 (Phosphoric Acid and Phosphine gas) -->
 <g id="edge2" class="edge">
 <title>3,1 (Mining Brick)&#45;&gt;3,6 (Phosphoric Acid and Phosphine gas)</title>
-<path fill="none" stroke="black" stroke-width="0.06" d="M2571.95,-1292.61C2433.03,-1431.53 1522.07,-2342.49 1358.13,-2506.43"/>
-<polygon fill="black" stroke="black" stroke-width="0.06" points="1355.49,-2504.12 1350.9,-2513.66 1360.44,-2509.07 1355.49,-2504.12"/>
-<text text-anchor="middle" x="1913.54" y="-1903.32" font-family="Times,serif" font-size="14.00">tar&#45;barrel*456</text>
+<path fill="none" stroke="black" stroke-width="0.07" d="M2571.95,-1292.61C2433.03,-1431.53 1522.07,-2342.49 1358.13,-2506.43"/>
+<polygon fill="black" stroke="black" stroke-width="0.07" points="1355.49,-2504.12 1350.9,-2513.66 1360.44,-2509.07 1355.49,-2504.12"/>
+<text text-anchor="middle" x="1913.54" y="-1903.32" font-family="Times,serif" font-size="14.00">tar&#45;barrel*680</text>
 </g>
 <!-- 0,7 (Coal Gas) -->
 <g id="node5" class="node">
@@ -50,9 +50,9 @@
 <!-- 3,1 (Mining Brick)&#45;&gt;0,7 (Coal Gas) -->
 <g id="edge4" class="edge">
 <title>3,1 (Mining Brick)&#45;&gt;0,7 (Coal Gas)</title>
-<path fill="none" stroke="black" stroke-width="4.08" d="M2494.63,-1274.84C2093.89,-1274.84 545.76,-1274.84 162.33,-1274.84"/>
-<polygon fill="black" stroke="black" stroke-width="4.08" points="162.13,-1271.27 152.13,-1274.84 162.13,-1278.41 162.13,-1271.27"/>
-<text text-anchor="middle" x="1267.98" y="-1278.64" font-family="Times,serif" font-size="14.00">tar&#45;barrel*32000</text>
+<path fill="none" stroke="black" stroke-width="4.19" d="M2494.63,-1274.84C2093.89,-1274.84 545.76,-1274.84 162.33,-1274.84"/>
+<polygon fill="black" stroke="black" stroke-width="4.19" points="162.13,-1271.17 152.13,-1274.84 162.13,-1278.51 162.13,-1271.17"/>
+<text text-anchor="middle" x="1267.98" y="-1278.64" font-family="Times,serif" font-size="14.00">tar&#45;barrel*39000</text>
 </g>
 <!-- &#45;3,2 (Lead and Solder) -->
 <g id="node6" class="node">
@@ -63,9 +63,9 @@
 <!-- 3,1 (Mining Brick)&#45;&gt;&#45;3,2 (Lead and Solder) -->
 <g id="edge5" class="edge">
 <title>3,1 (Mining Brick)&#45;&gt;&#45;3,2 (Lead and Solder)</title>
-<path fill="none" stroke="black" stroke-width="0.38" d="M2550.18,-1258.46C2286.89,-1149.4 788.71,-528.83 494.35,-406.91"/>
-<polygon fill="black" stroke="black" stroke-width="0.38" points="495.37,-403.54 484.79,-402.95 492.69,-410.01 495.37,-403.54"/>
-<text text-anchor="middle" x="1466.27" y="-836.49" font-family="Times,serif" font-size="14.00">tar&#45;barrel*2952</text>
+<path fill="none" stroke="black" stroke-width="0.41" d="M2550.18,-1258.46C2286.89,-1149.4 788.71,-528.83 494.35,-406.91"/>
+<polygon fill="black" stroke="black" stroke-width="0.41" points="495.37,-403.54 484.79,-402.95 492.69,-410.01 495.37,-403.54"/>
+<text text-anchor="middle" x="1466.27" y="-836.49" font-family="Times,serif" font-size="14.00">tar&#45;barrel*3848</text>
 </g>
 <!-- 4,&#45;1 (Fluid) -->
 <g id="node8" class="node">
@@ -76,9 +76,9 @@
 <!-- 3,1 (Mining Brick)&#45;&gt;4,&#45;1 (Fluid) -->
 <g id="edge8" class="edge">
 <title>3,1 (Mining Brick)&#45;&gt;4,&#45;1 (Fluid)</title>
-<path fill="none" stroke="black" stroke-width="1.53" d="M2684.78,-1274.84C2684.82,-1274.84 2684.87,-1274.84 2684.91,-1274.84"/>
-<polygon fill="black" stroke="black" stroke-width="1.53" points="2675.04,-1278.35 2685.04,-1274.84 2675.03,-1271.35 2675.04,-1278.35"/>
-<text text-anchor="middle" x="2745.34" y="-1278.64" font-family="Times,serif" font-size="14.00">tar&#45;barrel*12000</text>
+<path fill="none" stroke="black" stroke-width="1.5" d="M2684.78,-1274.84C2684.82,-1274.84 2684.87,-1274.84 2684.91,-1274.84"/>
+<polygon fill="black" stroke="black" stroke-width="1.5" points="2675.04,-1278.35 2685.04,-1274.84 2675.03,-1271.35 2675.04,-1278.35"/>
+<text text-anchor="middle" x="2745.34" y="-1278.64" font-family="Times,serif" font-size="14.00">tar&#45;barrel*14000</text>
 </g>
 <!-- 1,&#45;1 (fluid=molten&#45;glass Glass, When space, make quartz separate with regular priority, Quartz) -->
 <g id="node9" class="node">
@@ -89,9 +89,9 @@
 <!-- 3,1 (Mining Brick)&#45;&gt;1,&#45;1 (fluid=molten&#45;glass Glass, When space, make quartz separate with regular priority, Quartz) -->
 <g id="edge11" class="edge">
 <title>3,1 (Mining Brick)&#45;&gt;1,&#45;1 (fluid=molten&#45;glass Glass, When space, make quartz separate with regular priority, Quartz)</title>
-<path fill="none" stroke="black" stroke-width="0.21" d="M2582.2,-1256.68C2535.85,-1144.77 2289.07,-548.99 2232.96,-413.54"/>
-<polygon fill="black" stroke="black" stroke-width="0.21" points="2236.17,-412.15 2229.11,-404.25 2229.7,-414.82 2236.17,-412.15"/>
-<text text-anchor="middle" x="2351.58" y="-838.91" font-family="Times,serif" font-size="14.00">tar&#45;barrel*1648</text>
+<path fill="none" stroke="black" stroke-width="0.27" d="M2582.2,-1256.68C2535.85,-1144.77 2289.07,-548.99 2232.96,-413.54"/>
+<polygon fill="black" stroke="black" stroke-width="0.27" points="2236.17,-412.15 2229.11,-404.25 2229.7,-414.82 2236.17,-412.15"/>
+<text text-anchor="middle" x="2351.58" y="-838.91" font-family="Times,serif" font-size="14.00">tar&#45;barrel*2488</text>
 </g>
 <!-- 0,8 (Tar from Coke) -->
 <g id="node4" class="node">
@@ -102,8 +102,8 @@
 <!-- 0,8 (Tar from Coke)&#45;&gt;0,3 () -->
 <g id="edge3" class="edge">
 <title>0,8 (Tar from Coke)&#45;&gt;0,3 ()</title>
-<path fill="none" stroke="black" stroke-width="0.1" d="M545.14,-2163.56C879.66,-2163.56 1943.62,-2163.56 2176.34,-2163.56"/>
-<polygon fill="black" stroke="black" stroke-width="0.1" points="2176.48,-2167.06 2186.48,-2163.56 2176.48,-2160.06 2176.48,-2167.06"/>
+<path fill="none" stroke="black" stroke-width="0.09" d="M545.14,-2163.56C879.66,-2163.56 1943.62,-2163.56 2176.34,-2163.56"/>
+<polygon fill="black" stroke="black" stroke-width="0.09" points="2176.48,-2167.06 2186.48,-2163.56 2176.48,-2160.06 2176.48,-2167.06"/>
 <text text-anchor="middle" x="1309.24" y="-2167.36" font-family="Times,serif" font-size="14.00">tar&#45;barrel*803</text>
 </g>
 <!-- 0,8 (Tar from Coke)&#45;&gt;3,6 (Phosphoric Acid and Phosphine gas) -->
@@ -116,8 +116,8 @@
 <!-- 0,8 (Tar from Coke)&#45;&gt;0,7 (Coal Gas) -->
 <g id="edge6" class="edge">
 <title>0,8 (Tar from Coke)&#45;&gt;0,7 (Coal Gas)</title>
-<path fill="none" stroke="black" stroke-width="0.13" d="M436.64,-2145.4C390.29,-2033.49 143.51,-1437.71 87.4,-1302.25"/>
-<polygon fill="black" stroke="black" stroke-width="0.13" points="90.61,-1300.86 83.55,-1292.97 84.14,-1303.54 90.61,-1300.86"/>
+<path fill="none" stroke="black" stroke-width="0.11" d="M436.64,-2145.4C390.29,-2033.49 143.51,-1437.71 87.4,-1302.25"/>
+<polygon fill="black" stroke="black" stroke-width="0.11" points="90.61,-1300.86 83.55,-1292.97 84.14,-1303.54 90.61,-1300.86"/>
 <text text-anchor="middle" x="206.02" y="-1727.63" font-family="Times,serif" font-size="14.00">tar&#45;barrel*1000</text>
 </g>
 <!-- 2,&#45;1 (Ammonia) -->
@@ -129,15 +129,15 @@
 <!-- 2,&#45;1 (Ammonia)&#45;&gt;0,3 () -->
 <g id="edge9" class="edge">
 <title>2,&#45;1 (Ammonia)&#45;&gt;0,3 ()</title>
-<path fill="none" stroke="black" stroke-width="0.32" d="M1340.43,-36.22C1420.54,-229.61 2113.09,-1901.59 2210.29,-2136.24"/>
-<polygon fill="black" stroke="black" stroke-width="0.32" points="2207.16,-2137.85 2214.22,-2145.75 2213.63,-2135.17 2207.16,-2137.85"/>
+<path fill="none" stroke="black" stroke-width="0.27" d="M1340.43,-36.22C1420.54,-229.61 2113.09,-1901.59 2210.29,-2136.24"/>
+<polygon fill="black" stroke="black" stroke-width="0.27" points="2207.16,-2137.85 2214.22,-2145.75 2213.63,-2135.17 2207.16,-2137.85"/>
 <text text-anchor="middle" x="1719.36" y="-1090.03" font-family="Times,serif" font-size="14.00">tar&#45;barrel*2480</text>
 </g>
 <!-- 2,&#45;1 (Ammonia)&#45;&gt;&#45;3,2 (Lead and Solder) -->
 <g id="edge7" class="edge">
 <title>2,&#45;1 (Ammonia)&#45;&gt;&#45;3,2 (Lead and Solder)</title>
-<path fill="none" stroke="black" stroke-width="0.11" d="M1294.41,-33.94C1152.05,-92.9 655.1,-298.75 494.58,-365.24"/>
-<polygon fill="black" stroke="black" stroke-width="0.11" points="492.84,-362.17 484.94,-369.23 495.52,-368.63 492.84,-362.17"/>
+<path fill="none" stroke="black" stroke-width="0.09" d="M1294.41,-33.94C1152.05,-92.9 655.1,-298.75 494.58,-365.24"/>
+<polygon fill="black" stroke="black" stroke-width="0.09" points="492.84,-362.17 484.94,-369.23 495.52,-368.63 492.84,-362.17"/>
 <text text-anchor="middle" x="842.99" y="-203.39" font-family="Times,serif" font-size="14.00">tar&#45;barrel*832</text>
 </g>
 <!-- 2,&#45;1 (Ammonia)&#45;&gt;1,&#45;1 (fluid=molten&#45;glass Glass, When space, make quartz separate with regular priority, Quartz) -->

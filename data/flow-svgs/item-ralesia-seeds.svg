@@ -26,7 +26,7 @@
 <title>&#45;4,2 (This line not currently using manure, Ralesia seeds)&#45;&gt;&#45;4,1 ()</title>
 <path fill="none" stroke="black" stroke-width="1.55" d="M800.09,-18C842.49,-18 881.66,-18 910.5,-18"/>
 <polygon fill="black" stroke="black" stroke-width="1.55" points="910.65,-21.5 920.65,-18 910.65,-14.5 910.65,-21.5"/>
-<text text-anchor="middle" x="855.3" y="-6.8" font-family="Times,serif" font-size="14.00">ralesia&#45;seeds*103520</text>
+<text text-anchor="middle" x="855.3" y="-6.8" font-family="Times,serif" font-size="14.00">ralesia&#45;seeds*122400</text>
 </g>
 <!-- 4,7 (Cottonguts) -->
 <g id="node3" class="node">
@@ -39,7 +39,7 @@
 <title>&#45;4,2 (This line not currently using manure, Ralesia seeds)&#45;&gt;4,7 (Cottonguts)</title>
 <path fill="none" stroke="black" stroke-width="0.45" d="M246.03,-18C224.36,-18 203.53,-18 184.49,-18"/>
 <polygon fill="black" stroke="black" stroke-width="0.45" points="184.4,-14.5 174.4,-18 184.4,-21.5 184.4,-14.5"/>
-<text text-anchor="middle" x="179.01" y="-6.8" font-family="Times,serif" font-size="14.00">ralesia&#45;seeds*30272</text>
+<text text-anchor="middle" x="179.01" y="-6.8" font-family="Times,serif" font-size="14.00">ralesia&#45;seeds*35296</text>
 </g>
 </g>
 </svg>

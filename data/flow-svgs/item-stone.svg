@@ -24,8 +24,8 @@
 <!-- &#45;6,&#45;3 (Chromite Sand)&#45;&gt;&#45;2,&#45;3 (Trains) -->
 <g id="edge1" class="edge">
 <title>&#45;6,&#45;3 (Chromite Sand)&#45;&gt;&#45;2,&#45;3 (Trains)</title>
-<path fill="none" stroke="black" stroke-width="0.04" d="M515.01,-35.95C455.49,-139.04 157.27,-655.58 85.67,-779.59"/>
-<polygon fill="black" stroke="black" stroke-width="0.04" points="82.51,-778.06 80.54,-788.47 88.57,-781.56 82.51,-778.06"/>
+<path fill="none" stroke="black" stroke-width="0.03" d="M515.01,-35.95C455.49,-139.04 157.27,-655.58 85.67,-779.59"/>
+<polygon fill="black" stroke="black" stroke-width="0.03" points="82.51,-778.06 80.54,-788.47 88.57,-781.56 82.51,-778.06"/>
 <text text-anchor="middle" x="259.34" y="-411.57" font-family="Times,serif" font-size="14.00">stone*2080</text>
 </g>
 <!-- 1,8 (Salt) -->
@@ -37,8 +37,8 @@
 <!-- &#45;6,&#45;3 (Chromite Sand)&#45;&gt;1,8 (Salt) -->
 <g id="edge5" class="edge">
 <title>&#45;6,&#45;3 (Chromite Sand)&#45;&gt;1,8 (Salt)</title>
-<path fill="none" stroke="black" stroke-width="1.1" d="M555.48,-35.39C734.81,-138.92 1660.84,-673.56 1855.12,-785.73"/>
-<polygon fill="black" stroke="black" stroke-width="1.1" points="1853.41,-788.78 1863.82,-790.75 1856.91,-782.72 1853.41,-788.78"/>
+<path fill="none" stroke="black" stroke-width="0.94" d="M555.48,-35.39C734.81,-138.92 1660.84,-673.56 1855.12,-785.73"/>
+<polygon fill="black" stroke="black" stroke-width="0.94" points="1853.41,-788.78 1863.82,-790.75 1856.91,-782.72 1853.41,-788.78"/>
 <text text-anchor="middle" x="1159.8" y="-414.36" font-family="Times,serif" font-size="14.00">stone*56048</text>
 </g>
 <!-- &#45;6,7 () -->
@@ -50,8 +50,8 @@
 <!-- &#45;6,7 ()&#45;&gt;1,8 (Salt) -->
 <g id="edge2" class="edge">
 <title>&#45;6,7 ()&#45;&gt;1,8 (Salt)</title>
-<path fill="none" stroke="black" stroke-width="3.32" d="M2065.44,-439.22C2036.17,-500.78 1939.11,-704.98 1903.85,-779.16"/>
-<polygon fill="black" stroke="black" stroke-width="3.32" points="1900.62,-777.81 1899.48,-788.34 1906.94,-780.81 1900.62,-777.81"/>
+<path fill="none" stroke="black" stroke-width="2.85" d="M2065.44,-439.22C2036.17,-500.78 1939.11,-704.98 1903.85,-779.16"/>
+<polygon fill="black" stroke="black" stroke-width="2.85" points="1900.62,-777.81 1899.48,-788.34 1906.94,-780.81 1900.62,-777.81"/>
 <text text-anchor="middle" x="1934.64" y="-612.99" font-family="Times,serif" font-size="14.00">stone*169664</text>
 </g>
 <!-- 3,3 (electrolysis power, DO NOT CONNECT THESE WIRES, Landfill Drive&#45;Thru, Small Parts) -->
@@ -63,15 +63,15 @@
 <!-- 3,3 (electrolysis power, DO NOT CONNECT THESE WIRES, Landfill Drive&#45;Thru, Small Parts)&#45;&gt;&#45;2,&#45;3 (Trains) -->
 <g id="edge3" class="edge">
 <title>3,3 (electrolysis power, DO NOT CONNECT THESE WIRES, Landfill Drive&#45;Thru, Small Parts)&#45;&gt;&#45;2,&#45;3 (Trains)</title>
-<path fill="none" stroke="black" stroke-width="2.6" d="M514.79,-1576.45C454.75,-1472.47 157.09,-956.9 85.63,-833.13"/>
-<polygon fill="black" stroke="black" stroke-width="2.6" points="88.55,-831.18 80.52,-824.27 82.49,-834.68 88.55,-831.18"/>
-<text text-anchor="middle" x="250.21" y="-1208.59" font-family="Times,serif" font-size="14.00">stone*132928</text>
+<path fill="none" stroke="black" stroke-width="2.79" d="M514.79,-1576.45C454.75,-1472.47 157.09,-956.9 85.63,-833.13"/>
+<polygon fill="black" stroke="black" stroke-width="2.79" points="88.55,-831.18 80.52,-824.27 82.49,-834.68 88.55,-831.18"/>
+<text text-anchor="middle" x="250.21" y="-1208.59" font-family="Times,serif" font-size="14.00">stone*166160</text>
 </g>
 <!-- 3,3 (electrolysis power, DO NOT CONNECT THESE WIRES, Landfill Drive&#45;Thru, Small Parts)&#45;&gt;1,8 (Salt) -->
 <g id="edge7" class="edge">
 <title>3,3 (electrolysis power, DO NOT CONNECT THESE WIRES, Landfill Drive&#45;Thru, Small Parts)&#45;&gt;1,8 (Salt)</title>
-<path fill="none" stroke="black" stroke-width="1.95" d="M556.79,-1576.64C739.2,-1471.33 1660.79,-939.25 1854.96,-827.14"/>
-<polygon fill="black" stroke="black" stroke-width="1.95" points="1856.74,-830.16 1863.65,-822.13 1853.24,-824.1 1856.74,-830.16"/>
+<path fill="none" stroke="black" stroke-width="1.67" d="M556.79,-1576.64C739.2,-1471.33 1660.79,-939.25 1854.96,-827.14"/>
+<polygon fill="black" stroke="black" stroke-width="1.67" points="1856.74,-830.16 1863.65,-822.13 1853.24,-824.1 1856.74,-830.16"/>
 <text text-anchor="middle" x="1160.37" y="-1205.69" font-family="Times,serif" font-size="14.00">stone*99696</text>
 </g>
 <!-- &#45;3,2 (Lead and Solder) -->
@@ -83,16 +83,16 @@
 <!-- &#45;3,2 (Lead and Solder)&#45;&gt;&#45;2,&#45;3 (Trains) -->
 <g id="edge4" class="edge">
 <title>&#45;3,2 (Lead and Solder)&#45;&gt;&#45;2,&#45;3 (Trains)</title>
-<path fill="none" stroke="black" stroke-width="0.13" d="M1405.61,-35.39C1226.77,-138.64 305.23,-670.69 107.56,-784.82"/>
-<polygon fill="black" stroke="black" stroke-width="0.13" points="105.61,-781.9 98.7,-789.93 109.11,-787.97 105.61,-781.9"/>
+<path fill="none" stroke="black" stroke-width="0.11" d="M1405.61,-35.39C1226.77,-138.64 305.23,-670.69 107.56,-784.82"/>
+<polygon fill="black" stroke="black" stroke-width="0.11" points="105.61,-781.9 98.7,-789.93 109.11,-787.97 105.61,-781.9"/>
 <text text-anchor="middle" x="715.59" y="-413.9" font-family="Times,serif" font-size="14.00">stone*6736</text>
 </g>
 <!-- &#45;3,2 (Lead and Solder)&#45;&gt;1,8 (Salt) -->
 <g id="edge9" class="edge">
 <title>&#45;3,2 (Lead and Solder)&#45;&gt;1,8 (Salt)</title>
-<path fill="none" stroke="black" stroke-width="0.49" d="M1446.09,-35.95C1505.61,-139.04 1803.83,-655.58 1875.43,-779.59"/>
-<polygon fill="black" stroke="black" stroke-width="0.49" points="1872.53,-781.56 1880.56,-788.47 1878.59,-778.06 1872.53,-781.56"/>
-<text text-anchor="middle" x="1615.26" y="-411.57" font-family="Times,serif" font-size="14.00">stone*25008</text>
+<path fill="none" stroke="black" stroke-width="0.98" d="M1446.09,-35.95C1505.61,-139.04 1803.83,-655.58 1875.43,-779.59"/>
+<polygon fill="black" stroke="black" stroke-width="0.98" points="1872.53,-781.56 1880.56,-788.47 1878.59,-778.06 1872.53,-781.56"/>
+<text text-anchor="middle" x="1615.26" y="-411.57" font-family="Times,serif" font-size="14.00">stone*58240</text>
 </g>
 <!-- &#45;3,&#45;3 (Zinc Plates, 32 to consume four belts) -->
 <g id="node7" class="node">
@@ -103,15 +103,15 @@
 <!-- &#45;3,&#45;3 (Zinc Plates, 32 to consume four belts)&#45;&gt;&#45;2,&#45;3 (Trains) -->
 <g id="edge6" class="edge">
 <title>&#45;3,&#45;3 (Zinc Plates, 32 to consume four belts)&#45;&gt;&#45;2,&#45;3 (Trains)</title>
-<path fill="none" stroke="black" stroke-width="0.11" d="M1404.64,-1576.83C1223.51,-1472.26 305.5,-942.25 107.76,-828.08"/>
-<polygon fill="black" stroke="black" stroke-width="0.11" points="109.3,-824.93 98.89,-822.96 105.8,-830.99 109.3,-824.93"/>
+<path fill="none" stroke="black" stroke-width="0.09" d="M1404.64,-1576.83C1223.51,-1472.26 305.5,-942.25 107.76,-828.08"/>
+<polygon fill="black" stroke="black" stroke-width="0.09" points="109.3,-824.93 98.89,-822.96 105.8,-830.99 109.3,-824.93"/>
 <text text-anchor="middle" x="715.2" y="-1206.26" font-family="Times,serif" font-size="14.00">stone*5552</text>
 </g>
 <!-- &#45;3,&#45;3 (Zinc Plates, 32 to consume four belts)&#45;&gt;1,8 (Salt) -->
 <g id="edge10" class="edge">
 <title>&#45;3,&#45;3 (Zinc Plates, 32 to consume four belts)&#45;&gt;1,8 (Salt)</title>
-<path fill="none" stroke="black" stroke-width="0.16" d="M1446.31,-1576.45C1506.35,-1472.47 1804.01,-956.9 1875.46,-833.13"/>
-<polygon fill="black" stroke="black" stroke-width="0.16" points="1878.61,-834.68 1880.58,-824.27 1872.55,-831.18 1878.61,-834.68"/>
+<path fill="none" stroke="black" stroke-width="0.14" d="M1446.31,-1576.45C1506.35,-1472.47 1804.01,-956.9 1875.46,-833.13"/>
+<polygon fill="black" stroke="black" stroke-width="0.14" points="1878.61,-834.68 1880.58,-824.27 1872.55,-831.18 1878.61,-834.68"/>
 <text text-anchor="middle" x="1619.89" y="-1208.59" font-family="Times,serif" font-size="14.00">stone*8352</text>
 </g>
 <!-- 3,9 (Copper, molten &amp; plate) -->
@@ -123,9 +123,9 @@
 <!-- 3,9 (Copper, molten &amp; plate)&#45;&gt;1,8 (Salt) -->
 <g id="edge8" class="edge">
 <title>3,9 (Copper, molten &amp; plate)&#45;&gt;1,8 (Salt)</title>
-<path fill="none" stroke="black" stroke-width="0.5" d="M2100.48,-686.05C2055.99,-711.6 1974.15,-758.59 1926.98,-785.68"/>
-<polygon fill="black" stroke="black" stroke-width="0.5" points="1924.96,-782.8 1918.03,-790.82 1928.45,-788.87 1924.96,-782.8"/>
-<text text-anchor="middle" x="1968.23" y="-739.67" font-family="Times,serif" font-size="14.00">stone*25360</text>
+<path fill="none" stroke="black" stroke-width="0.86" d="M2100.48,-686.05C2055.99,-711.6 1974.15,-758.59 1926.98,-785.68"/>
+<polygon fill="black" stroke="black" stroke-width="0.86" points="1924.96,-782.8 1918.03,-790.82 1928.45,-788.87 1924.96,-782.8"/>
+<text text-anchor="middle" x="1968.23" y="-739.67" font-family="Times,serif" font-size="14.00">stone*51088</text>
 </g>
 <!-- 0,5 (Titanium Processing (Grade 4)) -->
 <g id="node9" class="node">
@@ -136,8 +136,8 @@
 <!-- 0,5 (Titanium Processing (Grade 4))&#45;&gt;1,8 (Salt) -->
 <g id="edge11" class="edge">
 <title>0,5 (Titanium Processing (Grade 4))&#45;&gt;1,8 (Salt)</title>
-<path fill="none" stroke="black" stroke-width="0.61" d="M2096.08,-1040.23C2057.17,-995.89 1957.12,-881.86 1912.7,-831.24"/>
-<polygon fill="black" stroke="black" stroke-width="0.61" points="1915.3,-828.89 1906.07,-823.68 1910.04,-833.5 1915.3,-828.89"/>
+<path fill="none" stroke="black" stroke-width="0.53" d="M2096.08,-1040.23C2057.17,-995.89 1957.12,-881.86 1912.7,-831.24"/>
+<polygon fill="black" stroke="black" stroke-width="0.53" points="1915.3,-828.89 1906.07,-823.68 1910.04,-833.5 1915.3,-828.89"/>
 <text text-anchor="middle" x="1958.89" y="-939.53" font-family="Times,serif" font-size="14.00">stone*31296</text>
 </g>
 </g>

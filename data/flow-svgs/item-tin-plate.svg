@@ -24,9 +24,9 @@
 <!-- 2,&#45;2 (Tin Plate, Organic Solvent)&#45;&gt;&#45;6,&#45;4 (High&#45;Power Resistors, Ceramic Capacitor, Inductor) -->
 <g id="edge1" class="edge">
 <title>2,&#45;2 (Tin Plate, Organic Solvent)&#45;&gt;&#45;6,&#45;4 (High&#45;Power Resistors, Ceramic Capacitor, Inductor)</title>
-<path fill="none" stroke="black" stroke-width="2.32" d="M779.33,-539.91C799.04,-539.91 819.63,-539.91 840.53,-539.91"/>
-<polygon fill="black" stroke="black" stroke-width="2.32" points="840.81,-543.41 850.81,-539.91 840.81,-536.41 840.81,-543.41"/>
-<text text-anchor="middle" x="809.93" y="-528.71" font-family="Times,serif" font-size="14.00">tin&#45;plate*23712</text>
+<path fill="none" stroke="black" stroke-width="2.61" d="M779.33,-539.91C799.04,-539.91 819.63,-539.91 840.53,-539.91"/>
+<polygon fill="black" stroke="black" stroke-width="2.61" points="840.81,-543.41 850.81,-539.91 840.81,-536.41 840.81,-543.41"/>
+<text text-anchor="middle" x="809.93" y="-528.71" font-family="Times,serif" font-size="14.00">tin&#45;plate*32160</text>
 </g>
 <!-- 4,6 (Circuit substrate and Doped silicon) -->
 <g id="node4" class="node">
@@ -37,8 +37,8 @@
 <!-- 2,&#45;2 (Tin Plate, Organic Solvent)&#45;&gt;4,6 (Circuit substrate and Doped silicon) -->
 <g id="edge3" class="edge">
 <title>2,&#45;2 (Tin Plate, Organic Solvent)&#45;&gt;4,6 (Circuit substrate and Doped silicon)</title>
-<path fill="none" stroke="black" stroke-width="0.59" d="M602.62,-557.88C537.33,-628.05 299.32,-883.82 223.15,-965.68"/>
-<polygon fill="black" stroke="black" stroke-width="0.59" points="220.55,-963.34 216.3,-973.04 225.67,-968.11 220.55,-963.34"/>
+<path fill="none" stroke="black" stroke-width="0.49" d="M602.62,-557.88C537.33,-628.05 299.32,-883.82 223.15,-965.68"/>
+<polygon fill="black" stroke="black" stroke-width="0.49" points="220.55,-963.34 216.3,-973.04 225.67,-968.11 220.55,-963.34"/>
 <text text-anchor="middle" x="361.39" y="-765.58" font-family="Times,serif" font-size="14.00">tin&#45;plate*6048</text>
 </g>
 <!-- 5,8 (Ulric Food) -->
@@ -50,8 +50,8 @@
 <!-- 2,&#45;2 (Tin Plate, Organic Solvent)&#45;&gt;5,8 (Ulric Food) -->
 <g id="edge4" class="edge">
 <title>2,&#45;2 (Tin Plate, Organic Solvent)&#45;&gt;5,8 (Ulric Food)</title>
-<path fill="none" stroke="black" stroke-width="0.88" d="M608.06,-521.95C559.27,-444.23 366.22,-136.77 308.22,-44.39"/>
-<polygon fill="black" stroke="black" stroke-width="0.88" points="311.17,-42.5 302.89,-35.89 305.24,-46.22 311.17,-42.5"/>
+<path fill="none" stroke="black" stroke-width="0.73" d="M608.06,-521.95C559.27,-444.23 366.22,-136.77 308.22,-44.39"/>
+<polygon fill="black" stroke="black" stroke-width="0.73" points="311.17,-42.5 302.89,-35.89 305.24,-46.22 311.17,-42.5"/>
 <text text-anchor="middle" x="406.64" y="-286.97" font-family="Times,serif" font-size="14.00">tin&#45;plate*9008</text>
 </g>
 <!-- &#45;2,&#45;3 (Trains) -->
@@ -63,8 +63,8 @@
 <!-- &#45;2,&#45;3 (Trains)&#45;&gt;&#45;6,&#45;4 (High&#45;Power Resistors, Ceramic Capacitor, Inductor) -->
 <g id="edge2" class="edge">
 <title>&#45;2,&#45;3 (Trains)&#45;&gt;&#45;6,&#45;4 (High&#45;Power Resistors, Ceramic Capacitor, Inductor)</title>
-<path fill="none" stroke="black" stroke-width="0.2" d="M1479.41,-539.91C1461.17,-539.91 1440.36,-539.91 1418.18,-539.91"/>
-<polygon fill="black" stroke="black" stroke-width="0.2" points="1417.9,-536.41 1407.9,-539.91 1417.9,-543.41 1417.9,-536.41"/>
+<path fill="none" stroke="black" stroke-width="0.17" d="M1479.41,-539.91C1461.17,-539.91 1440.36,-539.91 1418.18,-539.91"/>
+<polygon fill="black" stroke="black" stroke-width="0.17" points="1417.9,-536.41 1407.9,-539.91 1417.9,-543.41 1417.9,-536.41"/>
 <text text-anchor="middle" x="1423.04" y="-528.71" font-family="Times,serif" font-size="14.00">tin&#45;plate*2036</text>
 </g>
 </g>

@@ -24,8 +24,8 @@
 <!-- 1,7 (Activated Carbon)&#45;&gt;&#45;1,7 (Rayon) -->
 <g id="edge1" class="edge">
 <title>1,7 (Activated Carbon)&#45;&gt;&#45;1,7 (Rayon)</title>
-<path fill="none" stroke="black" stroke-width="1.71" d="M702.67,-18C765.39,-18 841.15,-18 896.65,-18"/>
-<polygon fill="black" stroke="black" stroke-width="1.71" points="896.77,-21.5 906.77,-18 896.77,-14.5 896.77,-21.5"/>
+<path fill="none" stroke="black" stroke-width="1.5" d="M702.67,-18C765.39,-18 841.15,-18 896.65,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1.5" points="896.77,-21.5 906.77,-18 896.77,-14.5 896.77,-21.5"/>
 <text text-anchor="middle" x="752.66" y="-21.8" font-family="Times,serif" font-size="14.00">sulfur*12080</text>
 </g>
 <!-- 4,6 (Circuit substrate and Doped silicon) -->
@@ -37,9 +37,9 @@
 <!-- 1,7 (Activated Carbon)&#45;&gt;4,6 (Circuit substrate and Doped silicon) -->
 <g id="edge2" class="edge">
 <title>1,7 (Activated Carbon)&#45;&gt;4,6 (Circuit substrate and Doped silicon)</title>
-<path fill="none" stroke="black" stroke-width="0.29" d="M470.84,-18C451.22,-18 430.32,-18 409.17,-18"/>
-<polygon fill="black" stroke="black" stroke-width="0.29" points="409.1,-14.5 399.1,-18 409.1,-21.5 409.1,-14.5"/>
-<text text-anchor="middle" x="440" y="-6.8" font-family="Times,serif" font-size="14.00">sulfur*2032</text>
+<path fill="none" stroke="black" stroke-width="0.5" d="M470.84,-18C451.22,-18 430.32,-18 409.17,-18"/>
+<polygon fill="black" stroke="black" stroke-width="0.5" points="409.1,-14.5 399.1,-18 409.1,-21.5 409.1,-14.5"/>
+<text text-anchor="middle" x="440" y="-6.8" font-family="Times,serif" font-size="14.00">sulfur*4048</text>
 </g>
 </g>
 </svg>

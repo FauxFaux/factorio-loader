@@ -26,7 +26,7 @@
 <title>&#45;1,5 (Train stops for bus brick)&#45;&gt;&#45;3,8 (Urea)</title>
 <path fill="none" stroke="black" stroke-width="1.4" d="M793.95,-467.85C900.44,-467.85 1037.77,-467.85 1119.93,-467.85"/>
 <polygon fill="black" stroke="black" stroke-width="1.4" points="1120.16,-471.35 1130.16,-467.85 1120.16,-464.35 1120.16,-471.35"/>
-<text text-anchor="middle" x="912.44" y="-471.65" font-family="Times,serif" font-size="14.00">moss*28832</text>
+<text text-anchor="middle" x="912.44" y="-471.65" font-family="Times,serif" font-size="14.00">moss*32912</text>
 </g>
 <!-- 0,10 (item=meat Meat) -->
 <g id="node3" class="node">
@@ -37,9 +37,9 @@
 <!-- &#45;1,5 (Train stops for bus brick)&#45;&gt;0,10 (item=meat Meat) -->
 <g id="edge2" class="edge">
 <title>&#45;1,5 (Train stops for bus brick)&#45;&gt;0,10 (item=meat Meat)</title>
-<path fill="none" stroke="black" stroke-width="1.5" d="M637.16,-485.93C617.99,-564.7 541.69,-878.34 518.39,-974.08"/>
-<polygon fill="black" stroke="black" stroke-width="1.5" points="514.97,-973.36 516,-983.9 521.77,-975.01 514.97,-973.36"/>
-<text text-anchor="middle" x="533.28" y="-733.8" font-family="Times,serif" font-size="14.00">moss*30960</text>
+<path fill="none" stroke="black" stroke-width="1.51" d="M637.16,-485.93C617.99,-564.7 541.69,-878.34 518.39,-974.08"/>
+<polygon fill="black" stroke="black" stroke-width="1.51" points="514.97,-973.36 516,-983.9 521.77,-975.01 514.97,-973.36"/>
+<text text-anchor="middle" x="533.28" y="-733.8" font-family="Times,serif" font-size="14.00">moss*35632</text>
 </g>
 <!-- &#45;1,6 (Flimble&#39;s Slaughterhouse and Daycare Centre, Auog Products) -->
 <g id="node4" class="node">
@@ -50,8 +50,8 @@
 <!-- &#45;1,5 (Train stops for bus brick)&#45;&gt;&#45;1,6 (Flimble&#39;s Slaughterhouse and Daycare Centre, Auog Products) -->
 <g id="edge3" class="edge">
 <title>&#45;1,5 (Train stops for bus brick)&#45;&gt;&#45;1,6 (Flimble&#39;s Slaughterhouse and Daycare Centre, Auog Products)</title>
-<path fill="none" stroke="black" stroke-width="0.1" d="M628.78,-449.66C579.66,-379.72 402.81,-127.9 344.45,-44.81"/>
-<polygon fill="black" stroke="black" stroke-width="0.1" points="347.17,-42.59 338.56,-36.42 341.44,-46.61 347.17,-42.59"/>
+<path fill="none" stroke="black" stroke-width="0.09" d="M628.78,-449.66C579.66,-379.72 402.81,-127.9 344.45,-44.81"/>
+<polygon fill="black" stroke="black" stroke-width="0.09" points="347.17,-42.59 338.56,-36.42 341.44,-46.61 347.17,-42.59"/>
 <text text-anchor="middle" x="446.61" y="-251.03" font-family="Times,serif" font-size="14.00">moss*2016</text>
 </g>
 </g>

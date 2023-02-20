@@ -24,9 +24,9 @@
 <!-- 0,6 (Flue Gas Disposal, Syngas From Flue Gas)&#45;&gt;2,6 (Refined Syngas) -->
 <g id="edge1" class="edge">
 <title>0,6 (Flue Gas Disposal, Syngas From Flue Gas)&#45;&gt;2,6 (Refined Syngas)</title>
-<path fill="none" stroke="black" stroke-width="1.49" d="M618.55,-158.98C814.96,-272.37 1883.86,-889.5 2102.42,-1015.69"/>
-<polygon fill="black" stroke="black" stroke-width="1.49" points="2100.89,-1018.85 2111.3,-1020.82 2104.39,-1012.79 2100.89,-1018.85"/>
-<text text-anchor="middle" x="1289.98" y="-591.13" font-family="Times,serif" font-size="14.00">syngas&#45;barrel*7327</text>
+<path fill="none" stroke="black" stroke-width="1.51" d="M618.55,-158.98C814.96,-272.37 1883.86,-889.5 2102.42,-1015.69"/>
+<polygon fill="black" stroke="black" stroke-width="1.51" points="2100.89,-1018.85 2111.3,-1020.82 2104.39,-1012.79 2100.89,-1018.85"/>
+<text text-anchor="middle" x="1289.98" y="-591.13" font-family="Times,serif" font-size="14.00">syngas&#45;barrel*8807</text>
 </g>
 <!-- &#45;1,5 (Train stops for bus brick) -->
 <g id="node4" class="node">
@@ -37,9 +37,9 @@
 <!-- 0,6 (Flue Gas Disposal, Syngas From Flue Gas)&#45;&gt;&#45;1,5 (Train stops for bus brick) -->
 <g id="edge3" class="edge">
 <title>0,6 (Flue Gas Disposal, Syngas From Flue Gas)&#45;&gt;&#45;1,5 (Train stops for bus brick)</title>
-<path fill="none" stroke="black" stroke-width="1.18" d="M680.9,-124.59C813.84,-101.15 1056.33,-58.39 1190.23,-34.78"/>
-<polygon fill="black" stroke="black" stroke-width="1.18" points="1191.23,-38.16 1200.47,-32.97 1190.01,-31.26 1191.23,-38.16"/>
-<text text-anchor="middle" x="865.06" y="-83.48" font-family="Times,serif" font-size="14.00">syngas&#45;barrel*5831</text>
+<path fill="none" stroke="black" stroke-width="1.15" d="M680.9,-124.59C813.84,-101.15 1056.33,-58.39 1190.23,-34.78"/>
+<polygon fill="black" stroke="black" stroke-width="1.15" points="1191.23,-38.16 1200.47,-32.97 1190.01,-31.26 1191.23,-38.16"/>
+<text text-anchor="middle" x="865.06" y="-83.48" font-family="Times,serif" font-size="14.00">syngas&#45;barrel*6743</text>
 </g>
 <!-- &#45;2,7 (item=borax Borax) -->
 <g id="node5" class="node">
@@ -50,9 +50,9 @@
 <!-- 0,6 (Flue Gas Disposal, Syngas From Flue Gas)&#45;&gt;&#45;2,7 (item=borax Borax) -->
 <g id="edge4" class="edge">
 <title>0,6 (Flue Gas Disposal, Syngas From Flue Gas)&#45;&gt;&#45;2,7 (item=borax Borax)</title>
-<path fill="none" stroke="black" stroke-width="0.69" d="M594.08,-159.11C659.64,-339.22 1195.15,-1810.55 1275.35,-2030.89"/>
-<polygon fill="black" stroke="black" stroke-width="0.69" points="1272.11,-2032.23 1278.82,-2040.43 1278.69,-2029.83 1272.11,-2032.23"/>
-<text text-anchor="middle" x="864.22" y="-1098.8" font-family="Times,serif" font-size="14.00">syngas&#45;barrel*3388</text>
+<path fill="none" stroke="black" stroke-width="0.81" d="M594.08,-159.11C659.64,-339.22 1195.15,-1810.55 1275.35,-2030.89"/>
+<polygon fill="black" stroke="black" stroke-width="0.81" points="1272.11,-2032.23 1278.82,-2040.43 1278.69,-2029.83 1272.11,-2032.23"/>
+<text text-anchor="middle" x="864.22" y="-1098.8" font-family="Times,serif" font-size="14.00">syngas&#45;barrel*4732</text>
 </g>
 <!-- 4,&#45;2 (Ceramic) -->
 <g id="node6" class="node">
@@ -65,7 +65,7 @@
 <title>0,6 (Flue Gas Disposal, Syngas From Flue Gas)&#45;&gt;4,&#45;2 (Ceramic)</title>
 <path fill="none" stroke="black" stroke-width="0.25" d="M587.51,-159.11C587.51,-331.99 587.51,-1693.15 587.51,-1907.13"/>
 <polygon fill="black" stroke="black" stroke-width="0.25" points="584.01,-1907.24 587.51,-1917.24 591.01,-1907.24 584.01,-1907.24"/>
-<text text-anchor="middle" x="517.01" y="-1036.92" font-family="Times,serif" font-size="14.00">syngas&#45;barrel*1216</text>
+<text text-anchor="middle" x="517.01" y="-1036.92" font-family="Times,serif" font-size="14.00">syngas&#45;barrel*1456</text>
 </g>
 <!-- 3,1 (Mining Brick) -->
 <g id="node9" class="node">
@@ -76,8 +76,8 @@
 <!-- 0,6 (Flue Gas Disposal, Syngas From Flue Gas)&#45;&gt;3,1 (Mining Brick) -->
 <g id="edge12" class="edge">
 <title>0,6 (Flue Gas Disposal, Syngas From Flue Gas)&#45;&gt;3,1 (Mining Brick)</title>
-<path fill="none" stroke="black" stroke-width="0.6" d="M572.35,-159.12C505,-239.39 232.63,-563.98 153.6,-658.17"/>
-<polygon fill="black" stroke="black" stroke-width="0.6" points="150.73,-656.14 146.98,-666.05 156.09,-660.64 150.73,-656.14"/>
+<path fill="none" stroke="black" stroke-width="0.51" d="M572.35,-159.12C505,-239.39 232.63,-563.98 153.6,-658.17"/>
+<polygon fill="black" stroke="black" stroke-width="0.51" points="150.73,-656.14 146.98,-666.05 156.09,-660.64 150.73,-656.14"/>
 <text text-anchor="middle" x="292.48" y="-412.44" font-family="Times,serif" font-size="14.00">syngas&#45;barrel*2976</text>
 </g>
 <!-- &#45;5,&#45;1 (Coal and Coke and Syngas and Ash and Coke Oven Gas and...) -->
@@ -89,36 +89,36 @@
 <!-- &#45;5,&#45;1 (Coal and Coke and Syngas and Ash and Coke Oven Gas and...)&#45;&gt;2,6 (Refined Syngas) -->
 <g id="edge8" class="edge">
 <title>&#45;5,&#45;1 (Coal and Coke and Syngas and Ash and Coke Oven Gas and...)&#45;&gt;2,6 (Refined Syngas)</title>
-<path fill="none" stroke="black" stroke-width="3.71" d="M1905.7,-1685.98C1939.25,-1593.81 2090.7,-1177.68 2131.38,-1065.93"/>
-<polygon fill="black" stroke="black" stroke-width="3.71" points="2134.73,-1066.96 2134.86,-1056.37 2128.15,-1064.57 2134.73,-1066.96"/>
-<text text-anchor="middle" x="1943.54" y="-1379.75" font-family="Times,serif" font-size="14.00">syngas&#45;barrel*18296</text>
+<path fill="none" stroke="black" stroke-width="3.93" d="M1905.7,-1685.98C1939.25,-1593.81 2090.7,-1177.68 2131.38,-1065.93"/>
+<polygon fill="black" stroke="black" stroke-width="3.93" points="2134.73,-1066.96 2134.86,-1056.37 2128.15,-1064.57 2134.73,-1066.96"/>
+<text text-anchor="middle" x="1943.54" y="-1379.75" font-family="Times,serif" font-size="14.00">syngas&#45;barrel*22952</text>
 </g>
 <!-- &#45;5,&#45;1 (Coal and Coke and Syngas and Ash and Coke Oven Gas and...)&#45;&gt;&#45;1,5 (Train stops for bus brick) -->
 <g id="edge2" class="edge">
 <title>&#45;5,&#45;1 (Coal and Coke and Syngas and Ash and Coke Oven Gas and...)&#45;&gt;&#45;1,5 (Train stops for bus brick)</title>
 <path fill="none" stroke="black" stroke-width="3.81" d="M1892.51,-1686.06C1831.81,-1519.28 1369.84,-250.05 1295.48,-45.72"/>
 <polygon fill="black" stroke="black" stroke-width="3.81" points="1298.66,-44.24 1291.95,-36.04 1292.08,-46.64 1298.66,-44.24"/>
-<text text-anchor="middle" x="1518.99" y="-869.69" font-family="Times,serif" font-size="14.00">syngas&#45;barrel*18776</text>
+<text text-anchor="middle" x="1518.99" y="-869.69" font-family="Times,serif" font-size="14.00">syngas&#45;barrel*22262</text>
 </g>
 <!-- &#45;5,&#45;1 (Coal and Coke and Syngas and Ash and Coke Oven Gas and...)&#45;&gt;&#45;2,7 (item=borax Borax) -->
 <g id="edge6" class="edge">
 <title>&#45;5,&#45;1 (Coal and Coke and Syngas and Ash and Coke Oven Gas and...)&#45;&gt;&#45;2,7 (item=borax Borax)</title>
-<path fill="none" stroke="black" stroke-width="1.55" d="M1867.81,-1722.19C1765.07,-1781.51 1438.07,-1970.3 1324.61,-2035.81"/>
-<polygon fill="black" stroke="black" stroke-width="1.55" points="1322.78,-2032.83 1315.87,-2040.86 1326.28,-2038.89 1322.78,-2032.83"/>
-<text text-anchor="middle" x="1525.71" y="-1882.8" font-family="Times,serif" font-size="14.00">syngas&#45;barrel*7648</text>
+<path fill="none" stroke="black" stroke-width="1.49" d="M1867.81,-1722.19C1765.07,-1781.51 1438.07,-1970.3 1324.61,-2035.81"/>
+<polygon fill="black" stroke="black" stroke-width="1.49" points="1322.78,-2032.83 1315.87,-2040.86 1326.28,-2038.89 1322.78,-2032.83"/>
+<text text-anchor="middle" x="1525.71" y="-1882.8" font-family="Times,serif" font-size="14.00">syngas&#45;barrel*8688</text>
 </g>
 <!-- &#45;5,&#45;1 (Coal and Coke and Syngas and Ash and Coke Oven Gas and...)&#45;&gt;4,&#45;2 (Ceramic) -->
 <g id="edge9" class="edge">
 <title>&#45;5,&#45;1 (Coal and Coke and Syngas and Ash and Coke Oven Gas and...)&#45;&gt;4,&#45;2 (Ceramic)</title>
-<path fill="none" stroke="black" stroke-width="0.41" d="M1801.58,-1721.33C1549.41,-1765.79 880.06,-1883.82 659.28,-1922.75"/>
-<polygon fill="black" stroke="black" stroke-width="0.41" points="658.35,-1919.36 649.11,-1924.54 659.56,-1926.25 658.35,-1919.36"/>
-<text text-anchor="middle" x="1159.93" y="-1825.84" font-family="Times,serif" font-size="14.00">syngas&#45;barrel*2022</text>
+<path fill="none" stroke="black" stroke-width="0.43" d="M1801.58,-1721.33C1549.41,-1765.79 880.06,-1883.82 659.28,-1922.75"/>
+<polygon fill="black" stroke="black" stroke-width="0.43" points="658.35,-1919.36 649.11,-1924.54 659.56,-1926.25 658.35,-1919.36"/>
+<text text-anchor="middle" x="1159.93" y="-1825.84" font-family="Times,serif" font-size="14.00">syngas&#45;barrel*2518</text>
 </g>
 <!-- &#45;5,&#45;1 (Coal and Coke and Syngas and Ash and Coke Oven Gas and...)&#45;&gt;3,1 (Mining Brick) -->
 <g id="edge11" class="edge">
 <title>&#45;5,&#45;1 (Coal and Coke and Syngas and Ash and Coke Oven Gas and...)&#45;&gt;3,1 (Mining Brick)</title>
-<path fill="none" stroke="black" stroke-width="1.23" d="M1868.04,-1686.21C1654.72,-1563.05 407.22,-842.81 170.7,-706.25"/>
-<polygon fill="black" stroke="black" stroke-width="1.23" points="172.18,-703.06 161.77,-701.09 168.68,-709.12 172.18,-703.06"/>
+<path fill="none" stroke="black" stroke-width="1.04" d="M1868.04,-1686.21C1654.72,-1563.05 407.22,-842.81 170.7,-706.25"/>
+<polygon fill="black" stroke="black" stroke-width="1.04" points="172.18,-703.06 161.77,-701.09 168.68,-709.12 172.18,-703.06"/>
 <text text-anchor="middle" x="948.87" y="-1200.03" font-family="Times,serif" font-size="14.00">syngas&#45;barrel*6064</text>
 </g>
 <!-- &#45;2,8 (syngas from coal dust) -->
@@ -130,36 +130,36 @@
 <!-- &#45;2,8 (syngas from coal dust)&#45;&gt;2,6 (Refined Syngas) -->
 <g id="edge16" class="edge">
 <title>&#45;2,8 (syngas from coal dust)&#45;&gt;2,6 (Refined Syngas)</title>
-<path fill="none" stroke="black" stroke-width="0.93" d="M1905.7,-390.48C1939.25,-482.65 2090.7,-898.78 2131.38,-1010.53"/>
-<polygon fill="black" stroke="black" stroke-width="0.93" points="2128.15,-1011.89 2134.86,-1020.09 2134.73,-1009.49 2128.15,-1011.89"/>
-<text text-anchor="middle" x="1948.04" y="-704.31" font-family="Times,serif" font-size="14.00">syngas&#45;barrel*4592</text>
+<path fill="none" stroke="black" stroke-width="0.97" d="M1905.7,-390.48C1939.25,-482.65 2090.7,-898.78 2131.38,-1010.53"/>
+<polygon fill="black" stroke="black" stroke-width="0.97" points="2128.15,-1011.89 2134.86,-1020.09 2134.73,-1009.49 2128.15,-1011.89"/>
+<text text-anchor="middle" x="1948.04" y="-704.31" font-family="Times,serif" font-size="14.00">syngas&#45;barrel*5645</text>
 </g>
 <!-- &#45;2,8 (syngas from coal dust)&#45;&gt;&#45;1,5 (Train stops for bus brick) -->
 <g id="edge7" class="edge">
 <title>&#45;2,8 (syngas from coal dust)&#45;&gt;&#45;1,5 (Train stops for bus brick)</title>
-<path fill="none" stroke="black" stroke-width="1.43" d="M1868.66,-354.75C1766.93,-296.02 1438.71,-106.52 1324.78,-40.74"/>
-<polygon fill="black" stroke="black" stroke-width="1.43" points="1326.41,-37.65 1316,-35.68 1322.91,-43.71 1326.41,-37.65"/>
-<text text-anchor="middle" x="1526.22" y="-201.55" font-family="Times,serif" font-size="14.00">syngas&#45;barrel*7024</text>
+<path fill="none" stroke="black" stroke-width="1.48" d="M1868.66,-354.75C1766.93,-296.02 1438.71,-106.52 1324.78,-40.74"/>
+<polygon fill="black" stroke="black" stroke-width="1.48" points="1326.41,-37.65 1316,-35.68 1322.91,-43.71 1326.41,-37.65"/>
+<text text-anchor="middle" x="1526.22" y="-201.55" font-family="Times,serif" font-size="14.00">syngas&#45;barrel*8656</text>
 </g>
 <!-- &#45;2,8 (syngas from coal dust)&#45;&gt;&#45;2,7 (item=borax Borax) -->
 <g id="edge15" class="edge">
 <title>&#45;2,8 (syngas from coal dust)&#45;&gt;&#45;2,7 (item=borax Borax)</title>
-<path fill="none" stroke="black" stroke-width="0.43" d="M1892.51,-390.4C1831.81,-557.18 1369.84,-1826.41 1295.48,-2030.73"/>
-<polygon fill="black" stroke="black" stroke-width="0.43" points="1292.08,-2029.82 1291.95,-2040.41 1298.66,-2032.22 1292.08,-2029.82"/>
+<path fill="none" stroke="black" stroke-width="0.36" d="M1892.51,-390.4C1831.81,-557.18 1369.84,-1826.41 1295.48,-2030.73"/>
+<polygon fill="black" stroke="black" stroke-width="0.36" points="1292.08,-2029.82 1291.95,-2040.41 1298.66,-2032.22 1292.08,-2029.82"/>
 <text text-anchor="middle" x="1523.49" y="-1214.37" font-family="Times,serif" font-size="14.00">syngas&#45;barrel*2112</text>
 </g>
 <!-- &#45;2,8 (syngas from coal dust)&#45;&gt;4,&#45;2 (Ceramic) -->
 <g id="edge20" class="edge">
 <title>&#45;2,8 (syngas from coal dust)&#45;&gt;4,&#45;2 (Ceramic)</title>
-<path fill="none" stroke="black" stroke-width="0.1" d="M1883.91,-390.42C1749.7,-550.36 767.37,-1721.05 609.03,-1909.76"/>
-<polygon fill="black" stroke="black" stroke-width="0.1" points="606.26,-1907.61 602.52,-1917.52 611.63,-1912.11 606.26,-1907.61"/>
+<path fill="none" stroke="black" stroke-width="0.09" d="M1883.91,-390.42C1749.7,-550.36 767.37,-1721.05 609.03,-1909.76"/>
+<polygon fill="black" stroke="black" stroke-width="0.09" points="606.26,-1907.61 602.52,-1917.52 611.63,-1912.11 606.26,-1907.61"/>
 <text text-anchor="middle" x="1180.47" y="-1153.89" font-family="Times,serif" font-size="14.00">syngas&#45;barrel*512</text>
 </g>
 <!-- &#45;2,8 (syngas from coal dust)&#45;&gt;3,1 (Mining Brick) -->
 <g id="edge13" class="edge">
 <title>&#45;2,8 (syngas from coal dust)&#45;&gt;3,1 (Mining Brick)</title>
-<path fill="none" stroke="black" stroke-width="0.63" d="M1816.52,-386.88C1519.19,-439.31 505.26,-618.09 212.03,-669.8"/>
-<polygon fill="black" stroke="black" stroke-width="0.63" points="211.15,-666.4 201.91,-671.58 212.36,-673.29 211.15,-666.4"/>
+<path fill="none" stroke="black" stroke-width="0.53" d="M1816.52,-386.88C1519.19,-439.31 505.26,-618.09 212.03,-669.8"/>
+<polygon fill="black" stroke="black" stroke-width="0.53" points="211.15,-666.4 201.91,-671.58 212.36,-673.29 211.15,-666.4"/>
 <text text-anchor="middle" x="943.78" y="-532.14" font-family="Times,serif" font-size="14.00">syngas&#45;barrel*3120</text>
 </g>
 <!-- 4,10 (Fluid Recycling) -->
@@ -171,29 +171,29 @@
 <!-- 4,10 (Fluid Recycling)&#45;&gt;2,6 (Refined Syngas) -->
 <g id="edge10" class="edge">
 <title>4,10 (Fluid Recycling)&#45;&gt;2,6 (Refined Syngas)</title>
-<path fill="none" stroke="black" stroke-width="0.59" d="M207.71,-1379.2C522.58,-1323.68 1727.34,-1111.25 2057.41,-1053.05"/>
-<polygon fill="black" stroke="black" stroke-width="0.59" points="2058.15,-1056.47 2067.39,-1051.29 2056.93,-1049.58 2058.15,-1056.47"/>
-<text text-anchor="middle" x="1062.06" y="-1219.93" font-family="Times,serif" font-size="14.00">syngas&#45;barrel*2910</text>
+<path fill="none" stroke="black" stroke-width="0.66" d="M207.71,-1379.2C522.58,-1323.68 1727.34,-1111.25 2057.41,-1053.05"/>
+<polygon fill="black" stroke="black" stroke-width="0.66" points="2058.15,-1056.47 2067.39,-1051.29 2056.93,-1049.58 2058.15,-1056.47"/>
+<text text-anchor="middle" x="1062.06" y="-1219.93" font-family="Times,serif" font-size="14.00">syngas&#45;barrel*3870</text>
 </g>
 <!-- 4,10 (Fluid Recycling)&#45;&gt;&#45;1,5 (Train stops for bus brick) -->
 <g id="edge14" class="edge">
 <title>4,10 (Fluid Recycling)&#45;&gt;&#45;1,5 (Train stops for bus brick)</title>
-<path fill="none" stroke="black" stroke-width="0.58" d="M147,-1374.67C270.34,-1227.68 1116.06,-219.79 1263.49,-44.09"/>
-<polygon fill="black" stroke="black" stroke-width="0.58" points="1266.23,-46.27 1269.98,-36.36 1260.87,-41.77 1266.23,-46.27"/>
-<text text-anchor="middle" x="634.75" y="-713.18" font-family="Times,serif" font-size="14.00">syngas&#45;barrel*2860</text>
+<path fill="none" stroke="black" stroke-width="0.66" d="M147,-1374.67C270.34,-1227.68 1116.06,-219.79 1263.49,-44.09"/>
+<polygon fill="black" stroke="black" stroke-width="0.66" points="1266.23,-46.27 1269.98,-36.36 1260.87,-41.77 1266.23,-46.27"/>
+<text text-anchor="middle" x="634.75" y="-713.18" font-family="Times,serif" font-size="14.00">syngas&#45;barrel*3830</text>
 </g>
 <!-- 4,10 (Fluid Recycling)&#45;&gt;4,&#45;2 (Ceramic) -->
 <g id="edge17" class="edge">
 <title>4,10 (Fluid Recycling)&#45;&gt;4,&#45;2 (Ceramic)</title>
-<path fill="none" stroke="black" stroke-width="0.19" d="M147.16,-1410.61C214.51,-1490.89 486.88,-1815.48 565.91,-1909.66"/>
-<polygon fill="black" stroke="black" stroke-width="0.19" points="563.42,-1912.14 572.53,-1917.55 568.78,-1907.64 563.42,-1912.14"/>
+<path fill="none" stroke="black" stroke-width="0.16" d="M147.16,-1410.61C214.51,-1490.89 486.88,-1815.48 565.91,-1909.66"/>
+<polygon fill="black" stroke="black" stroke-width="0.16" points="563.42,-1912.14 572.53,-1917.55 568.78,-1907.64 563.42,-1912.14"/>
 <text text-anchor="middle" x="290.53" y="-1663.94" font-family="Times,serif" font-size="14.00">syngas&#45;barrel*912</text>
 </g>
 <!-- 4,10 (Fluid Recycling)&#45;&gt;3,1 (Mining Brick) -->
 <g id="edge19" class="edge">
 <title>4,10 (Fluid Recycling)&#45;&gt;3,1 (Mining Brick)</title>
-<path fill="none" stroke="black" stroke-width="0.18" d="M132,-1374.32C132,-1278.2 132,-830.2 132,-712.37"/>
-<polygon fill="black" stroke="black" stroke-width="0.18" points="135.5,-712.02 132,-702.02 128.5,-712.02 135.5,-712.02"/>
+<path fill="none" stroke="black" stroke-width="0.15" d="M132,-1374.32C132,-1278.2 132,-830.2 132,-712.37"/>
+<polygon fill="black" stroke="black" stroke-width="0.15" points="135.5,-712.02 132,-702.02 128.5,-712.02 135.5,-712.02"/>
 <text text-anchor="middle" x="66" y="-1047.14" font-family="Times,serif" font-size="14.00">syngas&#45;barrel*864</text>
 </g>
 <!-- &#45;2,&#45;3 (Trains) -->

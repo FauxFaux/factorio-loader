@@ -24,9 +24,9 @@
 <!-- &#45;2,6 (Wrong ratio of Calcium Carbide to Acetalene)&#45;&gt;1,6 (Sodium Hydroxide, These new bullets are fun, Limestone) -->
 <g id="edge1" class="edge">
 <title>&#45;2,6 (Wrong ratio of Calcium Carbide to Acetalene)&#45;&gt;1,6 (Sodium Hydroxide, These new bullets are fun, Limestone)</title>
-<path fill="none" stroke="black" stroke-width="1.16" d="M1281.53,-35.64C1127.43,-85.7 687.71,-228.58 521.89,-282.46"/>
-<polygon fill="black" stroke="black" stroke-width="1.16" points="520.74,-279.15 512.31,-285.57 522.91,-285.81 520.74,-279.15"/>
-<text text-anchor="middle" x="811.71" y="-162.85" font-family="Times,serif" font-size="14.00">slacked&#45;lime&#45;barrel*1031</text>
+<path fill="none" stroke="black" stroke-width="1.35" d="M1281.53,-35.64C1127.43,-85.7 687.71,-228.58 521.89,-282.46"/>
+<polygon fill="black" stroke="black" stroke-width="1.35" points="520.74,-279.15 512.31,-285.57 522.91,-285.81 520.74,-279.15"/>
+<text text-anchor="middle" x="811.71" y="-162.85" font-family="Times,serif" font-size="14.00">slacked&#45;lime&#45;barrel*1617</text>
 </g>
 <!-- &#45;6,&#45;1 (item=agar Agar) -->
 <g id="node4" class="node">
@@ -37,9 +37,9 @@
 <!-- &#45;2,6 (Wrong ratio of Calcium Carbide to Acetalene)&#45;&gt;&#45;6,&#45;1 (item=agar Agar) -->
 <g id="edge5" class="edge">
 <title>&#45;2,6 (Wrong ratio of Calcium Carbide to Acetalene)&#45;&gt;&#45;6,&#45;1 (item=agar Agar)</title>
-<path fill="none" stroke="black" stroke-width="1.4" d="M1348.95,-36.1C1421.53,-135.99 1773.03,-619.79 1859.39,-738.66"/>
-<polygon fill="black" stroke="black" stroke-width="1.4" points="1856.66,-740.85 1865.37,-746.89 1862.32,-736.74 1856.66,-740.85"/>
-<text text-anchor="middle" x="1514.17" y="-391.18" font-family="Times,serif" font-size="14.00">slacked&#45;lime&#45;barrel*1248</text>
+<path fill="none" stroke="black" stroke-width="1.32" d="M1348.95,-36.1C1421.53,-135.99 1773.03,-619.79 1859.39,-738.66"/>
+<polygon fill="black" stroke="black" stroke-width="1.32" points="1856.66,-740.85 1865.37,-746.89 1862.32,-736.74 1856.66,-740.85"/>
+<text text-anchor="middle" x="1514.17" y="-391.18" font-family="Times,serif" font-size="14.00">slacked&#45;lime&#45;barrel*1582</text>
 </g>
 <!-- 1,&#45;1 (fluid=molten&#45;glass Glass, When space, make quartz separate with regular priority, Quartz) -->
 <g id="node5" class="node">
@@ -50,9 +50,9 @@
 <!-- &#45;2,6 (Wrong ratio of Calcium Carbide to Acetalene)&#45;&gt;1,&#45;1 (fluid=molten&#45;glass Glass, When space, make quartz separate with regular priority, Quartz) -->
 <g id="edge3" class="edge">
 <title>&#45;2,6 (Wrong ratio of Calcium Carbide to Acetalene)&#45;&gt;1,&#45;1 (fluid=molten&#45;glass Glass, When space, make quartz separate with regular priority, Quartz)</title>
-<path fill="none" stroke="black" stroke-width="1.25" d="M1322.71,-36.03C1223.86,-172.08 595.66,-1036.71 476.91,-1200.16"/>
-<polygon fill="black" stroke="black" stroke-width="1.25" points="473.78,-1198.52 470.73,-1208.67 479.44,-1202.63 473.78,-1198.52"/>
-<text text-anchor="middle" x="809.81" y="-621.89" font-family="Times,serif" font-size="14.00">slacked&#45;lime&#45;barrel*1109</text>
+<path fill="none" stroke="black" stroke-width="1.33" d="M1322.71,-36.03C1223.86,-172.08 595.66,-1036.71 476.91,-1200.16"/>
+<polygon fill="black" stroke="black" stroke-width="1.33" points="473.78,-1198.52 470.73,-1208.67 479.44,-1202.63 473.78,-1198.52"/>
+<text text-anchor="middle" x="809.81" y="-621.89" font-family="Times,serif" font-size="14.00">slacked&#45;lime&#45;barrel*1589</text>
 </g>
 <!-- &#45;5,&#45;4 (low priority (slaked)? lime) -->
 <g id="node3" class="node">
@@ -63,23 +63,23 @@
 <!-- &#45;5,&#45;4 (low priority (slaked)? lime)&#45;&gt;1,6 (Sodium Hydroxide, These new bullets are fun, Limestone) -->
 <g id="edge4" class="edge">
 <title>&#45;5,&#45;4 (low priority (slaked)? lime)&#45;&gt;1,6 (Sodium Hydroxide, These new bullets are fun, Limestone)</title>
-<path fill="none" stroke="black" stroke-width="0.97" d="M1322.71,-1494.13C1223.86,-1358.08 595.66,-493.44 476.91,-330"/>
-<polygon fill="black" stroke="black" stroke-width="0.97" points="479.44,-327.52 470.73,-321.49 473.78,-331.64 479.44,-327.52"/>
+<path fill="none" stroke="black" stroke-width="0.72" d="M1322.71,-1494.13C1223.86,-1358.08 595.66,-493.44 476.91,-330"/>
+<polygon fill="black" stroke="black" stroke-width="0.72" points="479.44,-327.52 470.73,-321.49 473.78,-331.64 479.44,-327.52"/>
 <text text-anchor="middle" x="814.31" y="-915.86" font-family="Times,serif" font-size="14.00">slacked&#45;lime&#45;barrel*866</text>
 </g>
 <!-- &#45;5,&#45;4 (low priority (slaked)? lime)&#45;&gt;&#45;6,&#45;1 (item=agar Agar) -->
 <g id="edge2" class="edge">
 <title>&#45;5,&#45;4 (low priority (slaked)? lime)&#45;&gt;&#45;6,&#45;1 (item=agar Agar)</title>
-<path fill="none" stroke="black" stroke-width="0.61" d="M1348.95,-1494.06C1421.53,-1394.17 1773.03,-910.37 1859.39,-791.5"/>
-<polygon fill="black" stroke="black" stroke-width="0.61" points="1862.32,-793.42 1865.37,-783.27 1856.66,-789.3 1862.32,-793.42"/>
-<text text-anchor="middle" x="1518.67" y="-1146.58" font-family="Times,serif" font-size="14.00">slacked&#45;lime&#45;barrel*542</text>
+<path fill="none" stroke="black" stroke-width="0.72" d="M1348.95,-1494.06C1421.53,-1394.17 1773.03,-910.37 1859.39,-791.5"/>
+<polygon fill="black" stroke="black" stroke-width="0.72" points="1862.32,-793.42 1865.37,-783.27 1856.66,-789.3 1862.32,-793.42"/>
+<text text-anchor="middle" x="1518.67" y="-1146.58" font-family="Times,serif" font-size="14.00">slacked&#45;lime&#45;barrel*866</text>
 </g>
 <!-- &#45;5,&#45;4 (low priority (slaked)? lime)&#45;&gt;1,&#45;1 (fluid=molten&#45;glass Glass, When space, make quartz separate with regular priority, Quartz) -->
 <g id="edge6" class="edge">
 <title>&#45;5,&#45;4 (low priority (slaked)? lime)&#45;&gt;1,&#45;1 (fluid=molten&#45;glass Glass, When space, make quartz separate with regular priority, Quartz)</title>
-<path fill="none" stroke="black" stroke-width="0.61" d="M1283.17,-1495.05C1130.69,-1445.51 688.92,-1301.97 522.24,-1247.81"/>
-<polygon fill="black" stroke="black" stroke-width="0.61" points="523.2,-1244.45 512.61,-1244.69 521.04,-1251.1 523.2,-1244.45"/>
-<text text-anchor="middle" x="817.2" y="-1375.23" font-family="Times,serif" font-size="14.00">slacked&#45;lime&#45;barrel*544</text>
+<path fill="none" stroke="black" stroke-width="0.55" d="M1283.17,-1495.05C1130.69,-1445.51 688.92,-1301.97 522.24,-1247.81"/>
+<polygon fill="black" stroke="black" stroke-width="0.55" points="523.2,-1244.45 512.61,-1244.69 521.04,-1251.1 523.2,-1244.45"/>
+<text text-anchor="middle" x="817.2" y="-1375.23" font-family="Times,serif" font-size="14.00">slacked&#45;lime&#45;barrel*654</text>
 </g>
 </g>
 </svg>

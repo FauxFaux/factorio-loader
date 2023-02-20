@@ -24,9 +24,9 @@
 <!-- 1,8 (Salt)&#45;&gt;&#45;6,&#45;1 (item=agar Agar) -->
 <g id="edge1" class="edge">
 <title>1,8 (Salt)&#45;&gt;&#45;6,&#45;1 (item=agar Agar)</title>
-<path fill="none" stroke="black" stroke-width="1.26" d="M744.15,-124.42C853.3,-105.18 1121.75,-57.84 1260.91,-33.3"/>
-<polygon fill="black" stroke="black" stroke-width="1.26" points="1261.87,-36.69 1271.11,-31.51 1260.66,-29.8 1261.87,-36.69"/>
-<text text-anchor="middle" x="963.03" y="-82.66" font-family="Times,serif" font-size="14.00">salt*26512</text>
+<path fill="none" stroke="black" stroke-width="1.37" d="M744.15,-124.42C853.3,-105.18 1121.75,-57.84 1260.91,-33.3"/>
+<polygon fill="black" stroke="black" stroke-width="1.37" points="1261.87,-36.69 1271.11,-31.51 1260.66,-29.8 1261.87,-36.69"/>
+<text text-anchor="middle" x="963.03" y="-82.66" font-family="Times,serif" font-size="14.00">salt*34608</text>
 </g>
 <!-- 1,6 (Sodium Hydroxide, These new bullets are fun, Limestone) -->
 <g id="node4" class="node">
@@ -37,9 +37,9 @@
 <!-- 1,8 (Salt)&#45;&gt;1,6 (Sodium Hydroxide, These new bullets are fun, Limestone) -->
 <g id="edge5" class="edge">
 <title>1,8 (Salt)&#45;&gt;1,6 (Sodium Hydroxide, These new bullets are fun, Limestone)</title>
-<path fill="none" stroke="black" stroke-width="2.47" d="M710.85,-150.27C837.33,-301.01 1746.39,-1384.39 1898.92,-1566.16"/>
-<polygon fill="black" stroke="black" stroke-width="2.47" points="1896.3,-1568.49 1905.41,-1573.9 1901.66,-1563.99 1896.3,-1568.49"/>
-<text text-anchor="middle" x="1265.38" y="-862.02" font-family="Times,serif" font-size="14.00">salt*52080</text>
+<path fill="none" stroke="black" stroke-width="2.69" d="M710.85,-150.27C837.33,-301.01 1746.39,-1384.39 1898.92,-1566.16"/>
+<polygon fill="black" stroke="black" stroke-width="2.69" points="1896.3,-1568.49 1905.41,-1573.9 1901.66,-1563.99 1896.3,-1568.49"/>
+<text text-anchor="middle" x="1265.38" y="-862.02" font-family="Times,serif" font-size="14.00">salt*67760</text>
 </g>
 <!-- &#45;5,2 (Optical fiber) -->
 <g id="node5" class="node">
@@ -50,8 +50,8 @@
 <!-- 1,8 (Salt)&#45;&gt;&#45;5,2 (Optical fiber) -->
 <g id="edge3" class="edge">
 <title>1,8 (Salt)&#45;&gt;&#45;5,2 (Optical fiber)</title>
-<path fill="none" stroke="black" stroke-width="0.39" d="M744.24,-141.33C930.48,-174.17 1606.53,-293.38 1840.37,-334.61"/>
-<polygon fill="black" stroke="black" stroke-width="0.39" points="1840.04,-338.11 1850.5,-336.4 1841.26,-331.21 1840.04,-338.11"/>
+<path fill="none" stroke="black" stroke-width="0.32" d="M744.24,-141.33C930.48,-174.17 1606.53,-293.38 1840.37,-334.61"/>
+<polygon fill="black" stroke="black" stroke-width="0.32" points="1840.04,-338.11 1850.5,-336.4 1841.26,-331.21 1840.04,-338.11"/>
 <text text-anchor="middle" x="1257.3" y="-241.77" font-family="Times,serif" font-size="14.00">salt*8160</text>
 </g>
 <!-- 4,4 (Hydrogen Chloride, item=nylon Nylon/Nylon parts) -->
@@ -63,9 +63,9 @@
 <!-- 1,8 (Salt)&#45;&gt;4,4 (Hydrogen Chloride, item=nylon Nylon/Nylon parts) -->
 <g id="edge6" class="edge">
 <title>1,8 (Salt)&#45;&gt;4,4 (Hydrogen Chloride, item=nylon Nylon/Nylon parts)</title>
-<path fill="none" stroke="black" stroke-width="4.3" d="M681.61,-150.32C618.37,-225.67 368.46,-523.51 292.83,-613.64"/>
-<polygon fill="black" stroke="black" stroke-width="4.3" points="289.81,-611.39 286.26,-621.46 295.57,-616.22 289.81,-611.39"/>
-<text text-anchor="middle" x="447.72" y="-385.78" font-family="Times,serif" font-size="14.00">salt*90720</text>
+<path fill="none" stroke="black" stroke-width="4.85" d="M681.61,-150.32C618.37,-225.67 368.46,-523.51 292.83,-613.64"/>
+<polygon fill="black" stroke="black" stroke-width="4.85" points="289.44,-611.08 286.26,-621.46 295.94,-616.53 289.44,-611.08"/>
+<text text-anchor="middle" x="443.22" y="-385.78" font-family="Times,serif" font-size="14.00">salt*122192</text>
 </g>
 <!-- 2,1 (Niobium plates) -->
 <g id="node7" class="node">
@@ -76,8 +76,8 @@
 <!-- 1,8 (Salt)&#45;&gt;2,1 (Niobium plates) -->
 <g id="edge8" class="edge">
 <title>1,8 (Salt)&#45;&gt;2,1 (Niobium plates)</title>
-<path fill="none" stroke="black" stroke-width="0.7" d="M689.73,-150.75C641.58,-283.06 340.85,-1109.32 281.27,-1272.99"/>
-<polygon fill="black" stroke="black" stroke-width="0.7" points="277.84,-1272.2 277.7,-1282.8 284.41,-1274.6 277.84,-1272.2"/>
+<path fill="none" stroke="black" stroke-width="0.58" d="M689.73,-150.75C641.58,-283.06 340.85,-1109.32 281.27,-1272.99"/>
+<polygon fill="black" stroke="black" stroke-width="0.58" points="277.84,-1272.2 277.7,-1282.8 284.41,-1274.6 277.84,-1272.2"/>
 <text text-anchor="middle" x="446" y="-715.67" font-family="Times,serif" font-size="14.00">salt*14720</text>
 </g>
 <!-- 2,0 (Sodium Sulfate) -->
@@ -89,8 +89,8 @@
 <!-- 1,8 (Salt)&#45;&gt;2,0 (Sodium Sulfate) -->
 <g id="edge9" class="edge">
 <title>1,8 (Salt)&#45;&gt;2,0 (Sodium Sulfate)</title>
-<path fill="none" stroke="black" stroke-width="0.84" d="M696.24,-151.11C696.24,-317.7 696.24,-1573.79 696.24,-1779.45"/>
-<polygon fill="black" stroke="black" stroke-width="0.84" points="692.74,-1779.73 696.24,-1789.73 699.74,-1779.73 692.74,-1779.73"/>
+<path fill="none" stroke="black" stroke-width="0.71" d="M696.24,-151.11C696.24,-317.7 696.24,-1573.79 696.24,-1779.45"/>
+<polygon fill="black" stroke="black" stroke-width="0.71" points="692.74,-1779.73 696.24,-1789.73 699.74,-1779.73 692.74,-1779.73"/>
 <text text-anchor="middle" x="656.74" y="-969.08" font-family="Times,serif" font-size="14.00">salt*17824</text>
 </g>
 <!-- &#45;4,7 () -->
@@ -102,29 +102,29 @@
 <!-- &#45;4,7 ()&#45;&gt;&#45;6,&#45;1 (item=agar Agar) -->
 <g id="edge4" class="edge">
 <title>&#45;4,7 ()&#45;&gt;&#45;6,&#45;1 (item=agar Agar)</title>
-<path fill="none" stroke="black" stroke-width="0.96" d="M2132.65,-953.45C2036.87,-839.3 1485.8,-182.56 1369.33,-43.76"/>
-<polygon fill="black" stroke="black" stroke-width="0.96" points="1372,-41.5 1362.89,-36.09 1366.64,-46 1372,-41.5"/>
-<text text-anchor="middle" x="1711.49" y="-502.41" font-family="Times,serif" font-size="14.00">salt*20320</text>
+<path fill="none" stroke="black" stroke-width="0.89" d="M2132.65,-953.45C2036.87,-839.3 1485.8,-182.56 1369.33,-43.76"/>
+<polygon fill="black" stroke="black" stroke-width="0.89" points="1372,-41.5 1362.89,-36.09 1366.64,-46 1372,-41.5"/>
+<text text-anchor="middle" x="1711.49" y="-502.41" font-family="Times,serif" font-size="14.00">salt*22432</text>
 </g>
 <!-- &#45;4,7 ()&#45;&gt;1,6 (Sodium Hydroxide, These new bullets are fun, Limestone) -->
 <g id="edge2" class="edge">
 <title>&#45;4,7 ()&#45;&gt;1,6 (Sodium Hydroxide, These new bullets are fun, Limestone)</title>
-<path fill="none" stroke="black" stroke-width="1.2" d="M2140.33,-988.32C2108.49,-1075.78 1969.49,-1457.7 1930.69,-1564.29"/>
-<polygon fill="black" stroke="black" stroke-width="1.2" points="1927.29,-1563.41 1927.16,-1574 1933.87,-1565.8 1927.29,-1563.41"/>
-<text text-anchor="middle" x="1996.01" y="-1280.1" font-family="Times,serif" font-size="14.00">salt*25312</text>
+<path fill="none" stroke="black" stroke-width="1.33" d="M2140.33,-988.32C2108.49,-1075.78 1969.49,-1457.7 1930.69,-1564.29"/>
+<polygon fill="black" stroke="black" stroke-width="1.33" points="1927.29,-1563.41 1927.16,-1574 1933.87,-1565.8 1927.29,-1563.41"/>
+<text text-anchor="middle" x="1996.01" y="-1280.1" font-family="Times,serif" font-size="14.00">salt*33584</text>
 </g>
 <!-- &#45;4,7 ()&#45;&gt;&#45;5,2 (Optical fiber) -->
 <g id="edge7" class="edge">
 <title>&#45;4,7 ()&#45;&gt;&#45;5,2 (Optical fiber)</title>
-<path fill="none" stroke="black" stroke-width="0.29" d="M2140.33,-952.45C2108.49,-864.99 1969.49,-483.07 1930.69,-376.48"/>
-<polygon fill="black" stroke="black" stroke-width="0.29" points="1933.87,-374.97 1927.16,-366.77 1927.29,-377.36 1933.87,-374.97"/>
+<path fill="none" stroke="black" stroke-width="0.24" d="M2140.33,-952.45C2108.49,-864.99 1969.49,-483.07 1930.69,-376.48"/>
+<polygon fill="black" stroke="black" stroke-width="0.24" points="1933.87,-374.97 1927.16,-366.77 1927.29,-377.36 1933.87,-374.97"/>
 <text text-anchor="middle" x="2000.51" y="-668.26" font-family="Times,serif" font-size="14.00">salt*6032</text>
 </g>
 <!-- &#45;4,7 ()&#45;&gt;4,4 (Hydrogen Chloride, item=nylon Nylon/Nylon parts) -->
 <g id="edge12" class="edge">
 <title>&#45;4,7 ()&#45;&gt;4,4 (Hydrogen Chloride, item=nylon Nylon/Nylon parts)</title>
-<path fill="none" stroke="black" stroke-width="0.99" d="M2110.64,-964C1891.03,-925.27 735.08,-721.45 376.92,-658.3"/>
-<polygon fill="black" stroke="black" stroke-width="0.99" points="377.27,-654.8 366.82,-656.51 376.06,-661.7 377.27,-654.8"/>
+<path fill="none" stroke="black" stroke-width="0.83" d="M2110.64,-964C1891.03,-925.27 735.08,-721.45 376.92,-658.3"/>
+<polygon fill="black" stroke="black" stroke-width="0.83" points="377.27,-654.8 366.82,-656.51 376.06,-661.7 377.27,-654.8"/>
 <text text-anchor="middle" x="1204.28" y="-814.95" font-family="Times,serif" font-size="14.00">salt*20896</text>
 </g>
 <!-- 1,&#45;1 (fluid=molten&#45;glass Glass, When space, make quartz separate with regular priority, Quartz) -->
@@ -136,8 +136,8 @@
 <!-- &#45;4,7 ()&#45;&gt;1,&#45;1 (fluid=molten&#45;glass Glass, When space, make quartz separate with regular priority, Quartz) -->
 <g id="edge15" class="edge">
 <title>&#45;4,7 ()&#45;&gt;1,&#45;1 (fluid=molten&#45;glass Glass, When space, make quartz separate with regular priority, Quartz)</title>
-<path fill="none" stroke="black" stroke-width="1.57" d="M2185.37,-970.38C2192.3,-970.38 2200.02,-970.38 2208.44,-970.38"/>
-<polygon fill="black" stroke="black" stroke-width="1.57" points="2208.62,-973.88 2218.62,-970.38 2208.62,-966.88 2208.62,-973.88"/>
+<path fill="none" stroke="black" stroke-width="1.32" d="M2185.37,-970.38C2192.3,-970.38 2200.02,-970.38 2208.44,-970.38"/>
+<polygon fill="black" stroke="black" stroke-width="1.32" points="2208.62,-973.88 2218.62,-970.38 2208.62,-966.88 2208.62,-973.88"/>
 <text text-anchor="middle" x="2177.15" y="-959.18" font-family="Times,serif" font-size="14.00">salt*33232</text>
 </g>
 <!-- 3,5 (item=molybdenum&#45;plate Molybdenum plate) -->
@@ -149,29 +149,29 @@
 <!-- 3,5 (item=molybdenum&#45;plate Molybdenum plate)&#45;&gt;&#45;6,&#45;1 (item=agar Agar) -->
 <g id="edge13" class="edge">
 <title>3,5 (item=molybdenum&#45;plate Molybdenum plate)&#45;&gt;&#45;6,&#45;1 (item=agar Agar)</title>
-<path fill="none" stroke="black" stroke-width="0.1" d="M1347.71,-1904.53C1347.71,-1724.53 1347.71,-268.44 1347.71,-46.36"/>
-<polygon fill="black" stroke="black" stroke-width="0.1" points="1351.21,-46.18 1347.71,-36.18 1344.21,-46.18 1351.21,-46.18"/>
+<path fill="none" stroke="black" stroke-width="0.08" d="M1347.71,-1904.53C1347.71,-1724.53 1347.71,-268.44 1347.71,-46.36"/>
+<polygon fill="black" stroke="black" stroke-width="0.08" points="1351.21,-46.18 1347.71,-36.18 1344.21,-46.18 1351.21,-46.18"/>
 <text text-anchor="middle" x="1312.71" y="-979.24" font-family="Times,serif" font-size="14.00">salt*2048</text>
 </g>
 <!-- 3,5 (item=molybdenum&#45;plate Molybdenum plate)&#45;&gt;4,4 (Hydrogen Chloride, item=nylon Nylon/Nylon parts) -->
 <g id="edge14" class="edge">
 <title>3,5 (item=molybdenum&#45;plate Molybdenum plate)&#45;&gt;4,4 (Hydrogen Chloride, item=nylon Nylon/Nylon parts)</title>
-<path fill="none" stroke="black" stroke-width="0.63" d="M1332.49,-1904.63C1213.6,-1762.94 434.65,-834.62 293.08,-665.91"/>
-<polygon fill="black" stroke="black" stroke-width="0.63" points="295.57,-663.43 286.46,-658.02 290.21,-667.93 295.57,-663.43"/>
+<path fill="none" stroke="black" stroke-width="0.53" d="M1332.49,-1904.63C1213.6,-1762.94 434.65,-834.62 293.08,-665.91"/>
+<polygon fill="black" stroke="black" stroke-width="0.53" points="295.57,-663.43 286.46,-658.02 290.21,-667.93 295.57,-663.43"/>
 <text text-anchor="middle" x="773.28" y="-1289.07" font-family="Times,serif" font-size="14.00">salt*13264</text>
 </g>
 <!-- 3,5 (item=molybdenum&#45;plate Molybdenum plate)&#45;&gt;2,1 (Niobium plates) -->
 <g id="edge10" class="edge">
 <title>3,5 (item=molybdenum&#45;plate Molybdenum plate)&#45;&gt;2,1 (Niobium plates)</title>
-<path fill="none" stroke="black" stroke-width="0.1" d="M1316.65,-1904.83C1162.53,-1815.85 480.53,-1422.1 309.85,-1323.56"/>
-<polygon fill="black" stroke="black" stroke-width="0.1" points="311.6,-1320.53 301.19,-1318.56 308.1,-1326.59 311.6,-1320.53"/>
+<path fill="none" stroke="black" stroke-width="0.08" d="M1316.65,-1904.83C1162.53,-1815.85 480.53,-1422.1 309.85,-1323.56"/>
+<polygon fill="black" stroke="black" stroke-width="0.08" points="311.6,-1320.53 301.19,-1318.56 308.1,-1326.59 311.6,-1320.53"/>
 <text text-anchor="middle" x="778.25" y="-1618" font-family="Times,serif" font-size="14.00">salt*2016</text>
 </g>
 <!-- 3,5 (item=molybdenum&#45;plate Molybdenum plate)&#45;&gt;2,0 (Sodium Sulfate) -->
 <g id="edge11" class="edge">
 <title>3,5 (item=molybdenum&#45;plate Molybdenum plate)&#45;&gt;2,0 (Sodium Sulfate)</title>
-<path fill="none" stroke="black" stroke-width="0.11" d="M1253.68,-1906.19C1126.52,-1883.77 901.71,-1844.13 780.05,-1822.67"/>
-<polygon fill="black" stroke="black" stroke-width="0.11" points="780.5,-1819.2 770.04,-1820.91 779.28,-1826.09 780.5,-1819.2"/>
+<path fill="none" stroke="black" stroke-width="0.09" d="M1253.68,-1906.19C1126.52,-1883.77 901.71,-1844.13 780.05,-1822.67"/>
+<polygon fill="black" stroke="black" stroke-width="0.09" points="780.5,-1819.2 770.04,-1820.91 779.28,-1826.09 780.5,-1819.2"/>
 <text text-anchor="middle" x="981.87" y="-1868.23" font-family="Times,serif" font-size="14.00">salt*2304</text>
 </g>
 <!-- 0,5 (Titanium Processing (Grade 4)) -->
@@ -183,8 +183,8 @@
 <!-- 0,5 (Titanium Processing (Grade 4))&#45;&gt;1,6 (Sodium Hydroxide, These new bullets are fun, Limestone) -->
 <g id="edge16" class="edge">
 <title>0,5 (Titanium Processing (Grade 4))&#45;&gt;1,6 (Sodium Hydroxide, These new bullets are fun, Limestone)</title>
-<path fill="none" stroke="black" stroke-width="0.11" d="M2089.69,-1733.89C2055.43,-1705.14 1988.37,-1648.87 1949.79,-1616.5"/>
-<polygon fill="black" stroke="black" stroke-width="0.11" points="1951.93,-1613.72 1942.02,-1609.98 1947.43,-1619.09 1951.93,-1613.72"/>
+<path fill="none" stroke="black" stroke-width="0.09" d="M2089.69,-1733.89C2055.43,-1705.14 1988.37,-1648.87 1949.79,-1616.5"/>
+<polygon fill="black" stroke="black" stroke-width="0.09" points="1951.93,-1613.72 1942.02,-1609.98 1947.43,-1619.09 1951.93,-1613.72"/>
 <text text-anchor="middle" x="1984.74" y="-1679" font-family="Times,serif" font-size="14.00">salt*2336</text>
 </g>
 </g>

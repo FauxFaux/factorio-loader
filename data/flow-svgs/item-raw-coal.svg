@@ -24,9 +24,9 @@
 <!-- 4,14 ()&#45;&gt;2,8 (Graphite) -->
 <g id="edge1" class="edge">
 <title>4,14 ()&#45;&gt;2,8 (Graphite)</title>
-<path fill="none" stroke="black" stroke-width="1.23" d="M519.81,-34.66C450.47,-104 184.45,-370.03 101.14,-453.34"/>
-<polygon fill="black" stroke="black" stroke-width="1.23" points="98.26,-451.27 93.66,-460.81 103.21,-456.22 98.26,-451.27"/>
-<text text-anchor="middle" x="249.98" y="-247.8" font-family="Times,serif" font-size="14.00">raw&#45;coal*291834</text>
+<path fill="none" stroke="black" stroke-width="1.06" d="M519.81,-34.66C450.47,-104 184.45,-370.03 101.14,-453.34"/>
+<polygon fill="black" stroke="black" stroke-width="1.06" points="98.26,-451.27 93.66,-460.81 103.21,-456.22 98.26,-451.27"/>
+<text text-anchor="middle" x="249.98" y="-247.8" font-family="Times,serif" font-size="14.00">raw&#45;coal*296577</text>
 </g>
 <!-- &#45;5,&#45;1 (Coal and Coke and Syngas and Ash and Coke Oven Gas and...) -->
 <g id="node4" class="node">
@@ -37,9 +37,9 @@
 <!-- 4,14 ()&#45;&gt;&#45;5,&#45;1 (Coal and Coke and Syngas and Ash and Coke Oven Gas and...) -->
 <g id="edge4" class="edge">
 <title>4,14 ()&#45;&gt;&#45;5,&#45;1 (Coal and Coke and Syngas and Ash and Coke Oven Gas and...)</title>
-<path fill="none" stroke="black" stroke-width="1.17" d="M553.13,-34.66C622.39,-103.92 887.84,-369.37 971.5,-453.02"/>
-<polygon fill="black" stroke="black" stroke-width="1.17" points="969.24,-455.72 978.79,-460.32 974.19,-450.77 969.24,-455.72"/>
-<text text-anchor="middle" x="701.81" y="-247.64" font-family="Times,serif" font-size="14.00">raw&#45;coal*278442</text>
+<path fill="none" stroke="black" stroke-width="1.27" d="M553.13,-34.66C622.39,-103.92 887.84,-369.37 971.5,-453.02"/>
+<polygon fill="black" stroke="black" stroke-width="1.27" points="969.24,-455.72 978.79,-460.32 974.19,-450.77 969.24,-455.72"/>
+<text text-anchor="middle" x="701.81" y="-247.64" font-family="Times,serif" font-size="14.00">raw&#45;coal*354423</text>
 </g>
 <!-- &#45;6,6 (coal pickup train station, titanium pickup station) -->
 <g id="node3" class="node">
@@ -50,15 +50,15 @@
 <!-- &#45;6,6 (coal pickup train station, titanium pickup station)&#45;&gt;2,8 (Graphite) -->
 <g id="edge3" class="edge">
 <title>&#45;6,6 (coal pickup train station, titanium pickup station)&#45;&gt;2,8 (Graphite)</title>
-<path fill="none" stroke="black" stroke-width="0.75" d="M518.42,-920.81C446.99,-849.38 183.94,-586.32 101.16,-503.54"/>
-<polygon fill="black" stroke="black" stroke-width="0.75" points="103.27,-500.7 93.72,-496.11 98.32,-505.65 103.27,-500.7"/>
-<text text-anchor="middle" x="249.29" y="-715.98" font-family="Times,serif" font-size="14.00">raw&#45;coal*178240</text>
+<path fill="none" stroke="black" stroke-width="0.94" d="M518.42,-920.81C446.99,-849.38 183.94,-586.32 101.16,-503.54"/>
+<polygon fill="black" stroke="black" stroke-width="0.94" points="103.27,-500.7 93.72,-496.11 98.32,-505.65 103.27,-500.7"/>
+<text text-anchor="middle" x="249.29" y="-715.98" font-family="Times,serif" font-size="14.00">raw&#45;coal*262400</text>
 </g>
 <!-- &#45;6,6 (coal pickup train station, titanium pickup station)&#45;&gt;&#45;5,&#45;1 (Coal and Coke and Syngas and Ash and Coke Oven Gas and...) -->
 <g id="edge2" class="edge">
 <title>&#45;6,6 (coal pickup train station, titanium pickup station)&#45;&gt;&#45;5,&#45;1 (Coal and Coke and Syngas and Ash and Coke Oven Gas and...)</title>
-<path fill="none" stroke="black" stroke-width="0.85" d="M554.52,-920.81C625.8,-849.54 887.83,-587.51 971.23,-504.11"/>
-<polygon fill="black" stroke="black" stroke-width="0.85" points="974.13,-506.15 978.73,-496.6 969.18,-501.2 974.13,-506.15"/>
+<path fill="none" stroke="black" stroke-width="0.73" d="M554.52,-920.81C625.8,-849.54 887.83,-587.51 971.23,-504.11"/>
+<polygon fill="black" stroke="black" stroke-width="0.73" points="974.13,-506.15 978.73,-496.6 969.18,-501.2 974.13,-506.15"/>
 <text text-anchor="middle" x="702.38" y="-716.26" font-family="Times,serif" font-size="14.00">raw&#45;coal*202400</text>
 </g>
 </g>

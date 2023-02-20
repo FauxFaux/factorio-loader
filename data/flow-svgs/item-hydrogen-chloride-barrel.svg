@@ -24,9 +24,9 @@
 <!-- 4,4 (Hydrogen Chloride, item=nylon Nylon/Nylon parts)&#45;&gt;3,0 (Zinc Chloride) -->
 <g id="edge1" class="edge">
 <title>4,4 (Hydrogen Chloride, item=nylon Nylon/Nylon parts)&#45;&gt;3,0 (Zinc Chloride)</title>
-<path fill="none" stroke="black" stroke-width="1.94" d="M826.11,-18C850.53,-18 874.19,-18 895.84,-18"/>
-<polygon fill="black" stroke="black" stroke-width="1.94" points="895.98,-21.5 905.98,-18 895.97,-14.5 895.98,-21.5"/>
-<text text-anchor="middle" x="860.97" y="-6.8" font-family="Times,serif" font-size="14.00">hydrogen&#45;chloride&#45;barrel*15696</text>
+<path fill="none" stroke="black" stroke-width="1.95" d="M826.11,-18C850.53,-18 874.19,-18 895.84,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1.95" points="895.98,-21.5 905.98,-18 895.97,-14.5 895.98,-21.5"/>
+<text text-anchor="middle" x="860.97" y="-6.8" font-family="Times,serif" font-size="14.00">hydrogen&#45;chloride&#45;barrel*18592</text>
 </g>
 <!-- 2,1 (Niobium plates) -->
 <g id="node3" class="node">
@@ -37,8 +37,8 @@
 <!-- 4,4 (Hydrogen Chloride, item=nylon Nylon/Nylon parts)&#45;&gt;2,1 (Niobium plates) -->
 <g id="edge2" class="edge">
 <title>4,4 (Hydrogen Chloride, item=nylon Nylon/Nylon parts)&#45;&gt;2,1 (Niobium plates)</title>
-<path fill="none" stroke="black" stroke-width="0.06" d="M283.71,-18C262.29,-18 241.47,-18 222.06,-18"/>
-<polygon fill="black" stroke="black" stroke-width="0.06" points="222.05,-14.5 212.05,-18 222.05,-21.5 222.05,-14.5"/>
+<path fill="none" stroke="black" stroke-width="0.05" d="M283.71,-18C262.29,-18 241.47,-18 222.06,-18"/>
+<polygon fill="black" stroke="black" stroke-width="0.05" points="222.05,-14.5 212.05,-18 222.05,-21.5 222.05,-14.5"/>
 <text text-anchor="middle" x="199.88" y="-6.8" font-family="Times,serif" font-size="14.00">hydrogen&#45;chloride&#45;barrel*464</text>
 </g>
 </g>

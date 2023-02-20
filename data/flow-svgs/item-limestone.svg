@@ -24,9 +24,9 @@
 <!-- 1,5 (Limestone)&#45;&gt;&#45;1,5 (Train stops for bus brick) -->
 <g id="edge1" class="edge">
 <title>1,5 (Limestone)&#45;&gt;&#45;1,5 (Train stops for bus brick)</title>
-<path fill="none" stroke="black" stroke-width="3.25" d="M1143.55,-430.16C1076.21,-362.83 835.33,-121.94 756.53,-43.14"/>
-<polygon fill="black" stroke="black" stroke-width="3.25" points="758.97,-40.63 749.42,-36.04 754.02,-45.58 758.97,-40.63"/>
-<text text-anchor="middle" x="889.04" y="-240.45" font-family="Times,serif" font-size="14.00">limestone*90608</text>
+<path fill="none" stroke="black" stroke-width="3.04" d="M1143.55,-430.16C1076.21,-362.83 835.33,-121.94 756.53,-43.14"/>
+<polygon fill="black" stroke="black" stroke-width="3.04" points="758.97,-40.63 749.42,-36.04 754.02,-45.58 758.97,-40.63"/>
+<text text-anchor="middle" x="884.54" y="-240.45" font-family="Times,serif" font-size="14.00">limestone*103136</text>
 </g>
 <!-- &#45;5,&#45;4 (low priority (slaked)? lime) -->
 <g id="node3" class="node">
@@ -37,9 +37,9 @@
 <!-- 1,5 (Limestone)&#45;&gt;&#45;5,&#45;4 (low priority (slaked)? lime) -->
 <g id="edge2" class="edge">
 <title>1,5 (Limestone)&#45;&gt;&#45;5,&#45;4 (low priority (slaked)? lime)</title>
-<path fill="none" stroke="black" stroke-width="0.59" d="M1143.55,-465.46C1076.21,-532.8 835.33,-773.68 756.53,-852.48"/>
-<polygon fill="black" stroke="black" stroke-width="0.59" points="754.02,-850.04 749.42,-859.59 758.97,-854.99 754.02,-850.04"/>
-<text text-anchor="middle" x="889.04" y="-662.77" font-family="Times,serif" font-size="14.00">limestone*16512</text>
+<path fill="none" stroke="black" stroke-width="0.62" d="M1143.55,-465.46C1076.21,-532.8 835.33,-773.68 756.53,-852.48"/>
+<polygon fill="black" stroke="black" stroke-width="0.62" points="754.02,-850.04 749.42,-859.59 758.97,-854.99 754.02,-850.04"/>
+<text text-anchor="middle" x="889.04" y="-662.77" font-family="Times,serif" font-size="14.00">limestone*20864</text>
 </g>
 <!-- 2,10 (Nickel plate) -->
 <g id="node5" class="node">
@@ -50,9 +50,9 @@
 <!-- 1,5 (Limestone)&#45;&gt;2,10 (Nickel plate) -->
 <g id="edge5" class="edge">
 <title>1,5 (Limestone)&#45;&gt;2,10 (Nickel plate)</title>
-<path fill="none" stroke="black" stroke-width="0.73" d="M1178.19,-430.19C1223.84,-382.85 1349.22,-252.82 1402.24,-197.83"/>
-<polygon fill="black" stroke="black" stroke-width="0.73" points="1404.81,-200.21 1409.23,-190.59 1399.77,-195.36 1404.81,-200.21"/>
-<text text-anchor="middle" x="1229.22" y="-317.81" font-family="Times,serif" font-size="14.00">limestone*20224</text>
+<path fill="none" stroke="black" stroke-width="0.91" d="M1178.19,-430.19C1223.84,-382.85 1349.22,-252.82 1402.24,-197.83"/>
+<polygon fill="black" stroke="black" stroke-width="0.91" points="1404.81,-200.21 1409.23,-190.59 1399.77,-195.36 1404.81,-200.21"/>
+<text text-anchor="middle" x="1229.22" y="-317.81" font-family="Times,serif" font-size="14.00">limestone*30688</text>
 </g>
 <!-- &#45;2,6 (Wrong ratio of Calcium Carbide to Acetalene) -->
 <g id="node6" class="node">
@@ -63,8 +63,8 @@
 <!-- 1,5 (Limestone)&#45;&gt;&#45;2,6 (Wrong ratio of Calcium Carbide to Acetalene) -->
 <g id="edge6" class="edge">
 <title>1,5 (Limestone)&#45;&gt;&#45;2,6 (Wrong ratio of Calcium Carbide to Acetalene)</title>
-<path fill="none" stroke="black" stroke-width="0.36" d="M1198.71,-464.01C1253.38,-487.63 1355.09,-531.57 1416.39,-558.05"/>
-<polygon fill="black" stroke="black" stroke-width="0.36" points="1415.3,-561.39 1425.87,-562.14 1418.07,-554.96 1415.3,-561.39"/>
+<path fill="none" stroke="black" stroke-width="0.3" d="M1198.71,-464.01C1253.38,-487.63 1355.09,-531.57 1416.39,-558.05"/>
+<polygon fill="black" stroke="black" stroke-width="0.3" points="1415.3,-561.39 1425.87,-562.14 1418.07,-554.96 1415.3,-561.39"/>
 <text text-anchor="middle" x="1246.55" y="-514.83" font-family="Times,serif" font-size="14.00">limestone*10016</text>
 </g>
 <!-- 1,6 (Sodium Hydroxide, These new bullets are fun, Limestone) -->
@@ -76,16 +76,16 @@
 <!-- 1,6 (Sodium Hydroxide, These new bullets are fun, Limestone)&#45;&gt;&#45;1,5 (Train stops for bus brick) -->
 <g id="edge3" class="edge">
 <title>1,6 (Sodium Hydroxide, These new bullets are fun, Limestone)&#45;&gt;&#45;1,5 (Train stops for bus brick)</title>
-<path fill="none" stroke="black" stroke-width="0.92" d="M319.77,-429.62C387.87,-361.51 627.87,-121.52 706.35,-43.04"/>
-<polygon fill="black" stroke="black" stroke-width="0.92" points="708.83,-45.51 713.43,-35.96 703.88,-40.56 708.83,-45.51"/>
-<text text-anchor="middle" x="452.06" y="-240.13" font-family="Times,serif" font-size="14.00">limestone*25536</text>
+<path fill="none" stroke="black" stroke-width="1" d="M319.77,-429.62C387.87,-361.51 627.87,-121.52 706.35,-43.04"/>
+<polygon fill="black" stroke="black" stroke-width="1" points="708.83,-45.51 713.43,-35.96 703.88,-40.56 708.83,-45.51"/>
+<text text-anchor="middle" x="452.06" y="-240.13" font-family="Times,serif" font-size="14.00">limestone*33840</text>
 </g>
 <!-- 1,6 (Sodium Hydroxide, These new bullets are fun, Limestone)&#45;&gt;&#45;5,&#45;4 (low priority (slaked)? lime) -->
 <g id="edge4" class="edge">
 <title>1,6 (Sodium Hydroxide, These new bullets are fun, Limestone)&#45;&gt;&#45;5,&#45;4 (low priority (slaked)? lime)</title>
-<path fill="none" stroke="black" stroke-width="0.15" d="M319.77,-466.01C387.87,-534.11 627.87,-774.11 706.35,-852.58"/>
-<polygon fill="black" stroke="black" stroke-width="0.15" points="703.88,-855.07 713.43,-859.66 708.83,-850.12 703.88,-855.07"/>
-<text text-anchor="middle" x="456.56" y="-663.09" font-family="Times,serif" font-size="14.00">limestone*4304</text>
+<path fill="none" stroke="black" stroke-width="0.14" d="M319.77,-466.01C387.87,-534.11 627.87,-774.11 706.35,-852.58"/>
+<polygon fill="black" stroke="black" stroke-width="0.14" points="703.88,-855.07 713.43,-859.66 708.83,-850.12 703.88,-855.07"/>
+<text text-anchor="middle" x="456.56" y="-663.09" font-family="Times,serif" font-size="14.00">limestone*4848</text>
 </g>
 </g>
 </svg>

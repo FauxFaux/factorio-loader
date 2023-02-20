@@ -24,8 +24,8 @@
 <!-- 0,11 ()&#45;&gt;&#45;5,0 (item=small&#45;lampitem=petri&#45;dish Lamptri dishes) -->
 <g id="edge1" class="edge">
 <title>0,11 ()&#45;&gt;&#45;5,0 (item=small&#45;lampitem=petri&#45;dish Lamptri dishes)</title>
-<path fill="none" stroke="black" stroke-width="1.23" d="M4874.52,-830.77C4833.81,-736.4 4643.91,-296.25 4594.26,-181.16"/>
-<polygon fill="black" stroke="black" stroke-width="1.23" points="4597.33,-179.44 4590.15,-171.64 4590.9,-182.21 4597.33,-179.44"/>
+<path fill="none" stroke="black" stroke-width="1" d="M4874.52,-830.77C4833.81,-736.4 4643.91,-296.25 4594.26,-181.16"/>
+<polygon fill="black" stroke="black" stroke-width="1" points="4597.33,-179.44 4590.15,-171.64 4590.9,-182.21 4597.33,-179.44"/>
 <text text-anchor="middle" x="4673.89" y="-509.76" font-family="Times,serif" font-size="14.00">iron&#45;plate*35040</text>
 </g>
 <!-- 2,12 (Yet more coke) -->
@@ -37,9 +37,9 @@
 <!-- 0,11 ()&#45;&gt;2,12 (Yet more coke) -->
 <g id="edge2" class="edge">
 <title>0,11 ()&#45;&gt;2,12 (Yet more coke)</title>
-<path fill="none" stroke="black" stroke-width="2.16" d="M4861.61,-833.07C4756.99,-754.06 4284.95,-397.59 4157.56,-301.39"/>
-<polygon fill="black" stroke="black" stroke-width="2.16" points="4159.42,-298.41 4149.33,-295.18 4155.2,-304 4159.42,-298.41"/>
-<text text-anchor="middle" x="4449.08" y="-571.03" font-family="Times,serif" font-size="14.00">iron&#45;plate*61680</text>
+<path fill="none" stroke="black" stroke-width="2.07" d="M4861.61,-833.07C4756.99,-754.06 4284.95,-397.59 4157.56,-301.39"/>
+<polygon fill="black" stroke="black" stroke-width="2.07" points="4159.42,-298.41 4149.33,-295.18 4155.2,-304 4159.42,-298.41"/>
+<text text-anchor="middle" x="4449.08" y="-571.03" font-family="Times,serif" font-size="14.00">iron&#45;plate*72480</text>
 </g>
 <!-- 4,4 (Hydrogen Chloride, item=nylon Nylon/Nylon parts) -->
 <g id="node4" class="node">
@@ -50,9 +50,9 @@
 <!-- 0,11 ()&#45;&gt;4,4 (Hydrogen Chloride, item=nylon Nylon/Nylon parts) -->
 <g id="edge3" class="edge">
 <title>0,11 ()&#45;&gt;4,4 (Hydrogen Chloride, item=nylon Nylon/Nylon parts)</title>
-<path fill="none" stroke="black" stroke-width="4.07" d="M4893.12,-866.23C4957.37,-969.98 5286.77,-1501.99 5364.7,-1627.86"/>
-<polygon fill="black" stroke="black" stroke-width="4.07" points="5361.78,-1629.9 5370.07,-1636.53 5367.84,-1626.15 5361.78,-1629.9"/>
-<text text-anchor="middle" x="5063.91" y="-1250.84" font-family="Times,serif" font-size="14.00">iron&#45;plate*116280</text>
+<path fill="none" stroke="black" stroke-width="4.08" d="M4893.12,-866.23C4957.37,-969.98 5286.77,-1501.99 5364.7,-1627.86"/>
+<polygon fill="black" stroke="black" stroke-width="4.08" points="5361.78,-1629.9 5370.07,-1636.53 5367.84,-1626.15 5361.78,-1629.9"/>
+<text text-anchor="middle" x="5063.91" y="-1250.84" font-family="Times,serif" font-size="14.00">iron&#45;plate*142440</text>
 </g>
 <!-- &#45;6,1 (Coke and Coal Dust from Biomass (needs Iron plates)) -->
 <g id="node6" class="node">
@@ -63,9 +63,9 @@
 <!-- 0,11 ()&#45;&gt;&#45;6,1 (Coke and Coal Dust from Biomass (needs Iron plates)) -->
 <g id="edge12" class="edge">
 <title>0,11 ()&#45;&gt;&#45;6,1 (Coke and Coal Dust from Biomass (needs Iron plates))</title>
-<path fill="none" stroke="black" stroke-width="3.2" d="M4855.02,-835.09C4662.2,-739.08 3503.2,-161.97 3259.16,-40.45"/>
-<polygon fill="black" stroke="black" stroke-width="3.2" points="3260.71,-37.31 3250.2,-35.99 3257.59,-43.58 3260.71,-37.31"/>
-<text text-anchor="middle" x="3996.59" y="-441.57" font-family="Times,serif" font-size="14.00">iron&#45;plate*91440</text>
+<path fill="none" stroke="black" stroke-width="2.86" d="M4855.02,-835.09C4662.2,-739.08 3503.2,-161.97 3259.16,-40.45"/>
+<polygon fill="black" stroke="black" stroke-width="2.86" points="3260.71,-37.31 3250.2,-35.99 3257.59,-43.58 3260.71,-37.31"/>
+<text text-anchor="middle" x="3996.59" y="-441.57" font-family="Times,serif" font-size="14.00">iron&#45;plate*99840</text>
 </g>
 <!-- &#45;4,1 () -->
 <g id="node7" class="node">
@@ -76,8 +76,8 @@
 <!-- 0,11 ()&#45;&gt;&#45;4,1 () -->
 <g id="edge5" class="edge">
 <title>0,11 ()&#45;&gt;&#45;4,1 ()</title>
-<path fill="none" stroke="black" stroke-width="0.5" d="M4847.77,-838.84C4564.74,-758.31 2626.12,-206.73 2312.91,-117.61"/>
-<polygon fill="black" stroke="black" stroke-width="0.5" points="2313.86,-114.24 2303.28,-114.87 2311.94,-120.97 2313.86,-114.24"/>
+<path fill="none" stroke="black" stroke-width="0.41" d="M4847.77,-838.84C4564.74,-758.31 2626.12,-206.73 2312.91,-117.61"/>
+<polygon fill="black" stroke="black" stroke-width="0.41" points="2313.86,-114.24 2303.28,-114.87 2311.94,-120.97 2313.86,-114.24"/>
 <text text-anchor="middle" x="3519.84" y="-482.02" font-family="Times,serif" font-size="14.00">iron&#45;plate*14280</text>
 </g>
 <!-- 2,2 () -->
@@ -89,9 +89,9 @@
 <!-- 0,11 ()&#45;&gt;2,2 () -->
 <g id="edge6" class="edge">
 <title>0,11 ()&#45;&gt;2,2 ()</title>
-<path fill="none" stroke="black" stroke-width="0.95" d="M4841.88,-844.91C4482.98,-811.65 1842.99,-567.02 1466.35,-532.12"/>
-<polygon fill="black" stroke="black" stroke-width="0.95" points="1466.65,-528.63 1456.37,-531.19 1466.01,-535.6 1466.65,-528.63"/>
-<text text-anchor="middle" x="3093.61" y="-692.31" font-family="Times,serif" font-size="14.00">iron&#45;plate*27000</text>
+<path fill="none" stroke="black" stroke-width="0.89" d="M4841.88,-844.91C4482.98,-811.65 1842.99,-567.02 1466.35,-532.12"/>
+<polygon fill="black" stroke="black" stroke-width="0.89" points="1466.65,-528.63 1456.37,-531.19 1466.01,-535.6 1466.65,-528.63"/>
+<text text-anchor="middle" x="3093.61" y="-692.31" font-family="Times,serif" font-size="14.00">iron&#45;plate*31080</text>
 </g>
 <!-- 3,16 (More Coke) -->
 <g id="node9" class="node">
@@ -102,9 +102,9 @@
 <!-- 0,11 ()&#45;&gt;3,16 (More Coke) -->
 <g id="edge7" class="edge">
 <title>0,11 ()&#45;&gt;3,16 (More Coke)</title>
-<path fill="none" stroke="black" stroke-width="2.78" d="M4842,-852.38C4458.19,-887.94 1445.75,-1167.08 875.92,-1219.89"/>
-<polygon fill="black" stroke="black" stroke-width="2.78" points="875.33,-1216.43 865.7,-1220.83 875.98,-1223.4 875.33,-1216.43"/>
-<text text-anchor="middle" x="2798.46" y="-1039.93" font-family="Times,serif" font-size="14.00">iron&#45;plate*79320</text>
+<path fill="none" stroke="black" stroke-width="2.74" d="M4842,-852.38C4458.19,-887.94 1445.75,-1167.08 875.92,-1219.89"/>
+<polygon fill="black" stroke="black" stroke-width="2.74" points="875.33,-1216.43 865.7,-1220.83 875.98,-1223.4 875.33,-1216.43"/>
+<text text-anchor="middle" x="2798.46" y="-1039.93" font-family="Times,serif" font-size="14.00">iron&#45;plate*95880</text>
 </g>
 <!-- 4,3 (item=nexelit&#45;plate Nexelit platery) -->
 <g id="node10" class="node">
@@ -115,8 +115,8 @@
 <!-- 0,11 ()&#45;&gt;4,3 (item=nexelit&#45;plate Nexelit platery) -->
 <g id="edge8" class="edge">
 <title>0,11 ()&#45;&gt;4,3 (item=nexelit&#45;plate Nexelit platery)</title>
-<path fill="none" stroke="black" stroke-width="0.43" d="M4847.77,-858.45C4466.87,-966.83 1046.65,-1939.97 511.07,-2092.35"/>
-<polygon fill="black" stroke="black" stroke-width="0.43" points="509.82,-2089.07 501.16,-2095.17 511.74,-2095.8 509.82,-2089.07"/>
+<path fill="none" stroke="black" stroke-width="0.35" d="M4847.77,-858.45C4466.87,-966.83 1046.65,-1939.97 511.07,-2092.35"/>
+<polygon fill="black" stroke="black" stroke-width="0.35" points="509.82,-2089.07 501.16,-2095.17 511.74,-2095.8 509.82,-2089.07"/>
 <text text-anchor="middle" x="2618.92" y="-1479.2" font-family="Times,serif" font-size="14.00">iron&#45;plate*12240</text>
 </g>
 <!-- 3,3 (electrolysis power, DO NOT CONNECT THESE WIRES, Landfill Drive&#45;Thru, Small Parts) -->
@@ -128,9 +128,9 @@
 <!-- 0,11 ()&#45;&gt;3,3 (electrolysis power, DO NOT CONNECT THESE WIRES, Landfill Drive&#45;Thru, Small Parts) -->
 <g id="edge11" class="edge">
 <title>0,11 ()&#45;&gt;3,3 (electrolysis power, DO NOT CONNECT THESE WIRES, Landfill Drive&#45;Thru, Small Parts)</title>
-<path fill="none" stroke="black" stroke-width="3.65" d="M4855.03,-862.2C4507.01,-1035.49 930.57,-2816.34 485.95,-3037.74"/>
-<polygon fill="black" stroke="black" stroke-width="3.65" points="484.31,-3034.65 476.91,-3042.24 487.43,-3040.91 484.31,-3034.65"/>
-<text text-anchor="middle" x="2605.49" y="-1953.77" font-family="Times,serif" font-size="14.00">iron&#45;plate*104160</text>
+<path fill="none" stroke="black" stroke-width="5.69" d="M4855.03,-862.2C4507.01,-1035.49 930.57,-2816.34 485.95,-3037.74"/>
+<polygon fill="black" stroke="black" stroke-width="5.69" points="483.65,-3033.32 476.91,-3042.24 488.08,-3042.24 483.65,-3033.32"/>
+<text text-anchor="middle" x="2605.49" y="-1953.77" font-family="Times,serif" font-size="14.00">iron&#45;plate*198720</text>
 </g>
 <!-- 2,5 (Simple Circuits) -->
 <g id="node12" class="node">
@@ -141,9 +141,9 @@
 <!-- 0,11 ()&#45;&gt;2,5 (Simple Circuits) -->
 <g id="edge16" class="edge">
 <title>0,11 ()&#45;&gt;2,5 (Simple Circuits)</title>
-<path fill="none" stroke="black" stroke-width="0.79" d="M4861.16,-864.56C4562.21,-1090.32 1178.18,-3645.82 814.67,-3920.33"/>
-<polygon fill="black" stroke="black" stroke-width="0.79" points="812.52,-3917.57 806.65,-3926.39 816.74,-3923.16 812.52,-3917.57"/>
-<text text-anchor="middle" x="2777.42" y="-2396.25" font-family="Times,serif" font-size="14.00">iron&#45;plate*22680</text>
+<path fill="none" stroke="black" stroke-width="0.88" d="M4861.16,-864.56C4562.21,-1090.32 1178.18,-3645.82 814.67,-3920.33"/>
+<polygon fill="black" stroke="black" stroke-width="0.88" points="812.52,-3917.57 806.65,-3926.39 816.74,-3923.16 812.52,-3917.57"/>
+<text text-anchor="middle" x="2777.42" y="-2396.25" font-family="Times,serif" font-size="14.00">iron&#45;plate*30720</text>
 </g>
 <!-- &#45;2,&#45;3 (Trains) -->
 <g id="node14" class="node">
@@ -154,9 +154,9 @@
 <!-- 0,11 ()&#45;&gt;&#45;2,&#45;3 (Trains) -->
 <g id="edge14" class="edge">
 <title>0,11 ()&#45;&gt;&#45;2,&#45;3 (Trains)</title>
-<path fill="none" stroke="black" stroke-width="0.97" d="M4866.81,-865.57C4629.63,-1125.75 1733.43,-4302.73 1444.82,-4619.32"/>
-<polygon fill="black" stroke="black" stroke-width="0.97" points="1441.91,-4617.31 1437.76,-4627.06 1447.08,-4622.03 1441.91,-4617.31"/>
-<text text-anchor="middle" x="3095.31" y="-2746.25" font-family="Times,serif" font-size="14.00">iron&#45;plate*27600</text>
+<path fill="none" stroke="black" stroke-width="0.91" d="M4866.81,-865.57C4629.63,-1125.75 1733.43,-4302.73 1444.82,-4619.32"/>
+<polygon fill="black" stroke="black" stroke-width="0.91" points="1441.91,-4617.31 1437.76,-4627.06 1447.08,-4622.03 1441.91,-4617.31"/>
+<text text-anchor="middle" x="3095.31" y="-2746.25" font-family="Times,serif" font-size="14.00">iron&#45;plate*31800</text>
 </g>
 <!-- &#45;3,8 (Urea) -->
 <g id="node15" class="node">
@@ -169,7 +169,7 @@
 <title>0,11 ()&#45;&gt;&#45;3,8 (Urea)</title>
 <path fill="none" stroke="black" stroke-width="0.29" d="M4871.44,-866.09C4698.29,-1145.73 2498.36,-4698.74 2286.57,-5040.79"/>
 <polygon fill="black" stroke="black" stroke-width="0.29" points="2283.57,-5039 2281.28,-5049.34 2289.52,-5042.68 2283.57,-5039"/>
-<text text-anchor="middle" x="3523" y="-2957.24" font-family="Times,serif" font-size="14.00">iron&#45;plate*8160</text>
+<text text-anchor="middle" x="3518.5" y="-2957.24" font-family="Times,serif" font-size="14.00">iron&#45;plate*10200</text>
 </g>
 <!-- 0,10 (item=meat Meat) -->
 <g id="node16" class="node">
@@ -180,9 +180,9 @@
 <!-- 0,11 ()&#45;&gt;0,10 (item=meat Meat) -->
 <g id="edge20" class="edge">
 <title>0,11 ()&#45;&gt;0,10 (item=meat Meat)</title>
-<path fill="none" stroke="black" stroke-width="0.58" d="M4875.34,-866.45C4764.84,-1151.68 3361.86,-4773.21 3224.82,-5126.93"/>
-<polygon fill="black" stroke="black" stroke-width="0.58" points="3221.49,-5125.84 3221.14,-5136.43 3228.02,-5128.37 3221.49,-5125.84"/>
-<text text-anchor="middle" x="3989.58" y="-3000.49" font-family="Times,serif" font-size="14.00">iron&#45;plate*16440</text>
+<path fill="none" stroke="black" stroke-width="0.53" d="M4875.34,-866.45C4764.84,-1151.68 3361.86,-4773.21 3224.82,-5126.93"/>
+<polygon fill="black" stroke="black" stroke-width="0.53" points="3221.49,-5125.84 3221.14,-5136.43 3228.02,-5128.37 3221.49,-5125.84"/>
+<text text-anchor="middle" x="3989.58" y="-3000.49" font-family="Times,serif" font-size="14.00">iron&#45;plate*18480</text>
 </g>
 <!-- &#45;1,8 (Fibre via. moss) -->
 <g id="node17" class="node">
@@ -193,9 +193,9 @@
 <!-- 0,11 ()&#45;&gt;&#45;1,8 (Fibre via. moss) -->
 <g id="edge21" class="edge">
 <title>0,11 ()&#45;&gt;&#45;1,8 (Fibre via. moss)</title>
-<path fill="none" stroke="black" stroke-width="0.07" d="M4878.87,-866.69C4827.08,-1143.7 4195.48,-4522.5 4131.08,-4866.97"/>
-<polygon fill="black" stroke="black" stroke-width="0.07" points="4127.62,-4866.43 4129.23,-4876.9 4134.5,-4867.72 4127.62,-4866.43"/>
-<text text-anchor="middle" x="4448.97" y="-2870.63" font-family="Times,serif" font-size="14.00">iron&#45;plate*2040</text>
+<path fill="none" stroke="black" stroke-width="0.12" d="M4878.87,-866.69C4827.08,-1143.7 4195.48,-4522.5 4131.08,-4866.97"/>
+<polygon fill="black" stroke="black" stroke-width="0.12" points="4127.62,-4866.43 4129.23,-4876.9 4134.5,-4867.72 4127.62,-4866.43"/>
+<text text-anchor="middle" x="4448.97" y="-2870.63" font-family="Times,serif" font-size="14.00">iron&#45;plate*4080</text>
 </g>
 <!-- 4,1 (item=filtration&#45;media Filtration Media) -->
 <g id="node19" class="node">
@@ -206,9 +206,9 @@
 <!-- 0,11 ()&#45;&gt;4,1 (item=filtration&#45;media Filtration Media) -->
 <g id="edge27" class="edge">
 <title>0,11 ()&#45;&gt;4,1 (item=filtration&#45;media Filtration Media)</title>
-<path fill="none" stroke="black" stroke-width="0.25" d="M4882.24,-866.93C4882.24,-1122.59 4882.24,-3978.52 4882.24,-4295.49"/>
-<polygon fill="black" stroke="black" stroke-width="0.25" points="4878.74,-4295.69 4882.24,-4305.69 4885.74,-4295.69 4878.74,-4295.69"/>
-<text text-anchor="middle" x="4826.24" y="-2585.01" font-family="Times,serif" font-size="14.00">iron&#45;plate*7080</text>
+<path fill="none" stroke="black" stroke-width="0.27" d="M4882.24,-866.93C4882.24,-1122.59 4882.24,-3978.52 4882.24,-4295.49"/>
+<polygon fill="black" stroke="black" stroke-width="0.27" points="4878.74,-4295.69 4882.24,-4305.69 4885.74,-4295.69 4878.74,-4295.69"/>
+<text text-anchor="middle" x="4826.24" y="-2585.01" font-family="Times,serif" font-size="14.00">iron&#45;plate*9360</text>
 </g>
 <!-- &#45;3,&#45;3 (Zinc Plates, 32 to consume four belts) -->
 <g id="node20" class="node">
@@ -219,8 +219,8 @@
 <!-- 0,11 ()&#45;&gt;&#45;3,&#45;3 (Zinc Plates, 32 to consume four belts) -->
 <g id="edge29" class="edge">
 <title>0,11 ()&#45;&gt;&#45;3,&#45;3 (Zinc Plates, 32 to consume four belts)</title>
-<path fill="none" stroke="black" stroke-width="1.76" d="M4888.74,-830.76C4909.53,-773.65 4974.42,-595.29 4999.69,-525.85"/>
-<polygon fill="black" stroke="black" stroke-width="1.76" points="5003.12,-526.64 5003.25,-516.05 4996.55,-524.25 5003.12,-526.64"/>
+<path fill="none" stroke="black" stroke-width="1.44" d="M4888.74,-830.76C4909.53,-773.65 4974.42,-595.29 4999.69,-525.85"/>
+<polygon fill="black" stroke="black" stroke-width="1.44" points="5003.12,-526.64 5003.25,-516.05 4996.55,-524.25 5003.12,-526.64"/>
 <text text-anchor="middle" x="4883.72" y="-682.11" font-family="Times,serif" font-size="14.00">iron&#45;plate*50160</text>
 </g>
 <!-- 2,0 (Sodium Sulfate) -->
@@ -232,9 +232,9 @@
 <!-- 0,11 ()&#45;&gt;2,0 (Sodium Sulfate) -->
 <g id="edge31" class="edge">
 <title>0,11 ()&#45;&gt;2,0 (Sodium Sulfate)</title>
-<path fill="none" stroke="black" stroke-width="0.11" d="M4885.62,-866.76C4926.53,-1085.59 5325.28,-3218.69 5375.96,-3489.81"/>
-<polygon fill="black" stroke="black" stroke-width="0.11" points="5372.58,-3490.81 5377.86,-3500 5379.46,-3489.53 5372.58,-3490.81"/>
-<text text-anchor="middle" x="5074.79" y="-2182.08" font-family="Times,serif" font-size="14.00">iron&#45;plate*3240</text>
+<path fill="none" stroke="black" stroke-width="0.14" d="M4885.62,-866.76C4926.53,-1085.59 5325.28,-3218.69 5375.96,-3489.81"/>
+<polygon fill="black" stroke="black" stroke-width="0.14" points="5372.58,-3490.81 5377.86,-3500 5379.46,-3489.53 5372.58,-3490.81"/>
+<text text-anchor="middle" x="5074.79" y="-2182.08" font-family="Times,serif" font-size="14.00">iron&#45;plate*4800</text>
 </g>
 <!-- &#45;1,7 (Rayon) -->
 <g id="node22" class="node">
@@ -245,8 +245,8 @@
 <!-- 0,11 ()&#45;&gt;&#45;1,7 (Rayon) -->
 <g id="edge32" class="edge">
 <title>0,11 ()&#45;&gt;&#45;1,7 (Rayon)</title>
-<path fill="none" stroke="black" stroke-width="0.08" d="M4918.23,-839.76C4981.04,-824.26 5111.25,-792.12 5187.65,-773.25"/>
-<polygon fill="black" stroke="black" stroke-width="0.08" points="5188.74,-776.59 5197.61,-770.8 5187.06,-769.8 5188.74,-776.59"/>
+<path fill="none" stroke="black" stroke-width="0.07" d="M4918.23,-839.76C4981.04,-824.26 5111.25,-792.12 5187.65,-773.25"/>
+<polygon fill="black" stroke="black" stroke-width="0.07" points="5188.74,-776.59 5197.61,-770.8 5187.06,-769.8 5188.74,-776.59"/>
 <text text-anchor="middle" x="4996.94" y="-810.31" font-family="Times,serif" font-size="14.00">iron&#45;plate*2280</text>
 </g>
 <!-- &#45;4,&#45;2 (For Science!) -->
@@ -258,8 +258,8 @@
 <!-- 0,11 ()&#45;&gt;&#45;4,&#45;2 (For Science!) -->
 <g id="edge34" class="edge">
 <title>0,11 ()&#45;&gt;&#45;4,&#45;2 (For Science!)</title>
-<path fill="none" stroke="black" stroke-width="0.18" d="M4919.88,-856.16C5002.54,-872.65 5201.35,-912.31 5311.6,-934.3"/>
-<polygon fill="black" stroke="black" stroke-width="0.18" points="5311.17,-937.79 5321.66,-936.31 5312.54,-930.92 5311.17,-937.79"/>
+<path fill="none" stroke="black" stroke-width="0.14" d="M4919.88,-856.16C5002.54,-872.65 5201.35,-912.31 5311.6,-934.3"/>
+<polygon fill="black" stroke="black" stroke-width="0.14" points="5311.17,-937.79 5321.66,-936.31 5312.54,-930.92 5311.17,-937.79"/>
 <text text-anchor="middle" x="5059.74" y="-899.03" font-family="Times,serif" font-size="14.00">iron&#45;plate*5040</text>
 </g>
 <!-- 4,6 (Circuit substrate and Doped silicon) -->
@@ -271,8 +271,8 @@
 <!-- 0,11 ()&#45;&gt;4,6 (Circuit substrate and Doped silicon) -->
 <g id="edge37" class="edge">
 <title>0,11 ()&#45;&gt;4,6 (Circuit substrate and Doped silicon)</title>
-<path fill="none" stroke="black" stroke-width="0.07" d="M4906.54,-863.34C5009.65,-925.7 5411.49,-1168.72 5538.03,-1245.25"/>
-<polygon fill="black" stroke="black" stroke-width="0.07" points="5536.29,-1248.29 5546.65,-1250.47 5539.91,-1242.3 5536.29,-1248.29"/>
+<path fill="none" stroke="black" stroke-width="0.06" d="M4906.54,-863.34C5009.65,-925.7 5411.49,-1168.72 5538.03,-1245.25"/>
+<polygon fill="black" stroke="black" stroke-width="0.06" points="5536.29,-1248.29 5546.65,-1250.47 5539.91,-1242.3 5536.29,-1248.29"/>
 <text text-anchor="middle" x="5166.28" y="-1058.09" font-family="Times,serif" font-size="14.00">iron&#45;plate*2040</text>
 </g>
 <!-- &#45;1,10 (Iron Plates) -->
@@ -284,65 +284,65 @@
 <!-- &#45;1,10 (Iron Plates)&#45;&gt;2,12 (Yet more coke) -->
 <g id="edge18" class="edge">
 <title>&#45;1,10 (Iron Plates)&#45;&gt;2,12 (Yet more coke)</title>
-<path fill="none" stroke="black" stroke-width="1.91" d="M5544.33,-2568.42C5420.14,-2367.84 4292.12,-546.03 4142.22,-303.94"/>
-<polygon fill="black" stroke="black" stroke-width="1.91" points="4145.17,-302.05 4136.93,-295.39 4139.22,-305.73 4145.17,-302.05"/>
-<text text-anchor="middle" x="4782.78" y="-1439.98" font-family="Times,serif" font-size="14.00">iron&#45;plate*54560</text>
+<path fill="none" stroke="black" stroke-width="1.92" d="M5544.33,-2568.42C5420.14,-2367.84 4292.12,-546.03 4142.22,-303.94"/>
+<polygon fill="black" stroke="black" stroke-width="1.92" points="4145.17,-302.05 4136.93,-295.39 4139.22,-305.73 4145.17,-302.05"/>
+<text text-anchor="middle" x="4782.78" y="-1439.98" font-family="Times,serif" font-size="14.00">iron&#45;plate*67120</text>
 </g>
 <!-- &#45;1,10 (Iron Plates)&#45;&gt;4,4 (Hydrogen Chloride, item=nylon Nylon/Nylon parts) -->
 <g id="edge24" class="edge">
 <title>&#45;1,10 (Iron Plates)&#45;&gt;4,4 (Hydrogen Chloride, item=nylon Nylon/Nylon parts)</title>
-<path fill="none" stroke="black" stroke-width="1.05" d="M5552.02,-2568.14C5530.48,-2452.89 5413.03,-1824.58 5386.55,-1682.94"/>
-<polygon fill="black" stroke="black" stroke-width="1.05" points="5389.95,-1682.07 5384.67,-1672.88 5383.07,-1683.36 5389.95,-1682.07"/>
-<text text-anchor="middle" x="5408.79" y="-2129.34" font-family="Times,serif" font-size="14.00">iron&#45;plate*29880</text>
+<path fill="none" stroke="black" stroke-width="0.98" d="M5552.02,-2568.14C5530.48,-2452.89 5413.03,-1824.58 5386.55,-1682.94"/>
+<polygon fill="black" stroke="black" stroke-width="0.98" points="5389.95,-1682.07 5384.67,-1672.88 5383.07,-1683.36 5389.95,-1682.07"/>
+<text text-anchor="middle" x="5408.79" y="-2129.34" font-family="Times,serif" font-size="14.00">iron&#45;plate*34160</text>
 </g>
 <!-- &#45;1,10 (Iron Plates)&#45;&gt;&#45;6,1 (Coke and Coal Dust from Biomass (needs Iron plates)) -->
 <g id="edge4" class="edge">
 <title>&#45;1,10 (Iron Plates)&#45;&gt;&#45;6,1 (Coke and Coal Dust from Biomass (needs Iron plates))</title>
-<path fill="none" stroke="black" stroke-width="1.02" d="M5539.22,-2568.56C5345.17,-2355.7 3469.17,-297.83 3237.5,-43.7"/>
-<polygon fill="black" stroke="black" stroke-width="1.02" points="3239.86,-41.09 3230.54,-36.06 3234.69,-45.81 3239.86,-41.09"/>
-<text text-anchor="middle" x="4327.86" y="-1309.93" font-family="Times,serif" font-size="14.00">iron&#45;plate*29040</text>
+<path fill="none" stroke="black" stroke-width="1.26" d="M5539.22,-2568.56C5345.17,-2355.7 3469.17,-297.83 3237.5,-43.7"/>
+<polygon fill="black" stroke="black" stroke-width="1.26" points="3239.86,-41.09 3230.54,-36.06 3234.69,-45.81 3239.86,-41.09"/>
+<text text-anchor="middle" x="4327.86" y="-1309.93" font-family="Times,serif" font-size="14.00">iron&#45;plate*43920</text>
 </g>
 <!-- &#45;1,10 (Iron Plates)&#45;&gt;&#45;4,1 () -->
 <g id="edge28" class="edge">
 <title>&#45;1,10 (Iron Plates)&#45;&gt;&#45;4,1 ()</title>
-<path fill="none" stroke="black" stroke-width="0.07" d="M5532.24,-2568.83C5256.4,-2360.53 2606.29,-359.26 2299.19,-127.34"/>
-<polygon fill="black" stroke="black" stroke-width="0.07" points="2300.88,-124.24 2290.79,-121 2296.66,-129.82 2300.88,-124.24"/>
-<text text-anchor="middle" x="3859.72" y="-1351.89" font-family="Times,serif" font-size="14.00">iron&#45;plate*2040</text>
+<path fill="none" stroke="black" stroke-width="0.12" d="M5532.24,-2568.83C5256.4,-2360.53 2606.29,-359.26 2299.19,-127.34"/>
+<polygon fill="black" stroke="black" stroke-width="0.12" points="2300.88,-124.24 2290.79,-121 2296.66,-129.82 2300.88,-124.24"/>
+<text text-anchor="middle" x="3859.72" y="-1351.89" font-family="Times,serif" font-size="14.00">iron&#45;plate*4080</text>
 </g>
 <!-- &#45;1,10 (Iron Plates)&#45;&gt;2,2 () -->
 <g id="edge23" class="edge">
 <title>&#45;1,10 (Iron Plates)&#45;&gt;2,2 ()</title>
-<path fill="none" stroke="black" stroke-width="0.22" d="M5521.54,-2569.47C5149.39,-2384.16 1829.63,-731.11 1455.87,-545"/>
-<polygon fill="black" stroke="black" stroke-width="0.22" points="1457.38,-541.84 1446.87,-540.52 1454.26,-548.11 1457.38,-541.84"/>
+<path fill="none" stroke="black" stroke-width="0.18" d="M5521.54,-2569.47C5149.39,-2384.16 1829.63,-731.11 1455.87,-545"/>
+<polygon fill="black" stroke="black" stroke-width="0.18" points="1457.38,-541.84 1446.87,-540.52 1454.26,-548.11 1457.38,-541.84"/>
 <text text-anchor="middle" x="3432.71" y="-1561.03" font-family="Times,serif" font-size="14.00">iron&#45;plate*6160</text>
 </g>
 <!-- &#45;1,10 (Iron Plates)&#45;&gt;3,16 (More Coke) -->
 <g id="edge22" class="edge">
 <title>&#45;1,10 (Iron Plates)&#45;&gt;3,16 (More Coke)</title>
-<path fill="none" stroke="black" stroke-width="1.45" d="M5502.64,-2571.32C5019.3,-2433.8 1367.33,-1394.72 845.16,-1246.15"/>
-<polygon fill="black" stroke="black" stroke-width="1.45" points="845.76,-1242.68 835.18,-1243.31 843.84,-1249.42 845.76,-1242.68"/>
-<text text-anchor="middle" x="3113.4" y="-1912.54" font-family="Times,serif" font-size="14.00">iron&#45;plate*41480</text>
+<path fill="none" stroke="black" stroke-width="1.37" d="M5502.64,-2571.32C5019.3,-2433.8 1367.33,-1394.72 845.16,-1246.15"/>
+<polygon fill="black" stroke="black" stroke-width="1.37" points="845.76,-1242.68 835.18,-1243.31 843.84,-1249.42 845.76,-1242.68"/>
+<text text-anchor="middle" x="3113.4" y="-1912.54" font-family="Times,serif" font-size="14.00">iron&#45;plate*47840</text>
 </g>
 <!-- &#45;1,10 (Iron Plates)&#45;&gt;4,3 (item=nexelit&#45;plate Nexelit platery) -->
 <g id="edge17" class="edge">
 <title>&#45;1,10 (Iron Plates)&#45;&gt;4,3 (item=nexelit&#45;plate Nexelit platery)</title>
-<path fill="none" stroke="black" stroke-width="0.07" d="M5470.12,-2578.43C4875.89,-2523.37 1355.61,-2197.17 588.29,-2126.06"/>
-<polygon fill="black" stroke="black" stroke-width="0.07" points="588.57,-2122.58 578.29,-2125.14 587.93,-2129.55 588.57,-2122.58"/>
+<path fill="none" stroke="black" stroke-width="0.06" d="M5470.12,-2578.43C4875.89,-2523.37 1355.61,-2197.17 588.29,-2126.06"/>
+<polygon fill="black" stroke="black" stroke-width="0.06" points="588.57,-2122.58 578.29,-2125.14 587.93,-2129.55 588.57,-2122.58"/>
 <text text-anchor="middle" x="2973.21" y="-2356.05" font-family="Times,serif" font-size="14.00">iron&#45;plate*2000</text>
 </g>
 <!-- &#45;1,10 (Iron Plates)&#45;&gt;3,3 (electrolysis power, DO NOT CONNECT THESE WIRES, Landfill Drive&#45;Thru, Small Parts) -->
 <g id="edge9" class="edge">
 <title>&#45;1,10 (Iron Plates)&#45;&gt;3,3 (electrolysis power, DO NOT CONNECT THESE WIRES, Landfill Drive&#45;Thru, Small Parts)</title>
-<path fill="none" stroke="black" stroke-width="4.74" d="M5470.12,-2594.24C4885.73,-2648.39 1471.48,-2964.77 628.68,-3042.87"/>
-<polygon fill="black" stroke="black" stroke-width="4.74" points="628.15,-3038.75 618.58,-3043.8 628.92,-3047.01 628.15,-3038.75"/>
+<path fill="none" stroke="black" stroke-width="3.88" d="M5470.12,-2594.24C4885.73,-2648.39 1471.48,-2964.77 628.68,-3042.87"/>
+<polygon fill="black" stroke="black" stroke-width="3.88" points="628.21,-3039.39 618.58,-3043.8 628.86,-3046.37 628.21,-3039.39"/>
 <text text-anchor="middle" x="2984.4" y="-2822.35" font-family="Times,serif" font-size="14.00">iron&#45;plate*135480</text>
 </g>
 <!-- &#45;1,10 (Iron Plates)&#45;&gt;2,5 (Simple Circuits) -->
 <g id="edge10" class="edge">
 <title>&#45;1,10 (Iron Plates)&#45;&gt;2,5 (Simple Circuits)</title>
-<path fill="none" stroke="black" stroke-width="0.34" d="M5502.64,-2601.35C5020.06,-2738.66 1378.89,-3774.66 847.67,-3925.81"/>
-<polygon fill="black" stroke="black" stroke-width="0.34" points="846.53,-3922.49 837.87,-3928.6 848.44,-3929.23 846.53,-3922.49"/>
-<text text-anchor="middle" x="3119.15" y="-3267.38" font-family="Times,serif" font-size="14.00">iron&#45;plate*9600</text>
+<path fill="none" stroke="black" stroke-width="0.4" d="M5502.64,-2601.35C5020.06,-2738.66 1378.89,-3774.66 847.67,-3925.81"/>
+<polygon fill="black" stroke="black" stroke-width="0.4" points="846.53,-3922.49 837.87,-3928.6 848.44,-3929.23 846.53,-3922.49"/>
+<text text-anchor="middle" x="3114.65" y="-3267.38" font-family="Times,serif" font-size="14.00">iron&#45;plate*13880</text>
 </g>
 <!-- &#45;1,6 (Flimble&#39;s Slaughterhouse and Daycare Centre, Auog Products) -->
 <g id="node13" class="node">
@@ -353,36 +353,36 @@
 <!-- &#45;1,10 (Iron Plates)&#45;&gt;&#45;1,6 (Flimble&#39;s Slaughterhouse and Daycare Centre, Auog Products) -->
 <g id="edge13" class="edge">
 <title>&#45;1,10 (Iron Plates)&#45;&gt;&#45;1,6 (Flimble&#39;s Slaughterhouse and Daycare Centre, Auog Products)</title>
-<path fill="none" stroke="black" stroke-width="0.53" d="M5574.94,-2568.64C5637.49,-2511.91 5833.09,-2334.52 5905.73,-2268.64"/>
-<polygon fill="black" stroke="black" stroke-width="0.53" points="5908.12,-2271.2 5913.17,-2261.89 5903.41,-2266.02 5908.12,-2271.2"/>
+<path fill="none" stroke="black" stroke-width="0.43" d="M5574.94,-2568.64C5637.49,-2511.91 5833.09,-2334.52 5905.73,-2268.64"/>
+<polygon fill="black" stroke="black" stroke-width="0.43" points="5908.12,-2271.2 5913.17,-2261.89 5903.41,-2266.02 5908.12,-2271.2"/>
 <text text-anchor="middle" x="5679.84" y="-2422.44" font-family="Times,serif" font-size="14.00">iron&#45;plate*15160</text>
 </g>
 <!-- &#45;1,10 (Iron Plates)&#45;&gt;&#45;2,&#45;3 (Trains) -->
 <g id="edge15" class="edge">
 <title>&#45;1,10 (Iron Plates)&#45;&gt;&#45;2,&#45;3 (Trains)</title>
-<path fill="none" stroke="black" stroke-width="0.47" d="M5521.54,-2603.21C5151.69,-2787.37 1870.63,-4421.14 1463.15,-4624.05"/>
-<polygon fill="black" stroke="black" stroke-width="0.47" points="1461.45,-4620.98 1454.06,-4628.57 1464.58,-4627.25 1461.45,-4620.98"/>
-<text text-anchor="middle" x="3431.85" y="-3617.43" font-family="Times,serif" font-size="14.00">iron&#45;plate*13520</text>
+<path fill="none" stroke="black" stroke-width="0.52" d="M5521.54,-2603.21C5151.69,-2787.37 1870.63,-4421.14 1463.15,-4624.05"/>
+<polygon fill="black" stroke="black" stroke-width="0.52" points="1461.45,-4620.98 1454.06,-4628.57 1464.58,-4627.25 1461.45,-4620.98"/>
+<text text-anchor="middle" x="3431.85" y="-3617.43" font-family="Times,serif" font-size="14.00">iron&#45;plate*18320</text>
 </g>
 <!-- &#45;1,10 (Iron Plates)&#45;&gt;&#45;3,8 (Urea) -->
 <g id="edge19" class="edge">
 <title>&#45;1,10 (Iron Plates)&#45;&gt;&#45;3,8 (Urea)</title>
-<path fill="none" stroke="black" stroke-width="0.43" d="M5532.24,-2603.84C5256.83,-2811.82 2614.56,-4807.17 2300.65,-5044.23"/>
-<polygon fill="black" stroke="black" stroke-width="0.43" points="2298.31,-5041.6 2292.44,-5050.42 2302.53,-5047.19 2298.31,-5041.6"/>
-<text text-anchor="middle" x="3855.94" y="-3827.84" font-family="Times,serif" font-size="14.00">iron&#45;plate*12320</text>
+<path fill="none" stroke="black" stroke-width="0.41" d="M5532.24,-2603.84C5256.83,-2811.82 2614.56,-4807.17 2300.65,-5044.23"/>
+<polygon fill="black" stroke="black" stroke-width="0.41" points="2298.31,-5041.6 2292.44,-5050.42 2302.53,-5047.19 2298.31,-5041.6"/>
+<text text-anchor="middle" x="3855.94" y="-3827.84" font-family="Times,serif" font-size="14.00">iron&#45;plate*14360</text>
 </g>
 <!-- &#45;1,10 (Iron Plates)&#45;&gt;0,10 (item=meat Meat) -->
 <g id="edge36" class="edge">
 <title>&#45;1,10 (Iron Plates)&#45;&gt;0,10 (item=meat Meat)</title>
-<path fill="none" stroke="black" stroke-width="0.22" d="M5539.22,-2604.11C5345.17,-2816.97 3469.17,-4874.85 3237.5,-5128.98"/>
-<polygon fill="black" stroke="black" stroke-width="0.22" points="3234.69,-5126.86 3230.54,-5136.61 3239.86,-5131.58 3234.69,-5126.86"/>
-<text text-anchor="middle" x="4332.36" y="-3870.34" font-family="Times,serif" font-size="14.00">iron&#45;plate*6160</text>
+<path fill="none" stroke="black" stroke-width="0.23" d="M5539.22,-2604.11C5345.17,-2816.97 3469.17,-4874.85 3237.5,-5128.98"/>
+<polygon fill="black" stroke="black" stroke-width="0.23" points="3234.69,-5126.86 3230.54,-5136.61 3239.86,-5131.58 3234.69,-5126.86"/>
+<text text-anchor="middle" x="4332.36" y="-3870.34" font-family="Times,serif" font-size="14.00">iron&#45;plate*8200</text>
 </g>
 <!-- &#45;1,10 (Iron Plates)&#45;&gt;&#45;1,8 (Fibre via. moss) -->
 <g id="edge35" class="edge">
 <title>&#45;1,10 (Iron Plates)&#45;&gt;&#45;1,8 (Fibre via. moss)</title>
-<path fill="none" stroke="black" stroke-width="0.07" d="M5544.33,-2604.25C5420.14,-2804.83 4292.12,-4626.64 4142.22,-4868.74"/>
-<polygon fill="black" stroke="black" stroke-width="0.07" points="4139.22,-4866.94 4136.93,-4877.28 4145.17,-4870.62 4139.22,-4866.94"/>
+<path fill="none" stroke="black" stroke-width="0.06" d="M5544.33,-2604.25C5420.14,-2804.83 4292.12,-4626.64 4142.22,-4868.74"/>
+<polygon fill="black" stroke="black" stroke-width="0.06" points="4139.22,-4866.94 4136.93,-4877.28 4145.17,-4870.62 4139.22,-4866.94"/>
 <text text-anchor="middle" x="4787.28" y="-3740.29" font-family="Times,serif" font-size="14.00">iron&#45;plate*2040</text>
 </g>
 <!-- &#45;7,&#45;4 (Isomer&#39;s Slaughterhouse and Daycare Centre, Bone Meal) -->
@@ -394,15 +394,15 @@
 <!-- &#45;1,10 (Iron Plates)&#45;&gt;&#45;7,&#45;4 (Isomer&#39;s Slaughterhouse and Daycare Centre, Bone Meal) -->
 <g id="edge26" class="edge">
 <title>&#45;1,10 (Iron Plates)&#45;&gt;&#45;7,&#45;4 (Isomer&#39;s Slaughterhouse and Daycare Centre, Bone Meal)</title>
-<path fill="none" stroke="black" stroke-width="0.07" d="M5574.05,-2604.23C5635.76,-2663.48 5833.63,-2853.47 5905.07,-2922.07"/>
-<polygon fill="black" stroke="black" stroke-width="0.07" points="5902.73,-2924.67 5912.36,-2929.07 5907.58,-2919.62 5902.73,-2924.67"/>
+<path fill="none" stroke="black" stroke-width="0.06" d="M5574.05,-2604.23C5635.76,-2663.48 5833.63,-2853.47 5905.07,-2922.07"/>
+<polygon fill="black" stroke="black" stroke-width="0.06" points="5902.73,-2924.67 5912.36,-2929.07 5907.58,-2919.62 5902.73,-2924.67"/>
 <text text-anchor="middle" x="5683.56" y="-2766.95" font-family="Times,serif" font-size="14.00">iron&#45;plate*2040</text>
 </g>
 <!-- &#45;1,10 (Iron Plates)&#45;&gt;4,1 (item=filtration&#45;media Filtration Media) -->
 <g id="edge33" class="edge">
 <title>&#45;1,10 (Iron Plates)&#45;&gt;4,1 (item=filtration&#45;media Filtration Media)</title>
-<path fill="none" stroke="black" stroke-width="0.19" d="M5548.43,-2604.39C5482.67,-2774.13 4973.5,-4088.45 4892.95,-4296.36"/>
-<polygon fill="black" stroke="black" stroke-width="0.19" points="4889.59,-4295.35 4889.25,-4305.94 4896.12,-4297.88 4889.59,-4295.35"/>
+<path fill="none" stroke="black" stroke-width="0.16" d="M5548.43,-2604.39C5482.67,-2774.13 4973.5,-4088.45 4892.95,-4296.36"/>
+<polygon fill="black" stroke="black" stroke-width="0.16" points="4889.59,-4295.35 4889.25,-4305.94 4896.12,-4297.88 4889.59,-4295.35"/>
 <text text-anchor="middle" x="5164.69" y="-3454.18" font-family="Times,serif" font-size="14.00">iron&#45;plate*5560</text>
 </g>
 <!-- &#45;1,10 (Iron Plates)&#45;&gt;2,0 (Sodium Sulfate) -->

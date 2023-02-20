@@ -24,9 +24,9 @@
 <!-- &#45;6,5 ()&#45;&gt;&#45;3,5 (fluid=arqad&#45;honey Honey) -->
 <g id="edge1" class="edge">
 <title>&#45;6,5 ()&#45;&gt;&#45;3,5 (fluid=arqad&#45;honey Honey)</title>
-<path fill="none" stroke="black" stroke-width="3.5" d="M188.55,-373.16C308.72,-469 947.15,-978.13 1095.14,-1096.15"/>
-<polygon fill="black" stroke="black" stroke-width="3.5" points="1093.39,-1099.23 1103.39,-1102.73 1097.76,-1093.76 1093.39,-1099.23"/>
-<text text-anchor="middle" x="557.34" y="-738.45" font-family="Times,serif" font-size="14.00">acetylene&#45;barrel*42880</text>
+<path fill="none" stroke="black" stroke-width="3.45" d="M188.55,-373.16C308.72,-469 947.15,-978.13 1095.14,-1096.15"/>
+<polygon fill="black" stroke="black" stroke-width="3.45" points="1093.39,-1099.23 1103.39,-1102.73 1097.76,-1093.76 1093.39,-1099.23"/>
+<text text-anchor="middle" x="557.34" y="-738.45" font-family="Times,serif" font-size="14.00">acetylene&#45;barrel*49568</text>
 </g>
 <!-- 4,10 (Fluid Recycling) -->
 <g id="node4" class="node">
@@ -37,9 +37,9 @@
 <!-- &#45;6,5 ()&#45;&gt;4,10 (Fluid Recycling) -->
 <g id="edge3" class="edge">
 <title>&#45;6,5 ()&#45;&gt;4,10 (Fluid Recycling)</title>
-<path fill="none" stroke="black" stroke-width="1.79" d="M169,-375.69C169,-455.49 169,-775.95 169,-873.73"/>
-<polygon fill="black" stroke="black" stroke-width="1.79" points="165.5,-874.02 169,-884.02 172.5,-874.02 165.5,-874.02"/>
-<text text-anchor="middle" x="84.5" y="-628.51" font-family="Times,serif" font-size="14.00">acetylene&#45;barrel*21968</text>
+<path fill="none" stroke="black" stroke-width="1.71" d="M169,-375.69C169,-455.49 169,-775.95 169,-873.73"/>
+<polygon fill="black" stroke="black" stroke-width="1.71" points="165.5,-874.02 169,-884.02 172.5,-874.02 165.5,-874.02"/>
+<text text-anchor="middle" x="84.5" y="-628.51" font-family="Times,serif" font-size="14.00">acetylene&#45;barrel*24464</text>
 </g>
 <!-- &#45;1,5 (Train stops for bus brick) -->
 <g id="node6" class="node">
@@ -50,8 +50,8 @@
 <!-- &#45;6,5 ()&#45;&gt;&#45;1,5 (Train stops for bus brick) -->
 <g id="edge5" class="edge">
 <title>&#45;6,5 ()&#45;&gt;&#45;1,5 (Train stops for bus brick)</title>
-<path fill="none" stroke="black" stroke-width="0.1" d="M203.62,-349.67C340.76,-318.37 848.05,-202.58 1045.97,-157.41"/>
-<polygon fill="black" stroke="black" stroke-width="0.1" points="1046.76,-160.82 1055.73,-155.18 1045.2,-154 1046.76,-160.82"/>
+<path fill="none" stroke="black" stroke-width="0.09" d="M203.62,-349.67C340.76,-318.37 848.05,-202.58 1045.97,-157.41"/>
+<polygon fill="black" stroke="black" stroke-width="0.09" points="1046.76,-160.82 1055.73,-155.18 1045.2,-154 1046.76,-160.82"/>
 <text text-anchor="middle" x="544.8" y="-257.34" font-family="Times,serif" font-size="14.00">acetylene&#45;barrel*1232</text>
 </g>
 <!-- &#45;5,1 (Acetylene) -->
@@ -63,16 +63,16 @@
 <!-- &#45;5,1 (Acetylene)&#45;&gt;&#45;3,5 (fluid=arqad&#45;honey Honey) -->
 <g id="edge2" class="edge">
 <title>&#45;5,1 (Acetylene)&#45;&gt;&#45;3,5 (fluid=arqad&#45;honey Honey)</title>
-<path fill="none" stroke="black" stroke-width="1.62" d="M652.14,-1228.7C747.06,-1207.03 937.1,-1163.66 1045.39,-1138.94"/>
-<polygon fill="black" stroke="black" stroke-width="1.62" points="1046.31,-1142.32 1055.28,-1136.68 1044.76,-1135.49 1046.31,-1142.32"/>
-<text text-anchor="middle" x="764.26" y="-1187.62" font-family="Times,serif" font-size="14.00">acetylene&#45;barrel*19872</text>
+<path fill="none" stroke="black" stroke-width="1.52" d="M652.14,-1228.7C747.06,-1207.03 937.1,-1163.66 1045.39,-1138.94"/>
+<polygon fill="black" stroke="black" stroke-width="1.52" points="1046.31,-1142.32 1055.28,-1136.68 1044.76,-1135.49 1046.31,-1142.32"/>
+<text text-anchor="middle" x="764.26" y="-1187.62" font-family="Times,serif" font-size="14.00">acetylene&#45;barrel*21760</text>
 </g>
 <!-- &#45;5,1 (Acetylene)&#45;&gt;4,10 (Fluid Recycling) -->
 <g id="edge7" class="edge">
 <title>&#45;5,1 (Acetylene)&#45;&gt;4,10 (Fluid Recycling)</title>
-<path fill="none" stroke="black" stroke-width="1.36" d="M572.82,-1224.24C502.1,-1167.85 280.48,-991.11 199.24,-926.32"/>
-<polygon fill="black" stroke="black" stroke-width="1.36" points="201.38,-923.55 191.38,-920.05 197.01,-929.02 201.38,-923.55"/>
-<text text-anchor="middle" x="301.53" y="-1079.08" font-family="Times,serif" font-size="14.00">acetylene&#45;barrel*16640</text>
+<path fill="none" stroke="black" stroke-width="1.26" d="M572.82,-1224.24C502.1,-1167.85 280.48,-991.11 199.24,-926.32"/>
+<polygon fill="black" stroke="black" stroke-width="1.26" points="201.38,-923.55 191.38,-920.05 197.01,-929.02 201.38,-923.55"/>
+<text text-anchor="middle" x="301.53" y="-1079.08" font-family="Times,serif" font-size="14.00">acetylene&#45;barrel*18080</text>
 </g>
 <!-- &#45;5,&#45;4 (low priority (slaked)? lime) -->
 <g id="node5" class="node">
@@ -83,16 +83,16 @@
 <!-- &#45;5,&#45;4 (low priority (slaked)? lime)&#45;&gt;&#45;3,5 (fluid=arqad&#45;honey Honey) -->
 <g id="edge8" class="edge">
 <title>&#45;5,&#45;4 (low priority (slaked)? lime)&#45;&gt;&#45;3,5 (fluid=arqad&#45;honey Honey)</title>
-<path fill="none" stroke="black" stroke-width="0.25" d="M1353.41,-647.94C1317.69,-722.1 1182.08,-1003.71 1139,-1093.15"/>
-<polygon fill="black" stroke="black" stroke-width="0.25" points="1135.75,-1091.85 1134.56,-1102.38 1142.05,-1094.89 1135.75,-1091.85"/>
-<text text-anchor="middle" x="1166.21" y="-874.34" font-family="Times,serif" font-size="14.00">acetylene&#45;barrel*3032</text>
+<path fill="none" stroke="black" stroke-width="0.27" d="M1353.41,-647.94C1317.69,-722.1 1182.08,-1003.71 1139,-1093.15"/>
+<polygon fill="black" stroke="black" stroke-width="0.27" points="1135.75,-1091.85 1134.56,-1102.38 1142.05,-1094.89 1135.75,-1091.85"/>
+<text text-anchor="middle" x="1166.21" y="-874.34" font-family="Times,serif" font-size="14.00">acetylene&#45;barrel*3848</text>
 </g>
 <!-- &#45;5,&#45;4 (low priority (slaked)? lime)&#45;&gt;4,10 (Fluid Recycling) -->
 <g id="edge4" class="edge">
 <title>&#45;5,&#45;4 (low priority (slaked)? lime)&#45;&gt;4,10 (Fluid Recycling)</title>
-<path fill="none" stroke="black" stroke-width="0.37" d="M1291.04,-646.11C1080.17,-694.24 459.32,-835.95 243.75,-885.15"/>
-<polygon fill="black" stroke="black" stroke-width="0.37" points="242.76,-881.78 233.79,-887.42 244.32,-888.61 242.76,-881.78"/>
-<text text-anchor="middle" x="687.39" y="-769.43" font-family="Times,serif" font-size="14.00">acetylene&#45;barrel*4558</text>
+<path fill="none" stroke="black" stroke-width="0.4" d="M1291.04,-646.11C1080.17,-694.24 459.32,-835.95 243.75,-885.15"/>
+<polygon fill="black" stroke="black" stroke-width="0.4" points="242.76,-881.78 233.79,-887.42 244.32,-888.61 242.76,-881.78"/>
+<text text-anchor="middle" x="687.39" y="-769.43" font-family="Times,serif" font-size="14.00">acetylene&#45;barrel*5694</text>
 </g>
 <!-- &#45;2,6 (Wrong ratio of Calcium Carbide to Acetalene) -->
 <g id="node7" class="node">
@@ -103,16 +103,16 @@
 <!-- &#45;2,6 (Wrong ratio of Calcium Carbide to Acetalene)&#45;&gt;&#45;3,5 (fluid=arqad&#45;honey Honey) -->
 <g id="edge6" class="edge">
 <title>&#45;2,6 (Wrong ratio of Calcium Carbide to Acetalene)&#45;&gt;&#45;3,5 (fluid=arqad&#45;honey Honey)</title>
-<path fill="none" stroke="black" stroke-width="0.73" d="M603.59,-36.22C665.6,-164.99 1037.55,-937.35 1112.6,-1093.19"/>
-<polygon fill="black" stroke="black" stroke-width="0.73" points="1109.61,-1095.06 1117.1,-1102.55 1115.92,-1092.02 1109.61,-1095.06"/>
-<text text-anchor="middle" x="778.09" y="-568.5" font-family="Times,serif" font-size="14.00">acetylene&#45;barrel*8904</text>
+<path fill="none" stroke="black" stroke-width="0.82" d="M603.59,-36.22C665.6,-164.99 1037.55,-937.35 1112.6,-1093.19"/>
+<polygon fill="black" stroke="black" stroke-width="0.82" points="1109.61,-1095.06 1117.1,-1102.55 1115.92,-1092.02 1109.61,-1095.06"/>
+<text text-anchor="middle" x="773.59" y="-568.5" font-family="Times,serif" font-size="14.00">acetylene&#45;barrel*11800</text>
 </g>
 <!-- &#45;2,6 (Wrong ratio of Calcium Carbide to Acetalene)&#45;&gt;4,10 (Fluid Recycling) -->
 <g id="edge9" class="edge">
 <title>&#45;2,6 (Wrong ratio of Calcium Carbide to Acetalene)&#45;&gt;4,10 (Fluid Recycling)</title>
-<path fill="none" stroke="black" stroke-width="0.25" d="M586.11,-36.06C532.49,-147.41 247.04,-740.16 182.14,-874.93"/>
-<polygon fill="black" stroke="black" stroke-width="0.25" points="178.87,-873.65 177.68,-884.17 185.18,-876.68 178.87,-873.65"/>
-<text text-anchor="middle" x="304.12" y="-459.3" font-family="Times,serif" font-size="14.00">acetylene&#45;barrel*3064</text>
+<path fill="none" stroke="black" stroke-width="0.46" d="M586.11,-36.06C532.49,-147.41 247.04,-740.16 182.14,-874.93"/>
+<polygon fill="black" stroke="black" stroke-width="0.46" points="178.87,-873.65 177.68,-884.17 185.18,-876.68 178.87,-873.65"/>
+<text text-anchor="middle" x="304.12" y="-459.3" font-family="Times,serif" font-size="14.00">acetylene&#45;barrel*6616</text>
 </g>
 <!-- &#45;2,6 (Wrong ratio of Calcium Carbide to Acetalene)&#45;&gt;&#45;1,5 (Train stops for bus brick) -->
 <g id="edge10" class="edge">

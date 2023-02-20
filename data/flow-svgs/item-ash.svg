@@ -24,8 +24,8 @@
 <!-- 4,15 ()&#45;&gt;5,2 (Raw Fiber) -->
 <g id="edge1" class="edge">
 <title>4,15 ()&#45;&gt;5,2 (Raw Fiber)</title>
-<path fill="none" stroke="black" stroke-width="1.2" d="M1007.36,-34.6C957.3,-84.66 807.56,-234.4 748.04,-293.92"/>
-<polygon fill="black" stroke="black" stroke-width="1.2" points="745.51,-291.5 740.91,-301.05 750.46,-296.45 745.51,-291.5"/>
+<path fill="none" stroke="black" stroke-width="1.02" d="M1007.36,-34.6C957.3,-84.66 807.56,-234.4 748.04,-293.92"/>
+<polygon fill="black" stroke="black" stroke-width="1.02" points="745.51,-291.5 740.91,-301.05 750.46,-296.45 745.51,-291.5"/>
 <text text-anchor="middle" x="839.2" y="-168.06" font-family="Times,serif" font-size="14.00">ash*54032</text>
 </g>
 <!-- 3,6 (Phosphoric Acid and Phosphine gas) -->
@@ -37,9 +37,9 @@
 <!-- 4,15 ()&#45;&gt;3,6 (Phosphoric Acid and Phosphine gas) -->
 <g id="edge5" class="edge">
 <title>4,15 ()&#45;&gt;3,6 (Phosphoric Acid and Phosphine gas)</title>
-<path fill="none" stroke="black" stroke-width="0.78" d="M1040.55,-34.6C1090.5,-84.54 1239.65,-233.69 1299.46,-293.5"/>
-<polygon fill="black" stroke="black" stroke-width="0.78" points="1297.08,-296.07 1306.63,-300.67 1302.03,-291.12 1297.08,-296.07"/>
-<text text-anchor="middle" x="1131.51" y="-167.85" font-family="Times,serif" font-size="14.00">ash*35104</text>
+<path fill="none" stroke="black" stroke-width="1.05" d="M1040.55,-34.6C1090.5,-84.54 1239.65,-233.69 1299.46,-293.5"/>
+<polygon fill="black" stroke="black" stroke-width="1.05" points="1297.08,-296.07 1306.63,-300.67 1302.03,-291.12 1297.08,-296.07"/>
+<text text-anchor="middle" x="1131.51" y="-167.85" font-family="Times,serif" font-size="14.00">ash*55328</text>
 </g>
 <!-- 5,3 (Ash) -->
 <g id="node3" class="node">
@@ -50,30 +50,30 @@
 <!-- 5,3 (Ash)&#45;&gt;5,2 (Raw Fiber) -->
 <g id="edge2" class="edge">
 <title>5,3 (Ash)&#45;&gt;5,2 (Raw Fiber)</title>
-<path fill="none" stroke="black" stroke-width="1.12" d="M1006.93,-602.4C956.53,-552 807.92,-403.39 748.35,-343.83"/>
-<polygon fill="black" stroke="black" stroke-width="1.12" points="750.76,-341.28 741.21,-336.69 745.81,-346.23 750.76,-341.28"/>
+<path fill="none" stroke="black" stroke-width="0.95" d="M1006.93,-602.4C956.53,-552 807.92,-403.39 748.35,-343.83"/>
+<polygon fill="black" stroke="black" stroke-width="0.95" points="750.76,-341.28 741.21,-336.69 745.81,-346.23 750.76,-341.28"/>
 <text text-anchor="middle" x="839.14" y="-476.92" font-family="Times,serif" font-size="14.00">ash*50336</text>
 </g>
 <!-- 5,3 (Ash)&#45;&gt;3,6 (Phosphoric Acid and Phosphine gas) -->
 <g id="edge7" class="edge">
 <title>5,3 (Ash)&#45;&gt;3,6 (Phosphoric Acid and Phosphine gas)</title>
-<path fill="none" stroke="black" stroke-width="1.14" d="M1040.99,-602.4C1091.39,-552 1240,-403.39 1299.56,-343.83"/>
-<polygon fill="black" stroke="black" stroke-width="1.14" points="1302.11,-346.23 1306.7,-336.69 1297.16,-341.28 1302.11,-346.23"/>
+<path fill="none" stroke="black" stroke-width="0.97" d="M1040.99,-602.4C1091.39,-552 1240,-403.39 1299.56,-343.83"/>
+<polygon fill="black" stroke="black" stroke-width="0.97" points="1302.11,-346.23 1306.7,-336.69 1297.16,-341.28 1302.11,-346.23"/>
 <text text-anchor="middle" x="1131.78" y="-476.92" font-family="Times,serif" font-size="14.00">ash*51200</text>
 </g>
 <!-- 3,6 (Phosphoric Acid and Phosphine gas)&#45;&gt;5,2 (Raw Fiber) -->
 <g id="edge4" class="edge">
 <title>3,6 (Phosphoric Acid and Phosphine gas)&#45;&gt;5,2 (Raw Fiber)</title>
-<path fill="none" stroke="black" stroke-width="1.04" d="M1124.41,-318.72C1020.58,-318.72 898.72,-318.72 816.78,-318.72"/>
-<polygon fill="black" stroke="black" stroke-width="1.04" points="816.74,-315.22 806.74,-318.72 816.74,-322.22 816.74,-315.22"/>
-<text text-anchor="middle" x="932.09" y="-322.52" font-family="Times,serif" font-size="14.00">ash*46944</text>
+<path fill="none" stroke="black" stroke-width="1.48" d="M1124.41,-318.72C1020.58,-318.72 898.72,-318.72 816.78,-318.72"/>
+<polygon fill="black" stroke="black" stroke-width="1.48" points="816.74,-315.22 806.74,-318.72 816.74,-322.22 816.74,-315.22"/>
+<text text-anchor="middle" x="932.09" y="-322.52" font-family="Times,serif" font-size="14.00">ash*78448</text>
 </g>
 <!-- 3,6 (Phosphoric Acid and Phosphine gas)&#45;&gt;3,6 (Phosphoric Acid and Phosphine gas) -->
 <g id="edge3" class="edge">
 <title>3,6 (Phosphoric Acid and Phosphine gas)&#45;&gt;3,6 (Phosphoric Acid and Phosphine gas)</title>
-<path fill="none" stroke="black" stroke-width="3.02" d="M1516.16,-323.98C1532.59,-322.86 1542.86,-321.11 1542.86,-318.72 1542.86,-316.87 1536.72,-315.4 1526.33,-314.31"/>
-<polygon fill="black" stroke="black" stroke-width="3.02" points="1526.42,-310.8 1516.16,-313.45 1525.83,-317.78 1526.42,-310.8"/>
-<text text-anchor="middle" x="1585.86" y="-315.02" font-family="Times,serif" font-size="14.00">ash*135568</text>
+<path fill="none" stroke="black" stroke-width="2.94" d="M1516.16,-323.98C1532.59,-322.86 1542.86,-321.11 1542.86,-318.72 1542.86,-316.87 1536.72,-315.4 1526.33,-314.31"/>
+<polygon fill="black" stroke="black" stroke-width="2.94" points="1526.42,-310.8 1516.16,-313.45 1525.83,-317.78 1526.42,-310.8"/>
+<text text-anchor="middle" x="1585.86" y="-315.02" font-family="Times,serif" font-size="14.00">ash*155824</text>
 </g>
 <!-- 4,&#45;2 (Ceramic) -->
 <g id="node7" class="node">
@@ -84,8 +84,8 @@
 <!-- 3,6 (Phosphoric Acid and Phosphine gas)&#45;&gt;4,&#45;2 (Ceramic) -->
 <g id="edge9" class="edge">
 <title>3,6 (Phosphoric Acid and Phosphine gas)&#45;&gt;4,&#45;2 (Ceramic)</title>
-<path fill="none" stroke="black" stroke-width="0.24" d="M1346.63,-300.65C1369.52,-281.83 1405.5,-252.23 1430.66,-231.54"/>
-<polygon fill="black" stroke="black" stroke-width="0.24" points="1432.91,-234.21 1438.41,-225.15 1428.47,-228.8 1432.91,-234.21"/>
+<path fill="none" stroke="black" stroke-width="0.2" d="M1346.63,-300.65C1369.52,-281.83 1405.5,-252.23 1430.66,-231.54"/>
+<polygon fill="black" stroke="black" stroke-width="0.2" points="1432.91,-234.21 1438.41,-225.15 1428.47,-228.8 1432.91,-234.21"/>
 <text text-anchor="middle" x="1350.14" y="-269.9" font-family="Times,serif" font-size="14.00">ash*10688</text>
 </g>
 <!-- 0,7 (Coal Gas) -->
@@ -97,8 +97,8 @@
 <!-- 0,7 (Coal Gas)&#45;&gt;3,6 (Phosphoric Acid and Phosphine gas) -->
 <g id="edge6" class="edge">
 <title>0,7 (Coal Gas)&#45;&gt;3,6 (Phosphoric Acid and Phosphine gas)</title>
-<path fill="none" stroke="black" stroke-width="0.23" d="M1438.28,-412.81C1415.72,-394.13 1379.73,-364.31 1354.31,-343.26"/>
-<polygon fill="black" stroke="black" stroke-width="0.23" points="1356.39,-340.44 1346.46,-336.76 1351.93,-345.83 1356.39,-340.44"/>
+<path fill="none" stroke="black" stroke-width="0.2" d="M1438.28,-412.81C1415.72,-394.13 1379.73,-364.31 1354.31,-343.26"/>
+<polygon fill="black" stroke="black" stroke-width="0.2" points="1356.39,-340.44 1346.46,-336.76 1351.93,-345.83 1356.39,-340.44"/>
 <text text-anchor="middle" x="1357.79" y="-381.83" font-family="Times,serif" font-size="14.00">ash*10480</text>
 </g>
 <!-- &#45;5,&#45;1 (Coal and Coke and Syngas and Ash and Coke Oven Gas and...) -->
@@ -110,8 +110,8 @@
 <!-- &#45;5,&#45;1 (Coal and Coke and Syngas and Ash and Coke Oven Gas and...)&#45;&gt;5,2 (Raw Fiber) -->
 <g id="edge8" class="edge">
 <title>&#45;5,&#45;1 (Coal and Coke and Syngas and Ash and Coke Oven Gas and...)&#45;&gt;5,2 (Raw Fiber)</title>
-<path fill="none" stroke="black" stroke-width="0.22" d="M651.7,-318.72C651.78,-318.72 651.86,-318.72 651.94,-318.72"/>
-<polygon fill="black" stroke="black" stroke-width="0.22" points="642.19,-322.22 652.19,-318.72 642.19,-315.22 642.19,-322.22"/>
+<path fill="none" stroke="black" stroke-width="0.19" d="M651.7,-318.72C651.78,-318.72 651.86,-318.72 651.94,-318.72"/>
+<polygon fill="black" stroke="black" stroke-width="0.19" points="642.19,-322.22 652.19,-318.72 642.19,-315.22 642.19,-322.22"/>
 <text text-anchor="middle" x="690.32" y="-322.52" font-family="Times,serif" font-size="14.00">ash*10032</text>
 </g>
 </g>

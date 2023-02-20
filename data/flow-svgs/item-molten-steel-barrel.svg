@@ -24,9 +24,9 @@
 <!-- &#45;2,9 (molten steel)&#45;&gt;&#45;1,11 (Steel Plate (from molten)) -->
 <g id="edge1" class="edge">
 <title>&#45;2,9 (molten steel)&#45;&gt;&#45;1,11 (Steel Plate (from molten))</title>
-<path fill="none" stroke="black" stroke-width="1.86" d="M494.89,-18C514.27,-18 535.2,-18 556.29,-18"/>
-<polygon fill="black" stroke="black" stroke-width="1.86" points="556.31,-21.5 566.31,-18 556.31,-14.5 556.31,-21.5"/>
-<text text-anchor="middle" x="525.59" y="-6.8" font-family="Times,serif" font-size="14.00">molten&#45;steel&#45;barrel*5491</text>
+<path fill="none" stroke="black" stroke-width="1.77" d="M494.89,-18C514.27,-18 535.2,-18 556.29,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1.77" points="556.31,-21.5 566.31,-18 556.31,-14.5 556.31,-21.5"/>
+<text text-anchor="middle" x="525.59" y="-6.8" font-family="Times,serif" font-size="14.00">molten&#45;steel&#45;barrel*6224</text>
 </g>
 <!-- &#45;2,&#45;3 (Trains) -->
 <g id="node3" class="node">
@@ -37,9 +37,9 @@
 <!-- &#45;2,9 (molten steel)&#45;&gt;&#45;2,&#45;3 (Trains) -->
 <g id="edge2" class="edge">
 <title>&#45;2,9 (molten steel)&#45;&gt;&#45;2,&#45;3 (Trains)</title>
-<path fill="none" stroke="black" stroke-width="0.14" d="M302.96,-18C254.59,-18 196.62,-18 150.62,-18"/>
-<polygon fill="black" stroke="black" stroke-width="0.14" points="150.4,-14.5 140.4,-18 150.4,-21.5 150.4,-14.5"/>
-<text text-anchor="middle" x="226.79" y="-6.8" font-family="Times,serif" font-size="14.00">molten&#45;steel&#45;barrel*418</text>
+<path fill="none" stroke="black" stroke-width="0.23" d="M302.96,-18C254.59,-18 196.62,-18 150.62,-18"/>
+<polygon fill="black" stroke="black" stroke-width="0.23" points="150.4,-14.5 140.4,-18 150.4,-21.5 150.4,-14.5"/>
+<text text-anchor="middle" x="226.79" y="-6.8" font-family="Times,serif" font-size="14.00">molten&#45;steel&#45;barrel*818</text>
 </g>
 </g>
 </svg>

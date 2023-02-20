@@ -24,8 +24,8 @@
 <!-- 4,1 (item=filtration&#45;media Filtration Media)&#45;&gt;3,&#45;1 (Nitrogen, Oxygen) -->
 <g id="edge1" class="edge">
 <title>4,1 (item=filtration&#45;media Filtration Media)&#45;&gt;3,&#45;1 (Nitrogen, Oxygen)</title>
-<path fill="none" stroke="black" stroke-width="1.52" d="M706.1,-497.98C767.51,-497.98 832.55,-497.98 887.23,-497.98"/>
-<polygon fill="black" stroke="black" stroke-width="1.52" points="887.32,-501.48 897.32,-497.98 887.32,-494.48 887.32,-501.48"/>
+<path fill="none" stroke="black" stroke-width="1.22" d="M706.1,-497.98C767.51,-497.98 832.55,-497.98 887.23,-497.98"/>
+<polygon fill="black" stroke="black" stroke-width="1.22" points="887.32,-501.48 897.32,-497.98 887.32,-494.48 887.32,-501.48"/>
 <text text-anchor="middle" x="796.66" y="-486.78" font-family="Times,serif" font-size="14.00">filtration&#45;media*4192</text>
 </g>
 <!-- 3,5 (item=molybdenum&#45;plate Molybdenum plate) -->
@@ -37,9 +37,9 @@
 <!-- 4,1 (item=filtration&#45;media Filtration Media)&#45;&gt;3,5 (item=molybdenum&#45;plate Molybdenum plate) -->
 <g id="edge2" class="edge">
 <title>4,1 (item=filtration&#45;media Filtration Media)&#45;&gt;3,5 (item=molybdenum&#45;plate Molybdenum plate)</title>
-<path fill="none" stroke="black" stroke-width="0.72" d="M481.41,-516.1C442.68,-587.32 300.8,-848.22 254.53,-933.31"/>
-<polygon fill="black" stroke="black" stroke-width="0.72" points="251.32,-931.88 249.62,-942.34 257.47,-935.23 251.32,-931.88"/>
-<text text-anchor="middle" x="290.97" y="-728.5" font-family="Times,serif" font-size="14.00">filtration&#45;media*2000</text>
+<path fill="none" stroke="black" stroke-width="1.17" d="M481.41,-516.1C442.68,-587.32 300.8,-848.22 254.53,-933.31"/>
+<polygon fill="black" stroke="black" stroke-width="1.17" points="251.32,-931.88 249.62,-942.34 257.47,-935.23 251.32,-931.88"/>
+<text text-anchor="middle" x="290.97" y="-728.5" font-family="Times,serif" font-size="14.00">filtration&#45;media*4000</text>
 </g>
 <!-- 3,6 (Phosphoric Acid and Phosphine gas) -->
 <g id="node4" class="node">
@@ -50,8 +50,8 @@
 <!-- 4,1 (item=filtration&#45;media Filtration Media)&#45;&gt;3,6 (Phosphoric Acid and Phosphine gas) -->
 <g id="edge3" class="edge">
 <title>4,1 (item=filtration&#45;media Filtration Media)&#45;&gt;3,6 (Phosphoric Acid and Phosphine gas)</title>
-<path fill="none" stroke="black" stroke-width="0.76" d="M483.07,-479.75C450.09,-406.46 327.09,-133.03 287.61,-45.29"/>
-<polygon fill="black" stroke="black" stroke-width="0.76" points="290.73,-43.68 283.43,-35.99 284.34,-46.55 290.73,-43.68"/>
+<path fill="none" stroke="black" stroke-width="0.61" d="M483.07,-479.75C450.09,-406.46 327.09,-133.03 287.61,-45.29"/>
+<polygon fill="black" stroke="black" stroke-width="0.61" points="290.73,-43.68 283.43,-35.99 284.34,-46.55 290.73,-43.68"/>
 <text text-anchor="middle" x="308.34" y="-266.32" font-family="Times,serif" font-size="14.00">filtration&#45;media*2096</text>
 </g>
 </g>

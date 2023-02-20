@@ -24,9 +24,9 @@
 <!-- 1,&#45;1 (fluid=molten&#45;glass Glass, When space, make quartz separate with regular priority, Quartz)&#45;&gt;&#45;4,0 (IRON PATCH, item=lens Optical sets) -->
 <g id="edge1" class="edge">
 <title>1,&#45;1 (fluid=molten&#45;glass Glass, When space, make quartz separate with regular priority, Quartz)&#45;&gt;&#45;4,0 (IRON PATCH, item=lens Optical sets)</title>
-<path fill="none" stroke="black" stroke-width="1.24" d="M1294.66,-757.46C1315.64,-757.46 1336.22,-757.46 1356.1,-757.46"/>
-<polygon fill="black" stroke="black" stroke-width="1.24" points="1356.12,-760.96 1366.12,-757.46 1356.12,-753.96 1356.12,-760.96"/>
-<text text-anchor="middle" x="1325.38" y="-746.26" font-family="Times,serif" font-size="14.00">molten&#45;glass&#45;barrel*2928</text>
+<path fill="none" stroke="black" stroke-width="1.62" d="M1294.66,-757.46C1315.64,-757.46 1336.22,-757.46 1356.1,-757.46"/>
+<polygon fill="black" stroke="black" stroke-width="1.62" points="1356.12,-760.96 1366.12,-757.46 1356.12,-753.96 1356.12,-760.96"/>
+<text text-anchor="middle" x="1325.38" y="-746.26" font-family="Times,serif" font-size="14.00">molten&#45;glass&#45;barrel*4928</text>
 </g>
 <!-- &#45;1,5 (Train stops for bus brick) -->
 <g id="node3" class="node">
@@ -37,9 +37,9 @@
 <!-- 1,&#45;1 (fluid=molten&#45;glass Glass, When space, make quartz separate with regular priority, Quartz)&#45;&gt;&#45;1,5 (Train stops for bus brick) -->
 <g id="edge2" class="edge">
 <title>1,&#45;1 (fluid=molten&#45;glass Glass, When space, make quartz separate with regular priority, Quartz)&#45;&gt;&#45;1,5 (Train stops for bus brick)</title>
-<path fill="none" stroke="black" stroke-width="0.58" d="M834.13,-775.54C819.44,-873.44 749.39,-1340.14 731.34,-1460.43"/>
-<polygon fill="black" stroke="black" stroke-width="0.58" points="727.83,-1460.25 729.8,-1470.66 734.75,-1461.29 727.83,-1460.25"/>
-<text text-anchor="middle" x="691.74" y="-1121.78" font-family="Times,serif" font-size="14.00">molten&#45;glass&#45;barrel*1383</text>
+<path fill="none" stroke="black" stroke-width="0.5" d="M834.13,-775.54C819.44,-873.44 749.39,-1340.14 731.34,-1460.43"/>
+<polygon fill="black" stroke="black" stroke-width="0.5" points="727.83,-1460.25 729.8,-1470.66 734.75,-1461.29 727.83,-1460.25"/>
+<text text-anchor="middle" x="691.74" y="-1121.78" font-family="Times,serif" font-size="14.00">molten&#45;glass&#45;barrel*1511</text>
 </g>
 <!-- 2,5 (Simple Circuits) -->
 <g id="node4" class="node">
@@ -50,9 +50,9 @@
 <!-- 1,&#45;1 (fluid=molten&#45;glass Glass, When space, make quartz separate with regular priority, Quartz)&#45;&gt;2,5 (Simple Circuits) -->
 <g id="edge3" class="edge">
 <title>1,&#45;1 (fluid=molten&#45;glass Glass, When space, make quartz separate with regular priority, Quartz)&#45;&gt;2,5 (Simple Circuits)</title>
-<path fill="none" stroke="black" stroke-width="1.09" d="M727.12,-739.95C581.7,-716.75 327.98,-676.28 194.48,-654.98"/>
-<polygon fill="black" stroke="black" stroke-width="1.09" points="194.72,-651.47 184.29,-653.35 193.61,-658.38 194.72,-651.47"/>
-<text text-anchor="middle" x="369.8" y="-701.27" font-family="Times,serif" font-size="14.00">molten&#45;glass&#45;barrel*2592</text>
+<path fill="none" stroke="black" stroke-width="1" d="M727.12,-739.95C581.7,-716.75 327.98,-676.28 194.48,-654.98"/>
+<polygon fill="black" stroke="black" stroke-width="1" points="194.72,-651.47 184.29,-653.35 193.61,-658.38 194.72,-651.47"/>
+<text text-anchor="middle" x="369.8" y="-701.27" font-family="Times,serif" font-size="14.00">molten&#45;glass&#45;barrel*3056</text>
 </g>
 <!-- 0,3 () -->
 <g id="node5" class="node">
@@ -63,9 +63,9 @@
 <!-- 1,&#45;1 (fluid=molten&#45;glass Glass, When space, make quartz separate with regular priority, Quartz)&#45;&gt;0,3 () -->
 <g id="edge4" class="edge">
 <title>1,&#45;1 (fluid=molten&#45;glass Glass, When space, make quartz separate with regular priority, Quartz)&#45;&gt;0,3 ()</title>
-<path fill="none" stroke="black" stroke-width="1.09" d="M837.02,-739.18C837.93,-640.19 842.28,-168.27 843.41,-46.65"/>
-<polygon fill="black" stroke="black" stroke-width="1.09" points="846.91,-46.33 843.5,-36.3 839.91,-46.27 846.91,-46.33"/>
-<text text-anchor="middle" x="749.21" y="-396.71" font-family="Times,serif" font-size="14.00">molten&#45;glass&#45;barrel*2576</text>
+<path fill="none" stroke="black" stroke-width="0.89" d="M837.02,-739.18C837.93,-640.19 842.28,-168.27 843.41,-46.65"/>
+<polygon fill="black" stroke="black" stroke-width="0.89" points="846.91,-46.33 843.5,-36.3 839.91,-46.27 846.91,-46.33"/>
+<text text-anchor="middle" x="749.21" y="-396.71" font-family="Times,serif" font-size="14.00">molten&#45;glass&#45;barrel*2704</text>
 </g>
 </g>
 </svg>

@@ -24,8 +24,8 @@
 <!-- 3,3 (electrolysis power, DO NOT CONNECT THESE WIRES, Landfill Drive&#45;Thru, Small Parts)&#45;&gt;&#45;4,&#45;2 (For Science!) -->
 <g id="edge1" class="edge">
 <title>3,3 (electrolysis power, DO NOT CONNECT THESE WIRES, Landfill Drive&#45;Thru, Small Parts)&#45;&gt;&#45;4,&#45;2 (For Science!)</title>
-<path fill="none" stroke="black" stroke-width="0.42" d="M881.38,-548.4C903.3,-548.4 924.05,-548.4 943.05,-548.4"/>
-<polygon fill="black" stroke="black" stroke-width="0.42" points="943.12,-551.9 953.12,-548.4 943.12,-544.9 943.12,-551.9"/>
+<path fill="none" stroke="black" stroke-width="0.37" d="M881.38,-548.4C903.3,-548.4 924.05,-548.4 943.05,-548.4"/>
+<polygon fill="black" stroke="black" stroke-width="0.37" points="943.12,-551.9 953.12,-548.4 943.12,-544.9 943.12,-551.9"/>
 <text text-anchor="middle" x="912.22" y="-537.2" font-family="Times,serif" font-size="14.00">small&#45;parts&#45;01*26360</text>
 </g>
 <!-- 3,2 (Fiberboard) -->
@@ -37,9 +37,9 @@
 <!-- 3,3 (electrolysis power, DO NOT CONNECT THESE WIRES, Landfill Drive&#45;Thru, Small Parts)&#45;&gt;3,2 (Fiberboard) -->
 <g id="edge2" class="edge">
 <title>3,3 (electrolysis power, DO NOT CONNECT THESE WIRES, Landfill Drive&#45;Thru, Small Parts)&#45;&gt;3,2 (Fiberboard)</title>
-<path fill="none" stroke="black" stroke-width="2.06" d="M429.5,-566.66C381.83,-644.7 195.08,-950.38 138.34,-1043.27"/>
-<polygon fill="black" stroke="black" stroke-width="2.06" points="135.19,-1041.71 132.96,-1052.07 141.16,-1045.36 135.19,-1041.71"/>
-<text text-anchor="middle" x="201.92" y="-808.77" font-family="Times,serif" font-size="14.00">small&#45;parts&#45;01*129080</text>
+<path fill="none" stroke="black" stroke-width="2.11" d="M429.5,-566.66C381.83,-644.7 195.08,-950.38 138.34,-1043.27"/>
+<polygon fill="black" stroke="black" stroke-width="2.11" points="135.19,-1041.71 132.96,-1052.07 141.16,-1045.36 135.19,-1041.71"/>
+<text text-anchor="middle" x="201.92" y="-808.77" font-family="Times,serif" font-size="14.00">small&#45;parts&#45;01*150280</text>
 </g>
 <!-- &#45;2,&#45;3 (Trains) -->
 <g id="node4" class="node">
@@ -52,7 +52,7 @@
 <title>3,3 (electrolysis power, DO NOT CONNECT THESE WIRES, Landfill Drive&#45;Thru, Small Parts)&#45;&gt;&#45;2,&#45;3 (Trains)</title>
 <path fill="none" stroke="black" stroke-width="0.52" d="M430.19,-530.14C384.88,-451.15 205.63,-138.63 151.8,-44.79"/>
 <polygon fill="black" stroke="black" stroke-width="0.52" points="154.72,-42.84 146.71,-35.91 148.65,-46.32 154.72,-42.84"/>
-<text text-anchor="middle" x="213.49" y="-291.26" font-family="Times,serif" font-size="14.00">small&#45;parts&#45;01*32520</text>
+<text text-anchor="middle" x="213.49" y="-291.26" font-family="Times,serif" font-size="14.00">small&#45;parts&#45;01*36680</text>
 </g>
 </g>
 </svg>

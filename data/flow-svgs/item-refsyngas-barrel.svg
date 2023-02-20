@@ -24,9 +24,9 @@
 <!-- 2,6 (Refined Syngas)&#45;&gt;0,8 (Tar from Coke) -->
 <g id="edge1" class="edge">
 <title>2,6 (Refined Syngas)&#45;&gt;0,8 (Tar from Coke)</title>
-<path fill="none" stroke="black" stroke-width="1.93" d="M482.32,-18C502.37,-18 523.37,-18 543.53,-18"/>
-<polygon fill="black" stroke="black" stroke-width="1.93" points="543.68,-21.5 553.68,-18 543.68,-14.5 543.68,-21.5"/>
-<text text-anchor="middle" x="512.93" y="-6.8" font-family="Times,serif" font-size="14.00">refsyngas&#45;barrel*22097</text>
+<path fill="none" stroke="black" stroke-width="1.94" d="M482.32,-18C502.37,-18 523.37,-18 543.53,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1.94" points="543.68,-21.5 553.68,-18 543.68,-14.5 543.68,-21.5"/>
+<text text-anchor="middle" x="512.93" y="-6.8" font-family="Times,serif" font-size="14.00">refsyngas&#45;barrel*27165</text>
 </g>
 <!-- 3,1 (Mining Brick) -->
 <g id="node3" class="node">
@@ -37,8 +37,8 @@
 <!-- 2,6 (Refined Syngas)&#45;&gt;3,1 (Mining Brick) -->
 <g id="edge2" class="edge">
 <title>2,6 (Refined Syngas)&#45;&gt;3,1 (Mining Brick)</title>
-<path fill="none" stroke="black" stroke-width="0.07" d="M267.43,-18C245.36,-18 222.15,-18 200.16,-18"/>
-<polygon fill="black" stroke="black" stroke-width="0.07" points="200.16,-14.5 190.16,-18 200.16,-21.5 200.16,-14.5"/>
+<path fill="none" stroke="black" stroke-width="0.06" d="M267.43,-18C245.36,-18 222.15,-18 200.16,-18"/>
+<polygon fill="black" stroke="black" stroke-width="0.06" points="200.16,-14.5 190.16,-18 200.16,-21.5 200.16,-14.5"/>
 <text text-anchor="middle" x="195.8" y="-6.8" font-family="Times,serif" font-size="14.00">refsyngas&#45;barrel*832</text>
 </g>
 </g>

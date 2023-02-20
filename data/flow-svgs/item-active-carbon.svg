@@ -24,8 +24,8 @@
 <!-- 1,7 (Activated Carbon)&#45;&gt;4,10 (Fluid Recycling) -->
 <g id="edge1" class="edge">
 <title>1,7 (Activated Carbon)&#45;&gt;4,10 (Fluid Recycling)</title>
-<path fill="none" stroke="black" stroke-width="0.62" d="M633.98,-383.77C689.59,-383.77 756.22,-383.77 812.66,-383.77"/>
-<polygon fill="black" stroke="black" stroke-width="0.62" points="812.71,-387.27 822.71,-383.77 812.71,-380.27 812.71,-387.27"/>
+<path fill="none" stroke="black" stroke-width="0.51" d="M633.98,-383.77C689.59,-383.77 756.22,-383.77 812.66,-383.77"/>
+<polygon fill="black" stroke="black" stroke-width="0.51" points="812.71,-387.27 822.71,-383.77 812.71,-380.27 812.71,-387.27"/>
 <text text-anchor="middle" x="723.32" y="-372.57" font-family="Times,serif" font-size="14.00">active&#45;carbon*10048</text>
 </g>
 <!-- 2,6 (Refined Syngas) -->
@@ -37,9 +37,9 @@
 <!-- 1,7 (Activated Carbon)&#45;&gt;2,6 (Refined Syngas) -->
 <g id="edge2" class="edge">
 <title>1,7 (Activated Carbon)&#45;&gt;2,6 (Refined Syngas)</title>
-<path fill="none" stroke="black" stroke-width="2.96" d="M529.06,-401.96C564.47,-460.57 675.7,-644.65 717.6,-713.99"/>
-<polygon fill="black" stroke="black" stroke-width="2.96" points="714.64,-715.87 722.81,-722.62 720.63,-712.25 714.64,-715.87"/>
-<text text-anchor="middle" x="549.33" y="-561.78" font-family="Times,serif" font-size="14.00">active&#45;carbon*48000</text>
+<path fill="none" stroke="black" stroke-width="3.02" d="M529.06,-401.96C564.47,-460.57 675.7,-644.65 717.6,-713.99"/>
+<polygon fill="black" stroke="black" stroke-width="3.02" points="714.64,-715.87 722.81,-722.62 720.63,-712.25 714.64,-715.87"/>
+<text text-anchor="middle" x="549.33" y="-561.78" font-family="Times,serif" font-size="14.00">active&#45;carbon*60000</text>
 </g>
 <!-- 0,6 (Flue Gas Disposal, Syngas From Flue Gas) -->
 <g id="node4" class="node">
@@ -50,9 +50,9 @@
 <!-- 1,7 (Activated Carbon)&#45;&gt;0,6 (Flue Gas Disposal, Syngas From Flue Gas) -->
 <g id="edge3" class="edge">
 <title>1,7 (Activated Carbon)&#45;&gt;0,6 (Flue Gas Disposal, Syngas From Flue Gas)</title>
-<path fill="none" stroke="black" stroke-width="1" d="M500.88,-401.7C451.86,-452.84 311.28,-599.51 254.08,-659.18"/>
-<polygon fill="black" stroke="black" stroke-width="1" points="251.29,-657.03 246.9,-666.67 256.34,-661.87 251.29,-657.03"/>
-<text text-anchor="middle" x="303.48" y="-534.24" font-family="Times,serif" font-size="14.00">active&#45;carbon*16256</text>
+<path fill="none" stroke="black" stroke-width="1.02" d="M500.88,-401.7C451.86,-452.84 311.28,-599.51 254.08,-659.18"/>
+<polygon fill="black" stroke="black" stroke-width="1.02" points="251.29,-657.03 246.9,-666.67 256.34,-661.87 251.29,-657.03"/>
+<text text-anchor="middle" x="303.48" y="-534.24" font-family="Times,serif" font-size="14.00">active&#45;carbon*20336</text>
 </g>
 <!-- 4,1 (item=filtration&#45;media Filtration Media) -->
 <g id="node5" class="node">
@@ -63,9 +63,9 @@
 <!-- 1,7 (Activated Carbon)&#45;&gt;4,1 (item=filtration&#45;media Filtration Media) -->
 <g id="edge4" class="edge">
 <title>1,7 (Activated Carbon)&#45;&gt;4,1 (item=filtration&#45;media Filtration Media)</title>
-<path fill="none" stroke="black" stroke-width="0.39" d="M499.12,-365.82C447.07,-316.52 301.78,-178.9 241.72,-122.02"/>
-<polygon fill="black" stroke="black" stroke-width="0.39" points="243.83,-119.2 234.16,-114.86 239.02,-124.28 243.83,-119.2"/>
-<text text-anchor="middle" x="300.92" y="-247.72" font-family="Times,serif" font-size="14.00">active&#45;carbon*6304</text>
+<path fill="none" stroke="black" stroke-width="0.42" d="M499.12,-365.82C447.07,-316.52 301.78,-178.9 241.72,-122.02"/>
+<polygon fill="black" stroke="black" stroke-width="0.42" points="243.83,-119.2 234.16,-114.86 239.02,-124.28 243.83,-119.2"/>
+<text text-anchor="middle" x="300.92" y="-247.72" font-family="Times,serif" font-size="14.00">active&#45;carbon*8432</text>
 </g>
 <!-- 0,12 (Phosphate mining) -->
 <g id="node6" class="node">
@@ -76,8 +76,8 @@
 <!-- 1,7 (Activated Carbon)&#45;&gt;0,12 (Phosphate mining) -->
 <g id="edge5" class="edge">
 <title>1,7 (Activated Carbon)&#45;&gt;0,12 (Phosphate mining)</title>
-<path fill="none" stroke="black" stroke-width="0.03" d="M528.01,-365.63C560.68,-306.03 664.85,-116.01 703.74,-45.06"/>
-<polygon fill="black" stroke="black" stroke-width="0.03" points="706.83,-46.7 708.57,-36.25 700.7,-43.33 706.83,-46.7"/>
+<path fill="none" stroke="black" stroke-width="0.02" d="M528.01,-365.63C560.68,-306.03 664.85,-116.01 703.74,-45.06"/>
+<polygon fill="black" stroke="black" stroke-width="0.02" points="706.83,-46.7 708.57,-36.25 700.7,-43.33 706.83,-46.7"/>
 <text text-anchor="middle" x="550.87" y="-209.14" font-family="Times,serif" font-size="14.00">active&#45;carbon*416</text>
 </g>
 </g>

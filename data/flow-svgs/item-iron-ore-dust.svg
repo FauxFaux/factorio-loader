@@ -24,9 +24,9 @@
 <!-- &#45;6,7 ()&#45;&gt;&#45;1,10 (Iron Plates) -->
 <g id="edge1" class="edge">
 <title>&#45;6,7 ()&#45;&gt;&#45;1,10 (Iron Plates)</title>
-<path fill="none" stroke="black" stroke-width="1.8" d="M501.49,-197.07C508.68,-197.07 516.49,-197.07 524.6,-197.07"/>
-<polygon fill="black" stroke="black" stroke-width="1.8" points="524.62,-200.57 534.62,-197.07 524.62,-193.57 524.62,-200.57"/>
-<text text-anchor="middle" x="440.54" y="-200.87" font-family="Times,serif" font-size="14.00">iron&#45;ore&#45;dust*75216</text>
+<path fill="none" stroke="black" stroke-width="1.91" d="M501.49,-197.07C508.68,-197.07 516.49,-197.07 524.6,-197.07"/>
+<polygon fill="black" stroke="black" stroke-width="1.91" points="524.62,-200.57 534.62,-197.07 524.62,-193.57 524.62,-200.57"/>
+<text text-anchor="middle" x="436.04" y="-200.87" font-family="Times,serif" font-size="14.00">iron&#45;ore&#45;dust*100272</text>
 </g>
 <!-- 1,12 (Molten Iron) -->
 <g id="node3" class="node">
@@ -37,9 +37,9 @@
 <!-- &#45;6,7 ()&#45;&gt;1,12 (Molten Iron) -->
 <g id="edge2" class="edge">
 <title>&#45;6,7 ()&#45;&gt;1,12 (Molten Iron)</title>
-<path fill="none" stroke="black" stroke-width="2.1" d="M446.25,-180.54C414.81,-149.1 346.19,-80.48 308.96,-43.25"/>
-<polygon fill="black" stroke="black" stroke-width="2.1" points="311.06,-40.4 301.51,-35.8 306.11,-45.35 311.06,-40.4"/>
-<text text-anchor="middle" x="305.11" y="-115.7" font-family="Times,serif" font-size="14.00">iron&#45;ore&#45;dust*87792</text>
+<path fill="none" stroke="black" stroke-width="2.02" d="M446.25,-180.54C414.81,-149.1 346.19,-80.48 308.96,-43.25"/>
+<polygon fill="black" stroke="black" stroke-width="2.02" points="311.06,-40.4 301.51,-35.8 306.11,-45.35 311.06,-40.4"/>
+<text text-anchor="middle" x="300.61" y="-115.7" font-family="Times,serif" font-size="14.00">iron&#45;ore&#45;dust*106464</text>
 </g>
 <!-- &#45;2,9 (molten steel) -->
 <g id="node4" class="node">
@@ -50,9 +50,9 @@
 <!-- &#45;6,7 ()&#45;&gt;&#45;2,9 (molten steel) -->
 <g id="edge3" class="edge">
 <title>&#45;6,7 ()&#45;&gt;&#45;2,9 (molten steel)</title>
-<path fill="none" stroke="black" stroke-width="0.75" d="M446.25,-213.59C414.81,-245.04 346.19,-313.66 308.96,-350.89"/>
-<polygon fill="black" stroke="black" stroke-width="0.75" points="306.11,-348.79 301.51,-358.33 311.06,-353.74 306.11,-348.79"/>
-<text text-anchor="middle" x="305.11" y="-286.04" font-family="Times,serif" font-size="14.00">iron&#45;ore&#45;dust*31200</text>
+<path fill="none" stroke="black" stroke-width="0.67" d="M446.25,-213.59C414.81,-245.04 346.19,-313.66 308.96,-350.89"/>
+<polygon fill="black" stroke="black" stroke-width="0.67" points="306.11,-348.79 301.51,-358.33 311.06,-353.74 306.11,-348.79"/>
+<text text-anchor="middle" x="305.11" y="-286.04" font-family="Times,serif" font-size="14.00">iron&#45;ore&#45;dust*35328</text>
 </g>
 <!-- 1,10 (Iron Ore Dust) -->
 <g id="node5" class="node">
@@ -63,16 +63,16 @@
 <!-- 1,10 (Iron Ore Dust)&#45;&gt;1,12 (Molten Iron) -->
 <g id="edge4" class="edge">
 <title>1,10 (Iron Ore Dust)&#45;&gt;1,12 (Molten Iron)</title>
-<path fill="none" stroke="black" stroke-width="0.3" d="M122.47,-179.24C154.51,-147.2 221.92,-79.79 258.62,-43.09"/>
-<polygon fill="black" stroke="black" stroke-width="0.3" points="261.36,-45.3 265.96,-35.75 256.41,-40.35 261.36,-45.3"/>
-<text text-anchor="middle" x="118.04" y="-114.97" font-family="Times,serif" font-size="14.00">iron&#45;ore&#45;dust*12496</text>
+<path fill="none" stroke="black" stroke-width="0.32" d="M122.47,-179.24C154.51,-147.2 221.92,-79.79 258.62,-43.09"/>
+<polygon fill="black" stroke="black" stroke-width="0.32" points="261.36,-45.3 265.96,-35.75 256.41,-40.35 261.36,-45.3"/>
+<text text-anchor="middle" x="118.04" y="-114.97" font-family="Times,serif" font-size="14.00">iron&#45;ore&#45;dust*16656</text>
 </g>
 <!-- 1,10 (Iron Ore Dust)&#45;&gt;&#45;2,9 (molten steel) -->
 <g id="edge5" class="edge">
 <title>1,10 (Iron Ore Dust)&#45;&gt;&#45;2,9 (molten steel)</title>
-<path fill="none" stroke="black" stroke-width="0.05" d="M122.47,-214.89C154.51,-246.94 221.92,-314.35 258.62,-351.05"/>
-<polygon fill="black" stroke="black" stroke-width="0.05" points="256.41,-353.79 265.96,-358.39 261.36,-348.84 256.41,-353.79"/>
-<text text-anchor="middle" x="122.54" y="-286.77" font-family="Times,serif" font-size="14.00">iron&#45;ore&#45;dust*2064</text>
+<path fill="none" stroke="black" stroke-width="0.08" d="M122.47,-214.89C154.51,-246.94 221.92,-314.35 258.62,-351.05"/>
+<polygon fill="black" stroke="black" stroke-width="0.08" points="256.41,-353.79 265.96,-358.39 261.36,-348.84 256.41,-353.79"/>
+<text text-anchor="middle" x="122.54" y="-286.77" font-family="Times,serif" font-size="14.00">iron&#45;ore&#45;dust*4160</text>
 </g>
 </g>
 </svg>

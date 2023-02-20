@@ -24,9 +24,9 @@
 <!-- 3,9 (Copper, molten &amp; plate)&#45;&gt;&#45;2,&#45;3 (Trains) -->
 <g id="edge1" class="edge">
 <title>3,9 (Copper, molten &amp; plate)&#45;&gt;&#45;2,&#45;3 (Trains)</title>
-<path fill="none" stroke="black" stroke-width="3.28" d="M999.68,-673.23C1132.18,-673.23 1323.91,-673.23 1431.29,-673.23"/>
-<polygon fill="black" stroke="black" stroke-width="3.28" points="1431.41,-676.73 1441.41,-673.23 1431.41,-669.73 1431.41,-676.73"/>
-<text text-anchor="middle" x="1139.98" y="-677.03" font-family="Times,serif" font-size="14.00">copper&#45;plate*113696</text>
+<path fill="none" stroke="black" stroke-width="3.32" d="M999.68,-673.23C1132.18,-673.23 1323.91,-673.23 1431.29,-673.23"/>
+<polygon fill="black" stroke="black" stroke-width="3.32" points="1431.41,-676.73 1441.41,-673.23 1431.41,-669.73 1431.41,-676.73"/>
+<text text-anchor="middle" x="1139.98" y="-677.03" font-family="Times,serif" font-size="14.00">copper&#45;plate*126864</text>
 </g>
 <!-- &#45;6,&#45;4 (High&#45;Power Resistors, Ceramic Capacitor, Inductor) -->
 <g id="node3" class="node">
@@ -37,8 +37,8 @@
 <!-- 3,9 (Copper, molten &amp; plate)&#45;&gt;&#45;6,&#45;4 (High&#45;Power Resistors, Ceramic Capacitor, Inductor) -->
 <g id="edge2" class="edge">
 <title>3,9 (Copper, molten &amp; plate)&#45;&gt;&#45;6,&#45;4 (High&#45;Power Resistors, Ceramic Capacitor, Inductor)</title>
-<path fill="none" stroke="black" stroke-width="1.05" d="M876.84,-691.19C956.25,-758.48 1236.26,-995.75 1327.43,-1073"/>
-<polygon fill="black" stroke="black" stroke-width="1.05" points="1325.27,-1075.76 1335.16,-1079.55 1329.79,-1070.42 1325.27,-1075.76"/>
+<path fill="none" stroke="black" stroke-width="0.95" d="M876.84,-691.19C956.25,-758.48 1236.26,-995.75 1327.43,-1073"/>
+<polygon fill="black" stroke="black" stroke-width="0.95" points="1325.27,-1075.76 1335.16,-1079.55 1329.79,-1070.42 1325.27,-1075.76"/>
 <text text-anchor="middle" x="1031.14" y="-885.9" font-family="Times,serif" font-size="14.00">copper&#45;plate*36368</text>
 </g>
 <!-- 3,3 (electrolysis power, DO NOT CONNECT THESE WIRES, Landfill Drive&#45;Thru, Small Parts) -->
@@ -50,8 +50,8 @@
 <!-- 3,9 (Copper, molten &amp; plate)&#45;&gt;3,3 (electrolysis power, DO NOT CONNECT THESE WIRES, Landfill Drive&#45;Thru, Small Parts) -->
 <g id="edge3" class="edge">
 <title>3,9 (Copper, molten &amp; plate)&#45;&gt;3,3 (electrolysis power, DO NOT CONNECT THESE WIRES, Landfill Drive&#45;Thru, Small Parts)</title>
-<path fill="none" stroke="black" stroke-width="1.47" d="M848.01,-691.33C811.63,-777.47 655.95,-1146.1 611.95,-1250.3"/>
-<polygon fill="black" stroke="black" stroke-width="1.47" points="608.6,-1249.23 607.93,-1259.81 615.05,-1251.95 608.6,-1249.23"/>
+<path fill="none" stroke="black" stroke-width="1.34" d="M848.01,-691.33C811.63,-777.47 655.95,-1146.1 611.95,-1250.3"/>
+<polygon fill="black" stroke="black" stroke-width="1.34" points="608.6,-1249.23 607.93,-1259.81 615.05,-1251.95 608.6,-1249.23"/>
 <text text-anchor="middle" x="658.98" y="-974.61" font-family="Times,serif" font-size="14.00">copper&#45;plate*51072</text>
 </g>
 <!-- 4,6 (Circuit substrate and Doped silicon) -->
@@ -63,8 +63,8 @@
 <!-- 3,9 (Copper, molten &amp; plate)&#45;&gt;4,6 (Circuit substrate and Doped silicon) -->
 <g id="edge4" class="edge">
 <title>3,9 (Copper, molten &amp; plate)&#45;&gt;4,6 (Circuit substrate and Doped silicon)</title>
-<path fill="none" stroke="black" stroke-width="0.15" d="M714.49,-676.57C623.55,-678.71 503.85,-681.54 402.75,-683.92"/>
-<polygon fill="black" stroke="black" stroke-width="0.15" points="402.63,-680.43 392.71,-684.16 402.79,-687.42 402.63,-680.43"/>
+<path fill="none" stroke="black" stroke-width="0.14" d="M714.49,-676.57C623.55,-678.71 503.85,-681.54 402.75,-683.92"/>
+<polygon fill="black" stroke="black" stroke-width="0.14" points="402.63,-680.43 392.71,-684.16 402.79,-687.42 402.63,-680.43"/>
 <text text-anchor="middle" x="492.12" y="-684.04" font-family="Times,serif" font-size="14.00">copper&#45;plate*5184</text>
 </g>
 <!-- 2,5 (Simple Circuits) -->
@@ -76,9 +76,9 @@
 <!-- 3,9 (Copper, molten &amp; plate)&#45;&gt;2,5 (Simple Circuits) -->
 <g id="edge5" class="edge">
 <title>3,9 (Copper, molten &amp; plate)&#45;&gt;2,5 (Simple Circuits)</title>
-<path fill="none" stroke="black" stroke-width="0.43" d="M830.51,-655.48C743.11,-593.74 452.37,-388.37 353.13,-318.27"/>
-<polygon fill="black" stroke="black" stroke-width="0.43" points="354.86,-315.21 344.68,-312.3 350.83,-320.93 354.86,-315.21"/>
-<text text-anchor="middle" x="520.82" y="-490.68" font-family="Times,serif" font-size="14.00">copper&#45;plate*15008</text>
+<path fill="none" stroke="black" stroke-width="0.79" d="M830.51,-655.48C743.11,-593.74 452.37,-388.37 353.13,-318.27"/>
+<polygon fill="black" stroke="black" stroke-width="0.79" points="354.86,-315.21 344.68,-312.3 350.83,-320.93 354.86,-315.21"/>
+<text text-anchor="middle" x="520.82" y="-490.68" font-family="Times,serif" font-size="14.00">copper&#45;plate*30016</text>
 </g>
 <!-- 2,&#45;1 (Ammonia) -->
 <g id="node7" class="node">
@@ -89,8 +89,8 @@
 <!-- 3,9 (Copper, molten &amp; plate)&#45;&gt;2,&#45;1 (Ammonia) -->
 <g id="edge6" class="edge">
 <title>3,9 (Copper, molten &amp; plate)&#45;&gt;2,&#45;1 (Ammonia)</title>
-<path fill="none" stroke="black" stroke-width="0.74" d="M845.76,-655.02C800.28,-571.27 611.16,-223 557.01,-123.27"/>
-<polygon fill="black" stroke="black" stroke-width="0.74" points="560.05,-121.53 552.2,-114.41 553.9,-124.87 560.05,-121.53"/>
+<path fill="none" stroke="black" stroke-width="0.67" d="M845.76,-655.02C800.28,-571.27 611.16,-223 557.01,-123.27"/>
+<polygon fill="black" stroke="black" stroke-width="0.67" points="560.05,-121.53 552.2,-114.41 553.9,-124.87 560.05,-121.53"/>
 <text text-anchor="middle" x="630.38" y="-392.95" font-family="Times,serif" font-size="14.00">copper&#45;plate*25600</text>
 </g>
 <!-- 2,4 (Formica and Phenolic boards) -->
@@ -102,8 +102,8 @@
 <!-- 3,9 (Copper, molten &amp; plate)&#45;&gt;2,4 (Formica and Phenolic boards) -->
 <g id="edge7" class="edge">
 <title>3,9 (Copper, molten &amp; plate)&#45;&gt;2,4 (Formica and Phenolic boards)</title>
-<path fill="none" stroke="black" stroke-width="0.14" d="M856.69,-655.03C861.88,-563.91 885.05,-157.48 891.39,-46.23"/>
-<polygon fill="black" stroke="black" stroke-width="0.14" points="894.89,-46.3 891.97,-36.12 887.9,-45.91 894.89,-46.3"/>
+<path fill="none" stroke="black" stroke-width="0.13" d="M856.69,-655.03C861.88,-563.91 885.05,-157.48 891.39,-46.23"/>
+<polygon fill="black" stroke="black" stroke-width="0.13" points="894.89,-46.3 891.97,-36.12 887.9,-45.91 894.89,-46.3"/>
 <text text-anchor="middle" x="807.54" y="-354.43" font-family="Times,serif" font-size="14.00">copper&#45;plate*5008</text>
 </g>
 <!-- &#45;5,0 (item=small&#45;lampitem=petri&#45;dish Lamptri dishes) -->
@@ -115,8 +115,8 @@
 <!-- 3,9 (Copper, molten &amp; plate)&#45;&gt;&#45;5,0 (item=small&#45;lampitem=petri&#45;dish Lamptri dishes) -->
 <g id="edge8" class="edge">
 <title>3,9 (Copper, molten &amp; plate)&#45;&gt;&#45;5,0 (item=small&#45;lampitem=petri&#45;dish Lamptri dishes)</title>
-<path fill="none" stroke="black" stroke-width="0.73" d="M877.88,-655.21C959.37,-589.16 1241.76,-360.25 1335.2,-284.51"/>
-<polygon fill="black" stroke="black" stroke-width="0.73" points="1337.57,-287.1 1343.13,-278.08 1333.16,-281.66 1337.57,-287.1"/>
+<path fill="none" stroke="black" stroke-width="0.66" d="M877.88,-655.21C959.37,-589.16 1241.76,-360.25 1335.2,-284.51"/>
+<polygon fill="black" stroke="black" stroke-width="0.66" points="1337.57,-287.1 1343.13,-278.08 1333.16,-281.66 1337.57,-287.1"/>
 <text text-anchor="middle" x="1035.54" y="-473.66" font-family="Times,serif" font-size="14.00">copper&#45;plate*25152</text>
 </g>
 </g>
