@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@bloomberg/record-tuple-polyfill": "^0.0.4",
     "bootstrap": "5.3.0-alpha1",
     "history": "^5.3.0",
     "inflection": "^2.0.1",
