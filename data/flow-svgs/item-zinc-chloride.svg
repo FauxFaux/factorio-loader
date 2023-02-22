@@ -24,9 +24,9 @@
 <!-- 3,0 (Zinc Chloride)&#45;&gt;2,4 (Formica and Phenolic boards) -->
 <g id="edge1" class="edge">
 <title>3,0 (Zinc Chloride)&#45;&gt;2,4 (Formica and Phenolic boards)</title>
-<path fill="none" stroke="black" stroke-width="0.48" d="M552.45,-18C571.88,-18 592.85,-18 614.04,-18"/>
-<polygon fill="black" stroke="black" stroke-width="0.48" points="614.11,-21.5 624.11,-18 614.11,-14.5 614.11,-21.5"/>
-<text text-anchor="middle" x="583.24" y="-6.8" font-family="Times,serif" font-size="14.00">zinc&#45;chloride*12624</text>
+<path fill="none" stroke="black" stroke-width="0.8" d="M552.45,-18C571.88,-18 592.85,-18 614.04,-18"/>
+<polygon fill="black" stroke="black" stroke-width="0.8" points="614.11,-21.5 624.11,-18 614.11,-14.5 614.11,-21.5"/>
+<text text-anchor="middle" x="583.24" y="-6.8" font-family="Times,serif" font-size="14.00">zinc&#45;chloride*16528</text>
 </g>
 <!-- 1,7 (Activated Carbon) -->
 <g id="node3" class="node">
@@ -37,9 +37,9 @@
 <!-- 3,0 (Zinc Chloride)&#45;&gt;1,7 (Activated Carbon) -->
 <g id="edge2" class="edge">
 <title>3,0 (Zinc Chloride)&#45;&gt;1,7 (Activated Carbon)</title>
-<path fill="none" stroke="black" stroke-width="1.52" d="M357.18,-18C321.17,-18 279.84,-18 241.67,-18"/>
-<polygon fill="black" stroke="black" stroke-width="1.52" points="241.52,-14.5 231.52,-18 241.52,-21.5 241.52,-14.5"/>
-<text text-anchor="middle" x="299.43" y="-6.8" font-family="Times,serif" font-size="14.00">zinc&#45;chloride*39680</text>
+<path fill="none" stroke="black" stroke-width="1.2" d="M357.18,-18C321.17,-18 279.84,-18 241.67,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1.2" points="241.52,-14.5 231.52,-18 241.52,-21.5 241.52,-14.5"/>
+<text text-anchor="middle" x="299.43" y="-6.8" font-family="Times,serif" font-size="14.00">zinc&#45;chloride*24624</text>
 </g>
 </g>
 </svg>

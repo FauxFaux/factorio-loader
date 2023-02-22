@@ -12,34 +12,34 @@
 <!-- &#45;3,&#45;3 (Zinc Plates, 32 to consume four belts) -->
 <g id="node1" class="node">
 <title>&#45;3,&#45;3 (Zinc Plates, 32 to consume four belts)</title>
-<ellipse fill="none" stroke="black" cx="684.9" cy="-18" rx="213.66" ry="18"/>
-<text text-anchor="middle" x="684.9" y="-14.3" font-family="Times,serif" font-size="14.00">&#45;3,&#45;3 (Zinc Plates, 32 to consume four belts)</text>
-</g>
-<!-- 3,0 (Zinc Chloride) -->
-<g id="node2" class="node">
-<title>3,0 (Zinc Chloride)</title>
-<ellipse fill="none" stroke="black" cx="1170.26" cy="-18" rx="97.48" ry="18"/>
-<text text-anchor="middle" x="1170.26" y="-14.3" font-family="Times,serif" font-size="14.00">3,0 (Zinc Chloride)</text>
-</g>
-<!-- &#45;3,&#45;3 (Zinc Plates, 32 to consume four belts)&#45;&gt;3,0 (Zinc Chloride) -->
-<g id="edge1" class="edge">
-<title>&#45;3,&#45;3 (Zinc Plates, 32 to consume four belts)&#45;&gt;3,0 (Zinc Chloride)</title>
-<path fill="none" stroke="black" stroke-width="1.67" d="M898.84,-18C955.43,-18 1014.13,-18 1062.41,-18"/>
-<polygon fill="black" stroke="black" stroke-width="1.67" points="1062.54,-21.5 1072.54,-18 1062.54,-14.5 1062.54,-21.5"/>
-<text text-anchor="middle" x="1010.87" y="-6.8" font-family="Times,serif" font-size="14.00">zinc&#45;plate*50112</text>
+<ellipse fill="none" stroke="black" cx="582.85" cy="-18" rx="213.66" ry="18"/>
+<text text-anchor="middle" x="582.85" y="-14.3" font-family="Times,serif" font-size="14.00">&#45;3,&#45;3 (Zinc Plates, 32 to consume four belts)</text>
 </g>
 <!-- 4,6 (Circuit substrate and Doped silicon) -->
-<g id="node3" class="node">
+<g id="node2" class="node">
 <title>4,6 (Circuit substrate and Doped silicon)</title>
-<ellipse fill="none" stroke="black" cx="199.53" cy="-18" rx="199.56" ry="18"/>
-<text text-anchor="middle" x="199.53" y="-14.3" font-family="Times,serif" font-size="14.00">4,6 (Circuit substrate and Doped silicon)</text>
+<ellipse fill="none" stroke="black" cx="1068.22" cy="-18" rx="199.56" ry="18"/>
+<text text-anchor="middle" x="1068.22" y="-14.3" font-family="Times,serif" font-size="14.00">4,6 (Circuit substrate and Doped silicon)</text>
 </g>
 <!-- &#45;3,&#45;3 (Zinc Plates, 32 to consume four belts)&#45;&gt;4,6 (Circuit substrate and Doped silicon) -->
-<g id="edge2" class="edge">
+<g id="edge1" class="edge">
 <title>&#45;3,&#45;3 (Zinc Plates, 32 to consume four belts)&#45;&gt;4,6 (Circuit substrate and Doped silicon)</title>
-<path fill="none" stroke="black" stroke-width="0.33" d="M470.95,-18C450.42,-18 429.61,-18 409.12,-18"/>
-<polygon fill="black" stroke="black" stroke-width="0.33" points="409.09,-14.5 399.09,-18 409.09,-21.5 409.09,-14.5"/>
-<text text-anchor="middle" x="409.79" y="-6.8" font-family="Times,serif" font-size="14.00">zinc&#45;plate*10000</text>
+<path fill="none" stroke="black" stroke-width="1.17" d="M796.8,-18C817.33,-18 838.14,-18 858.63,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1.17" points="858.66,-21.5 868.66,-18 858.66,-14.5 858.66,-21.5"/>
+<text text-anchor="middle" x="827.71" y="-6.8" font-family="Times,serif" font-size="14.00">zinc&#45;plate*70000</text>
+</g>
+<!-- 3,0 (Zinc Chloride) -->
+<g id="node3" class="node">
+<title>3,0 (Zinc Chloride)</title>
+<ellipse fill="none" stroke="black" cx="97.49" cy="-18" rx="97.48" ry="18"/>
+<text text-anchor="middle" x="97.49" y="-14.3" font-family="Times,serif" font-size="14.00">3,0 (Zinc Chloride)</text>
+</g>
+<!-- &#45;3,&#45;3 (Zinc Plates, 32 to consume four belts)&#45;&gt;3,0 (Zinc Chloride) -->
+<g id="edge2" class="edge">
+<title>&#45;3,&#45;3 (Zinc Plates, 32 to consume four belts)&#45;&gt;3,0 (Zinc Chloride)</title>
+<path fill="none" stroke="black" stroke-width="0.83" d="M368.91,-18C312.32,-18 253.62,-18 205.34,-18"/>
+<polygon fill="black" stroke="black" stroke-width="0.83" points="205.21,-14.5 195.21,-18 205.21,-21.5 205.21,-14.5"/>
+<text text-anchor="middle" x="287.13" y="-6.8" font-family="Times,serif" font-size="14.00">zinc&#45;plate*50048</text>
 </g>
 </g>
 </svg>

@@ -1,6 +1,6 @@
 #!/usr/bin/env -S npx babel-node -x .ts,.tsx
 
-// <~/ins/factorio/script-output/ltn-export-log.serpent lua2json > data/2023-02-15-train-flows.jsonl
+// <~/ins/factorio/script-output/ltn-export-log.serpent lua2json > data/trainFlows.jsonl
 
 import { initOnNode } from './data-hack-for-node';
 import * as fs from 'fs';
@@ -11,7 +11,7 @@ import { execSync } from 'child_process';
 initOnNode();
 
 const raw = fs
-  .readFileSync(require.resolve('../data/2023-02-15-train-flows.jsonl'), {
+  .readFileSync(require.resolve('../data/trainFlows.jsonl'), {
     encoding: 'utf8',
   })
   .split('\n')

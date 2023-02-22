@@ -24,9 +24,9 @@
 <!-- 2,10 (Nickel plate)&#45;&gt;4,4 (Hydrogen Chloride, item=nylon Nylon/Nylon parts) -->
 <g id="edge1" class="edge">
 <title>2,10 (Nickel plate)&#45;&gt;4,4 (Hydrogen Chloride, item=nylon Nylon/Nylon parts)</title>
-<path fill="none" stroke="black" stroke-width="1.33" d="M598.69,-18C617.58,-18 638.25,-18 659.79,-18"/>
-<polygon fill="black" stroke="black" stroke-width="1.33" points="660.08,-21.5 670.08,-18 660.08,-14.5 660.08,-21.5"/>
-<text text-anchor="middle" x="629.24" y="-6.8" font-family="Times,serif" font-size="14.00">nichrome*4032</text>
+<path fill="none" stroke="black" stroke-width="1.02" d="M598.69,-18C617.58,-18 638.25,-18 659.79,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1.02" points="660.08,-21.5 670.08,-18 660.08,-14.5 660.08,-21.5"/>
+<text text-anchor="middle" x="629.24" y="-6.8" font-family="Times,serif" font-size="14.00">nichrome*4160</text>
 </g>
 <!-- 4,&#45;1 (Fluid) -->
 <g id="node3" class="node">
@@ -37,9 +37,9 @@
 <!-- 2,10 (Nickel plate)&#45;&gt;4,&#45;1 (Fluid) -->
 <g id="edge2" class="edge">
 <title>2,10 (Nickel plate)&#45;&gt;4,&#45;1 (Fluid)</title>
-<path fill="none" stroke="black" stroke-width="0.67" d="M404.54,-18C322.74,-18 207.57,-18 133.78,-18"/>
-<polygon fill="black" stroke="black" stroke-width="0.67" points="133.65,-14.5 123.65,-18 133.65,-21.5 133.65,-14.5"/>
-<text text-anchor="middle" x="214.16" y="-21.8" font-family="Times,serif" font-size="14.00">nichrome*2048</text>
+<path fill="none" stroke="black" stroke-width="0.98" d="M404.54,-18C322.74,-18 207.57,-18 133.78,-18"/>
+<polygon fill="black" stroke="black" stroke-width="0.98" points="133.65,-14.5 123.65,-18 133.65,-21.5 133.65,-14.5"/>
+<text text-anchor="middle" x="214.16" y="-21.8" font-family="Times,serif" font-size="14.00">nichrome*4023</text>
 </g>
 </g>
 </svg>
