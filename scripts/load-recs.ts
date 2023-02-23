@@ -1,13 +1,13 @@
 #!/usr/bin/env -S npx babel-node -x .ts,.tsx
 import * as fs from 'fs';
 import { toBlock } from './magic';
-import { initOnNode } from './data-hack-for-node';
+import { initOnNode, loadTrainFlows } from './data-hack-for-node';
 import { data } from '../web';
 import {
   isProvideStation,
   provideStationPurpose,
 } from '../web/muffler/stations';
-import { tupleToColon } from '../web/muffler/colon';
+import { Colon, tupleToColon } from '../web/muffler/colon';
 
 const base = process.argv[2];
 
@@ -41,6 +41,10 @@ export type Stop = {
   provides: [string, string][];
   /** information from nearby combinators about what this station may be requesting */
   combinator: Signal[];
+
+  /** the amount of stuff leaving and arriving at this stop */
+  flowFrom: Record<Colon, number>;
+  flowTo: Record<Colon, number>;
 };
 
 export type BlockContent = {
@@ -131,6 +135,25 @@ function main() {
     stopCombinator[loc].push(...obj.ext);
   }
 
+  const flowFrom: Record<number, Record<string, number>> = {};
+  const flowTo: Record<number, Record<string, number>> = {};
+
+  for (const flow of loadTrainFlows()) {
+    if (!flowFrom[flow.from]) flowFrom[flow.from] = {};
+    const f = flowFrom[flow.from];
+    if (!flowTo[flow.to]) flowTo[flow.to] = {};
+    const t = flowTo[flow.to];
+
+    for (const [name, count] of Object.entries(flow.shipment)) {
+      const colon = name.replace(',', ':');
+      if (!f[colon]) f[colon] = 0;
+      f[colon] += count;
+
+      if (!t[colon]) t[colon] = 0;
+      t[colon] += count;
+    }
+  }
+
   for (const obj of load('train-stop-input')) {
     const block = getBlock(obj.block);
     const [stopLoc, name, stopId] = nearbyStation(obj.pos, 1);
@@ -141,6 +164,8 @@ function main() {
     block.stop.push({
       name,
       stopId,
+      flowFrom: flowFrom[stopId] || {},
+      flowTo: flowTo[stopId] || {},
       settings: signals(red),
       items: signals(green),
       provides: isProvideStation(name)

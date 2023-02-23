@@ -165,16 +165,42 @@ class LtnProvides extends Component<{ colon: string }> {
 
         const settings = settingsMap(stop);
         const min = ltnMinTransfer(props.colon, settings);
-        return [[[loc, stop], actualItemsAvailable, min] as const];
+        const flow = stop.flowFrom[props.colon] ?? 0;
+        return [[[loc, stop], actualItemsAvailable, min, flow] as const];
       })
       .sort(
         ([, avalue, amin], [, bvalue, bmin]) => bvalue / bmin - avalue / amin,
       );
 
+    const totalFlow = providers.reduce((acc, [, , , flow]) => acc + flow, 0);
+
     return (
       <table className="ltn-avail">
-        {providers.map(([stop, value, min]) => (
-          <LtnAvailability stop={stop} avail={value} min={min} />
+        <tr>
+          <th>
+            <abbr title="actual count available here right now, in the most recent snapshot">
+              act
+            </abbr>
+          </th>
+          <th>
+            <abbr title="what percentage of cargo was sourced/sunk from this stop, in the most recent *simulation*">
+              flow
+            </abbr>
+          </th>
+          <th>
+            <abbr title="how much of a train we can fill right now, according to the LTN settings and the latest snapshot">
+              imm
+            </abbr>
+          </th>
+          <th>stop / block</th>
+        </tr>
+        {providers.map(([stop, value, min, flow]) => (
+          <LtnAvailability
+            stop={stop}
+            avail={value}
+            min={min}
+            flows={{ flow, totalFlow }}
+          />
         ))}
       </table>
     );
@@ -190,27 +216,36 @@ class LtnRequests extends Component<{ colon: string }> {
           return [];
         }
         const computed = colonMapItems(stop)[props.colon];
+        const flow = stop.flowTo[props.colon] ?? 0;
 
         const actualMinusWanted = computed ?? 0;
         // want 100: wanted = -100
         // actualMinusWanted -80 means there's 20 real items
         // percentage satisfaction: 20/100 = 20%
         return [
-          [[loc, stop], actualMinusWanted - wantedItems, -wantedItems] as const,
+          [
+            [loc, stop],
+            actualMinusWanted - wantedItems,
+            -wantedItems,
+            flow,
+          ] as const,
         ];
       })
       .sort(
         ([, avalue, awanted], [, bvalue, bwanted]) =>
           avalue / awanted - bvalue / bwanted,
       );
+    const totalFlow = requests.reduce((acc, [, , , flow]) => acc + flow, 0);
+
     return (
       <table className="ltn-avail">
-        {requests.map(([stop, value, wanted]) => (
+        {requests.map(([stop, value, wanted, flow]) => (
           <LtnAvailability
             stop={stop}
             avail={value}
             min={wanted}
             decimate={true}
+            flows={{ flow, totalFlow }}
           />
         ))}
       </table>

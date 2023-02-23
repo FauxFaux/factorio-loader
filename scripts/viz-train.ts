@@ -2,7 +2,7 @@
 
 // <~/ins/factorio/script-output/ltn-export-log.serpent lua2json > data/trainFlows.jsonl
 
-import { initOnNode } from './data-hack-for-node';
+import { initOnNode, loadTrainFlows } from './data-hack-for-node';
 import * as fs from 'fs';
 import { mkdirSync, renameSync, rmSync } from 'fs';
 import { data } from '../web';
@@ -10,21 +10,7 @@ import { execSync } from 'child_process';
 
 initOnNode();
 
-const raw = fs
-  .readFileSync(require.resolve('../data/trainFlows.jsonl'), {
-    encoding: 'utf8',
-  })
-  .split('\n')
-  .filter((line) => line.length > 0)
-  .map((line) => JSON.parse(line))
-  .filter((line) => line.type === 'history')
-  .map((line) => ({
-    from: line.from_id as number,
-    to: line.to_id as number,
-    runtime: line.runtime as number,
-    finished: line.finished as number,
-    shipment: line.shipment as Record<string, number>,
-  }));
+const raw = loadTrainFlows();
 
 const stopLookup: Record<number, string> = {};
 for (const [loc, obj] of Object.entries(data.doc)) {

@@ -112,7 +112,7 @@ class Home extends Component {
 }
 
 export function init(element: HTMLElement) {
-  element.innerHTML = 'dealing with json because webpack is too stupid';
+  element.innerHTML = 'Loading ~10MB of unbundled JSON...';
   (async () => {
     const get = async (url: string) => {
       const resp = await fetch(url);

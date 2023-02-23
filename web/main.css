@@ -50,12 +50,23 @@
   margin-bottom: 1em;
 }
 
-.ltn-avail > tr > td:first-child {
-  text-align: right;
+.ltn-avail > tr > th:last-child {
+  text-align: left;
+  padding-left: 15px;
 }
 
-.ltn-avail > tr > td:nth-child(2) {
+.ltn-avail > tr > th {
+  font-size: 50%;
+  text-align: center;
+}
+
+.ltn-avail > tr > td:last-child {
+  text-align: left;
+}
+
+.ltn-avail > tr > td {
   text-align: right;
+  margin-left: 3px;
 }
 
 .ltn-tree__header h3 {

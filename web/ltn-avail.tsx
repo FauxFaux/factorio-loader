@@ -14,14 +14,27 @@ interface LtnAvailabilityProps {
   /** how much LTN is waiting for */
   min: number;
 
+  flows: { flow: number; totalFlow: number };
+
   /** colour at 1/10th */
   decimate?: boolean;
 }
 export class LtnAvailability extends Component<LtnAvailabilityProps> {
   render(props: LtnAvailabilityProps) {
+    const f = props.flows;
     return (
       <tr>
         <td>{humanise(props.avail)}</td>
+        <td>
+          <abbr
+            title={
+              (f?.flow?.toLocaleString('en') ?? 0) +
+              ' items shipped during the simulation'
+            }
+          >
+            {((f?.flow / f?.totalFlow) * 100).toFixed()}%
+          </abbr>
+        </td>
         <td>
           <LtnPercent
             actual={props.avail}
