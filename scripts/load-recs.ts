@@ -232,6 +232,16 @@ function main() {
       }
     }
   }
+
+  for (const flow of Object.values(flowFrom)) {
+    for (const [name, count] of Object.entries(flow)) {
+      if (!prodStats[name]) prodStats[name] = { ltn: 0 };
+      const p = prodStats[name];
+      if (!p.ltn) p.ltn = 0;
+      p.ltn += count;
+    }
+  }
+
   fs.writeFileSync(
     'data/prodStats.json',
     JSON.stringify(sortByKeys(prodStats)),

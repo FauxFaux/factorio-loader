@@ -1,7 +1,14 @@
 import { Component } from 'preact';
 
 import { StopLine } from './pages/station-status';
-import { colonMapCombinator, colonMapItems, ltnMinTransfer, settingsMap, Stat, stations } from "./muffler/stations";
+import {
+  colonMapCombinator,
+  colonMapItems,
+  ltnMinTransfer,
+  settingsMap,
+  Stat,
+  stations,
+} from './muffler/stations';
 import { Measurement } from './ltn-summary';
 import { humanise, humaniseNo } from './muffler/human';
 
@@ -21,19 +28,11 @@ interface LtnAvailabilityProps {
 }
 export class LtnAvailability extends Component<LtnAvailabilityProps> {
   render(props: LtnAvailabilityProps) {
-    const f = props.flows;
     return (
       <tr>
         <td>{humanise(props.avail)}</td>
         <td>
-          <abbr
-            title={
-              (f?.flow?.toLocaleString('en') ?? 0) +
-              ' items shipped during the simulation'
-            }
-          >
-            {((f?.flow / f?.totalFlow) * 100).toFixed()}%
-          </abbr>
+          <LtnFlow flows={props.flows} />
         </td>
         <td>
           <LtnPercent
@@ -66,7 +65,6 @@ export const LtnPercent = (props: Measurement & { decimate?: boolean }) => {
     </abbr>
   );
 };
-
 
 export type LtnFilter = { colon: string };
 
@@ -127,25 +125,17 @@ export class LtnRequests extends Component<LtnFilter> {
   render(props: LtnFilter) {
     const requests = stations()
       .flatMap(([loc, stop]) => {
-        const wantedItems = colonMapCombinator(stop)[props.colon];
-        if (!(wantedItems < 0)) {
-          return [];
-        }
-        const computed = colonMapItems(stop)[props.colon];
-        const flow = stop.flowTo[props.colon] ?? 0;
+        const colon = props.colon;
 
-        const actualMinusWanted = computed ?? 0;
-        // want 100: wanted = -100
-        // actualMinusWanted -80 means there's 20 real items
-        // percentage satisfaction: 20/100 = 20%
-        return [
-          [
-            [loc, stop],
-            actualMinusWanted - wantedItems,
-            -wantedItems,
-            flow,
-          ] as const,
-        ];
+        const combinators = colonMapCombinator(stop);
+        const items = colonMapItems(stop);
+
+        const v = expActLtn(combinators, items, colon);
+        if (!v) return [];
+        const { actual, expected } = v;
+
+        const flow = stop.flowTo[colon] ?? 0;
+        return [[[loc, stop], actual, expected, flow] as const];
       })
       .sort(
         ([, avalue, awanted], [, bvalue, bwanted]) =>
@@ -167,4 +157,40 @@ export class LtnRequests extends Component<LtnFilter> {
       </table>
     );
   }
+}
+
+export const LtnFlow = ({
+  flows: f,
+}: {
+  flows: { flow?: number; totalFlow?: number };
+}) => (
+  <abbr
+    title={
+      (f.flow?.toLocaleString('en') ?? 0) +
+      ' items shipped during the simulation'
+    }
+  >
+    {(((f.flow ?? 0) / (f.totalFlow ?? Infinity)) * 100).toFixed()}%
+  </abbr>
+);
+
+export function expActLtn(
+  combinators: Record<string, number>,
+  items: Record<string, number>,
+  colon: string,
+) {
+  const wantedItems = combinators[colon];
+  if (!(wantedItems < 0)) {
+    return null;
+  }
+  const computed = items[colon];
+
+  const actualMinusWanted = computed ?? 0;
+  // want 100: wanted = -100
+  // actualMinusWanted -80 means there's 20 real items
+  // percentage satisfaction: 20/100 = 20%
+  const actual = actualMinusWanted - wantedItems;
+  const expected = -wantedItems;
+
+  return { actual, expected };
 }

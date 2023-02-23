@@ -86,8 +86,6 @@ export class BlockPage extends Component<{ loc: string }> {
                 </li>
               ))}
             </ul>
-          </div>
-          <div class="col">
             <h3>Storing</h3>
             <ul>
               {[

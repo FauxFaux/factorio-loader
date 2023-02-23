@@ -1,6 +1,6 @@
 import { Component } from 'preact';
 import { computed, data } from '../index';
-import { LtnProvides, LtnRequests } from "../ltn-avail";
+import { LtnProvides, LtnRequests } from '../ltn-avail';
 import { ItemIcon } from '../lists';
 import { BlockLine, Fluid, Item, ItemOrFluid } from '../objects';
 import { objToColon } from '../muffler/colon';

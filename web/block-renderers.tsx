@@ -1,8 +1,17 @@
 import { Component } from 'preact';
 import { BlockContent } from '../scripts/load-recs';
-import { Item, ItemOrFluid, Recipe } from './objects';
+import { ColonJoined, Item, Recipe } from './objects';
 import { RenderIcons } from './lists';
 import { data } from './index';
+import {
+  colonMapCombinator,
+  colonMapItems,
+  ltnMinTransfer,
+  settingsMap,
+} from './muffler/stations';
+import { humanise } from './muffler/human';
+import { compareWithoutIcons } from './muffler/names';
+import { expActLtn, LtnFlow, LtnPercent } from './ltn-avail';
 
 export function recipeDifference(brick: BlockContent) {
   const inputs: Set<string> = new Set();
@@ -58,25 +67,86 @@ export class Assemblers extends Component<{ brick: BlockContent }> {
 export class TrainStops extends Component<{ stop: BlockContent['stop'] }> {
   render(props: { stop: BlockContent['stop'] }) {
     return (
-      <ul>
-        {props.stop.map((stop) => {
-          const nonVirt = stop.items
-            .sort(([, , a], [, , b]) => Math.abs(b) - Math.abs(a))
-            .filter(([kind]) => kind !== 'virtual');
-          return (
-            <li>
-              <RenderIcons text={stop.name} />
-              <ul>
-                {nonVirt.map(([kind, name, count]) => (
-                  <li>
-                    {count} * <ItemOrFluid type={kind as any} name={name} />
-                  </li>
-                ))}
-              </ul>
-            </li>
-          );
-        })}
-      </ul>
+      <table class="ltn-avail-block">
+        {props.stop
+          .sort((a, b) => compareWithoutIcons(a.name, b.name))
+          .map((stop) => {
+            const settings = settingsMap(stop);
+            const items = colonMapItems(stop);
+            const combinators = colonMapCombinator(stop);
+            return (
+              <>
+                <tr>
+                  <th colSpan={5}>
+                    <b>
+                      <RenderIcons text={stop.name} />
+                    </b>
+                  </th>
+                </tr>
+                {Object.entries(items)
+                  .sort(([a], [b]) => a.localeCompare(b))
+                  .map(([colon, count]) => {
+                    const req = combinators[colon];
+                    if (req) {
+                      const v = expActLtn(combinators, items, colon);
+                      if (!v)
+                        return (
+                          <tr>
+                            <td>ERROH {colon} isn't a combinator</td>
+                          </tr>
+                        );
+                      const { actual, expected } = v;
+                      return (
+                        <tr>
+                          <td title="import">➡</td>
+                          <td> {humanise(actual)}</td>
+                          <td>
+                            <LtnPercent
+                              actual={actual}
+                              expected={expected}
+                              decimate={true}
+                            />
+                          </td>
+                          <td>
+                            <LtnFlow
+                              flows={{
+                                totalFlow: data.prodStats[colon]?.ltn,
+                                flow: stop.flowTo[colon],
+                              }}
+                            />
+                          </td>
+                          <td>
+                            <ColonJoined label={colon} />
+                          </td>
+                        </tr>
+                      );
+                    }
+                    const expected = ltnMinTransfer(colon, settings);
+                    return (
+                      <tr>
+                        <td title="export">️⬅</td>
+                        <td>️{humanise(count)}</td>
+                        <td>
+                          <LtnPercent actual={count} expected={expected} />
+                        </td>
+                        <td>
+                          <LtnFlow
+                            flows={{
+                              totalFlow: data.prodStats[colon]?.ltn,
+                              flow: stop.flowFrom[colon],
+                            }}
+                          />
+                        </td>
+                        <td>
+                          <ColonJoined label={colon} />
+                        </td>
+                      </tr>
+                    );
+                  })}
+              </>
+            );
+          })}
+      </table>
     );
   }
 }

@@ -55,18 +55,27 @@
   padding-left: 15px;
 }
 
-.ltn-avail > tr > th {
+.ltn-avail > tr > th
+{
   font-size: 50%;
   text-align: center;
 }
 
-.ltn-avail > tr > td:last-child {
+.ltn-avail > tr > td:last-child,
+.ltn-avail-block > tr > td:last-child
+{
   text-align: left;
 }
 
-.ltn-avail > tr > td {
+.ltn-avail > tr > td,
+.ltn-avail-block > tr > td {
   text-align: right;
-  margin-left: 3px;
+  padding-left: 5px;
+}
+
+.ltn-avail-block > tr > th {
+  padding-top: 15px;
+  padding-bottom: 10px;
 }
 
 .ltn-tree__header h3 {

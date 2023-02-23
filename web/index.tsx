@@ -22,7 +22,10 @@ export const data = {
   icons: {} as Record<string, string>,
   fluids: {} as Record<string, JFluid>,
   recipes: {} as Record<string, JRecipe>,
-  prodStats: {} as Record<Colon, { input?: FlowStats; output?: FlowStats }>,
+  prodStats: {} as Record<
+    Colon,
+    { input?: FlowStats; output?: FlowStats; ltn?: number }
+  >,
   flowDiagrams: [] as string[],
   technologies: {} as Record<
     string,

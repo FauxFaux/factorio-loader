@@ -48,9 +48,11 @@ export function itemMap(stop: Stop): Record<string, number> {
 
 export function colonMapItems(stop: Stop): Record<Colon, number> {
   return Object.fromEntries(
-    stop.items.map(
-      ([type, name, value]) => [tupleToColon([type, name]), value] as const,
-    ),
+    stop.items
+      .filter(([kind]) => kind !== 'virtual')
+      .map(
+        ([type, name, value]) => [tupleToColon([type, name]), value] as const,
+      ),
   );
 }
 export function colonMapCombinator(stop: Stop): Record<Colon, number> {
