@@ -1,0 +1,44 @@
+name:
+  '0,0': 'LE BUS'
+merge:
+  '0,0':
+    # the fluid bus, in row -5
+    - '-4,-5'
+    - '-3,-5'
+    - '-2,-5'
+    - '-1,-5'
+    - '0,-5'
+    # the shopping centre assemblers, in row -4
+    - '-2,-4'
+    - '-1,-4'
+    - '0,-4'
+    - '1,-4'
+    # the shopping centre trains, in row -3
+    - '-2,-3'
+    - '-1,-3'
+    - '0,-3'
+    # the bus passing through
+    - '0,-2'
+    # the row above the silo; engine, concrete (-1)
+    - '-2,-1'
+    - '-1,-1'
+    - '0,-1'
+    # silo row; base passenger stop, silo
+    - '-1,0'
+    - '0,0'
+    # some weird bus stuff
+    - '0,1'
+    - '-1,1'
+    - '-2,1' # FAQs
+    # salt, seaweed, saline
+    - '-1,2'
+    - '0,2'
+    # bus train stop (including fluids)
+    - '0,3'
+    - '-1,3'
+    - '-2,3'
+    # bus bottom
+    - '-1,4'
+    - '0,4'
+    # train stops for bus brick
+    - '-1,5'

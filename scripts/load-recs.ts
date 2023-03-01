@@ -1,5 +1,7 @@
 #!/usr/bin/env -S npx babel-node -x .ts,.tsx
 import * as fs from 'fs';
+import * as yaml from 'js-yaml';
+
 import { toBlock } from './magic';
 import { initOnNode, loadTrainFlows } from './data-hack-for-node';
 import { data } from '../web';
@@ -58,10 +60,27 @@ export type BlockContent = {
   boilers: number;
 };
 
+interface Patch {
+  name: Record<string, string>;
+  merge: Record<string, string[]>;
+}
+
 function main() {
+  const patch = yaml.load(
+    fs.readFileSync(require.resolve('../patch.yaml'), 'utf8'),
+  ) as Patch;
+  const remappings = Object.fromEntries(
+    Object.entries(patch.merge).flatMap(([dest, srcs]) =>
+      srcs.map((src) => [src, dest] as const),
+    ),
+  );
+
   const byBlock: Record<string, BlockContent> = {};
-  const getBlock = (id: BlockId) => {
-    const sid = String(id);
+  const getBlock = (id: BlockId | string) => {
+    let sid = String(id);
+    if (remappings[sid]) {
+      sid = remappings[sid];
+    }
     if (!byBlock[sid]) {
       byBlock[sid] = {
         tags: [],
@@ -78,6 +97,10 @@ function main() {
   for (const obj of load('tags')) {
     const block = getBlock(obj.block);
     block.tags.push(obj.name);
+  }
+
+  for (const [id, name] of Object.entries(patch.name)) {
+    getBlock(id).tags = [name];
   }
 
   for (const obj of load('assembling-machine')) {

@@ -199,7 +199,7 @@ export class TagList extends Component<{ tags: string[] }> {
   render(props: { tags: string[] }) {
     return (
       <span>
-        {props.tags.sort().map((tag, i) => (
+        {[...new Set(props.tags)].sort().map((tag, i) => (
           <>
             <RenderIcons text={tag} />
             {i !== props.tags.length - 1 ? ', ' : ''}
