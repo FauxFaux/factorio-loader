@@ -1,7 +1,7 @@
 import { Component } from 'preact';
 import { BlockContent } from '../scripts/load-recs';
 import { ColonJoined, Item, Recipe } from './objects';
-import { RenderIcons } from './lists';
+import { GpsLink, RenderIcons } from './lists';
 import { data } from './index';
 import {
   colonMapCombinator,
@@ -79,6 +79,7 @@ export class TrainStops extends Component<{ stop: BlockContent['stop'] }> {
                 <tr>
                   <th colSpan={5}>
                     <b>
+                      <GpsLink caption={stop.name} gps={stop.gps} />{' '}
                       <RenderIcons text={stop.name} />
                     </b>
                   </th>

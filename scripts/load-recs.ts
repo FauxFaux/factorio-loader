@@ -42,6 +42,8 @@ export type Stop = {
   /** information from nearby combinators about what this station may be requesting */
   combinator: Signal[];
 
+  gps: readonly [number, number];
+
   /** the amount of stuff leaving and arriving at this stop */
   flowFrom: Record<Colon, number>;
   flowTo: Record<Colon, number>;
@@ -168,6 +170,7 @@ function main() {
       flowTo: flowTo[stopId] || {},
       settings: signals(red),
       items: signals(green),
+      gps: obj.pos,
       provides: isProvideStation(name)
         ? [...provideStationPurpose(name)].map((v) => ['item', v])
         : [],

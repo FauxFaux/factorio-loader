@@ -2,7 +2,7 @@ import { Component } from 'preact';
 
 import { data } from '../index';
 import { Stop } from '../../scripts/load-recs';
-import { RenderIcons } from '../lists';
+import { GpsLink, RenderIcons } from '../lists';
 import { ColonJoined } from '../objects';
 import { tupleToColon } from '../muffler/colon';
 import {
@@ -138,6 +138,7 @@ export class StopLine extends Component<{ stop: readonly [string, Stop] }> {
     const loc = props.stop[0];
     return (
       <span>
+        <GpsLink caption={stop.name} gps={stop.gps} />{' '}
         <RenderIcons text={stop.name} /> (<BlockLink loc={loc} />)
       </span>
     );

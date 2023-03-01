@@ -97,3 +97,10 @@
 .prod-stats td, .prod-stats th {
   text-align: right;
 }
+
+.gps-link-button img {
+  max-width: 18px;
+  max-height: 25px;
+  cursor: pointer;
+  margin-right: 8px;
+}

@@ -188,3 +188,45 @@ export class ItemList extends Component<
     );
   }
 }
+
+export class GpsLink extends Component<
+  { caption: string; gps: readonly [number, number] },
+  { copied?: boolean }
+> {
+  doCopy = async () => {
+    try {
+      const { caption, gps } = this.props;
+      await navigator.clipboard.writeText(
+        `[gps=${gps[0].toFixed()},${gps[1].toFixed()}] ${caption}`,
+      );
+      this.setState({ copied: true });
+    } catch (err) {
+      alert('Failed to copy to clipboard: ' + err);
+    }
+  };
+
+  onLeave = () => {
+    this.setState({ copied: false });
+  };
+  render(
+    props: {
+      caption: string;
+      gps: readonly [number, number];
+    },
+    state: { copied?: boolean },
+  ): ComponentChild {
+    if (state.copied) {
+      return (
+        <span className={'gps-link-button'} onMouseLeave={this.onLeave}>
+          <img src={'check.svg'} alt={'done!'} />
+        </span>
+      );
+    }
+    const msg = 'copy station location in chat format';
+    return (
+      <span className={'gps-link-button'} onClick={this.doCopy} title={msg}>
+        <img src={'pin.svg'} alt={msg} />
+      </span>
+    );
+  }
+}
