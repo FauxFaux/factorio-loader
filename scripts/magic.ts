@@ -1,4 +1,4 @@
-const [ox, oy] = [-14, -47];
+const [ox, oy] = [-16, -48];
 const [w, h] = [192, 128];
 
 export function toBlock([x, y]: readonly [number, number]) {
