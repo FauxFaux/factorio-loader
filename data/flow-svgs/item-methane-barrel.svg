@@ -12,34 +12,34 @@
 <!-- 1,0 () -->
 <g id="node1" class="node">
 <title>1,0 ()</title>
-<ellipse fill="none" stroke="black" cx="506.16" cy="-18" rx="35.19" ry="18"/>
-<text text-anchor="middle" x="506.16" y="-14.3" font-family="Times,serif" font-size="14.00">1,0 ()</text>
-</g>
-<!-- 2,4 (Formica and Phenolic boards) -->
-<g id="node2" class="node">
-<title>2,4 (Formica and Phenolic boards)</title>
-<ellipse fill="none" stroke="black" cx="812.79" cy="-18" rx="169.77" ry="18"/>
-<text text-anchor="middle" x="812.79" y="-14.3" font-family="Times,serif" font-size="14.00">2,4 (Formica and Phenolic boards)</text>
-</g>
-<!-- 1,0 ()&#45;&gt;2,4 (Formica and Phenolic boards) -->
-<g id="edge1" class="edge">
-<title>1,0 ()&#45;&gt;2,4 (Formica and Phenolic boards)</title>
-<path fill="none" stroke="black" stroke-width="0.48" d="M541.34,-18C564.89,-18 597.88,-18 632.77,-18"/>
-<polygon fill="black" stroke="black" stroke-width="0.48" points="633.15,-21.5 643.15,-18 633.15,-14.5 633.15,-21.5"/>
-<text text-anchor="middle" x="587.05" y="-6.8" font-family="Times,serif" font-size="14.00">methane&#45;barrel*2368</text>
+<ellipse fill="none" stroke="black" cx="476.26" cy="-18" rx="35.19" ry="18"/>
+<text text-anchor="middle" x="476.26" y="-14.3" font-family="Times,serif" font-size="14.00">1,0 ()</text>
 </g>
 <!-- 4,6 (Circuit substrate and Doped silicon) -->
-<g id="node3" class="node">
+<g id="node2" class="node">
 <title>4,6 (Circuit substrate and Doped silicon)</title>
-<ellipse fill="none" stroke="black" cx="199.53" cy="-18" rx="199.56" ry="18"/>
-<text text-anchor="middle" x="199.53" y="-14.3" font-family="Times,serif" font-size="14.00">4,6 (Circuit substrate and Doped silicon)</text>
+<ellipse fill="none" stroke="black" cx="782.89" cy="-18" rx="199.56" ry="18"/>
+<text text-anchor="middle" x="782.89" y="-14.3" font-family="Times,serif" font-size="14.00">4,6 (Circuit substrate and Doped silicon)</text>
 </g>
 <!-- 1,0 ()&#45;&gt;4,6 (Circuit substrate and Doped silicon) -->
-<g id="edge2" class="edge">
+<g id="edge1" class="edge">
 <title>1,0 ()&#45;&gt;4,6 (Circuit substrate and Doped silicon)</title>
-<path fill="none" stroke="black" stroke-width="1.52" d="M470.99,-18C454.33,-18 432.96,-18 409.53,-18"/>
-<polygon fill="black" stroke="black" stroke-width="1.52" points="409.37,-14.5 399.37,-18 409.37,-21.5 409.37,-14.5"/>
-<text text-anchor="middle" x="517.26" y="-21.8" font-family="Times,serif" font-size="14.00">methane&#45;barrel*7600</text>
+<path fill="none" stroke="black" stroke-width="0.88" d="M511.44,-18C528.09,-18 549.47,-18 572.9,-18"/>
+<polygon fill="black" stroke="black" stroke-width="0.88" points="573.06,-21.5 583.06,-18 573.06,-14.5 573.06,-21.5"/>
+<text text-anchor="middle" x="460.67" y="-21.8" font-family="Times,serif" font-size="14.00">methane&#45;barrel*18320</text>
+</g>
+<!-- 2,4 (Formica and Phenolic boards) -->
+<g id="node3" class="node">
+<title>2,4 (Formica and Phenolic boards)</title>
+<ellipse fill="none" stroke="black" cx="169.63" cy="-18" rx="169.77" ry="18"/>
+<text text-anchor="middle" x="169.63" y="-14.3" font-family="Times,serif" font-size="14.00">2,4 (Formica and Phenolic boards)</text>
+</g>
+<!-- 1,0 ()&#45;&gt;2,4 (Formica and Phenolic boards) -->
+<g id="edge2" class="edge">
+<title>1,0 ()&#45;&gt;2,4 (Formica and Phenolic boards)</title>
+<path fill="none" stroke="black" stroke-width="1.12" d="M441.09,-18C417.54,-18 384.55,-18 349.65,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1.12" points="349.27,-14.5 339.27,-18 349.27,-21.5 349.27,-14.5"/>
+<text text-anchor="middle" x="354.62" y="-6.8" font-family="Times,serif" font-size="14.00">methane&#45;barrel*23088</text>
 </g>
 </g>
 </svg>

@@ -47,7 +47,13 @@ function oneItem(target: string) {
   const routes: Record<string, Record<string, number>> = {};
 
   for (const flow of raw) {
-    const key = `${stopLookup[flow.from]}|${stopLookup[flow.to]}`;
+    const stopFrom = stopLookup[flow.from];
+    const stopTo = stopLookup[flow.to];
+    if (!stopFrom || !stopTo) {
+      // this shouldn't happen but it does
+      continue;
+    }
+    const key = `${stopFrom}|${stopTo}`;
     if (!routes[key]) routes[key] = {};
     for (const [item, count] of Object.entries(flow.shipment)) {
       if (item !== target) continue;
