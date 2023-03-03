@@ -19,6 +19,7 @@
     "js-yaml": "^4.1.0",
     "leaflet": "^1.9.3",
     "preact": "^10.11",
+    "preact-render-to-string": "^5.2.6",
     "preact-router": "^4.1.0",
     "serialize-error": "^11.0.0"
   },

@@ -31,7 +31,11 @@ export class App extends Component {
             type="item"
             name="from the path"
           />
-          <Map path="/map" />
+          <Map
+            path="/map/:gps?/:zoom?"
+            gps="from the path"
+            zoom="from the path"
+          />
         </Router>
       </div>
     );

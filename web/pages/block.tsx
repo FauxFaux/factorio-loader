@@ -11,7 +11,7 @@ export class BlockThumb extends Component<{ loc: string }> {
     let [lxs, lys] = props.loc.split(',');
     const lx = parseInt(lxs);
     const ly = parseInt(lys);
-    const [bx, by] = fromBlock([lx, ly]);
+    let [bx, by] = fromBlock([lx, ly]);
     let [mx, my] = [bx, by];
     // offset in screenshot command in notes.lua
     my -= 768;
@@ -21,8 +21,10 @@ export class BlockThumb extends Component<{ loc: string }> {
     my *= scale;
     mx += 2048;
     my += 2048;
+    bx += 192 / 2;
+    by += 128 / 2;
     return (
-      <a href={`https://factorio.lorier.net/mar2022/#1/nauvis/18/${bx}/${by}`}>
+      <a href={`/map/${bx},${by}/7`}>
         <span
           style={`display: inline-block; width: 250px; height: 166px; background: url('../data/screenshot.jpg') -${mx}px -${my}px`}
         />
@@ -35,6 +37,14 @@ export class BlockPage extends Component<{ loc: string }> {
   render(props: { loc: string }) {
     const loc = props.loc;
     const obj = data.doc[loc];
+    if (!obj) {
+      return (
+        <div>
+          No block at {loc} (maybe it was merged, which isn't currently
+          supported, sorry!)
+        </div>
+      );
+    }
     const list = [];
     list.push(<BlockThumb loc={loc} />);
     if (Object.keys(obj.items).length !== 0) {
