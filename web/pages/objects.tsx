@@ -31,6 +31,18 @@ export class IoFDetail extends Component<{
       ? `../data/flow-svgs/${colon.replace(':', '-')}.svg`
       : undefined;
 
+    const blocksWith = Object.entries(data.doc).flatMap(([loc, block]) =>
+      block.resources[props.name]
+        ? [[loc, block.resources[props.name]] as const]
+        : [],
+    );
+
+    const maxBlock = Math.max(...blocksWith.map(([, amount]) => amount));
+    const initial = blocksWith.length;
+    const shownBlocks = blocksWith.filter(
+      ([, amount]) => amount >= maxBlock / 2,
+    );
+
     return (
       <>
         <div class="row">
@@ -86,6 +98,23 @@ export class IoFDetail extends Component<{
           <div className="col">
             <h3>Storage:</h3>
             <Storage type={props.type} name={props.name} />
+            {Object.keys(blocksWith).length ? (
+              <>
+                <h3>Blocks with this resource:</h3>
+                <ul>
+                  {shownBlocks
+                    .sort(([, a], [, b]) => b - a)
+                    .map(([loc, amount]) => (
+                      <li>
+                        {humanise(amount)}: <BlockLine block={loc} />
+                      </li>
+                    ))}
+                  <li>... and {initial - shownBlocks.length} more.</li>
+                </ul>
+              </>
+            ) : (
+              <></>
+            )}
             <h3>
               Production stats{' '}
               {unBarrelled ? (
