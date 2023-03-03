@@ -67,6 +67,14 @@ const header = (
               Map
             </a>
           </li>
+          <li>
+            <a
+              href="https://github.com/FauxFaux/factorio-loader"
+              className="nav-link px-2 text-white"
+            >
+              github
+            </a>
+          </li>
         </ul>
       </div>
     </div>
