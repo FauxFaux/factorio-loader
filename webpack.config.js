@@ -17,9 +17,6 @@ module.exports = {
       inject: 'head',
       scriptLoading: 'blocking',
     }),
-    new CopyPlugin({
-      patterns: [{ from: './web/main.css', to: 'main.css' }],
-    }),
   ],
 
   // Enable sourcemaps for debugging webpack's output.
@@ -36,6 +33,10 @@ module.exports = {
         test: /\.tsx?$/,
         use: [{ loader: 'babel-loader' }],
         exclude: /node_modules/,
+      },
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
       },
     ],
   },

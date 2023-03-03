@@ -1,7 +1,7 @@
 #!/usr/bin/env -S npx babel-node -x .ts,.tsx
 
 import JsSha from 'jssha/dist/sha3';
-import { mkdirSync, readFileSync, writeFileSync } from "fs";
+import { mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { globSync } from 'glob';
 import { sortByKeys } from '../web/muffler/deter';
 

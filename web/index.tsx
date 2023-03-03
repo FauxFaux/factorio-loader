@@ -2,12 +2,13 @@ import 'preact/debug';
 import { Component, render } from 'preact';
 import Router from 'preact-router';
 import { createHashHistory } from 'history';
-import { serializeError } from "serialize-error";
+import { serializeError } from 'serialize-error';
 
 import type { BlockContent } from '../scripts/load-recs';
 
 import { IoFDetail } from './pages/objects';
 import { BlockPage } from './pages/block';
+import { Map } from './pages/map';
 import { StationStatus } from './pages/station-status';
 import { WhatTheBrick } from './pages/what-the-brick';
 
@@ -18,6 +19,8 @@ import { LtnSummary, precomputeLtnSummary } from './ltn-summary';
 import { Colon } from './muffler/colon';
 
 import hashes from '../dist/hashes.json';
+
+import './main.css';
 
 export const data = {
   doc: {} as Record<string, BlockContent>,
@@ -68,6 +71,7 @@ class App extends Component {
             type="item"
             name="from the path"
           />
+          <Map path="/map" />
         </Router>
       </div>
     );
@@ -92,6 +96,11 @@ const header = (
           <li>
             <a href="/station-status" className="nav-link px-2 text-white">
               Station status
+            </a>
+          </li>
+          <li>
+            <a href="/map" className="nav-link px-2 text-white">
+              Map
             </a>
           </li>
         </ul>
@@ -126,12 +135,10 @@ export function init(element: HTMLElement) {
       return await resp.json();
     };
     await Promise.all(
-      (Object.keys(data) as (keyof typeof data)[]).map(
-        async (k) => {
-          const key = `${k}.json` as const;
-          ((data as any)[k] = await get(`../data/${key}?v=${hashes[key]}`))
-        },
-      ),
+      (Object.keys(data) as (keyof typeof data)[]).map(async (k) => {
+        const key = `${k}.json` as const;
+        (data as any)[k] = await get(`../data/${key}?v=${hashes[key]}`);
+      }),
     );
     precompute();
     element.innerHTML = '';
@@ -142,8 +149,7 @@ export function init(element: HTMLElement) {
     element.innerHTML = `<pre>${JSON.stringify(serializeError(e), null, 2)
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-    }</pre>`;
+      .replace(/>/g, '&gt;')}</pre>`;
   });
 }
 
