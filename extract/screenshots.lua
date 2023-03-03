@@ -1,12 +1,20 @@
-for y=-4, 4 do
-    for x=-4, 4 do
-        local pos = { x = x * 512, y = y * 512 }
+-- gamepershot is the number of game tiles in each screenshot
+-- zoomscalefactor is a magic number determined from inspecting screenshots; presumably related to the native resolution of the sprites
+
+local maxpx = 4096
+local zoomscalefactor = 32
+local zoom = 0.25
+local gamepershot = maxpx / (zoomscalefactor * zoom)
+for y = -4, 4 do
+    for x = -4, 4 do
+        local pos = { x = x * gamepershot, y = y * gamepershot }
         game.take_screenshot({
             position = pos,
-            zoom = 0.25,
-            resolution = { x = 4096, y = 4096 },
+            zoom = zoom,
+            resolution = { x = maxpx, y = maxpx },
             path = "screenshot_" .. x .. "_" .. y .. ".png",
             water_tick = 0,
+            show_entity_info = true,
             daytime = 1 })
     end
 end
