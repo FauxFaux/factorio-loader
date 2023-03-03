@@ -1,12 +1,12 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: './web/index.tsx',
   output: {
     path: path.resolve(__dirname, './dist'),
     filename: 'bundle.[contenthash].js',
+    chunkFilename: '[name].[contenthash].chunk.js',
     library: 'app',
   },
 
