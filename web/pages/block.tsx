@@ -103,6 +103,14 @@ export class BlockPage extends Component<{ loc: string }> {
                   </li>
                 ))}
             </ul>
+            <h3>Resources</h3>
+            <ul>
+              {Object.entries(obj.resources).map(([name, count]) => (
+                <li>
+                  {humanise(count)} * <Item name={name} />
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
         <div class="row">
