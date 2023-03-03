@@ -17,6 +17,7 @@ for _, ty in ipairs({
     "train-stop",
     "roboport",
     "radar",
+    "resource",
     "train-stop-input",
     "constant-combinator",
     "tags" }) do
@@ -72,6 +73,9 @@ for _, ty in ipairs({
             if prev ~= nil then
                 a[#a + 1] = prev.name
             end
+        end
+        if ty == "resource" then
+            a[#a + 1] = v.amount
         end
         if ty == "container" or ty == "logistic-container" then
             local oi = v.get_output_inventory()

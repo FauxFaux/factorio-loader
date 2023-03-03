@@ -5,9 +5,6 @@ import { ItemOrFluid } from './objects';
 import { compareWithoutIcons } from './muffler/names';
 import { Colon, objToColon, tupleToColon } from './muffler/colon';
 
-const check = require('svg-url-loader!./check.svg');
-const pin = require('svg-url-loader!./pin.svg');
-
 function smatch(name: string, props: { search?: string }) {
   // TODO: proper string comparison
   if (!props.search) return true;
@@ -218,6 +215,9 @@ export class GpsLink extends Component<
     },
     state: { copied?: boolean },
   ): ComponentChild {
+    const check = require('svg-url-loader!./check.svg');
+    const pin = require('svg-url-loader!./pin.svg');
+
     if (state.copied) {
       return (
         <span className={'gps-link-button'} onMouseLeave={this.onLeave}>

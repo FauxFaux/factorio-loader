@@ -36,6 +36,7 @@
     "@types/leaflet": "^1.9.1",
     "@types/node": "^18",
     "babel-loader": "^9.1",
+    "babel-plugin-ignore-html-and-css-imports": "^0.1.0",
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.7.3",
     "glob": "^9.2.1",

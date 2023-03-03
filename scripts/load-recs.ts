@@ -58,6 +58,7 @@ export type BlockContent = {
   stop: Stop[];
   items: Record<string, number>;
   fluids: Record<string, number>;
+  resources: Record<string, number>;
   boilers: number;
 };
 
@@ -89,6 +90,7 @@ function main() {
         stop: [],
         items: {},
         fluids: {},
+        resources: {},
         boilers: 0,
       };
     }
@@ -224,6 +226,12 @@ function main() {
   for (const obj of load('storage-tank')) {
     const block = getBlock(obj.block);
     addItems(block.fluids, obj);
+  }
+
+  for (const obj of load('resource')) {
+    const block = getBlock(obj.block);
+    if (!block.resources[obj.name]) block.resources[obj.name] = 0;
+    block.resources[obj.name] += parseInt(obj.ext[0]);
   }
 
   const technologies: (typeof data)['technologies'] = {};
