@@ -138,7 +138,12 @@ export function init(element: HTMLElement) {
     render(<App />, element);
   })().catch((e) => {
     console.error(e);
-    element.innerHTML = `<pre>${JSON.stringify(serializeError(e), null, 2)}</pre>`;
+    // really
+    element.innerHTML = `<pre>${JSON.stringify(serializeError(e), null, 2)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+    }</pre>`;
   });
 }
 

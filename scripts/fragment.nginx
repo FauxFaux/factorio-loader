@@ -6,7 +6,7 @@ location /web {
     return 302 /;
 }
 
-location ~ /(what-the-brick|station-status|item|fluid|block|ltn-tree) {
+location ~ ^/(what-the-brick|station-status|item|fluid|block|ltn-tree) {
     return 302 /#$uri;
 }
 
