@@ -1,0 +1,19 @@
+location = / {
+    try_files /dist/index.html =404;
+}
+
+location /web {
+    return 302 /;
+}
+
+location ~ /(what-the-brick|station-status|item|fluid|block|ltn-tree) {
+    return 302 /#$uri;
+}
+
+location / {
+    try_files $uri =404;
+}
+
+location ~ ^/[^/]+\.(css|js)$ {
+    try_files /dist/$uri =404;
+}

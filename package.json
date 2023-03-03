@@ -18,7 +18,8 @@
     "inflection": "^2.0.1",
     "js-yaml": "^4.1.0",
     "preact": "^10.11",
-    "preact-router": "^4.1.0"
+    "preact-router": "^4.1.0",
+    "serialize-error": "^11.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7",

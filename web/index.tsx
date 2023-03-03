@@ -2,6 +2,7 @@ import 'preact/debug';
 import { Component, render } from 'preact';
 import Router from 'preact-router';
 import { createHashHistory } from 'history';
+import { serializeError } from "serialize-error";
 
 import type { BlockContent } from '../scripts/load-recs';
 
@@ -137,7 +138,7 @@ export function init(element: HTMLElement) {
     render(<App />, element);
   })().catch((e) => {
     console.error(e);
-    element.innerHTML = e.toString();
+    element.innerHTML = `<pre>${JSON.stringify(serializeError(e), null, 2)}</pre>`;
   });
 }
 
