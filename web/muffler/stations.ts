@@ -1,6 +1,6 @@
 import { Stop } from '../../scripts/load-recs';
 import { Colon, fromColon, tupleToColon } from './colon';
-import { data } from '../index';
+import { data } from '../datae';
 import { cleanupName, closelyMatches } from './names';
 
 export function isProvideStation(name: string): boolean {

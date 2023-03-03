@@ -1,6 +1,6 @@
 import { Component } from 'preact';
 import { BlockLine, ColonJoined } from './objects';
-import { computed } from './index';
+import { computed } from './datae';
 import { LtnSummary, Measurement } from './ltn-summary';
 import { LtnPercent } from './ltn-avail';
 import { Colon, objToColon, splitColon } from './muffler/colon';

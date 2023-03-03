@@ -1,5 +1,5 @@
 import { Component } from 'preact';
-import { computed, data } from '../index';
+import { computed, data } from '../datae';
 import { LtnProvides, LtnRequests } from '../ltn-avail';
 import { ItemIcon } from '../lists';
 import { BlockLine, Fluid, Item, ItemOrFluid } from '../objects';

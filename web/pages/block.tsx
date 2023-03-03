@@ -2,7 +2,7 @@ import { Component } from 'preact';
 
 import { ColonJoined, Item, ItemOrFluid, TagList } from '../objects';
 import { Assemblers, recipeDifference, TrainStops } from '../block-renderers';
-import { data } from '../index';
+import { data } from '../datae';
 import { fromBlock } from '../../scripts/magic';
 import { humanise } from '../muffler/human';
 

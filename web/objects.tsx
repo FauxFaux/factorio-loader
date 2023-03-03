@@ -1,5 +1,5 @@
 import { Component, ComponentChild, createRef } from 'preact';
-import { data } from './index';
+import { data } from './datae';
 import { ItemIcon, RenderIcons } from './lists';
 
 export interface JItem {

@@ -2,7 +2,7 @@ import { Component } from 'preact';
 import { BlockContent } from '../scripts/load-recs';
 import { ColonJoined, Item, Recipe } from './objects';
 import { GpsLink, RenderIcons } from './lists';
-import { data } from './index';
+import { data } from './datae';
 import {
   colonMapCombinator,
   colonMapItems,

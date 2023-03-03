@@ -12,9 +12,6 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './web/index.html',
-      // dumb workaround for the init-in-html-instead-of-in-index.tsx
-      inject: 'head',
-      scriptLoading: 'blocking',
     }),
   ],
 

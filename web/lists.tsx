@@ -1,5 +1,5 @@
 import { Component, ComponentChild } from 'preact';
-import { data } from './index';
+import { data } from './datae';
 import { Stop } from '../scripts/load-recs';
 import { ItemOrFluid } from './objects';
 import { compareWithoutIcons } from './muffler/names';

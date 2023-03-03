@@ -1,6 +1,6 @@
 import { Component } from 'preact';
 
-import { data } from '../index';
+import { data } from '../datae';
 import { RenderIcons } from '../lists';
 import { BlockThumb } from './block';
 import { recipeDifference } from '../block-renderers';

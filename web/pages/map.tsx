@@ -1,6 +1,5 @@
 import { Component, createRef } from 'preact';
 import { useEffect } from 'preact/hooks';
-import 'leaflet/dist/leaflet.css';
 
 export class Map extends Component<{}> {
   map = createRef();

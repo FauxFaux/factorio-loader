@@ -1,5 +1,5 @@
 import { JFluid, JItem } from '../objects';
-import { data } from '../index';
+import { data } from '../datae';
 
 export type Colon = string;
 

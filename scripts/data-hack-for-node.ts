@@ -1,5 +1,5 @@
 import { readFileSync } from 'fs';
-import { data, precompute } from '../web';
+import { data, precompute } from '../web/datae';
 import fs from 'fs';
 
 export function initOnNode(exclude: (keyof typeof data)[] = []) {

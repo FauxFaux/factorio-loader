@@ -1,4 +1,4 @@
-import { data } from '.';
+import { data } from './datae';
 import {
   colonMapCombinator,
   colonMapItems,

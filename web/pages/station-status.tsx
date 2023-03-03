@@ -1,6 +1,6 @@
 import { Component } from 'preact';
 
-import { data } from '../index';
+import { data } from '../datae';
 import { Stop } from '../../scripts/load-recs';
 import { GpsLink, RenderIcons } from '../lists';
 import { ColonJoined } from '../objects';

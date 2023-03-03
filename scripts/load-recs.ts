@@ -4,7 +4,7 @@ import * as yaml from 'js-yaml';
 
 import { toBlock } from './magic';
 import { initOnNode, loadTrainFlows } from './data-hack-for-node';
-import { data } from '../web';
+import { data } from '../web/datae';
 import {
   isProvideStation,
   provideStationPurpose,
