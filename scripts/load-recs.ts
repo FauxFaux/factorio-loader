@@ -10,6 +10,7 @@ import {
   provideStationPurpose,
 } from '../web/muffler/stations';
 import { Colon, tupleToColon } from '../web/muffler/colon';
+import { sortByKeys } from '../web/muffler/deter';
 
 const base = process.argv[2];
 
@@ -312,12 +313,6 @@ function loadLines(kind: string): string[] {
   return fs
     .readFileSync(`${base}/${kind}.rec`, { encoding: 'utf-8' })
     .split('\x1d'); // (\035)
-}
-
-function sortByKeys<T>(obj: Record<string, T>): Record<string, T> {
-  return Object.fromEntries(
-    Object.entries(obj).sort(([a], [b]) => a.localeCompare(b)),
-  );
 }
 
 main();

@@ -3,7 +3,8 @@
 __pycache__
 app.js
 node_modules/
-dist/
+/dist/*
+.lint/
 web/bundle.js*
 ?.dot
 ?.svg

@@ -16,6 +16,8 @@ import { LtnTree } from './ltn-tree';
 import { LtnSummary, precomputeLtnSummary } from './ltn-summary';
 import { Colon } from './muffler/colon';
 
+import hashes from '../dist/hashes.json';
+
 export const data = {
   doc: {} as Record<string, BlockContent>,
   items: {} as Record<string, JItem>,
@@ -123,8 +125,11 @@ export function init(element: HTMLElement) {
       return await resp.json();
     };
     await Promise.all(
-      Object.keys(data).map(
-        async (k) => ((data as any)[k] = await get(`../data/${k}.json`)),
+      (Object.keys(data) as (keyof typeof data)[]).map(
+        async (k) => {
+          const key = `${k}.json` as const;
+          ((data as any)[k] = await get(`../data/${key}?v=${hashes[key]}`))
+        },
       ),
     );
     precompute();

@@ -7,7 +7,7 @@
     ],
     "module": "commonjs",
     "sourceMap": true,
-    "outDir": "./dist",
+    "outDir": ".lint/dist",
     "incremental": true,
     "pretty": true,
 
