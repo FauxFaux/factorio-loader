@@ -1,12 +1,12 @@
 import { Component, createRef } from 'preact';
+import L from 'leaflet';
 import { useEffect } from 'preact/hooks';
 import 'leaflet/dist/leaflet.css';
 
 export class Map extends Component<{}> {
   map = createRef();
 
-  async render() {
-    const L = await import('leaflet');
+  render() {
     // tl;dr leaflet uses 0,0 as the top left corner, factorio uses 0,0 as the centre, and then there's a scale factor
 
     // this is the relation between the screenshot scale (in screenshots.lua) and the leaflet coord system

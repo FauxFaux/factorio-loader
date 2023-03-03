@@ -6,7 +6,6 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, './dist'),
     filename: 'bundle.[contenthash].js',
-    chunkFilename: '[name].[contenthash].chunk.js',
     library: 'app',
   },
 
