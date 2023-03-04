@@ -13,6 +13,7 @@ import { ItemList, StationList } from './lists';
 
 import 'leaflet/dist/leaflet.css';
 import './main.css';
+import { Next } from './pages/next';
 
 export class App extends Component {
   render() {
@@ -36,6 +37,7 @@ export class App extends Component {
             gps="from the path"
             zoom="from the path"
           />
+          <Next path="/an/next" />
         </Router>
       </div>
     );
@@ -65,6 +67,11 @@ const header = (
           <li>
             <a href="/map" className="nav-link px-2 text-white">
               Map
+            </a>
+          </li>
+          <li>
+            <a href="/an/next" className="nav-link px-2 text-white">
+              Next
             </a>
           </li>
           <li>
