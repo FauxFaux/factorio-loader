@@ -3,35 +3,8 @@ import { Component } from 'preact';
 import { ColonJoined, Item, ItemOrFluid, TagList } from '../objects';
 import { Assemblers, recipeDifference, TrainStops } from '../block-renderers';
 import { data } from '../datae';
-import { fromBlock } from '../../scripts/magic';
 import { humanise } from '../muffler/human';
-
-export class BlockThumb extends Component<{ loc: string }> {
-  render(props: { loc: string }) {
-    let [lxs, lys] = props.loc.split(',');
-    const lx = parseInt(lxs);
-    const ly = parseInt(lys);
-    let [bx, by] = fromBlock([lx, ly]);
-    let [mx, my] = [bx, by];
-    // offset in screenshot command in notes.lua
-    my -= 768;
-    // dunno where this comes from, but easy-ish to measure from the screenshot; what does 0.04 mean in tiles/pixel?
-    const scale = 1.27;
-    mx *= scale;
-    my *= scale;
-    mx += 2048;
-    my += 2048;
-    bx += 192 / 2;
-    by += 128 / 2;
-    return (
-      <a href={`/map/${bx},${by}/7`}>
-        <span
-          style={`display: inline-block; width: 250px; height: 166px; background: url('../data/screenshot.jpg') -${mx}px -${my}px`}
-        />
-      </a>
-    );
-  }
-}
+import { BlockThumb } from './map';
 
 export class BlockPage extends Component<{ loc: string }> {
   render(props: { loc: string }) {

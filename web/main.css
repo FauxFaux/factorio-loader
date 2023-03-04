@@ -110,3 +110,10 @@
   width: 100%;
   background: black;
 }
+
+.block-thumb {
+  height: 140px;
+  width: 204px;
+  background: black;
+  cursor: pointer;
+}
