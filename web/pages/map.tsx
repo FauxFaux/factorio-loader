@@ -18,7 +18,7 @@ export function leafletTransform() {
   // this is the relation between the screenshot scale (in screenshots.lua) and the leaflet coord system
   const scale = 32;
   // 8.5 is the `-8` in screenshots.lua, and I knew what 512 was at some point
-  const off = 8.5 * (512 / scale);
+  const off = 16.5 * 8;
   return new L.Transformation(1 / scale, off, 1 / scale, off);
 }
 
@@ -27,11 +27,11 @@ function leafletMap(transformation: Transformation, el: HTMLElement) {
     transformation,
   });
   const map = L.map(el, { crs });
-  L.tileLayer('../map-tiles/{z}/{x}/{y}.avif', {
-    // 4, 8 are from map-tiles' first level directory; 11 is like my opinion man
-    minZoom: 4,
-    maxNativeZoom: 8,
-    maxZoom: 11,
+  L.tileLayer('../map-tiles/{z}/{x}/{y}.avif?v=2', {
+    // 0, 9 are from map-tiles' first level directory; 12 is like my opinion man
+    minZoom: 0,
+    maxNativeZoom: 9,
+    maxZoom: 12,
   }).addTo(map);
   return map;
 }

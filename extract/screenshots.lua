@@ -6,10 +6,11 @@
 
 local maxpx = 4096
 local zoomscalefactor = 32
-local zoom = 0.25
+local zoom = 0.5
 local gamepershot = maxpx / (zoomscalefactor * zoom)
-for y = -8, 7 do
-    for x = -8, 7 do
+local half_shots = 16
+for y = -half_shots, (half_shots -1) do
+    for x = -half_shots, (half_shots -1) do
         local pos = { x = x * gamepershot, y = y * gamepershot }
         game.take_screenshot({
             position = pos,
