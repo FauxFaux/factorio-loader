@@ -14,6 +14,31 @@ function recipeBan(name: string): boolean {
   );
 }
 
+const hiddenRequirements: Record<string, JIngredient> = {
+  'caged-scrondrix-1': { type: 'item', name: 'scrondrix', amount: 0 },
+  'caged-scrondrix-1a': { type: 'item', name: 'scrondrix', amount: 0 },
+  'caged-scrondrix-2': { type: 'item', name: 'scrondrix', amount: 0 },
+  'caged-scrondrix-2a': { type: 'item', name: 'scrondrix', amount: 0 },
+  'caged-scrondrix-3': { type: 'item', name: 'scrondrix', amount: 0 },
+  'caged-scrondrix-3a': { type: 'item', name: 'scrondrix', amount: 0 },
+  'caged-scrondrix-4': { type: 'item', name: 'scrondrix', amount: 0 },
+  'caged-scrondrix-4a': { type: 'item', name: 'scrondrix', amount: 0 },
+  'caged-scrondrix-5': { type: 'item', name: 'scrondrix', amount: 0 },
+  'scrondrix-cub-1': { type: 'item', name: 'scrondrix', amount: 0 },
+  'scrondrix-cub-2': { type: 'item', name: 'scrondrix', amount: 0 },
+  'scrondrix-cub-3': { type: 'item', name: 'scrondrix', amount: 0 },
+  'scrondrix-cub-4': { type: 'item', name: 'scrondrix', amount: 0 },
+  'scrondrix-mature-01': { type: 'item', name: 'scrondrix', amount: 0 },
+  'caged-dingrits1': { type: 'item', name: 'dingrits', amount: 0 },
+  'caged-dingrits2': { type: 'item', name: 'dingrits', amount: 0 },
+  'caged-dingrits3': { type: 'item', name: 'dingrits', amount: 0 },
+  'caged-dingrits4': { type: 'item', name: 'dingrits', amount: 0 },
+  'caged-dingrits5': { type: 'item', name: 'dingrits', amount: 0 },
+  'caged-dingrits6': { type: 'item', name: 'dingrits', amount: 0 },
+  'caged-dingrits7': { type: 'item', name: 'dingrits', amount: 0 },
+  'dingrits-mature-01': { type: 'item', name: 'dingrits', amount: 0 },
+};
+
 export class HowToMake extends Component<{ colon: Colon }> {
   render(props: { colon: Colon }) {
     const recipesMaking: Record<string, string[]> = {};
@@ -24,6 +49,10 @@ export class HowToMake extends Component<{ colon: Colon }> {
         if (!recipesMaking[colon]) recipesMaking[colon] = [];
         recipesMaking[colon].push(name);
       }
+    }
+
+    if (!recipesMaking[props.colon]) {
+      return <div>Production is believed to be impossible</div>;
     }
 
     const canMake = haveMade();
@@ -41,11 +70,16 @@ export class HowToMake extends Component<{ colon: Colon }> {
       if (!recipe) return 10;
       let missing = 0;
       const products = new Set(...recipe.products.map(objToColon));
-      for (const ing of recipe.ingredients ?? []) {
+      for (const ing of (recipe.ingredients ?? []).concat(
+        hiddenRequirements[name] ?? [],
+      )) {
         const colon = objToColon(ing);
         if (products.has(colon)) continue;
         if (canMake.has(colon)) continue;
-        if (!recipesMaking[colon]) continue;
+        if (!recipesMaking[colon]) {
+          missing += 20;
+          continue;
+        }
         missing +=
           Math.min(...recipesMaking[colon].map((name) => countMissing(name))) +
           1;
@@ -75,7 +109,9 @@ export class HowToMake extends Component<{ colon: Colon }> {
       const newIngredients = new Set<string>();
       for (const name of scanning) {
         const recipe = data.recipes[name];
-        for (const ing of recipe?.ingredients ?? []) {
+        for (const ing of (recipe?.ingredients ?? []).concat(
+          hiddenRequirements[name] ?? [],
+        )) {
           const colon = objToColon(ing);
           if (canMake.has(colon)) continue;
           newIngredients.add(colon);
