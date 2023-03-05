@@ -5,12 +5,17 @@ import { ColonJoined, Recipe } from '../objects';
 import { objToColon } from '../muffler/colon';
 import { unlockedRecipes } from '../muffler/walk-techs';
 
-export function stepsToUnlockRecipe(recipe: string): number {
+export function techToUnlock(recipe: string): string | null {
   const found = Object.entries(data.technologies).find(([, tech]) =>
     tech.unlocks.includes(recipe),
   );
-  if (!found) return 98;
-  const [tech] = found;
+  if (found) return found[0];
+  return null;
+}
+
+export function stepsToUnlockRecipe(recipe: string): number {
+  const tech = techToUnlock(recipe);
+  if (!tech) return 98;
   return stepsToUnlock(tech);
 }
 

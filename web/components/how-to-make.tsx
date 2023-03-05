@@ -3,7 +3,7 @@ import { data } from '../datae';
 import { Colon, objToColon } from '../muffler/colon';
 import { ColonJoined, JIngredient, JRecipe } from '../objects';
 import { haveMade, unlockedRecipes } from '../muffler/walk-techs';
-import { stepsToUnlock, stepsToUnlockRecipe } from '../pages/next';
+import { stepsToUnlockRecipe, techToUnlock } from '../pages/next';
 
 function recipeBan(name: string): boolean {
   return (
@@ -33,8 +33,9 @@ export class HowToMake extends Component<{ colon: Colon }> {
       if (missingIngredients[name] === null) {
         return 100;
       }
-      if (missingIngredients[name] !== undefined)
+      if (missingIngredients[name] !== undefined) {
         return missingIngredients[name];
+      }
       missingIngredients[name] = null as any;
       const recipe = data.recipes[name];
       if (!recipe) return 10;
@@ -58,63 +59,109 @@ export class HowToMake extends Component<{ colon: Colon }> {
       countMissing(name);
     }
 
-    console.log(missingIngredients);
+    const recipes = [...recipesMaking[props.colon]];
 
-    // const recipes = recipesMaking[props.colon];
-    const recipes = Object.entries(data.recipes)
-      .filter(([name]) => !recipeBan(name))
-      .filter(
-        ([, recipe]) =>
-          undefined !==
-          recipe.products.find((prod) => objToColon(prod) === props.colon),
-      );
+    const bad = (name: string) =>
+      missingIngredients[name] + stepsToUnlockRecipe(name);
+    recipes.sort((a, b) => bad(a) - bad(b));
 
     // const needInfoOn = new Set(
     //   ...recipes.flatMap(([, recipe]) => recipe.ingredients.map(objToColon))
     //     .filter((colon) => !canMake.has(colon)),
     // );
 
-    let scanning = recipes.map(([name]) => name);
+    let scanning = recipes;
     for (let i = 0; i < 4; ++i) {
-      let newRecipes: string[] = [];
+      const newIngredients = new Set<string>();
       for (const name of scanning) {
         const recipe = data.recipes[name];
         for (const ing of recipe?.ingredients ?? []) {
           const colon = objToColon(ing);
           if (canMake.has(colon)) continue;
-          for (const [name] of Object.entries(data.recipes)
-            .filter(([name]) => !recipeBan(name))
-            .filter(([, recipe]) =>
-              recipe.products.some((p) => objToColon(p) === colon),
-            )) {
-            newRecipes.push(name);
-          }
+          newIngredients.add(colon);
         }
       }
+
+      const newRecipes = new Set<string>();
+
+      for (const ing of newIngredients) {
+        const candidates = [...(recipesMaking[ing] ?? [])];
+        const best = candidates.sort(
+          (a, b) => missingIngredients[a] - missingIngredients[b],
+        )?.[0];
+        newRecipes.add(best);
+      }
+
       for (const recipe of newRecipes) {
-        if (!recipes.some(([name]) => name === recipe))
-          recipes.push([recipe, data.recipes[recipe]]);
+        if (!recipes.some((name) => name === recipe)) {
+          recipes.push(recipe);
+        }
       }
       // TODO: cull earlier
       if (recipes.length > 100) break;
-      scanning = newRecipes;
+      scanning = [...newRecipes];
     }
-
-    console.log(recipes);
 
     return (
       <table class={'table'}>
+        <thead>
+          <tr>
+            <th>Reqs</th>
+            <th>Recipe name</th>
+            <th>Products</th>
+            <th>Ingredients</th>
+          </tr>
+        </thead>
         <tbody>
           {recipes
             .slice(0, 100)
+            .filter((name) => !!data.recipes[name])
             // .sort(([an, ao], [bn, bo]) => usefulness(bn, bo) - usefulness(an, ao))
-            .map(([name]) => {
+            .map((name) => {
               const recipe = data.recipes[name];
+              const lockedTechs = stepsToUnlockRecipe(name);
+              const toUnlock = techToUnlock(name) ?? '??';
+              const missing = missingIngredients[name];
               return (
                 <tr>
                   <td>
-                    {missingIngredients[name]} {usefulness(name, recipe)}{' '}
-                    {stepsToUnlockRecipe(name)}
+                    <ul class={'ul-none'}>
+                      <li>
+                        {missing < 100 ? (
+                          <abbr
+                            title={`found a production chain requiring ${missing} entirely new items`}
+                          >
+                            {missing} ✨
+                          </abbr>
+                        ) : (
+                          <abbr
+                            title={
+                              `found only a production chain with a cycle; presumably ` +
+                              `requiring bootstrapping somehow (${missing}) (or this is a massive bug)`
+                            }
+                          >
+                            🔃
+                          </abbr>
+                        )}
+                      </li>
+                      <li>
+                        {lockedTechs === 0 ? (
+                          <abbr title={`available`}>✅</abbr>
+                        ) : lockedTechs === 1 ? (
+                          <abbr
+                            title={`requires researching "${toUnlock}" (available)`}
+                          >
+                            🔒
+                          </abbr>
+                        ) : (
+                          <abbr
+                            title={`requires ${lockedTechs} technologies to unlock, up to "${toUnlock}"`}
+                          >
+                            {lockedTechs} 🔒🔒
+                          </abbr>
+                        )}
+                      </li>
+                    </ul>
                   </td>
                   <td>
                     <abbr title={name}>{recipe.localised_name}</abbr>
