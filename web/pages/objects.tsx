@@ -44,6 +44,70 @@ export class IoFDetail extends Component<{
       ([, amount]) => amount >= maxBlock / 2,
     );
 
+    const storage = (
+      <>
+        <h3>Storage:</h3>
+        <Storage type={props.type} name={props.name} />
+        {Object.keys(blocksWith).length ? (
+          <>
+            <h3>Blocks with this resource:</h3>
+            <ul>
+              {shownBlocks
+                .sort(([, a], [, b]) => b - a)
+                .map(([loc, amount]) => (
+                  <li>
+                    {humanise(amount)}: <BlockLine block={loc} />
+                  </li>
+                ))}
+              <li>... and {initial - shownBlocks.length} more.</li>
+            </ul>
+          </>
+        ) : (
+          <></>
+        )}
+      </>
+    );
+
+    const prodStats = unBarrelled || stats?.input?.total || stats?.output?.total ? (
+      <>
+        <h3>
+          Production stats{' '}
+          {unBarrelled ? (
+            <>
+              (see <Fluid name={unBarrelled} />)
+            </>
+          ) : (
+            ''
+          )}
+        </h3>
+        <table class="table prod-stats">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Production</th>
+              <th>Consumption</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Total</td>
+              <td>{humanise(stats?.input?.total)}</td>
+              <td>{humanise(stats?.output?.total)}</td>
+            </tr>
+            {['5s', '1m', '10m', '1h', '10h', '50h', '250h', '1000h'].map(
+              (x, i) => (
+                <tr>
+                  <td>{x}</td>
+                  <td>{humanise(stats?.input?.perTime?.[i])}/min</td>
+                  <td>{humanise(stats?.output?.perTime?.[i])}/min</td>
+                </tr>
+              ),
+            )}
+          </tbody>
+        </table>
+      </>
+    ) : <h5>(production stats unavailable)</h5>;
+
     return (
       <>
         <div class="row">
@@ -97,60 +161,8 @@ export class IoFDetail extends Component<{
             <LtnRequests colon={colon} />
           </div>
           <div className="col">
-            <h3>Storage:</h3>
-            <Storage type={props.type} name={props.name} />
-            {Object.keys(blocksWith).length ? (
-              <>
-                <h3>Blocks with this resource:</h3>
-                <ul>
-                  {shownBlocks
-                    .sort(([, a], [, b]) => b - a)
-                    .map(([loc, amount]) => (
-                      <li>
-                        {humanise(amount)}: <BlockLine block={loc} />
-                      </li>
-                    ))}
-                  <li>... and {initial - shownBlocks.length} more.</li>
-                </ul>
-              </>
-            ) : (
-              <></>
-            )}
-            <h3>
-              Production stats{' '}
-              {unBarrelled ? (
-                <>
-                  (see <Fluid name={unBarrelled} />)
-                </>
-              ) : (
-                ''
-              )}
-            </h3>
-            <table class="table prod-stats">
-              <thead>
-                <tr>
-                  <th></th>
-                  <th>Production</th>
-                  <th>Consumption</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Total</td>
-                  <td>{humanise(stats?.input?.total)}</td>
-                  <td>{humanise(stats?.output?.total)}</td>
-                </tr>
-                {['5s', '1m', '10m', '1h', '10h', '50h', '250h', '1000h'].map(
-                  (x, i) => (
-                    <tr>
-                      <td>{x}</td>
-                      <td>{humanise(stats?.input?.perTime?.[i])}/min</td>
-                      <td>{humanise(stats?.output?.perTime?.[i])}/min</td>
-                    </tr>
-                  ),
-                )}
-              </tbody>
-            </table>
+            {storage}
+            {prodStats}
           </div>
         </div>
 
