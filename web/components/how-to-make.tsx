@@ -1,19 +1,66 @@
 import { Component } from 'preact';
 import { data } from '../datae';
-import { objToColon } from '../muffler/colon';
+import { Colon, objToColon } from '../muffler/colon';
 import { ColonJoined, JIngredient, JRecipe } from '../objects';
 import { haveMade, unlockedRecipes } from '../muffler/walk-techs';
+import { stepsToUnlock, stepsToUnlockRecipe } from '../pages/next';
 
 function recipeBan(name: string): boolean {
   return (
     name.endsWith('-barrel') ||
+    name.endsWith('-pyvoid') ||
     name.endsWith('-pyvoid-fluid') ||
     name.endsWith('-pyvoid-gas')
   );
 }
 
-export class HowToMake extends Component<{ colon: string }> {
-  render(props: { colon: string }) {
+export class HowToMake extends Component<{ colon: Colon }> {
+  render(props: { colon: Colon }) {
+    const recipesMaking: Record<string, string[]> = {};
+    for (const [name, recipe] of Object.entries(data.recipes)) {
+      if (recipeBan(name)) continue;
+      for (const prod of recipe.products) {
+        const colon = objToColon(prod);
+        if (!recipesMaking[colon]) recipesMaking[colon] = [];
+        recipesMaking[colon].push(name);
+      }
+    }
+
+    const canMake = haveMade();
+
+    const missingIngredients: Record<string, number> = {};
+    const countMissing = (name: string) => {
+      if (missingIngredients[name] === null) {
+        return 100;
+      }
+      if (missingIngredients[name] !== undefined)
+        return missingIngredients[name];
+      missingIngredients[name] = null as any;
+      const recipe = data.recipes[name];
+      if (!recipe) return 10;
+      let missing = 0;
+      const products = new Set(...recipe.products.map(objToColon));
+      for (const ing of recipe.ingredients ?? []) {
+        const colon = objToColon(ing);
+        if (products.has(colon)) continue;
+        if (canMake.has(colon)) continue;
+        if (!recipesMaking[colon]) continue;
+        missing +=
+          Math.min(...recipesMaking[colon].map((name) => countMissing(name))) +
+          1;
+      }
+      missingIngredients[name] = missing;
+      return missing;
+    };
+
+    for (const name of Object.keys(data.recipes)) {
+      if (recipeBan(name)) continue;
+      countMissing(name);
+    }
+
+    console.log(missingIngredients);
+
+    // const recipes = recipesMaking[props.colon];
     const recipes = Object.entries(data.recipes)
       .filter(([name]) => !recipeBan(name))
       .filter(
@@ -21,9 +68,6 @@ export class HowToMake extends Component<{ colon: string }> {
           undefined !==
           recipe.products.find((prod) => objToColon(prod) === props.colon),
       );
-
-    const unlocked = unlockedRecipes();
-    const canMake = haveMade();
 
     // const needInfoOn = new Set(
     //   ...recipes.flatMap(([, recipe]) => recipe.ingredients.map(objToColon))
@@ -34,7 +78,6 @@ export class HowToMake extends Component<{ colon: string }> {
     for (let i = 0; i < 4; ++i) {
       let newRecipes: string[] = [];
       for (const name of scanning) {
-        if (recipeBan(name)) continue;
         const recipe = data.recipes[name];
         for (const ing of recipe?.ingredients ?? []) {
           const colon = objToColon(ing);
@@ -47,7 +90,6 @@ export class HowToMake extends Component<{ colon: string }> {
             newRecipes.push(name);
           }
         }
-        if (newRecipes.length > 100) break;
       }
       for (const recipe of newRecipes) {
         if (!recipes.some(([name]) => name === recipe))
@@ -66,42 +108,45 @@ export class HowToMake extends Component<{ colon: string }> {
           {recipes
             .slice(0, 100)
             // .sort(([an, ao], [bn, bo]) => usefulness(bn, bo) - usefulness(an, ao))
-            .map(([name, recipe]) => (
-              <tr>
-                <td>
-                  {usefulness(name, recipe)}{' '}
-                  {unlocked.has(name) ? 'true' : 'false'}
-                </td>
-                <td>
-                  <abbr title={name}>{recipe.localised_name}</abbr>
-                </td>
-                <td>
-                  <ul class={'ul-none'}>
-                    {recipe.products
-                      .sort((a, b) => {
-                        if (objToColon(a) === props.colon) return -1;
-                        if (objToColon(b) === props.colon) return 1;
-                        return (b.amount ?? 1) - (a.amount ?? 1);
-                      })
-                      .map((p) => (
+            .map(([name]) => {
+              const recipe = data.recipes[name];
+              return (
+                <tr>
+                  <td>
+                    {missingIngredients[name]} {usefulness(name, recipe)}{' '}
+                    {stepsToUnlockRecipe(name)}
+                  </td>
+                  <td>
+                    <abbr title={name}>{recipe.localised_name}</abbr>
+                  </td>
+                  <td>
+                    <ul class={'ul-none'}>
+                      {recipe.products
+                        .sort((a, b) => {
+                          if (objToColon(a) === props.colon) return -1;
+                          if (objToColon(b) === props.colon) return 1;
+                          return (b.amount ?? 1) - (a.amount ?? 1);
+                        })
+                        .map((p) => (
+                          <li>
+                            <span class={'amount'}>{p.amount}</span> &times;{' '}
+                            <ColonJoined label={objToColon(p)} />
+                          </li>
+                        ))}
+                    </ul>
+                  </td>
+                  <td>
+                    <ul class={'ul-none'}>
+                      {recipe.ingredients?.map((ing) => (
                         <li>
-                          <span class={'amount'}>{p.amount}</span> &times;{' '}
-                          <ColonJoined label={objToColon(p)} />
+                          <IngredientLine ing={ing} />
                         </li>
                       ))}
-                  </ul>
-                </td>
-                <td>
-                  <ul class={'ul-none'}>
-                    {recipe.ingredients?.map((ing) => (
-                      <li>
-                        <IngredientLine ing={ing} />
-                      </li>
-                    ))}
-                  </ul>
-                </td>
-              </tr>
-            ))}
+                    </ul>
+                  </td>
+                </tr>
+              );
+            })}
         </tbody>
       </table>
     );
