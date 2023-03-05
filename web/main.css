@@ -117,3 +117,14 @@
   background: black;
   cursor: pointer;
 }
+
+.amount {
+  display: inline-block;
+  text-align: right;
+  width: 2em;
+}
+
+.ul-none {
+  list-style-type: none;
+  padding-left: 0;
+}

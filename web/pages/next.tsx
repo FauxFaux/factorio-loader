@@ -3,6 +3,7 @@ import { Component } from 'preact';
 import { data } from '../datae';
 import { ColonJoined, Recipe } from '../objects';
 import { objToColon } from '../muffler/colon';
+import { unlockedRecipes } from '../muffler/walk-techs';
 
 function stepsToUnlock(tech: string): number {
   const techData = data.technologies[tech];
@@ -19,13 +20,9 @@ export class Next extends Component<{}> {
       .sort(([a], [b]) => stepsToUnlock(a) - stepsToUnlock(b));
 
     const canMake = new Set(
-      Object.values(data.technologies)
-        .filter((tech) => tech.researched)
-        .flatMap((tech) =>
-          tech.unlocks.flatMap((recipe) =>
-            data.recipes[recipe].products.flatMap((p) => objToColon(p)),
-          ),
-        ),
+      [...unlockedRecipes()].flatMap((recipe) =>
+        data.recipes[recipe].products.flatMap((p) => objToColon(p)),
+      ),
     );
 
     // at 700 the browser/virtual dom crashes
