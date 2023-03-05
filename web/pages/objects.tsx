@@ -5,7 +5,7 @@ import { ItemIcon } from '../lists';
 import { BlockLine, Fluid, Item, ItemOrFluid } from '../objects';
 import { objToColon } from '../muffler/colon';
 import { humanise } from '../muffler/human';
-import { HowToMake } from '../components/how-to-make';
+import { HowToMake, IngredientLine } from '../components/how-to-make';
 
 export class IoFDetail extends Component<{
   name: string;
@@ -277,8 +277,7 @@ class RecipeUsage extends Component<{ type: string; name: string }> {
               <ul>
                 {recipe.ingredients?.map((ing) => (
                   <li>
-                    {ing.amount} *{' '}
-                    <ItemOrFluid type={ing.type} name={ing.name} />
+                    <IngredientLine ing={ing} />
                   </li>
                 ))}
               </ul>

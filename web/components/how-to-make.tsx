@@ -1,16 +1,26 @@
 import { Component } from 'preact';
-import { computed, data } from '../datae';
+import { data } from '../datae';
 import { objToColon } from '../muffler/colon';
-import { ColonJoined, JRecipe, Recipe } from '../objects';
+import { ColonJoined, JIngredient, JRecipe } from '../objects';
 import { haveMade, unlockedRecipes } from '../muffler/walk-techs';
+
+function recipeBan(name: string): boolean {
+  return (
+    name.endsWith('-barrel') ||
+    name.endsWith('-pyvoid-fluid') ||
+    name.endsWith('-pyvoid-gas')
+  );
+}
 
 export class HowToMake extends Component<{ colon: string }> {
   render(props: { colon: string }) {
-    const recipes = Object.entries(data.recipes).filter(
-      ([, recipe]) =>
-        undefined !==
-        recipe.products.find((prod) => objToColon(prod) === props.colon),
-    );
+    const recipes = Object.entries(data.recipes)
+      .filter(([name]) => !recipeBan(name))
+      .filter(
+        ([, recipe]) =>
+          undefined !==
+          recipe.products.find((prod) => objToColon(prod) === props.colon),
+      );
 
     const unlocked = unlockedRecipes();
     const canMake = haveMade();
@@ -24,23 +34,27 @@ export class HowToMake extends Component<{ colon: string }> {
     for (let i = 0; i < 4; ++i) {
       let newRecipes: string[] = [];
       for (const name of scanning) {
-        if (name.endsWith('-barrel')) continue;
+        if (recipeBan(name)) continue;
         const recipe = data.recipes[name];
-        for (const ing of recipe.ingredients) {
+        for (const ing of recipe?.ingredients ?? []) {
           const colon = objToColon(ing);
           if (canMake.has(colon)) continue;
           for (const [name] of Object.entries(data.recipes)
-            .filter(([name]) => !name.endsWith('-barrel'))
+            .filter(([name]) => !recipeBan(name))
             .filter(([, recipe]) =>
               recipe.products.some((p) => objToColon(p) === colon),
             )) {
             newRecipes.push(name);
           }
         }
+        if (newRecipes.length > 100) break;
       }
       for (const recipe of newRecipes) {
-        if (!recipes.some(([name]) => name === recipe)) recipes.push([recipe, data.recipes[recipe]]);
+        if (!recipes.some(([name]) => name === recipe))
+          recipes.push([recipe, data.recipes[recipe]]);
       }
+      // TODO: cull earlier
+      if (recipes.length > 100) break;
       scanning = newRecipes;
     }
 
@@ -50,6 +64,7 @@ export class HowToMake extends Component<{ colon: string }> {
       <table class={'table'}>
         <tbody>
           {recipes
+            .slice(0, 100)
             // .sort(([an, ao], [bn, bo]) => usefulness(bn, bo) - usefulness(an, ao))
             .map(([name, recipe]) => (
               <tr>
@@ -57,7 +72,9 @@ export class HowToMake extends Component<{ colon: string }> {
                   {usefulness(name, recipe)}{' '}
                   {unlocked.has(name) ? 'true' : 'false'}
                 </td>
-                <td><abbr title={name}>{recipe.localised_name}</abbr></td>
+                <td>
+                  <abbr title={name}>{recipe.localised_name}</abbr>
+                </td>
                 <td>
                   <ul class={'ul-none'}>
                     {recipe.products
@@ -76,10 +93,9 @@ export class HowToMake extends Component<{ colon: string }> {
                 </td>
                 <td>
                   <ul class={'ul-none'}>
-                    {recipe.ingredients.map((ing) => (
+                    {recipe.ingredients?.map((ing) => (
                       <li>
-                        <span class={'amount'}>{ing.amount}</span> &times;{' '}
-                        <ColonJoined label={objToColon(ing)} />
+                        <IngredientLine ing={ing} />
                       </li>
                     ))}
                   </ul>
@@ -92,6 +108,31 @@ export class HowToMake extends Component<{ colon: string }> {
   }
 }
 
+export const IngredientLine = ({ ing }: { ing: JIngredient }) => (
+  <>
+    <Availability colon={objToColon(ing)} />{' '}
+    <span class={'amount'}>{ing.amount}</span> &times;{' '}
+    <ColonJoined label={objToColon(ing)} />
+  </>
+);
+
+const Availability = ({ colon }: { colon: string }) => {
+  const ps = data.prodStats[colon];
+  let icon;
+  let alt;
+  if (ps?.ltn ?? 0 > 1) {
+    icon = require('svg-url-loader!flat-color-icons/svg/low_priority.svg');
+    alt = 'all good; shipped on ltn';
+  } else if (ps?.output?.total ?? 0 > 1) {
+    icon = require('svg-url-loader!flat-color-icons/svg/medium_priority.svg');
+    alt = 'produced somewhere, but not shipped';
+  } else {
+    icon = require('svg-url-loader!flat-color-icons/svg/high_priority.svg');
+    alt = 'not produced anywhere';
+  }
+  return <img class={'avail-icon'} src={icon} alt={alt} />;
+};
+
 function usefulness(name: string, recipe: JRecipe): number {
   let score = 0;
 
@@ -99,10 +140,10 @@ function usefulness(name: string, recipe: JRecipe): number {
     score -= 10;
   }
 
-  score -= recipe.ingredients.length;
-  score -= recipe.products.length;
+  score -= recipe.ingredients?.length ?? 10;
+  score -= recipe.products?.length ?? 10;
 
-  for (const ing of recipe.ingredients) {
+  for (const ing of recipe.ingredients ?? []) {
     const scale = ing.amount ?? 1;
     const colon = objToColon(ing);
 
@@ -127,7 +168,7 @@ function usefulness(name: string, recipe: JRecipe): number {
     }
   }
 
-  for (const prod of recipe.products) {
+  for (const prod of recipe.products ?? []) {
     const colon = objToColon(prod);
     const scale = (prod.probability ?? 1) * (prod.amount ?? 1);
 
