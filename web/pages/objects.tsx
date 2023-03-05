@@ -5,6 +5,7 @@ import { ItemIcon } from '../lists';
 import { BlockLine, Fluid, Item, ItemOrFluid } from '../objects';
 import { objToColon } from '../muffler/colon';
 import { humanise } from '../muffler/human';
+import { HowToMake } from '../components/how-to-make';
 
 export class IoFDetail extends Component<{
   name: string;
@@ -156,6 +157,11 @@ export class IoFDetail extends Component<{
         <div className="row">
           <h3>Recipes in use in factory, most assemblers first:</h3>
           <RecipeUsage type={props.type} name={props.name} />
+        </div>
+
+        <div className="row">
+          <h3>How to make:</h3>
+          <HowToMake colon={colon} />
         </div>
 
         <div className="row">

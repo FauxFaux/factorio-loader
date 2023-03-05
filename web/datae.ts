@@ -25,7 +25,9 @@ export const data = {
 } as const;
 
 export interface FlowStats {
+  /** total ever made/consumed */
   total: number;
+  /** 5s, ... 100h */
   perTime: number[];
 }
 
