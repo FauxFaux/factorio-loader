@@ -1,8 +1,8 @@
 import { Component } from 'preact';
 import { data } from '../datae';
 import { Colon, objToColon } from '../muffler/colon';
-import { ColonJoined, JIngredient, JRecipe } from '../objects';
-import { haveMade, unlockedRecipes } from '../muffler/walk-techs';
+import { ColonJoined, JIngredient } from '../objects';
+import { haveMade } from '../muffler/walk-techs';
 import { stepsToUnlockRecipe, techToUnlock } from '../pages/next';
 
 function recipeBan(name: string): boolean {
@@ -105,7 +105,7 @@ export class HowToMake extends Component<{ colon: Colon }> {
     // );
 
     let scanning = recipes;
-    for (let i = 0; i < 4; ++i) {
+    for (let i = 0; i < 10; ++i) {
       const newIngredients = new Set<string>();
       for (const name of scanning) {
         const recipe = data.recipes[name];
@@ -123,7 +123,7 @@ export class HowToMake extends Component<{ colon: Colon }> {
       for (const ing of newIngredients) {
         const candidates = [...(recipesMaking[ing] ?? [])];
         const best = candidates.sort(
-          (a, b) => missingIngredients[a] - missingIngredients[b],
+          (a, b) => bad(a) - bad(b),
         )?.[0];
         newRecipes.add(best);
       }
@@ -251,7 +251,8 @@ const Availability = ({ colon }: { colon: string }) => {
   if (ps?.ltn ?? 0 > 1) {
     icon = require('svg-url-loader!flat-color-icons/svg/low_priority.svg');
     alt = 'all good; shipped on ltn';
-  } else if (ps?.output?.total ?? 0 > 1) {
+    // yes, 'input' is the right way around
+  } else if (ps?.input?.total ?? 0 > 1) {
     icon = require('svg-url-loader!flat-color-icons/svg/medium_priority.svg');
     alt = 'produced somewhere, but not shipped';
   } else {
@@ -260,66 +261,3 @@ const Availability = ({ colon }: { colon: string }) => {
   }
   return <img class={'avail-icon'} src={icon} alt={alt} />;
 };
-
-function usefulness(name: string, recipe: JRecipe): number {
-  let score = 0;
-
-  if (!unlockedRecipes().has(name)) {
-    score -= 10;
-  }
-
-  score -= recipe.ingredients?.length ?? 10;
-  score -= recipe.products?.length ?? 10;
-
-  for (const ing of recipe.ingredients ?? []) {
-    const scale = ing.amount ?? 1;
-    const colon = objToColon(ing);
-
-    if (ing.type === 'fluid') {
-      score -= 1;
-    }
-
-    // it was shipped by ltn last simulation
-    const ps = data.prodStats[colon];
-    if ((ps?.ltn ?? 0) > 1e3 * scale) {
-      score += 2;
-    }
-
-    // we've made a load of them
-    if (ps?.output?.total ?? 0 > 1e4 * scale) {
-      score += 1;
-    }
-
-    // we're making a load of them
-    if (ps?.output?.perTime[3] ?? 0 > 1e2 * scale) {
-      score += 1;
-    }
-  }
-
-  for (const prod of recipe.products ?? []) {
-    const colon = objToColon(prod);
-    const scale = (prod.probability ?? 1) * (prod.amount ?? 1);
-
-    if (prod.type === 'fluid') {
-      score -= 1;
-    }
-
-    // it was shipped by ltn last simulation
-    const ps = data.prodStats[colon];
-    if ((ps?.ltn ?? 0) > 1e3 * scale) {
-      score += 2;
-    }
-
-    // we've made a load of them
-    if (ps?.input?.total ?? 0 > 1e4 * scale) {
-      score += 1;
-    }
-
-    // we're making a load of them
-    if (ps?.input?.perTime[3] ?? 0 > 1e2 * scale) {
-      score += 1;
-    }
-  }
-
-  return score;
-}

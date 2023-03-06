@@ -20,7 +20,8 @@ export function unlockedItems(): Set<string> {
 export function haveMade(): Set<string> {
   return new Set(
     Object.entries(data.prodStats)
-      .filter(([, stats]) => (stats.output?.total ?? 0) > 0)
+      // yes, 'input' is the right way around
+      .filter(([, stats]) => (stats.input?.total ?? 0) > 0)
       .map(([name]) => name),
   );
 }
