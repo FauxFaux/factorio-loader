@@ -1,5 +1,6 @@
 #!/usr/bin/env -S npx babel-node -x .ts,.tsx
 import * as fs from 'fs';
+import { readFileSync, writeFileSync } from "fs";
 import * as yaml from 'js-yaml';
 
 import { toBlock } from './magic';
@@ -9,8 +10,9 @@ import {
   isProvideStation,
   provideStationPurpose,
 } from '../web/muffler/stations';
-import { Colon, tupleToColon } from '../web/muffler/colon';
+import { Colon, objToColon, tupleToColon } from '../web/muffler/colon';
 import { sortByKeys } from '../web/muffler/deter';
+import { JRecipe } from "../web/objects";
 
 const base = process.argv[2];
 
@@ -68,6 +70,73 @@ interface Patch {
 }
 
 function main() {
+  const voidableItems = new Set<Colon>();
+  const barrelFormOf: Record<string, string> = {};
+  const regular: Record<string, JRecipe> = {};
+
+  const tools: Tools = JSON.parse(
+    readFileSync(require.resolve('../raw/rust-tools-export-76.json'), 'utf-8'),
+  );
+  for (const [name, rec] of Object.entries(tools.recipe_prototypes)) {
+    if (name.endsWith('-pyvoid')) {
+      if (
+        rec.products.length !== 1 ||
+        rec.products[0].name !== 'ash' ||
+        rec.products[0].amount !== 1 ||
+        rec.ingredients.length !== 1
+      ) {
+        throw new Error(`invalid pyvoid item recipe: ${name}`);
+      }
+
+      const ing = rec.ingredients[0];
+      if (ing.type !== 'item' || ing.amount !== 1) {
+        throw new Error('pyvoid recipe should consume exactly one item');
+      }
+
+      voidableItems.add(objToColon(ing));
+
+      continue;
+    }
+    if (name.endsWith('-pyvoid-fluid') || name.endsWith('-pyvoid-gas')) {
+      const ing = rec.ingredients[0];
+      if (ing.type !== 'fluid') {
+        throw new Error(
+          `pyvoid-fluid/pyvoild-gas recipe should consume fluids: ${name}`,
+        );
+      }
+      voidableItems.add(objToColon(ing));
+      continue;
+    }
+
+    if (
+      rec.ingredients?.length === 2 &&
+      rec.products?.length === 1 &&
+      rec.products?.[0]?.type === 'item' &&
+      undefined !== rec.ingredients?.find((ing) => ing.name === 'empty-barrel')
+    ) {
+      const fluid = rec.ingredients.find(
+        (ing) => ing.name !== 'empty-barrel' && ing.type === 'fluid',
+      );
+      if (fluid) {
+        barrelFormOf[fluid.name] = rec.products[0].name;
+        continue;
+      }
+    }
+
+    regular[name] = {
+      category: rec.category,
+      localised_name: rec.localised_name,
+      ingredients: extractNameType(rec.ingredients ?? []),
+      products: extractNameType(rec.products ?? []),
+    };
+  }
+
+  const recipes = {
+    regular: sortByKeys(  regular),
+    voidableItems: Array.from(voidableItems).sort(),
+    barrelFormOf: sortByKeys(barrelFormOf),
+  };
+
   const patch = yaml.load(
     fs.readFileSync(require.resolve('../patch.yaml'), 'utf8'),
   ) as Patch;
@@ -285,6 +354,14 @@ function main() {
     },
   );
 
+  fs.writeFileSync(
+    'data/recipes.json',
+    JSON.stringify(recipes),
+    {
+      encoding: 'utf-8',
+    },
+  );
+
   fs.writeFileSync('data/doc.json', JSON.stringify(byBlock), {
     encoding: 'utf-8',
   });
@@ -321,6 +398,29 @@ function loadLines(kind: string): string[] {
   return fs
     .readFileSync(`${base}/${kind}.rec`, { encoding: 'utf-8' })
     .split('\x1d'); // (\035)
+}
+
+function extractNameType(items: Record<string, any>[]) {
+  for (const item of items) {
+    const { name, type, ...next } = item;
+    if (!name || !type) throw new Error(`missing name/type: ${JSON.stringify(item)}`);
+    const colon = tupleToColon([type, name]);
+    if (colon in ret) throw new Error(`duplicate ing/prod in recipe: ${colon}: ${JSON.stringify(items)}`);
+    ret[colon] = next;
+  }
+  return ret;
+}
+
+interface Tools {
+  recipe_prototypes: Record<
+    string,
+    {
+      ingredients: Array<{ amount; name; type }>;
+      products: Array<{ amount; name; probability?; type }>;
+      // incomplete
+    }
+  >;
+  // incomplete
 }
 
 main();
