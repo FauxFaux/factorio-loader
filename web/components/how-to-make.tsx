@@ -1,6 +1,6 @@
 import { Component } from 'preact';
-import { data } from '../datae';
-import { Colon, objToColon } from '../muffler/colon';
+import { computed, data } from '../datae';
+import { Colon, objToColon, splitColon } from '../muffler/colon';
 import { ColonJoined, JIngredient } from '../objects';
 import { haveMade } from '../muffler/walk-techs';
 import { stepsToUnlockRecipe, techToUnlock } from '../pages/next';
@@ -58,7 +58,7 @@ export class HowToMake extends Component<{ colon: Colon }> {
     const canMake = haveMade();
 
     const missingIngredients: Record<string, number> = {};
-    const countMissing = (name: string) => {
+    const countMissing = (name: string): number => {
       if (missingIngredients[name] === null) {
         return 100;
       }
@@ -67,7 +67,9 @@ export class HowToMake extends Component<{ colon: Colon }> {
       }
       missingIngredients[name] = null as any;
       const recipe = data.recipes[name];
-      if (!recipe) return 10;
+      if (!recipe) {
+        return 10;
+      }
       let missing = 0;
       const products = new Set(...recipe.products.map(objToColon));
       for (const ing of (recipe.ingredients ?? []).concat(
@@ -77,7 +79,17 @@ export class HowToMake extends Component<{ colon: Colon }> {
         if (products.has(colon)) continue;
         if (canMake.has(colon)) continue;
         if (!recipesMaking[colon]) {
-          missing += 20;
+          const [type, sub] = splitColon(colon);
+          if (type === 'item') {
+            const fluid = computed.barrelFluid[sub];
+            if (fluid) {
+              missing += countMissing(fluid);
+            } else {
+              missing += 20;
+            }
+          } else {
+            missing += 20;
+          }
           continue;
         }
         missing +=
@@ -122,9 +134,7 @@ export class HowToMake extends Component<{ colon: Colon }> {
 
       for (const ing of newIngredients) {
         const candidates = [...(recipesMaking[ing] ?? [])];
-        const best = candidates.sort(
-          (a, b) => bad(a) - bad(b),
-        )?.[0];
+        const best = candidates.sort((a, b) => bad(a) - bad(b))?.[0];
         newRecipes.add(best);
       }
 

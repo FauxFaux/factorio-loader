@@ -1,6 +1,7 @@
 ```
 cd ~/clone/factorio-rust-tools
 cargo run --release -- --factorio-dir ~/ins/factorio-1-1-76 export ~/ins/factorio-1-1-76/mods/* | tee a.json
+(a.json is crap/rust-tools-export-76.json)
 <a.json jq keys
 jq .recipe_prototypes a.json > recp-full.json
 jq .item_prototypes a.json > items.json
