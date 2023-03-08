@@ -3,7 +3,7 @@ import { data } from './datae';
 import { Stop } from '../scripts/load-recs';
 import { ItemOrFluid } from './objects';
 import { compareWithoutIcons } from './muffler/names';
-import { Colon, objToColon, tupleToColon } from './muffler/colon';
+import { Colon, tupleToColon } from './muffler/colon';
 
 function smatch(name: string, props: { search?: string }) {
   // TODO: proper string comparison
@@ -129,8 +129,8 @@ export class ItemList extends Component<
     for (const block of Object.values(data.doc)) {
       for (const [label, count] of Object.entries(block.asm)) {
         const [, recipe] = label.split('\0');
-        for (const product of data.recipes[recipe]?.products ?? []) {
-          const colon = objToColon(product);
+        for (const product of data.recipes.regular[recipe]?.products ?? []) {
+          const colon = product.colon;
           if (!this.itemAsms[colon]) this.itemAsms[colon] = 0;
           this.itemAsms[colon] += count;
         }

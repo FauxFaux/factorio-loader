@@ -2,7 +2,7 @@ import { Component } from 'preact';
 import { computed, data } from '../datae';
 import { LtnProvides, LtnRequests } from '../ltn-avail';
 import { ItemIcon } from '../lists';
-import { BlockLine, Fluid, Item, ItemOrFluid } from '../objects';
+import { BlockLine, ColonJoined, Fluid, Item } from '../objects';
 import { objToColon } from '../muffler/colon';
 import { humanise } from '../muffler/human';
 import { HowToMake, IngredientLine } from '../components/how-to-make';
@@ -219,16 +219,12 @@ class Storage extends Component<{ type: 'item' | 'fluid'; name: string }> {
 
 class RecipeUsage extends Component<{ type: string; name: string }> {
   render(props: { type: string; name: string }) {
-    const recipes = Object.entries(data.recipes).filter(
+    const colon = objToColon(props);
+
+    const recipes = Object.entries(data.recipes.regular).filter(
       ([, recipe]) =>
-        undefined !==
-          recipe.products.find(
-            (prod) => prod.type === props.type && prod.name === props.name,
-          ) ||
-        undefined !==
-          recipe.ingredients?.find(
-            (ing) => ing.type === props.type && ing.name === props.name,
-          ),
+        undefined !== recipe.products.find((prod) => prod.colon === colon) ||
+        undefined !== recipe.ingredients?.find((ing) => ing.colon === colon),
     );
 
     const inUse = new Set(recipes.map(([name]) => name));
@@ -306,8 +302,7 @@ class RecipeUsage extends Component<{ type: string; name: string }> {
                   }
                   return (
                     <li>
-                      {prod.amount} *{' '}
-                      <ItemOrFluid type={prod.type} name={prod.name} />
+                      {prod.amount} * <ColonJoined colon={prod.colon} />
                       {statSuffix}
                     </li>
                   );

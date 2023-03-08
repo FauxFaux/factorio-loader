@@ -18,15 +18,15 @@ export function recipeDifference(brick: BlockContent) {
   const outputs: Set<string> = new Set();
   for (const [label] of Object.entries(brick.asm)) {
     const [, recipe] = label.split('\0');
-    const recp = data.recipes[recipe];
+    const recp = data.recipes.regular[recipe];
     if (!recp) continue;
 
     for (const ing of recp.ingredients ?? []) {
-      inputs.add(`${ing.type}:${ing.name}`);
+      inputs.add(ing.colon);
     }
 
     for (const prod of recp.products ?? []) {
-      outputs.add(`${prod.type}:${prod.name}`);
+      outputs.add(prod.colon);
     }
   }
 
@@ -117,7 +117,7 @@ export class TrainStops extends Component<{ stop: BlockContent['stop'] }> {
                             />
                           </td>
                           <td>
-                            <ColonJoined label={colon} />
+                            <ColonJoined colon={colon} />
                           </td>
                         </tr>
                       );
@@ -139,7 +139,7 @@ export class TrainStops extends Component<{ stop: BlockContent['stop'] }> {
                           />
                         </td>
                         <td>
-                          <ColonJoined label={colon} />
+                          <ColonJoined colon={colon} />
                         </td>
                       </tr>
                     );

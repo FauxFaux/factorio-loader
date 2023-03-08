@@ -57,7 +57,7 @@ export class BlockPage extends Component<{ loc: string }> {
             <ul>
               {exports.map((x) => (
                 <li>
-                  <ColonJoined label={x} />
+                  <ColonJoined colon={x} />
                 </li>
               ))}
             </ul>
@@ -65,7 +65,7 @@ export class BlockPage extends Component<{ loc: string }> {
             <ul>
               {wanted.map((x) => (
                 <li>
-                  <ColonJoined label={x} />
+                  <ColonJoined colon={x} />
                 </li>
               ))}
             </ul>

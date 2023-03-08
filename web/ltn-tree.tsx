@@ -74,7 +74,7 @@ export class LtnTree extends Component<TreeProps> {
         blocks.push(
           <div className="row ltn-tree__header">
             <h3>
-              {nth[i]} product <ColonJoined label={colon} /> could be provided
+              {nth[i]} product <ColonJoined colon={colon} /> could be provided
               by:
             </h3>
           </div>,
@@ -162,7 +162,7 @@ const Shortages = (p: { requests: Record<Colon, Measurement> }) => {
                 <LtnPercent actual={meas.actual} expected={meas.expected} />
               </td>
               <td style="width: 15em">
-                <ColonJoined label={colon} />
+                <ColonJoined colon={colon} />
               </td>
               <td>
                 <a

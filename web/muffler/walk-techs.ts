@@ -1,5 +1,4 @@
 import { data } from '../datae';
-import { objToColon } from './colon';
 
 export function unlockedRecipes(): Set<string> {
   return new Set(
@@ -12,7 +11,7 @@ export function unlockedRecipes(): Set<string> {
 export function unlockedItems(): Set<string> {
   return new Set(
     [...unlockedRecipes()].flatMap((recipe) =>
-      data.recipes[recipe].products.flatMap((p) => objToColon(p)),
+      data.recipes.regular[recipe].products.flatMap((p) => p.colon),
     ),
   );
 }

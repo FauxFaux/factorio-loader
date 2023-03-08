@@ -11,7 +11,7 @@ import {
 } from '../web/muffler/stations';
 import { Colon, objToColon, tupleToColon } from '../web/muffler/colon';
 import { sortByKeys } from '../web/muffler/deter';
-import { JRecipe } from '../web/objects';
+import { JIngredient, JProduct, JRecipe } from '../web/objects';
 
 const base = process.argv[2];
 
@@ -82,7 +82,10 @@ function main() {
   );
 
   const tools: Tools = JSON.parse(
-    fs.readFileSync(require.resolve('../raw/rust-tools-export-76.json'), 'utf-8'),
+    fs.readFileSync(
+      require.resolve('../raw/rust-tools-export-76.json'),
+      'utf-8',
+    ),
   );
   for (const [name, rec] of Object.entries(tools.recipe_prototypes)) {
     if (name.endsWith('-pyvoid')) {
@@ -133,8 +136,8 @@ function main() {
     regular[name] = {
       category: rec.category,
       localised_name: rec.localised_name,
-      ingredients: nameTypeToColon(rec.ingredients ?? []),
-      products: nameTypeToColon(rec.products ?? []),
+      ingredients: nameTypeToColon(rec.ingredients ?? []) as JIngredient[],
+      products: nameTypeToColon(rec.products ?? []) as JProduct[],
       producers: producers[name],
     };
   }
@@ -433,7 +436,14 @@ interface Tools {
     string,
     {
       ingredients: Array<{ amount: number; name: string; type: string }>;
-      products: Array<{ amount?: number; name: string; probability?: number; type: string }>;
+      products: Array<{
+        amount?: number;
+        name: string;
+        probability?: number;
+        type: string;
+      }>;
+      category: string;
+      localised_name: string;
       // incomplete
     }
   >;

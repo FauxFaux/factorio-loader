@@ -2,7 +2,6 @@ import { Component } from 'preact';
 
 import { data } from '../datae';
 import { ColonJoined, Recipe } from '../objects';
-import { objToColon } from '../muffler/colon';
 import { unlockedRecipes } from '../muffler/walk-techs';
 
 export function techToUnlock(recipe: string): string | null {
@@ -34,8 +33,9 @@ export class Next extends Component<{}> {
       .sort(([a], [b]) => stepsToUnlock(a) - stepsToUnlock(b));
 
     const canMake = new Set(
-      [...unlockedRecipes()].flatMap((recipe) =>
-        data.recipes[recipe].products.flatMap((p) => objToColon(p)),
+      [...unlockedRecipes()].flatMap(
+        (recipe) =>
+          data.recipes.regular[recipe]?.products?.flatMap((p) => p.colon) ?? [],
       ),
     );
 
@@ -58,7 +58,7 @@ export class Next extends Component<{}> {
               const products = [
                 ...new Set(
                   tech.unlocks.flatMap((u) =>
-                    data.recipes[u].products.map((p) => objToColon(p)),
+                    data.recipes.regular[u].products.map((p) => p.colon),
                   ),
                 ),
               ];
@@ -103,7 +103,7 @@ function renderTechRow(
         <ul>
           {newProducts.map((p) => (
             <li>
-              <ColonJoined label={p} />
+              <ColonJoined colon={p} />
             </li>
           ))}
         </ul>

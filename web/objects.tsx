@@ -17,24 +17,28 @@ export interface JFluid {
   localised_name: string;
 }
 
-export interface JIngredient {
-  amount: number;
-  name: string;
-  type: 'item' | 'fluid';
+export interface JColon {
+  colon: string;
 }
 
-export interface JProduct {
+export interface JIngredient extends JColon {
   amount: number;
-  name: string;
-  type: 'item' | 'fluid';
-  probability?: number;
 }
+
+export type JProduct = JColon & { // ({ amount: number } | { amount_min: number; amount_max: number }) & {
+  amount?: number;
+  amount_min?: number;
+  amount_max?: number;
+} & {
+  probability?: number;
+};
 
 export interface JRecipe {
   category: string;
   ingredients: JIngredient[];
   products: JProduct[];
   localised_name: string;
+  producers: string[];
 }
 
 export class Recipe extends Component<{ name: string }, { expando?: boolean }> {
@@ -44,7 +48,7 @@ export class Recipe extends Component<{ name: string }, { expando?: boolean }> {
   ): ComponentChild {
     if (!props.name || props.name === 'undefined')
       return <span>nothing at all (nothing at all)</span>;
-    const recipe = data.recipes[props.name];
+    const recipe = data.recipes.regular[props.name];
     if (!recipe) return <span class="error">UNKNOWN RECIPE {props.name}</span>;
     if (!state.expando)
       return (
@@ -73,7 +77,7 @@ export class Recipe extends Component<{ name: string }, { expando?: boolean }> {
 
 export class RecipeInOut extends Component<{ name: string }> {
   render(props: { name: string }) {
-    const recipe = data.recipes[props.name];
+    const recipe = data.recipes.regular[props.name];
     if (!recipe) throw new Error(`unknown recipe: ${recipe}`);
 
     return (
@@ -82,7 +86,7 @@ export class RecipeInOut extends Component<{ name: string }> {
         <ul>
           {recipe.ingredients?.map((ing) => (
             <li>
-              {ing.amount} * <ItemOrFluid type={ing.type} name={ing.name} />
+              {ing.amount} * <ColonJoined colon={ing.colon} />
             </li>
           ))}
         </ul>
@@ -95,8 +99,7 @@ export class RecipeInOut extends Component<{ name: string }> {
             }
             return (
               <li>
-                {prod.amount} *{' '}
-                <ItemOrFluid type={prod.type} name={prod.name} />
+                {prod.amount} * <ColonJoined colon={prod.colon} />
                 {statSuffix}
               </li>
             );
@@ -107,9 +110,9 @@ export class RecipeInOut extends Component<{ name: string }> {
   }
 }
 
-export class ColonJoined extends Component<{ label: string }> {
-  render(props: { label: string }) {
-    const [type, name] = props.label.split(':', 2);
+export class ColonJoined extends Component<{ colon: string }> {
+  render(props: { colon: string }) {
+    const [type, name] = props.colon.split(':', 2);
     if (type === 'item' || type === 'fluid') {
       return (
         <span>

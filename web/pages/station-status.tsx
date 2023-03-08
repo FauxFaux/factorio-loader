@@ -72,7 +72,6 @@ export class StationStatus extends Component {
           <table class="wtb">
             {providerObjs
               .sort(({ health: a }, { health: b }) => {
-                console.log(Object.values(a));
                 return (
                   Math.min(...Object.values(a)) - Math.min(...Object.values(b))
                 );
@@ -95,7 +94,7 @@ export class StationStatus extends Component {
                               %
                             </td>
                             <td>
-                              <ColonJoined label={colon} />
+                              <ColonJoined colon={colon} />
                             </td>
                           </tr>
                         ))}

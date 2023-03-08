@@ -1,6 +1,6 @@
 import { Component } from 'preact';
 import { computed, data } from '../datae';
-import { Colon, objToColon, splitColon } from '../muffler/colon';
+import { Colon, splitColon } from '../muffler/colon';
 import { ColonJoined, JIngredient } from '../objects';
 import { haveMade } from '../muffler/walk-techs';
 import { stepsToUnlockRecipe, techToUnlock } from '../pages/next';
@@ -15,37 +15,37 @@ function recipeBan(name: string): boolean {
 }
 
 const hiddenRequirements: Record<string, JIngredient> = {
-  'caged-scrondrix-1': { type: 'item', name: 'scrondrix', amount: 0 },
-  'caged-scrondrix-1a': { type: 'item', name: 'scrondrix', amount: 0 },
-  'caged-scrondrix-2': { type: 'item', name: 'scrondrix', amount: 0 },
-  'caged-scrondrix-2a': { type: 'item', name: 'scrondrix', amount: 0 },
-  'caged-scrondrix-3': { type: 'item', name: 'scrondrix', amount: 0 },
-  'caged-scrondrix-3a': { type: 'item', name: 'scrondrix', amount: 0 },
-  'caged-scrondrix-4': { type: 'item', name: 'scrondrix', amount: 0 },
-  'caged-scrondrix-4a': { type: 'item', name: 'scrondrix', amount: 0 },
-  'caged-scrondrix-5': { type: 'item', name: 'scrondrix', amount: 0 },
-  'scrondrix-cub-1': { type: 'item', name: 'scrondrix', amount: 0 },
-  'scrondrix-cub-2': { type: 'item', name: 'scrondrix', amount: 0 },
-  'scrondrix-cub-3': { type: 'item', name: 'scrondrix', amount: 0 },
-  'scrondrix-cub-4': { type: 'item', name: 'scrondrix', amount: 0 },
-  'scrondrix-mature-01': { type: 'item', name: 'scrondrix', amount: 0 },
-  'caged-dingrits1': { type: 'item', name: 'dingrits', amount: 0 },
-  'caged-dingrits2': { type: 'item', name: 'dingrits', amount: 0 },
-  'caged-dingrits3': { type: 'item', name: 'dingrits', amount: 0 },
-  'caged-dingrits4': { type: 'item', name: 'dingrits', amount: 0 },
-  'caged-dingrits5': { type: 'item', name: 'dingrits', amount: 0 },
-  'caged-dingrits6': { type: 'item', name: 'dingrits', amount: 0 },
-  'caged-dingrits7': { type: 'item', name: 'dingrits', amount: 0 },
-  'dingrits-mature-01': { type: 'item', name: 'dingrits', amount: 0 },
+  'caged-scrondrix-1': { colon: 'item:scrondrix', amount: 0 },
+  'caged-scrondrix-1a': { colon: 'item:scrondrix', amount: 0 },
+  'caged-scrondrix-2': { colon: 'item:scrondrix', amount: 0 },
+  'caged-scrondrix-2a': { colon: 'item:scrondrix', amount: 0 },
+  'caged-scrondrix-3': { colon: 'item:scrondrix', amount: 0 },
+  'caged-scrondrix-3a': { colon: 'item:scrondrix', amount: 0 },
+  'caged-scrondrix-4': { colon: 'item:scrondrix', amount: 0 },
+  'caged-scrondrix-4a': { colon: 'item:scrondrix', amount: 0 },
+  'caged-scrondrix-5': { colon: 'item:scrondrix', amount: 0 },
+  'scrondrix-cub-1': { colon: 'item:scrondrix', amount: 0 },
+  'scrondrix-cub-2': { colon: 'item:scrondrix', amount: 0 },
+  'scrondrix-cub-3': { colon: 'item:scrondrix', amount: 0 },
+  'scrondrix-cub-4': { colon: 'item:scrondrix', amount: 0 },
+  'scrondrix-mature-01': { colon: 'item:scrondrix', amount: 0 },
+  'caged-dingrits1': { colon: 'item:dingrits', amount: 0 },
+  'caged-dingrits2': { colon: 'item:dingrits', amount: 0 },
+  'caged-dingrits3': { colon: 'item:dingrits', amount: 0 },
+  'caged-dingrits4': { colon: 'item:dingrits', amount: 0 },
+  'caged-dingrits5': { colon: 'item:dingrits', amount: 0 },
+  'caged-dingrits6': { colon: 'item:dingrits', amount: 0 },
+  'caged-dingrits7': { colon: 'item:dingrits', amount: 0 },
+  'dingrits-mature-01': { colon: 'item:dingrits', amount: 0 },
 };
 
 export class HowToMake extends Component<{ colon: Colon }> {
   render(props: { colon: Colon }) {
     const recipesMaking: Record<string, string[]> = {};
-    for (const [name, recipe] of Object.entries(data.recipes)) {
+    for (const [name, recipe] of Object.entries(data.recipes.regular)) {
       if (recipeBan(name)) continue;
       for (const prod of recipe.products) {
-        const colon = objToColon(prod);
+        const colon = prod.colon;
         if (!recipesMaking[colon]) recipesMaking[colon] = [];
         recipesMaking[colon].push(name);
       }
@@ -66,16 +66,16 @@ export class HowToMake extends Component<{ colon: Colon }> {
         return missingIngredients[name];
       }
       missingIngredients[name] = null as any;
-      const recipe = data.recipes[name];
+      const recipe = data.recipes.regular[name];
       if (!recipe) {
         return 10;
       }
       let missing = 0;
-      const products = new Set(...recipe.products.map(objToColon));
+      const products = new Set(...recipe.products.map((p) => p.colon));
       for (const ing of (recipe.ingredients ?? []).concat(
         hiddenRequirements[name] ?? [],
       )) {
-        const colon = objToColon(ing);
+        const colon = ing.colon;
         if (products.has(colon)) continue;
         if (canMake.has(colon)) continue;
         if (!recipesMaking[colon]) {
@@ -100,7 +100,7 @@ export class HowToMake extends Component<{ colon: Colon }> {
       return missing;
     };
 
-    for (const name of Object.keys(data.recipes)) {
+    for (const name of Object.keys(data.recipes.regular)) {
       if (recipeBan(name)) continue;
       countMissing(name);
     }
@@ -120,11 +120,11 @@ export class HowToMake extends Component<{ colon: Colon }> {
     for (let i = 0; i < 10; ++i) {
       const newIngredients = new Set<string>();
       for (const name of scanning) {
-        const recipe = data.recipes[name];
+        const recipe = data.recipes.regular[name];
         for (const ing of (recipe?.ingredients ?? []).concat(
           hiddenRequirements[name] ?? [],
         )) {
-          const colon = objToColon(ing);
+          const colon = ing.colon;
           if (canMake.has(colon)) continue;
           newIngredients.add(colon);
         }
@@ -161,10 +161,10 @@ export class HowToMake extends Component<{ colon: Colon }> {
         <tbody>
           {recipes
             .slice(0, 100)
-            .filter((name) => !!data.recipes[name])
+            .filter((name) => !!data.recipes.regular[name])
             // .sort(([an, ao], [bn, bo]) => usefulness(bn, bo) - usefulness(an, ao))
             .map((name) => {
-              const recipe = data.recipes[name];
+              const recipe = data.recipes.regular[name];
               const lockedTechs = stepsToUnlockRecipe(name);
               const toUnlock = techToUnlock(name) ?? '??';
               const missing = missingIngredients[name];
@@ -216,14 +216,14 @@ export class HowToMake extends Component<{ colon: Colon }> {
                     <ul class={'ul-none'}>
                       {recipe.products
                         .sort((a, b) => {
-                          if (objToColon(a) === props.colon) return -1;
-                          if (objToColon(b) === props.colon) return 1;
+                          if (a.colon === props.colon) return -1;
+                          if (b.colon === props.colon) return 1;
                           return (b.amount ?? 1) - (a.amount ?? 1);
                         })
                         .map((p) => (
                           <li>
                             <span class={'amount'}>{p.amount}</span> &times;{' '}
-                            <ColonJoined label={objToColon(p)} />
+                            <ColonJoined colon={p.colon} />
                           </li>
                         ))}
                     </ul>
@@ -248,9 +248,9 @@ export class HowToMake extends Component<{ colon: Colon }> {
 
 export const IngredientLine = ({ ing }: { ing: JIngredient }) => (
   <>
-    <Availability colon={objToColon(ing)} />{' '}
+    <Availability colon={ing.colon} />{' '}
     <span class={'amount'}>{ing.amount}</span> &times;{' '}
-    <ColonJoined label={objToColon(ing)} />
+    <ColonJoined colon={ing.colon} />
   </>
 );
 

@@ -69,7 +69,7 @@ export class WhatTheBrick extends Component {
                     <ul>
                       {wanted.sort().map((pair) => (
                         <li>
-                          <ColonJoined label={pair} />
+                          <ColonJoined colon={pair} />
                         </li>
                       ))}
                     </ul>
@@ -78,7 +78,7 @@ export class WhatTheBrick extends Component {
                     <ul>
                       {exports.sort().map((pair) => (
                         <li>
-                          <ColonJoined label={pair} />
+                          <ColonJoined colon={pair} />
                         </li>
                       ))}
                     </ul>

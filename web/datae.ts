@@ -8,7 +8,11 @@ export const data = {
   items: {} as Record<string, JItem>,
   icons: {} as Record<string, string>,
   fluids: {} as Record<string, JFluid>,
-  recipes: {} as Record<string, JRecipe>,
+  recipes: {} as {
+    regular: Record<string, JRecipe>;
+    voidableItems: string[];
+    barrelFormOf: Record<string, string>;
+  },
   prodStats: {} as Record<
     Colon,
     { input?: FlowStats; output?: FlowStats; ltn?: number }
@@ -39,29 +43,8 @@ export const computed = {
 
 export function precompute() {
   computed.ltnSummary = precomputeLtnSummary();
-  computed.fluidBarrel = precomputeFluidBarrel();
+  computed.fluidBarrel = data.recipes.barrelFormOf;
   computed.barrelFluid = Object.fromEntries(
     Object.entries(computed.fluidBarrel).map(([k, v]) => [v, k] as const),
-  );
-}
-
-function precomputeFluidBarrel() {
-  return Object.fromEntries(
-    Object.values(data.recipes)
-      .filter(
-        (rec) =>
-          rec.ingredients?.length === 2 &&
-          rec.products?.length === 1 &&
-          rec.products?.[0]?.type === 'item' &&
-          undefined !==
-            rec.ingredients?.find((ing) => ing.name === 'empty-barrel'),
-      )
-      .flatMap((rec) => {
-        const fluid = rec.ingredients.find(
-          (ing) => ing.name !== 'empty-barrel' && ing.type === 'fluid',
-        );
-        if (!fluid) return [];
-        return [[fluid.name, rec.products[0].name] as const];
-      }),
   );
 }
