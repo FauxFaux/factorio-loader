@@ -1,5 +1,5 @@
 import { computed, data } from '../datae';
-import { splitColon } from './colon';
+import { splitColon, tupleToColon } from './colon';
 import { JIngredient } from '../objects';
 
 export const hiddenRequirements: Record<string, JIngredient> = {
@@ -56,7 +56,7 @@ export function buildMissingIngredients(
   const missingIngredients: Record<string, number> = {};
   const countMissing = (name: string, context: string[] = []): number => {
     if (missingIngredients[name] === null) {
-      console.log('circular dependency', name, context);
+      // console.log('circular dependency', name, context);
       return 100;
     }
     if (missingIngredients[name] !== undefined) {
@@ -80,7 +80,11 @@ export function buildMissingIngredients(
         if (type === 'item') {
           const fluid = computed.barrelFluid[sub];
           if (fluid) {
-            missing += countMissing(fluid, context.concat(colon + ' (fluid)'));
+            missing += Math.min(
+              ...recipesMaking[tupleToColon(['fluid', fluid])].map((name) =>
+                countMissing(name, context.concat(colon + ' (fluid)')),
+              ),
+            );
           } else {
             missing += 20;
           }
@@ -100,9 +104,10 @@ export function buildMissingIngredients(
     return missing;
   };
 
-  for (const name of Object.keys(data.recipes.regular)) {
-    if (recipeBan(name)) continue;
-    countMissing(name);
-  }
+  // for (const name of Object.keys(data.recipes.regular)) {
+  //   if (recipeBan(name)) continue;
+  //   countMissing(name);
+  countMissing('arthurian-egg-01');
+  // }
   return missingIngredients;
 }

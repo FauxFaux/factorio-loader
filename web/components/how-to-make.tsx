@@ -1,6 +1,6 @@
 import { Component } from 'preact';
-import { data } from '../datae';
-import { Colon } from '../muffler/colon';
+import { computed, data } from '../datae';
+import { Colon, splitColon } from '../muffler/colon';
 import { ColonJoined, JIngredient } from '../objects';
 import { haveMade } from '../muffler/walk-techs';
 import { stepsToUnlockRecipe, techToUnlock } from '../pages/next';
@@ -174,14 +174,17 @@ export const IngredientLine = ({ ing }: { ing: JIngredient }) => (
 );
 
 const Availability = ({ colon }: { colon: string }) => {
-  const ps = data.prodStats[colon];
+  const [, name] = splitColon(colon);
+  const ps =
+    data.prodStats[colon] ??
+    data.prodStats['fluid:' + computed.barrelFluid[name]];
   let icon;
   let alt;
   if (ps?.ltn ?? 0 > 1) {
     icon = require('svg-url-loader!flat-color-icons/svg/low_priority.svg');
     alt = 'all good; shipped on ltn';
-    // yes, 'input' is the right way around
-  } else if (ps?.input?.total ?? 0 > 1) {
+    // 'input' for items being produced, 'output' for fluids being produced; screw it
+  } else if ((ps?.input?.total ?? 0) > 1 || (ps?.output?.total ?? 0) > 1) {
     icon = require('svg-url-loader!flat-color-icons/svg/medium_priority.svg');
     alt = 'produced somewhere, but not shipped';
   } else {
