@@ -25,7 +25,8 @@ export interface JIngredient extends JColon {
   amount: number;
 }
 
-export type JProduct = JColon & { // ({ amount: number } | { amount_min: number; amount_max: number }) & {
+export type JProduct = JColon & {
+  // ({ amount: number } | { amount_min: number; amount_max: number }) & {
   amount?: number;
   amount_min?: number;
   amount_max?: number;

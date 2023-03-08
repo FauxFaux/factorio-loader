@@ -210,7 +210,10 @@ export class HowToMake extends Component<{ colon: Colon }> {
                     </ul>
                   </td>
                   <td>
-                    <abbr title={name}>{recipe.localised_name}</abbr>
+                    <p>
+                      <abbr title={name}>{recipe.localised_name}</abbr>
+                    </p>
+                    <p>Made in: {recipe.producers.join(', ')}</p>
                   </td>
                   <td>
                     <ul class={'ul-none'}>
