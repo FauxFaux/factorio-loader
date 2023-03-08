@@ -2,7 +2,7 @@ import { Component } from 'preact';
 import { BlockContent } from '../scripts/load-recs';
 import { ColonJoined, Item, Recipe } from './objects';
 import { GpsLink, RenderIcons } from './lists';
-import { data } from './datae';
+import { Coord, data } from './datae';
 import {
   colonMapCombinator,
   colonMapItems,
@@ -44,17 +44,17 @@ export function recipeDifference(brick: BlockContent) {
 export class Assemblers extends Component<{ brick: BlockContent }> {
   render(props: { brick: BlockContent }) {
     const sorted = Object.entries(props.brick.asm).sort(
-      ([, a], [, b]) => b - a,
+      ([, { count: a }], [, { count: b }]) => b - a,
     );
     return (
       <>
         <ul>
-          {sorted.map(([label, count]) => {
-            const [machine, recipe] = label.split('\0');
+          {sorted.map(([label, props]) => {
+            const [, recipe] = label.split('\0');
             return (
               <li>
-                {count} * <Item name={machine} /> making{' '}
-                <Recipe name={recipe} />
+                <AssemblerCount label={label} props={props} />
+                making <Recipe name={recipe} />
               </li>
             );
           })}
@@ -63,6 +63,24 @@ export class Assemblers extends Component<{ brick: BlockContent }> {
     );
   }
 }
+
+export const AssemblerCount = ({
+  label,
+  props,
+}: {
+  label: string;
+  props: { count: number; locations: Coord[] };
+}) => {
+  const [machine, recipe] = label.split('\0');
+  return (
+    <>
+      {props.locations.map((loc) => (
+        <GpsLink caption={`a ${machine} making ${recipe}`} gps={loc} />
+      ))}
+      {props.count} &times; <Item name={machine} />{' '}
+    </>
+  );
+};
 
 export class TrainStops extends Component<{ stop: BlockContent['stop'] }> {
   render(props: { stop: BlockContent['stop'] }) {

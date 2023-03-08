@@ -3,6 +3,8 @@ import { JFluid, JItem, JRecipe } from './objects';
 import { Colon } from './muffler/colon';
 import { LtnSummary, precomputeLtnSummary } from './ltn-summary';
 
+export type Coord = readonly [number, number];
+
 export const data = {
   doc: {} as Record<string, BlockContent>,
   items: {} as Record<string, JItem>,

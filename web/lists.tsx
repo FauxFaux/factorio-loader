@@ -127,7 +127,7 @@ export class ItemList extends Component<
   constructor() {
     super();
     for (const block of Object.values(data.doc)) {
-      for (const [label, count] of Object.entries(block.asm)) {
+      for (const [label, { count }] of Object.entries(block.asm)) {
         const [, recipe] = label.split('\0');
         for (const product of data.recipes.regular[recipe]?.products ?? []) {
           const colon = product.colon;
@@ -225,7 +225,7 @@ export class GpsLink extends Component<
         </span>
       );
     }
-    const msg = 'copy station location in chat format';
+    const msg = 'copy location in chat format';
     return (
       <span className={'gps-link-button'} onClick={this.doCopy} title={msg}>
         <img src={pin} alt={msg} />

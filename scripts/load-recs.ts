@@ -4,7 +4,7 @@ import * as yaml from 'js-yaml';
 
 import { toBlock } from './magic';
 import { initOnNode, loadTrainFlows } from './data-hack-for-node';
-import { data } from '../web/datae';
+import { Coord, data } from '../web/datae';
 import {
   isProvideStation,
   provideStationPurpose,
@@ -17,7 +17,6 @@ const base = process.argv[2];
 
 initOnNode(['doc', 'technologies', 'prodStats']);
 
-type Coord = readonly [number, number];
 type BlockId = Coord;
 
 function distSq(a: Coord, b: Coord) {
@@ -55,7 +54,7 @@ export type Stop = {
 
 export type BlockContent = {
   tags: string[];
-  asm: Record<string, number>;
+  asm: Record<string, { count: number; locations: Coord[] }>;
   stop: Stop[];
   items: Record<string, number>;
   fluids: Record<string, number>;
@@ -190,9 +189,10 @@ function main() {
     const block = getBlock(obj.block);
     const label = `${obj.name}\0${obj.ext[0]}`;
     if (!block.asm[label]) {
-      block.asm[label] = 0;
+      block.asm[label] = { count: 0, locations: [] };
     }
-    block.asm[label]++;
+    block.asm[label].count++;
+    block.asm[label].locations.push(obj.pos);
   }
 
   // close enough, eh
@@ -200,9 +200,17 @@ function main() {
     const block = getBlock(obj.block);
     const label = `${obj.name}\0${obj.ext[0]}`;
     if (!block.asm[label]) {
-      block.asm[label] = 0;
+      block.asm[label] = { count: 0, locations: [] };
     }
-    block.asm[label]++;
+    block.asm[label].count++;
+    block.asm[label].locations.push(obj.pos);
+  }
+
+  for (const block of Object.values(byBlock)) {
+    for (const obj of Object.values(block.asm)) {
+      obj.locations.sort();
+      obj.locations = obj.locations.slice(0, 2);
+    }
   }
 
   for (const obj of load('boiler')) {

@@ -1,11 +1,12 @@
 import { Component } from 'preact';
-import { computed, data } from '../datae';
+import { computed, Coord, data } from '../datae';
 import { LtnProvides, LtnRequests } from '../ltn-avail';
 import { ItemIcon } from '../lists';
 import { BlockLine, ColonJoined, Fluid, Item } from '../objects';
 import { objToColon } from '../muffler/colon';
 import { humanise } from '../muffler/human';
 import { HowToMake, IngredientLine } from '../components/how-to-make';
+import { AssemblerCount } from '../block-renderers';
 
 export class IoFDetail extends Component<{
   name: string;
@@ -231,24 +232,28 @@ class RecipeUsage extends Component<{ type: string; name: string }> {
 
     const dataByRecipe: Record<
       string,
-      { asms: Record<string, number>; blocks: Set<string> }
+      {
+        asms: Record<string, { count: number; locations: Coord[] }>;
+        blocks: Set<string>;
+      }
     > = {};
     for (const [block, { asm }] of Object.entries(data.doc)) {
-      for (const [label, count] of Object.entries(asm)) {
+      for (const [label, { count }] of Object.entries(asm)) {
         const [machine, recipe] = label.split('\0');
         if (!inUse.has(recipe)) continue;
         if (!dataByRecipe[recipe])
           dataByRecipe[recipe] = { asms: {}, blocks: new Set() };
         const d = dataByRecipe[recipe];
-        if (!d.asms[machine]) d.asms[machine] = 0;
-        d.asms[machine] += count;
+        if (!d.asms[machine]) d.asms[machine] = { count: 0, locations: [] };
+        d.asms[machine].count += count;
+        d.asms[machine].locations.push(...asm[label].locations);
         d.blocks.add(block);
       }
     }
 
     function totalAssemblersMaking(a: string) {
       return Object.values(dataByRecipe[a]?.asms ?? {}).reduce(
-        (prev, curr) => prev + curr,
+        (prev, curr) => prev + curr.count,
         0,
       );
     }
@@ -268,9 +273,10 @@ class RecipeUsage extends Component<{ type: string; name: string }> {
             </td>
             <td>
               <ul>
-                {Object.entries(counts.asms).map(([machine, count]) => (
+                {Object.entries(counts.asms).map(([machine, props]) => (
                   <li>
-                    {count} * <Item name={machine} />
+                    {/*'machine' here lacks the 'label' properties so we get a bit garbage out*/}
+                    <AssemblerCount label={machine} props={props} />
                   </li>
                 ))}
               </ul>
