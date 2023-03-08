@@ -1,6 +1,5 @@
 #!/usr/bin/env -S npx babel-node -x .ts,.tsx
 import * as fs from 'fs';
-import { readFileSync, writeFileSync } from "fs";
 import * as yaml from 'js-yaml';
 
 import { toBlock } from './magic';
@@ -12,7 +11,7 @@ import {
 } from '../web/muffler/stations';
 import { Colon, objToColon, tupleToColon } from '../web/muffler/colon';
 import { sortByKeys } from '../web/muffler/deter';
-import { JRecipe } from "../web/objects";
+import { JRecipe } from '../web/objects';
 
 const base = process.argv[2];
 
@@ -74,8 +73,16 @@ function main() {
   const barrelFormOf: Record<string, string> = {};
   const regular: Record<string, JRecipe> = {};
 
+  const lab: Lab = JSON.parse(
+    fs.readFileSync(require.resolve('../raw/lab-export-76.json'), 'utf-8'),
+  );
+
+  const producers = Object.fromEntries(
+    lab.recipes.map((rec) => [rec.id, stripProducers(rec.producers)] as const),
+  );
+
   const tools: Tools = JSON.parse(
-    readFileSync(require.resolve('../raw/rust-tools-export-76.json'), 'utf-8'),
+    fs.readFileSync(require.resolve('../raw/rust-tools-export-76.json'), 'utf-8'),
   );
   for (const [name, rec] of Object.entries(tools.recipe_prototypes)) {
     if (name.endsWith('-pyvoid')) {
@@ -126,13 +133,14 @@ function main() {
     regular[name] = {
       category: rec.category,
       localised_name: rec.localised_name,
-      ingredients: extractNameType(rec.ingredients ?? []),
-      products: extractNameType(rec.products ?? []),
+      ingredients: nameTypeToColon(rec.ingredients ?? []),
+      products: nameTypeToColon(rec.products ?? []),
+      producers: producers[name],
     };
   }
 
   const recipes = {
-    regular: sortByKeys(  regular),
+    regular: sortByKeys(regular),
     voidableItems: Array.from(voidableItems).sort(),
     barrelFormOf: sortByKeys(barrelFormOf),
   };
@@ -354,13 +362,9 @@ function main() {
     },
   );
 
-  fs.writeFileSync(
-    'data/recipes.json',
-    JSON.stringify(recipes),
-    {
-      encoding: 'utf-8',
-    },
-  );
+  fs.writeFileSync('data/recipes.json', JSON.stringify(recipes), {
+    encoding: 'utf-8',
+  });
 
   fs.writeFileSync('data/doc.json', JSON.stringify(byBlock), {
     encoding: 'utf-8',
@@ -400,27 +404,44 @@ function loadLines(kind: string): string[] {
     .split('\x1d'); // (\035)
 }
 
-function extractNameType(items: Record<string, any>[]) {
-  for (const item of items) {
-    const { name, type, ...next } = item;
-    if (!name || !type) throw new Error(`missing name/type: ${JSON.stringify(item)}`);
-    const colon = tupleToColon([type, name]);
-    if (colon in ret) throw new Error(`duplicate ing/prod in recipe: ${colon}: ${JSON.stringify(items)}`);
-    ret[colon] = next;
-  }
-  return ret;
+function nameTypeToColon(items: Record<string, any>[]) {
+  return items
+    .map((item) => {
+      const { name, type, ...next } = item;
+      if (!name || !type)
+        throw new Error(`missing name/type: ${JSON.stringify(item)}`);
+      const colon = tupleToColon([type, name]);
+      return { colon, ...next };
+    })
+    .sort((a, b) => a.colon.localeCompare(b.colon));
+}
+
+function stripProducers(producers: string[]): string[] {
+  return [
+    ...new Set(
+      producers.map((p) =>
+        p
+          .replace(/-mk0\d|-\d$/, '')
+          .replace('assembling-machine', 'automated-factory'),
+      ),
+    ),
+  ].sort();
 }
 
 interface Tools {
   recipe_prototypes: Record<
     string,
     {
-      ingredients: Array<{ amount; name; type }>;
-      products: Array<{ amount; name; probability?; type }>;
+      ingredients: Array<{ amount: number; name: string; type: string }>;
+      products: Array<{ amount?: number; name: string; probability?: number; type: string }>;
       // incomplete
     }
   >;
   // incomplete
+}
+
+interface Lab {
+  recipes: { id: string; producers: string[] }[];
 }
 
 main();
