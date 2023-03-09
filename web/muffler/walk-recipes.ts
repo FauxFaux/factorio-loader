@@ -1,5 +1,5 @@
-import { computed, data } from '../datae';
-import { splitColon, tupleToColon } from './colon';
+import { data } from '../datae';
+import { splitColon } from './colon';
 import { JIngredient } from '../objects';
 
 export const hiddenRequirements: Record<string, JIngredient> = {
@@ -25,6 +25,7 @@ export const hiddenRequirements: Record<string, JIngredient> = {
   'caged-dingrits6': { colon: 'item:dingrits', amount: 0 },
   'caged-dingrits7': { colon: 'item:dingrits', amount: 0 },
   'dingrits-mature-01': { colon: 'item:dingrits', amount: 0 },
+  'dingrits-mk02': { colon: 'item:dingrits', amount: 0 },
 };
 
 export function recipeBan(name: string): boolean {
@@ -53,61 +54,66 @@ export function buildMissingIngredients(
   canMake: Set<string>,
   recipesMaking: Record<string, string[]>,
 ) {
+  canMake = new Set(
+    [...canMake].concat(
+      [...canMake].flatMap((name) => {
+        const [type, id] = splitColon(name);
+        if (type !== 'fluid') return [];
+        return `item:${data.recipes.barrelFormOf[id]}`;
+      }),
+    ),
+  );
   const missingIngredients: Record<string, number> = {};
-  const countMissing = (name: string, context: string[] = []): number => {
-    if (missingIngredients[name] === null) {
-      // console.log('circular dependency', name, context);
-      return 100;
-    }
-    if (missingIngredients[name] !== undefined) {
-      return missingIngredients[name];
-    }
-    missingIngredients[name] = null as any;
-    const recipe = data.recipes.regular[name];
-    if (!recipe) {
-      return 10;
-    }
-    let missing = 0;
-    const products = new Set(...recipe.products.map((p) => p.colon));
-    for (const ing of (recipe.ingredients ?? []).concat(
-      hiddenRequirements[name] ?? [],
-    )) {
-      const colon = ing.colon;
-      if (products.has(colon)) continue;
-      if (canMake.has(colon)) continue;
-      if (!recipesMaking[colon]) {
-        const [type, sub] = splitColon(colon);
-        if (type === 'item') {
-          const fluid = computed.barrelFluid[sub];
-          if (fluid) {
-            missing += Math.min(
-              ...recipesMaking[tupleToColon(['fluid', fluid])].map((name) =>
-                countMissing(name, context.concat(colon + ' (fluid)')),
-              ),
-            );
-          } else {
-            missing += 20;
-          }
-        } else {
-          missing += 20;
-        }
+
+  for (let i = 0; i < 50; i++) {
+    let updated = 0;
+    for (const [name, rec] of Object.entries(data.recipes.regular)) {
+      if (recipeBan(name)) continue;
+      if (name in missingIngredients) continue;
+      // const products = new Set(rec.products.map((p) => p.colon));
+      const ings = (rec.ingredients ?? [])
+        .concat(hiddenRequirements[name] ?? [])
+        .filter((ing) => !canMake.has(ing.colon));
+
+      if (ings.length === 0) {
+        missingIngredients[name] = 0;
         continue;
       }
-      missing +=
-        Math.min(
-          ...recipesMaking[colon].map((name) =>
-            countMissing(name, context.concat(colon)),
-          ),
-        ) + 1;
-    }
-    missingIngredients[name] = missing;
-    return missing;
-  };
 
-  // for (const name of Object.keys(data.recipes.regular)) {
+      const missing = ings
+        .map((ing) =>
+          Math.min(
+            ...(recipesMaking[ing.colon]?.map(
+              (name) => missingIngredients[name] ?? Infinity,
+            ) ?? [Infinity]),
+          ),
+        )
+        .reduce((sum, ing) => sum + ing, 1);
+
+      if (!Number.isFinite(missing)) {
+        continue;
+      }
+      missingIngredients[name] = missing;
+      updated += 1;
+    }
+    if (updated === 0) break;
+    // console.log(i, updated);
+  }
+
+  // for (const [name, rec] of Object.entries(data.recipes.regular)) {
   //   if (recipeBan(name)) continue;
-  //   countMissing(name);
-  countMissing('arthurian-egg-01');
+  //   if (missingIngredients[name] !== undefined) continue;
+  //   let s = `missing ${name}: `;
+  //   for (const ing of rec.ingredients ?? []) {
+  //     if (canMake.has(ing.colon)) continue;
+  //     s += ing.colon + ' via. ';
+  //     for (const rec of recipesMaking[ing.colon] ?? []) {
+  //       if (rec in missingIngredients) continue;
+  //       s += rec + ', ';
+  //     }
+  //   }
+  //   console.log(s);
   // }
+
   return missingIngredients;
 }

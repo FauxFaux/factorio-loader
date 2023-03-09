@@ -24,7 +24,7 @@ export class HowToMake extends Component<{ colon: Colon }> {
     const recipes = [...recipesMaking[props.colon]];
 
     const bad = (name: string) =>
-      missingIngredients[name] + stepsToUnlockRecipe(name);
+      (missingIngredients[name] ?? Infinity) + stepsToUnlockRecipe(name);
     recipes.sort((a, b) => bad(a) - bad(b));
 
     // const needInfoOn = new Set(
