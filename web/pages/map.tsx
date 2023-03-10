@@ -1,7 +1,7 @@
 import { Component, createRef } from 'preact';
 import { render as stringify } from 'preact-render-to-string';
 import { useEffect } from 'preact/hooks';
-import L, { Transformation } from 'leaflet';
+import type Leaflet from 'leaflet';
 
 import { BRICK_H, BRICK_W, fromLoc, toBlock } from '../../scripts/magic';
 import { TagList } from '../objects';
@@ -12,7 +12,7 @@ interface MapProps {
   zoom?: string;
 }
 
-export function leafletTransform() {
+export function leafletTransform(L: typeof Leaflet) {
   // tl;dr leaflet uses 0,0 as the top left corner, factorio uses 0,0 as the centre, and then there's a scale factor
 
   // this is the relation between the screenshot scale (in screenshots.lua) and the leaflet coord system
@@ -22,7 +22,11 @@ export function leafletTransform() {
   return new L.Transformation(1 / scale, off, 1 / scale, off);
 }
 
-function leafletMap(transformation: Transformation, el: HTMLElement) {
+function leafletMap(
+  L: typeof Leaflet,
+  transformation: Leaflet.Transformation,
+  el: HTMLElement,
+) {
   const crs = L.extend({}, L.CRS.Simple, {
     transformation,
   });
@@ -36,11 +40,36 @@ function leafletMap(transformation: Transformation, el: HTMLElement) {
   return map;
 }
 
-export class Map extends Component<MapProps> {
+interface LeafletState {
+  L?: typeof Leaflet | null;
+}
+
+function loadLeaflet(component: Component<unknown, LeafletState>['setState']) {
+  useEffect(() => {
+    void (async () => {
+      try {
+        const L = await import('leaflet');
+        component({ L });
+      } catch (err) {
+        console.error(err);
+        component({ L: null });
+      }
+    })();
+  }, []);
+}
+
+export class Map extends Component<MapProps, LeafletState> {
   map = createRef();
 
-  render(props: MapProps) {
-    const transformation = leafletTransform();
+  render(props: MapProps, state: LeafletState) {
+    loadLeaflet(this.setState.bind(this));
+    const L = state.L;
+
+    if (!L) {
+      return <div class="slippy">Loading map...</div>;
+    }
+
+    const transformation = leafletTransform(L);
 
     let center: [number, number] = [0, 0];
     let zoom = 6;
@@ -55,7 +84,7 @@ export class Map extends Component<MapProps> {
     }
 
     useEffect(() => {
-      const map = leafletMap(transformation, this.map.current);
+      const map = leafletMap(L, transformation, this.map.current);
 
       map.setView(center, zoom);
 
@@ -89,15 +118,21 @@ export class Map extends Component<MapProps> {
   }
 }
 
-export class BlockThumb extends Component<{ loc: string }> {
+export class BlockThumb extends Component<{ loc: string }, LeafletState> {
   map = createRef();
 
-  render(props: { loc: string }) {
-    const transformation = leafletTransform();
+  render(props: { loc: string }, state: LeafletState) {
+    loadLeaflet(this.setState.bind(this));
+    const L = state.L;
+
+    if (!L) {
+      return <span>Loading map...</span>;
+    }
+    const transformation = leafletTransform(L);
     const [bx, by] = fromLoc(props);
 
     useEffect(() => {
-      const map = leafletMap(transformation, this.map.current);
+      const map = leafletMap(L, transformation, this.map.current);
       const pad = 1;
       map.fitBounds(
         [
