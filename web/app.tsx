@@ -39,7 +39,7 @@ export class App extends Component {
             zoom="from the path"
           />
           <Next path="/an/next" />
-          <Pulses path="/an/pulses" />
+          <Pulses path="/an/pulses/:colon" colon="from the path" />
         </Router>
       </div>
     );

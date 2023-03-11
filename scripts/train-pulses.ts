@@ -26,7 +26,6 @@ function main() {
   for (const flow of raw) {
     for (const [item, amount] of Object.entries(flow.shipment)) {
       const colon = item.replace(',', ':');
-      if (['item:empty-barrel'].includes(colon)) continue;
       byColon[colon] = byColon[colon] ?? [];
       const start = flow.finished - flow.runtime - earliestStart;
       byColon[colon].push([
@@ -38,14 +37,13 @@ function main() {
       ]);
     }
   }
-  delete byColon['item:empty-barrel'];
 
   for (const flow of Object.values(byColon)) {
     flow.sort((a, b) => a[2] - b[2]);
   }
 
   writeFileSync(
-    __dirname + '/../data/train-pulses.json',
+    __dirname + '/../data/trainPulses.json',
     JSON.stringify({ byColon: sortByKeys(byColon) }),
   );
 }
