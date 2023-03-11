@@ -43,6 +43,10 @@ export const computed = {
   barrelFluid: {} as Record<string, string>,
 };
 
+export type Loc = string;
+/** from, to, start, duration */
+export type Pulse = [Loc, Loc, number, number];
+
 export function precompute() {
   computed.ltnSummary = precomputeLtnSummary();
   computed.fluidBarrel = data.recipes.barrelFormOf;
