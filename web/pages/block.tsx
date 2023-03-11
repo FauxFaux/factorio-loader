@@ -1,10 +1,10 @@
 import { Component } from 'preact';
 
-import { ColonJoined, Item, ItemOrFluid, TagList } from '../objects';
-import { Assemblers, recipeDifference, TrainStops } from '../block-renderers';
-import { data } from '../datae';
-import { humanise } from '../muffler/human';
-import { BlockThumb } from './map';
+import { ColonJoined, Item, ItemOrFluid, TagList } from '../objects.js';
+import { Assemblers, recipeDifference, TrainStops } from '../block-renderers.js';
+import { data } from '../datae.js';
+import { humanise } from '../muffler/human.js';
+import { BlockThumb } from './map.js';
 
 export class BlockPage extends Component<{ loc: string }> {
   render(props: { loc: string }) {

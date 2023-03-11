@@ -2,8 +2,8 @@ import 'preact/debug';
 import { render } from 'preact';
 
 import hashes from '../dist/hashes.json';
-import { App } from './app';
-import { data, precompute } from './datae';
+import { App } from './app.jsx';
+import { data, precompute } from './datae.js';
 
 export function init(element: HTMLElement) {
   element.innerHTML = 'Loading ~10MB of unbundled JSON...';

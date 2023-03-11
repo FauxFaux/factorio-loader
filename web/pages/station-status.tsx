@@ -1,17 +1,17 @@
 import { Component } from 'preact';
 
-import { data } from '../datae';
-import { Stop } from '../../scripts/load-recs';
-import { GpsLink, RenderIcons } from '../lists';
-import { ColonJoined } from '../objects';
-import { tupleToColon } from '../muffler/colon';
+import { data } from '../datae.js';
+import { Stop } from '../../scripts/load-recs.js';
+import { GpsLink, RenderIcons } from '../lists.jsx';
+import { ColonJoined } from '../objects.jsx';
+import { tupleToColon } from '../muffler/colon.js';
 import {
   colonMapItems,
   ltnMinTransfer,
   settingsMap,
   Stat,
   stations,
-} from '../muffler/stations';
+} from '../muffler/stations.js';
 
 export class StationStatus extends Component {
   render() {

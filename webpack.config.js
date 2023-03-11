@@ -1,10 +1,10 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+import path from 'path';
+import HtmlWebpackPlugin from "html-webpack-plugin";
 
-module.exports = {
+export default {
   entry: './web/index.tsx',
   output: {
-    path: path.resolve(__dirname, './dist'),
+    path: path.resolve('./dist'),
     filename: 'bundle.[contenthash].js',
     library: 'app',
   },
@@ -21,6 +21,10 @@ module.exports = {
   resolve: {
     // Add '.ts' and '.tsx' as resolvable extensions.
     extensions: ['.ts', '.tsx', '.js', '.json'],
+    extensionAlias: {
+      '.js': ['.ts', '.js'],
+      '.jsx': ['.tsx', '.jsx'],
+    },
   },
 
   module: {

@@ -1,8 +1,8 @@
 #!/usr/bin/env -S npx babel-node -x .ts,.tsx
 
-import { data } from '../web/datae';
-import { initOnNode } from './data-hack-for-node';
-import { tupleToColon } from '../web/muffler/colon';
+import { data } from '../web/datae.js';
+import { initOnNode } from './data-hack-for-node.js';
+import { tupleToColon } from '../web/muffler/colon.js';
 
 initOnNode();
 

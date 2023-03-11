@@ -1,12 +1,12 @@
 #!/usr/bin/env -S npx babel-node -x .ts,.tsx
 
 // <~/ins/factorio/script-output/ltn-export-log.serpent lua2json > data/trainFlows.jsonl
-
-import { initOnNode, loadTrainFlows } from './data-hack-for-node';
 import * as fs from 'fs';
 import { mkdirSync, renameSync, rmSync } from 'fs';
-import { data } from '../web/datae';
 import { execSync } from 'child_process';
+
+import { initOnNode, loadTrainFlows } from './data-hack-for-node.js';
+import { data } from '../web/datae.js';
 
 initOnNode();
 

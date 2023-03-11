@@ -3,9 +3,9 @@ import { render as stringify } from 'preact-render-to-string';
 import { useEffect } from 'preact/hooks';
 import type Leaflet from 'leaflet';
 
-import { BRICK_H, BRICK_W, fromLoc, toBlock } from '../../scripts/magic';
-import { TagList } from '../objects';
-import { data } from '../datae';
+import { BRICK_H, BRICK_W, fromLoc, toBlock } from '../../scripts/magic.js';
+import { TagList } from '../objects.js';
+import { data } from '../datae.js';
 
 interface MapProps {
   gps?: string;

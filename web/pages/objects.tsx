@@ -1,12 +1,12 @@
 import { Component } from 'preact';
-import { computed, Coord, data } from '../datae';
-import { LtnProvides, LtnRequests } from '../ltn-avail';
-import { ItemIcon } from '../lists';
-import { BlockLine, ColonJoined, Fluid, Item } from '../objects';
-import { objToColon } from '../muffler/colon';
-import { humanise } from '../muffler/human';
-import { HowToMake, IngredientLine } from '../components/how-to-make';
-import { AssemblerCount } from '../block-renderers';
+import { computed, Coord, data } from '../datae.js';
+import { LtnProvides, LtnRequests } from '../ltn-avail.js';
+import { ItemIcon } from '../lists.js';
+import { BlockLine, ColonJoined, Fluid, Item } from '../objects.jsx';
+import { objToColon } from '../muffler/colon.js';
+import { humanise } from '../muffler/human.js';
+import { HowToMake, IngredientLine } from '../components/how-to-make.js';
+import { AssemblerCount } from '../block-renderers.js';
 
 export class IoFDetail extends Component<{
   name: string;

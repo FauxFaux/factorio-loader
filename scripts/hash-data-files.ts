@@ -3,7 +3,7 @@
 import JsSha from 'jssha/dist/sha3';
 import { mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { globSync } from 'glob';
-import { sortByKeys } from '../web/muffler/deter';
+import { sortByKeys } from '../web/muffler/deter.js';
 
 async function main() {
   const outDir = __dirname + '/../dist/';

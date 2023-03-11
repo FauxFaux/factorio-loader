@@ -1,5 +1,5 @@
-import { provideStationPurpose } from '../web/muffler/stations';
-import { initOnNode } from '../scripts/data-hack-for-node';
+import { provideStationPurpose } from '../web/muffler/stations.js';
+import { initOnNode } from '../scripts/data-hack-for-node.js';
 
 initOnNode();
 

@@ -1,10 +1,10 @@
 #!/usr/bin/env -S npx babel-node -x .ts,.tsx
-
-import { initOnNode, loadTrainFlows } from './data-hack-for-node';
-import { data, Pulse } from '../web/datae';
-import { Colon } from '../web/muffler/colon';
 import { writeFileSync } from 'fs';
-import { sortByKeys } from '../web/muffler/deter';
+
+import { initOnNode, loadTrainFlows } from './data-hack-for-node.js';
+import { data, Pulse } from '../web/datae.js';
+import { Colon } from '../web/muffler/colon.js';
+import { sortByKeys } from '../web/muffler/deter.js';
 
 initOnNode();
 

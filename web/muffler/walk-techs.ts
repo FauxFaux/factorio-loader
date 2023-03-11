@@ -1,4 +1,4 @@
-import { data } from '../datae';
+import { data } from '../datae.js';
 
 export function unlockedRecipes(): Set<string> {
   return new Set(

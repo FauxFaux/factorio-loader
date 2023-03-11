@@ -1,9 +1,9 @@
-import { initOnNode } from '../scripts/data-hack-for-node';
+import { initOnNode } from '../scripts/data-hack-for-node.js';
 import {
   buildMaking,
   buildMissingIngredients,
-} from '../web/muffler/walk-recipes';
-import { haveMade } from '../web/muffler/walk-techs';
+} from '../web/muffler/walk-recipes.js';
+import { haveMade } from '../web/muffler/walk-techs.js';
 
 initOnNode();
 

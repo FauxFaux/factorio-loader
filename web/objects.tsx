@@ -1,6 +1,6 @@
 import { Component, ComponentChild, createRef } from 'preact';
-import { data } from './datae';
-import { ItemIcon, RenderIcons } from './lists';
+import { data } from './datae.js';
+import { ItemIcon, RenderIcons } from './lists.jsx';
 
 export interface JItem {
   group: { name: string };

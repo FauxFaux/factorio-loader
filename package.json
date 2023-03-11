@@ -11,6 +11,7 @@
   },
   "author": "",
   "license": "ISC",
+  "type": "module",
   "engines" : {
     "npm" : "^9",
     "node" : ">= 18"

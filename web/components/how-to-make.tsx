@@ -1,14 +1,14 @@
 import { Component } from 'preact';
-import { computed, data } from '../datae';
-import { Colon, splitColon } from '../muffler/colon';
-import { ColonJoined, JIngredient } from '../objects';
-import { haveMade } from '../muffler/walk-techs';
-import { stepsToUnlockRecipe, techToUnlock } from '../pages/next';
+import { computed, data } from '../datae.js';
+import { Colon, splitColon } from '../muffler/colon.js';
+import { ColonJoined, JIngredient } from '../objects.js';
+import { haveMade } from '../muffler/walk-techs.js';
+import { stepsToUnlockRecipe, techToUnlock } from '../pages/next.js';
 import {
   buildMaking,
   buildMissingIngredients,
   hiddenRequirements,
-} from '../muffler/walk-recipes';
+} from '../muffler/walk-recipes.js';
 
 export class HowToMake extends Component<{ colon: Colon }> {
   render(props: { colon: Colon }) {

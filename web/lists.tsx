@@ -1,9 +1,9 @@
 import { Component, ComponentChild } from 'preact';
-import { data } from './datae';
-import { Stop } from '../scripts/load-recs';
-import { ItemOrFluid } from './objects';
-import { compareWithoutIcons } from './muffler/names';
-import { Colon, tupleToColon } from './muffler/colon';
+import { data } from './datae.js';
+import { Stop } from '../scripts/load-recs.js';
+import { ItemOrFluid } from './objects.jsx';
+import { compareWithoutIcons } from './muffler/names.js';
+import { Colon, tupleToColon } from './muffler/colon.js';
 
 function smatch(name: string, props: { search?: string }) {
   // TODO: proper string comparison

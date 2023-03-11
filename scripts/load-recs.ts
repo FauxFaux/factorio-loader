@@ -2,16 +2,16 @@
 import * as fs from 'fs';
 import * as yaml from 'js-yaml';
 
-import { toBlock } from './magic';
-import { initOnNode, loadTrainFlows } from './data-hack-for-node';
-import { Coord, data } from '../web/datae';
+import { toBlock } from './magic.js';
+import { initOnNode, loadTrainFlows } from './data-hack-for-node.js';
+import { Coord, data } from '../web/datae.js';
 import {
   isProvideStation,
   provideStationPurpose,
-} from '../web/muffler/stations';
-import { Colon, objToColon, tupleToColon } from '../web/muffler/colon';
-import { sortByKeys } from '../web/muffler/deter';
-import { JIngredient, JProduct, JRecipe } from '../web/objects';
+} from '../web/muffler/stations.js';
+import { Colon, objToColon, tupleToColon } from '../web/muffler/colon.js';
+import { sortByKeys } from '../web/muffler/deter.js';
+import { JIngredient, JProduct, JRecipe } from '../web/objects.jsx';
 
 const base = process.argv[2];
 

@@ -1,7 +1,7 @@
-import { BlockContent } from '../scripts/load-recs';
-import { JFluid, JItem, JRecipe } from './objects';
-import { Colon } from './muffler/colon';
-import { LtnSummary, precomputeLtnSummary } from './ltn-summary';
+import { BlockContent } from '../scripts/load-recs.js';
+import { JFluid, JItem, JRecipe } from './objects.js';
+import { Colon } from './muffler/colon.js';
+import { LtnSummary, precomputeLtnSummary } from './ltn-summary.js';
 
 export type Coord = readonly [number, number];
 

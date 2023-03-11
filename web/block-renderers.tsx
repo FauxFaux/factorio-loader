@@ -1,17 +1,17 @@
 import { Component } from 'preact';
-import { BlockContent } from '../scripts/load-recs';
-import { ColonJoined, Item, Recipe } from './objects';
-import { GpsLink, RenderIcons } from './lists';
-import { Coord, data } from './datae';
+import { BlockContent } from '../scripts/load-recs.js';
+import { ColonJoined, Item, Recipe } from './objects.js';
+import { GpsLink, RenderIcons } from './lists.js';
+import { Coord, data } from './datae.js';
 import {
   colonMapCombinator,
   colonMapItems,
   ltnMinTransfer,
   settingsMap,
-} from './muffler/stations';
-import { humanise } from './muffler/human';
-import { compareWithoutIcons } from './muffler/names';
-import { expActLtn, LtnFlow, LtnPercent } from './ltn-avail';
+} from './muffler/stations.js';
+import { humanise } from './muffler/human.js';
+import { compareWithoutIcons } from './muffler/names.js';
+import { expActLtn, LtnFlow, LtnPercent } from './ltn-avail.js';
 
 export function recipeDifference(brick: BlockContent) {
   const inputs: Set<string> = new Set();

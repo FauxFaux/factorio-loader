@@ -1,12 +1,12 @@
-import { data } from './datae';
+import { data } from './datae.js';
 import {
   colonMapCombinator,
   colonMapItems,
   ltnMinTransfer,
   settingsMap,
-} from './muffler/stations';
-import { BlockContent } from '../scripts/load-recs';
-import { Colon, isRegular, tupleToColon } from './muffler/colon';
+} from './muffler/stations.js';
+import { BlockContent } from '../scripts/load-recs.js';
+import { Colon, isRegular, tupleToColon } from './muffler/colon.js';
 
 export interface Measurement {
   actual: number;

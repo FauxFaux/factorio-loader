@@ -1,6 +1,6 @@
 import { Component } from 'preact';
 
-import { StopLine } from './pages/station-status';
+import { StopLine } from './pages/station-status.jsx';
 import {
   colonMapCombinator,
   colonMapItems,
@@ -8,9 +8,9 @@ import {
   settingsMap,
   Stat,
   stations,
-} from './muffler/stations';
-import { Measurement } from './ltn-summary';
-import { humanise, humaniseNo } from './muffler/human';
+} from './muffler/stations.js';
+import { Measurement } from './ltn-summary.jsx';
+import { humanise, humaniseNo } from './muffler/human.js';
 
 interface LtnAvailabilityProps {
   stop: Stat;

@@ -1,8 +1,8 @@
 import { Component } from 'preact';
 
-import { data } from '../datae';
-import { ColonJoined, Recipe } from '../objects';
-import { unlockedRecipes } from '../muffler/walk-techs';
+import { data } from '../datae.js';
+import { ColonJoined, Recipe } from '../objects.js';
+import { unlockedRecipes } from '../muffler/walk-techs.js';
 
 export function techToUnlock(recipe: string): string | null {
   const found = Object.entries(data.technologies).find(([, tech]) =>

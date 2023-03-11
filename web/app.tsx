@@ -2,18 +2,18 @@ import { Component } from 'preact';
 import Router from 'preact-router';
 import { createHashHistory } from 'history';
 
-import { WhatTheBrick } from './pages/what-the-brick';
-import { StationStatus } from './pages/station-status';
-import { IoFDetail } from './pages/objects';
-import { BlockPage } from './pages/block';
-import { Map } from './pages/map';
+import { WhatTheBrick } from './pages/what-the-brick.jsx';
+import { StationStatus } from './pages/station-status.jsx';
+import { IoFDetail } from './pages/objects.jsx';
+import { BlockPage } from './pages/block.jsx';
+import { Map } from './pages/map.js';
 
-import { LtnTree } from './ltn-tree';
-import { ItemList, StationList } from './lists';
+import { LtnTree } from './ltn-tree.js';
+import { ItemList, StationList } from './lists.js';
 
 import 'leaflet/dist/leaflet.css';
 import './main.css';
-import { Next } from './pages/next';
+import { Next } from './pages/next.jsx';
 
 export class App extends Component {
   render() {

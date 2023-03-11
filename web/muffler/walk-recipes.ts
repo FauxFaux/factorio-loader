@@ -1,6 +1,6 @@
-import { data } from '../datae';
-import { splitColon } from './colon';
-import { JIngredient } from '../objects';
+import { data } from '../datae.js';
+import { splitColon } from './colon.js';
+import { JIngredient } from '../objects.js';
 
 export const hiddenRequirements: Record<string, JIngredient> = {
   'caged-scrondrix-1': { colon: 'item:scrondrix', amount: 0 },

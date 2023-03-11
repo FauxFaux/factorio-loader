@@ -1,7 +1,7 @@
-import { Stop } from '../../scripts/load-recs';
-import { Colon, fromColon, tupleToColon } from './colon';
-import { data } from '../datae';
-import { cleanupName, closelyMatches } from './names';
+import { Stop } from '../../scripts/load-recs.js';
+import { Colon, fromColon, tupleToColon } from './colon.js';
+import { data } from '../datae.js';
+import { cleanupName, closelyMatches } from './names.js';
 
 export function isProvideStation(name: string): boolean {
   return !!/\bProvide\b/i.exec(name);

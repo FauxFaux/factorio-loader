@@ -1,9 +1,9 @@
 import { Component } from 'preact';
-import { BlockLine, ColonJoined } from './objects';
-import { computed } from './datae';
-import { LtnSummary, Measurement } from './ltn-summary';
-import { LtnPercent } from './ltn-avail';
-import { Colon, objToColon, splitColon } from './muffler/colon';
+import { BlockLine, ColonJoined } from './objects.jsx';
+import { computed } from './datae.js';
+import { LtnSummary, Measurement } from './ltn-summary.jsx';
+import { LtnPercent } from './ltn-avail.jsx';
+import { Colon, objToColon, splitColon } from './muffler/colon.js';
 
 const nth = [
   'Primary',

@@ -1,4 +1,4 @@
-import { data } from '../datae';
+import { data } from '../datae.js';
 import { singularize } from 'inflection';
 
 export function cleanupName(name: string) {
