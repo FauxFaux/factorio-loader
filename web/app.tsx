@@ -14,6 +14,7 @@ import { ItemList, StationList } from './lists';
 import 'leaflet/dist/leaflet.css';
 import './main.css';
 import { Next } from './pages/next';
+import { Pulses } from './pages/pulses';
 
 export class App extends Component {
   render() {
@@ -38,6 +39,7 @@ export class App extends Component {
             zoom="from the path"
           />
           <Next path="/an/next" />
+          <Pulses path="/an/pulses" />
         </Router>
       </div>
     );

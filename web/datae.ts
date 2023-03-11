@@ -19,6 +19,7 @@ export const data = {
     Colon,
     { input?: FlowStats; output?: FlowStats; ltn?: number }
   >,
+  trainPulses: {} as { byColon: Record<Colon, Pulse[]> },
   flowDiagrams: [] as string[],
   technologies: {} as Record<
     string,
