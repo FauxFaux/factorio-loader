@@ -44,8 +44,8 @@ export const computed = {
 };
 
 export type Loc = string;
-/** from, to, start, duration */
-export type Pulse = [Loc, Loc, number, number];
+/** from, to, start, duration, amount */
+export type Pulse = [Loc, Loc, number, number, number];
 
 export function precompute() {
   computed.ltnSummary = precomputeLtnSummary();

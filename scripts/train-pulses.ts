@@ -24,7 +24,7 @@ function main() {
 
   const byColon: Record<Colon, Pulse[]> = {};
   for (const flow of raw) {
-    for (const item of Object.keys(flow.shipment)) {
+    for (const [item, amount] of Object.entries(flow.shipment)) {
       const colon = item.replace(',', ':');
       if (['item:empty-barrel'].includes(colon)) continue;
       byColon[colon] = byColon[colon] ?? [];
@@ -34,6 +34,7 @@ function main() {
         stopLookup[flow.to],
         start,
         flow.runtime,
+        amount,
       ]);
     }
   }

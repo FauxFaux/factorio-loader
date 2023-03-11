@@ -11,7 +11,7 @@ async function main() {
 
   const cwd = __dirname + '/../data/';
   const data: Record<string, string> = {};
-  for (const file of globSync('**/{*.json*,*.svg}', { cwd })) {
+  for (const file of globSync('**/{*.json,*.svg}', { cwd })) {
     const hash = new JsSha('SHAKE128', 'TEXT', { encoding: 'UTF8' });
     hash.update(readFileSync(cwd + file, { encoding: 'utf8' }));
     data[file] = hash.getHash('HEX', { outputUpper: false, outputLen: 8 * 8 });
