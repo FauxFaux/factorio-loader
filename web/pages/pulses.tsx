@@ -4,6 +4,8 @@ import { easeQuadInOut } from 'd3-ease';
 import { data, Loc, Pulse } from '../datae';
 import { useEffect } from 'preact/hooks';
 import { BlockLink } from './station-status';
+import { splitColon } from '../muffler/colon';
+import { ItemIcon } from '../lists';
 
 function topN<T>(n: number, entries: (readonly [T, number])[]) {
   entries.sort((a, b) => b[1] - a[1]);
@@ -15,36 +17,55 @@ function topN<T>(n: number, entries: (readonly [T, number])[]) {
   } as const;
 }
 
-const Line = (props: {
-  total: number;
-  w: number;
-  y: number;
-  liner: Liner[];
-}) => {
+const W = 800;
+// LTN convention; actual 2-wagon train can take 80 stacks?
+const STACKS_PER_TRAIN = 50;
+
+const Line = (props: { total: number; y: number; liner: Liner[] }) => {
+  const iconList = (
+    x: number,
+    y: number,
+    width: number,
+    locs: string[],
+    dir: 'flowTo' | 'flowFrom',
+  ) => (
+    <foreignObject
+      x={x * 2}
+      y={(props.y + y) * 2}
+      width={width * 2}
+      height={28}
+      className={'node'}
+      transform={'scale(0.5)'}
+    >
+      {locs
+        .flatMap((loc) =>
+          data.doc[loc].stop.flatMap((s) => Object.keys(s[dir])),
+        )
+        .sort()
+        .map((colon) => (
+          <ItemIcon alt={colon} name={splitColon(colon)[1]} />
+        ))}
+    </foreignObject>
+  );
+
   return (
     <>
       {props.liner.map((blob) => {
         const ratio = blob.amount / props.total;
-        const x = (blob.off / props.total) * props.w;
+        const x = (blob.off / props.total) * W;
         console.log(blob, props);
-        const width = ratio * props.w - 3;
+        const width = ratio * W - 3;
         return (
           <>
             <rect
-              fill="red"
+              fill="#dee2e6"
               x={x}
               width={width}
               y={props.y}
               height="100"
               rx="5"
             />
-            <text
-              x={x + width / 2}
-              y={props.y + 10}
-              text-anchor={'middle'}
-              fill="black"
-              font-size={'60%'}
-            >
+            <text x={x + 4} y={props.y + 10} fill="black" font-size={'60%'}>
               {blob.names.slice(0, 4).map((loc, i) => (
                 <>
                   <BlockLink loc={loc} />
@@ -52,18 +73,14 @@ const Line = (props: {
                 </>
               ))}
             </text>
-            <text
-              x={x + width / 2}
-              y={props.y + 20}
-              text-anchor={'middle'}
-              fill="black"
-              font-size={'60%'}
-            >
+            <text x={x + 4} y={props.y + 24} fill="black" font-size={'60%'}>
               {blob.names
                 .map((loc) => data.doc[loc].tags.join('; '))
                 .join('; ')
                 .slice(0, 20)}
             </text>
+            {iconList(x, 40, width, blob.names, 'flowTo')}
+            {iconList(x, 60, width, blob.names, 'flowFrom')}
           </>
         );
       })}
@@ -86,7 +103,9 @@ export class Pulses extends Component<{ colon: string }> {
       end = Math.max(end, start + duration);
     }
 
-    const w = 800;
+    const amountScale =
+      (data.items[splitColon(props.colon)[1]]?.stack_size ?? 500) *
+      STACKS_PER_TRAIN;
 
     const srcLiner = computeLine(sources);
     const sinkLiner = computeLine(sinks);
@@ -101,15 +120,16 @@ export class Pulses extends Component<{ colon: string }> {
 
     return (
       <div class={'row'}>
-        <svg width={'100%'} viewBox={'0 0 800 1000'}>
-          <Line y={0} total={total} w={w} liner={srcLiner} />
-          <Line y={320} total={total} w={w} liner={sinkLiner} />
+        <svg width={'100%'} viewBox={`0 0 ${W} 1000`}>
           <Motion
             pulses={pulses}
             end={end}
             starts={totalise(srcLiner)}
             ends={totalise(sinkLiner)}
+            amountScale={amountScale}
           />
+          <Line y={0} total={total} liner={srcLiner} />
+          <Line y={320} total={total} liner={sinkLiner} />
         </svg>
       </div>
     );
@@ -123,7 +143,7 @@ interface Liner {
 }
 
 function computeLine(bricks: Record<Loc, number>): Liner[] {
-  const top = topN(5, Object.entries(bricks));
+  const top = topN(4, Object.entries(bricks));
   const items = top.top
     .map(([loc, amount]) => [amount, [loc] as string[]] as const)
     .concat([[top.rest, top.names]] as const);
@@ -144,6 +164,7 @@ interface MotionProps {
   end: number;
   starts: Record<Loc, readonly [number, number]>;
   ends: Record<Loc, readonly [number, number]>;
+  amountScale: number;
 }
 class Motion extends Component<MotionProps, { t: number }> {
   render(props: MotionProps, state: { t: number }) {
@@ -167,15 +188,14 @@ class Motion extends Component<MotionProps, { t: number }> {
         if (now < start || now > start + duration) {
           return [];
         }
-        const w = 800;
 
         const [sx, sw] = props.starts[from]!;
         const [ex, ew] = props.ends[to]!;
 
-        const fx = w * (sx + sw / 2);
+        const fx = W * (sx + sw / 2);
         const fy = 95;
 
-        const tx = w * (ex + ew / 2);
+        const tx = W * (ex + ew / 2);
         const ty = 330;
 
         const ease = easeQuadInOut((now - start) / duration);
@@ -183,12 +203,17 @@ class Motion extends Component<MotionProps, { t: number }> {
         const y = ease * (ty - fy) + fy;
         return (
           <g key={`circ-${i}`}>
-            <circle cx={x} cy={y} r={3 + Math.log(amount)} fill="red" />
+            <circle
+              cx={x}
+              cy={y}
+              r={1 + (amount / props.amountScale) * 10}
+              fill="red"
+            />
           </g>
         );
       })
       .concat([
-        <text style={'fill: white'} x={20} y={20}>
+        <text style={'fill: white'} x={0} y={120}>
           {hoursMins} ({(t * 100).toFixed()}%)
         </text>,
       ]);
