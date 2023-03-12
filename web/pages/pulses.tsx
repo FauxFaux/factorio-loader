@@ -37,10 +37,13 @@ const Line = (props: { total: number; y: number; liner: Liner[] }) => {
       className={'node'}
       transform={'scale(0.5)'}
     >
-      {locs
-        .flatMap((loc) =>
-          data.doc[loc].stop.flatMap((s) => Object.keys(s[dir])),
-        )
+      {[
+        ...new Set(
+          locs.flatMap((loc) =>
+            data.doc[loc].stop.flatMap((s) => Object.keys(s[dir])),
+          ),
+        ),
+      ]
         .sort()
         .map((colon) => (
           <ItemIcon alt={colon} name={splitColon(colon)[1]} />
@@ -77,7 +80,7 @@ const Line = (props: { total: number; y: number; liner: Liner[] }) => {
               {blob.names
                 .map((loc) => data.doc[loc].tags.join('; '))
                 .join('; ')
-                .slice(0, 20)}
+                .slice(0, width / 6)}
             </text>
             {iconList(x, 40, width, blob.names, 'flowTo')}
             {iconList(x, 60, width, blob.names, 'flowFrom')}
@@ -143,7 +146,7 @@ interface Liner {
 }
 
 function computeLine(bricks: Record<Loc, number>): Liner[] {
-  const top = topN(4, Object.entries(bricks));
+  const top = topN(8, Object.entries(bricks));
   const items = top.top
     .map(([loc, amount]) => [amount, [loc] as string[]] as const)
     .concat([[top.rest, top.names]] as const);
@@ -192,10 +195,10 @@ class Motion extends Component<MotionProps, { t: number }> {
         const [sx, sw] = props.starts[from]!;
         const [ex, ew] = props.ends[to]!;
 
-        const fx = W * (sx + sw / 2);
+        const fx = W * (sx + sw * (ex + sw / 2));
         const fy = 95;
 
-        const tx = W * (ex + ew / 2);
+        const tx = W * (ex + ew * (sx + sw / 2));
         const ty = 330;
 
         const ease = easeQuadInOut((now - start) / duration);
