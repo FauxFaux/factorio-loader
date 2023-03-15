@@ -56,7 +56,6 @@ const Line = (props: { total: number; y: number; liner: Liner[] }) => {
       {props.liner.map((blob) => {
         const ratio = blob.amount / props.total;
         const x = (blob.off / props.total) * W;
-        console.log(blob, props);
         const width = ratio * W - 3;
         return (
           <>
