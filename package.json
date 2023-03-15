@@ -11,12 +11,13 @@
   },
   "author": "",
   "license": "ISC",
-  "engines" : {
-    "npm" : "^9",
-    "node" : ">= 18"
+  "engines": {
+    "npm": "^9",
+    "node": ">= 18"
   },
   "dependencies": {
     "@bloomberg/record-tuple-polyfill": "^0.0.4",
+    "abab": "^2.0.6",
     "bootstrap": "5.3.0-alpha1",
     "d3": "^7.8.2",
     "flat-color-icons": "^1.1.0",
@@ -24,6 +25,7 @@
     "inflection": "^2.0.1",
     "js-yaml": "^4.1.0",
     "leaflet": "^1.9.3",
+    "pako": "^2.1.0",
     "preact": "^10.11",
     "preact-render-to-string": "^5.2.6",
     "preact-router": "^4.1.0",
@@ -43,6 +45,7 @@
     "@types/js-yaml": "^4.0.5",
     "@types/leaflet": "^1.9.1",
     "@types/node": "^18",
+    "@types/pako": "^2.0.0",
     "babel-loader": "^9.1",
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.7.3",

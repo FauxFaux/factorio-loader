@@ -9,7 +9,9 @@ export function init(element: HTMLElement) {
   element.innerHTML = 'Loading ~10MB of unbundled JSON...';
   (async () => {
     await fillDataWithFetch();
+    element.innerHTML = 'Data downloaded, reticulating splines...';
     precompute();
+    element.innerHTML = 'Data downloaded, booting...';
     element.innerHTML = '';
     render(<App />, element);
   })().catch(async (e) => {

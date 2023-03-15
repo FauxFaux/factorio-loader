@@ -15,6 +15,7 @@ import 'leaflet/dist/leaflet.css';
 import './main.css';
 import { Next } from './pages/next';
 import { Pulses } from './pages/pulses';
+import { Chestify } from './pages/chestify';
 
 export class App extends Component {
   render() {
@@ -40,6 +41,7 @@ export class App extends Component {
           />
           <Next path="/an/next" />
           <Pulses path="/an/pulses/:colon" colon="from the path" />
+          <Chestify path="/an/chestify" />
         </Router>
       </div>
     );
