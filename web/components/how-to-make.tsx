@@ -7,7 +7,7 @@ import { stepsToUnlockRecipe, techToUnlock } from '../pages/next';
 import {
   buildMaking,
   buildMissingIngredients,
-  hiddenRequirements,
+  ingredients,
 } from '../muffler/walk-recipes';
 
 export class HowToMake extends Component<{ colon: Colon }> {
@@ -36,10 +36,10 @@ export class HowToMake extends Component<{ colon: Colon }> {
     for (let i = 0; i < 10; ++i) {
       const newIngredients = new Set<string>();
       for (const name of scanning) {
+        if (!name) continue;
         const recipe = data.recipes.regular[name];
-        for (const ing of (recipe?.ingredients ?? []).concat(
-          hiddenRequirements[name] ?? [],
-        )) {
+        if (!recipe.producers) continue;
+        for (const ing of ingredients(name)) {
           const colon = ing.colon;
           if (canMake.has(colon)) continue;
           newIngredients.add(colon);

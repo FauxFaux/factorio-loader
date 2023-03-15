@@ -2,32 +2,6 @@ import { data } from '../datae';
 import { splitColon } from './colon';
 import { JIngredient } from '../objects';
 
-export const hiddenRequirements: Record<string, JIngredient> = {
-  'caged-scrondrix-1': { colon: 'item:scrondrix', amount: 0 },
-  'caged-scrondrix-1a': { colon: 'item:scrondrix', amount: 0 },
-  'caged-scrondrix-2': { colon: 'item:scrondrix', amount: 0 },
-  'caged-scrondrix-2a': { colon: 'item:scrondrix', amount: 0 },
-  'caged-scrondrix-3': { colon: 'item:scrondrix', amount: 0 },
-  'caged-scrondrix-3a': { colon: 'item:scrondrix', amount: 0 },
-  'caged-scrondrix-4': { colon: 'item:scrondrix', amount: 0 },
-  'caged-scrondrix-4a': { colon: 'item:scrondrix', amount: 0 },
-  'caged-scrondrix-5': { colon: 'item:scrondrix', amount: 0 },
-  'scrondrix-cub-1': { colon: 'item:scrondrix', amount: 0 },
-  'scrondrix-cub-2': { colon: 'item:scrondrix', amount: 0 },
-  'scrondrix-cub-3': { colon: 'item:scrondrix', amount: 0 },
-  'scrondrix-cub-4': { colon: 'item:scrondrix', amount: 0 },
-  'scrondrix-mature-01': { colon: 'item:scrondrix', amount: 0 },
-  'caged-dingrits1': { colon: 'item:dingrits', amount: 0 },
-  'caged-dingrits2': { colon: 'item:dingrits', amount: 0 },
-  'caged-dingrits3': { colon: 'item:dingrits', amount: 0 },
-  'caged-dingrits4': { colon: 'item:dingrits', amount: 0 },
-  'caged-dingrits5': { colon: 'item:dingrits', amount: 0 },
-  'caged-dingrits6': { colon: 'item:dingrits', amount: 0 },
-  'caged-dingrits7': { colon: 'item:dingrits', amount: 0 },
-  'dingrits-mature-01': { colon: 'item:dingrits', amount: 0 },
-  'dingrits-mk02': { colon: 'item:dingrits', amount: 0 },
-};
-
 export function recipeBan(name: string): boolean {
   return (
     name.endsWith('-barrel') ||
@@ -70,10 +44,11 @@ export function buildMissingIngredients(
     for (const [name, rec] of Object.entries(data.recipes.regular)) {
       if (recipeBan(name)) continue;
       if (name in missingIngredients) continue;
-      // const products = new Set(rec.products.map((p) => p.colon));
-      const ings = (rec.ingredients ?? [])
-        .concat(hiddenRequirements[name] ?? [])
-        .filter((ing) => !canMake.has(ing.colon));
+
+      // this appears to mean that the recipe is invalid?
+      if (!rec.producers) continue;
+
+      const ings = ingredients(name).filter((ing) => !canMake.has(ing.colon));
 
       if (ings.length === 0) {
         missingIngredients[name] = 0;
@@ -116,4 +91,24 @@ export function buildMissingIngredients(
   // }
 
   return missingIngredients;
+}
+
+const hiddenByProducer: Record<string, string> = {
+  'kmauts-enclosure': 'item:kmauts',
+  'dingrits-pack': 'item:dingrits',
+  'scrondrix-pen': 'item:scrondrix',
+};
+
+export function ingredients(name: string): JIngredient[] {
+  const rec = data.recipes.regular[name];
+  if (!rec) return [];
+  const producers = (rec.producers ?? []).sort().join(',');
+
+  const base = rec.ingredients ?? [];
+
+  if (producers in hiddenByProducer) {
+    return base.concat([{ colon: hiddenByProducer[producers], amount: 0 }]);
+  }
+
+  return base;
 }
