@@ -86,6 +86,19 @@ function main() {
       'utf-8',
     ),
   );
+
+  // this isn't technically 1->1 I think, but it works for like rails, and the rest of the data is actually missing (for now)
+  // (in practice this gets zero correct answers)
+  const placeOverrides = Object.fromEntries(
+    Object.entries(tools.item_prototypes)
+      .map(([name, item]) => [item.place_result?.name, name] as const)
+      .filter(([name, place]) => name !== place && place !== undefined),
+  );
+
+  placeOverrides['curved-rail'] = 'rail';
+  placeOverrides['straight-rail'] = 'rail';
+  placeOverrides['pumpjack'] = 'pumpjack-mk01';
+
   for (const [name, rec] of Object.entries(tools.recipe_prototypes)) {
     if (name.endsWith('-pyvoid')) {
       if (
@@ -145,6 +158,7 @@ function main() {
     regular: sortByKeys(regular),
     voidableItems: Array.from(voidableItems).sort(),
     barrelFormOf: sortByKeys(barrelFormOf),
+    placeOverrides,
   };
 
   const patch = yaml.load(
@@ -453,6 +467,12 @@ interface Tools {
       category: string;
       localised_name: string;
       // incomplete
+    }
+  >;
+  item_prototypes: Record<
+    string,
+    {
+      place_result?: { name: string };
     }
   >;
   // incomplete

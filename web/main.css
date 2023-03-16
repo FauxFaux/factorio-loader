@@ -138,4 +138,6 @@
 
 .big-boy {
   height: 8em;
+  font-family: monospace;
+  font-size: small;
 }

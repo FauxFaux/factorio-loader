@@ -14,6 +14,7 @@ export const data = {
     regular: Record<string, JRecipe>;
     voidableItems: string[];
     barrelFormOf: Record<string, string>;
+    placeOverrides: Record<string, string>;
   },
   prodStats: {} as Record<
     Colon,

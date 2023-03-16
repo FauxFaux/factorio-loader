@@ -79,6 +79,11 @@ const header = (
             </a>
           </li>
           <li>
+            <a href="/an/chestify" className="nav-link px-2 text-white">
+              Chestify
+            </a>
+          </li>
+          <li>
             <a
               href="https://github.com/FauxFaux/factorio-loader"
               className="nav-link px-2 text-white"

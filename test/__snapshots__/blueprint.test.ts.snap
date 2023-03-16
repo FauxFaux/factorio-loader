@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`blueprint decode 1`] = `
+{
+  "blueprint": {
+    "entities": [
+      {
+        "entity_number": 1,
+        "name": "ht-locomotive",
+        "orientation": 0,
+        "position": {
+          "x": -235,
+          "y": -390.15625,
+        },
+      },
+      {
+        "entity_number": 2,
+        "inventory": null,
+        "name": "ht-generic-wagon",
+        "orientation": 0.5,
+        "position": {
+          "x": -235,
+          "y": -382.9609375,
+        },
+      },
+      {
+        "entity_number": 3,
+        "inventory": null,
+        "name": "ht-generic-wagon",
+        "orientation": 0.5,
+        "position": {
+          "x": -235,
+          "y": -375.9609375,
+        },
+      },
+    ],
+    "icons": [
+      {
+        "index": 1,
+        "signal": {
+          "name": "ht-locomotive",
+          "type": "item",
+        },
+      },
+    ],
+    "item": "blueprint",
+    "label": "Cargo Train Mk II",
+    "schedules": [
+      {
+        "locomotives": [
+          1,
+        ],
+        "schedule": [
+          {
+            "station": "[virtual-signal=ltn-depot] Depot",
+            "wait_conditions": [
+              {
+                "compare_type": "or",
+                "ticks": 300,
+                "type": "inactivity",
+              },
+            ],
+          },
+        ],
+      },
+    ],
+    "version": 281479275151360,
+  },
+}
+`;
+
+exports[`blueprint decode 2`] = `
+{
+  "blueprint": {
+    "entities": [
+      {
+        "entity_number": 1,
+        "name": "logistic-chest-requester",
+        "position": {
+          "x": 2.5,
+          "y": 20.5,
+        },
+        "request_filters": [
+          {
+            "count": 500,
+            "index": 1,
+            "name": "small-parts-01",
+          },
+        ],
+      },
+    ],
+    "icons": [
+      {
+        "index": 1,
+        "signal": {
+          "name": "logistic-chest-requester",
+          "type": "item",
+        },
+      },
+    ],
+    "item": "blueprint",
+    "version": 281479275151360,
+  },
+}
+`;
