@@ -14,3 +14,15 @@ jq -c '.icons|map({key:.id, value:.position})|from_entries' script-output/factor
 
  * https://wiki.factorio.com/Prototype_definitions
  * mining-drill includes: > This prototype type is used by burner mining drill, electric mining drill and pumpjack in vanilla.
+
+ * https://wiki.factorio.com/Console#Delete_unrevealed_chunks
+
+```lua
+local surface = game.player.surface
+local force = game.player.force
+for chunk in surface.get_chunks() do
+  if not force.is_chunk_charted(surface, chunk) then
+    surface.delete_chunk(chunk)
+  end
+end
+```
