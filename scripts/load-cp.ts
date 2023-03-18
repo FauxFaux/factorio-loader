@@ -1,5 +1,5 @@
 #!/usr/bin/env -S npx babel-node -x .ts,.tsx
-import fs, { mkdirSync } from "fs";
+import fs from 'fs';
 
 import { loadSamples } from './loaders';
 import { initOnNode } from './data-hack-for-node';
@@ -49,7 +49,6 @@ function main() {
       const [x, y] = removeOffset([rx, ry]);
       const gx = Math.floor(x / GRID);
       const gy = Math.floor(y / GRID);
-      const g = String([gx, gy]);
 
       // if (x !== -452.5 || y !== 438.5) continue;
 
@@ -111,7 +110,10 @@ function main() {
   fs.rmSync('data/cp', { recursive: true, force: true });
   fs.mkdirSync('data/cp', { recursive: true });
 
-  fs.writeFileSync('data/cp/meta.json', JSON.stringify({ ticks: justTicks, available: [...allKeys].sort() }));
+  fs.writeFileSync(
+    'data/cp/meta.json',
+    JSON.stringify({ ticks: justTicks, available: [...allKeys].sort() }),
+  );
   for (const [colon, data] of Object.entries(byColon)) {
     fs.writeFileSync(
       `data/cp/${colon.replace(':', '-')}.json`,
