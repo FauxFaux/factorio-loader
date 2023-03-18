@@ -1,4 +1,5 @@
 #!/usr/bin/env -S npx babel-node -x .ts,.tsx
+import fs, { mkdirSync } from "fs";
 
 import { loadSamples } from './loaders';
 import { initOnNode } from './data-hack-for-node';
@@ -6,7 +7,6 @@ import { data } from '../web/datae';
 import type { JRecipe } from '../web/objects';
 import type { Colon } from '../web/muffler/colon';
 import { removeOffset } from './magic';
-import { writeFileSync } from 'fs';
 
 initOnNode();
 
@@ -18,7 +18,13 @@ type ConcPos = string;
 const GRID = 32;
 
 function main() {
-  const ticks = [];
+  const allKeys = new Set<string>();
+
+  type LocCount = number[];
+  const byColon: Record<Colon, { produced: LocCount; consumed: LocCount }[]> =
+    {};
+
+  const justTicks: number[] = [];
 
   const previousTick: Record<ConcPos, number> = {};
 
@@ -28,6 +34,7 @@ function main() {
     if (wholeTick.length === 0) continue;
     const tickMachines = wholeTick.split('\x1d');
     const tickNo = tickMachines[0];
+    justTicks.push(parseInt(tickNo));
     console.log('tick', tickNo, i, '/', totalObservations.length);
 
     const produced: Record<Colon, Record<ConcPos, number>> = {};
@@ -85,9 +92,51 @@ function main() {
       }
     }
 
-    ticks.push({ produced, consumed, tickNo });
+    for (const key of Object.keys(consumed)) {
+      allKeys.add(key);
+    }
+    for (const key of Object.keys(produced)) {
+      allKeys.add(key);
+    }
+
+    for (const colon of allKeys) {
+      if (!byColon[colon]) byColon[colon] = [];
+      byColon[colon].push({
+        produced: listificate(produced[colon]),
+        consumed: listificate(consumed[colon]),
+      });
+    }
   }
-  writeFileSync('cp.json', JSON.stringify(ticks));
+
+  fs.rmSync('data/cp', { recursive: true, force: true });
+  fs.mkdirSync('data/cp', { recursive: true });
+
+  fs.writeFileSync('data/cp/meta.json', JSON.stringify({ ticks: justTicks, available: [...allKeys].sort() }));
+  for (const [colon, data] of Object.entries(byColon)) {
+    fs.writeFileSync(
+      `data/cp/${colon.replace(':', '-')}.json`,
+      JSON.stringify(data),
+    );
+  }
+
+  // writeFileSync(
+  //   'cp.json',
+  //   JSON.stringify({
+  //     byColon,
+  //     justTicks,
+  //   }),
+  // );
+}
+
+/** pack { "5,3": 7, "6,3": 8 } into [5, 3, 7, 6, 3, 8] */
+function listificate(locCount: Record<ConcPos, number>): number[] {
+  if (!locCount) return [];
+  const ret: number[] = [];
+  for (const [key, value] of Object.entries(locCount)) {
+    const [x, y] = key.split(',').map((x) => parseInt(x));
+    ret.push(x, y, Math.round(value * 100) / 100);
+  }
+  return ret;
 }
 
 main();
