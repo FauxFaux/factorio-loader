@@ -12,8 +12,7 @@ import {
 import { Colon, objToColon, tupleToColon } from '../web/muffler/colon';
 import { sortByKeys } from '../web/muffler/deter';
 import { JIngredient, JProduct, JRecipe } from '../web/objects';
-
-const base = process.argv[2];
+import { loadCells } from './loaders';
 
 initOnNode(['doc', 'technologies', 'prodStats']);
 
@@ -417,16 +416,6 @@ function load(kind: string) {
     items.push({ block, name, ext, pos });
   }
   return items;
-}
-
-function loadCells(kind: string): string[][] {
-  return loadLines(kind).map((record) => record.split('\x1e'));
-}
-
-function loadLines(kind: string): string[] {
-  return fs
-    .readFileSync(`${base}/${kind}.rec`, { encoding: 'utf-8' })
-    .split('\x1d'); // (\035)
 }
 
 function nameTypeToColon(items: Record<string, any>[]) {

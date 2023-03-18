@@ -2,6 +2,13 @@ const [ox, oy] = [-16, -48];
 export const BRICK_W = 192;
 export const BRICK_H = 128;
 
+export function removeOffset([x, y]: readonly [number, number]): readonly [
+  number,
+  number,
+] {
+  return [x - ox, y - oy];
+}
+
 export function toBlock([x, y]: readonly [number, number]) {
   x -= ox;
   y -= oy;
