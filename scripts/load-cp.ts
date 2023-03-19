@@ -63,9 +63,11 @@ function main() {
       if (undefined === last || counter === last) continue;
       const runs = counter - last;
 
-      const recipeName: string | undefined = machine[3];
+      const recipeName = machine[3];
+      if (!recipeName) continue;
 
-      const recipe: JRecipe | undefined = data.recipes.regular[recipeName];
+      let recipe = makeUpRecipe(recipeName);
+      if (!recipe) continue;
 
       const concGrid = `${gx},${gy}`;
 
@@ -128,6 +130,75 @@ function main() {
   //     justTicks,
   //   }),
   // );
+}
+
+function fillBarrel(fluidName: string) {
+  return {
+    ingredients: [
+      {
+        colon: 'item:empty-barrel',
+        amount: 1,
+      },
+      {
+        colon: `fluid:${fluidName}`,
+        amount: 50,
+      },
+    ],
+    products: [
+      {
+        // TODO: gross approximation
+        colon: `item:${fluidName}-barrel`,
+        amount: 1,
+      },
+    ],
+  };
+}
+
+function makeUpRecipe(
+  recipeName: string,
+): Pick<JRecipe, 'ingredients' | 'products'> | undefined {
+  const regular = data.recipes.regular[recipeName];
+  if (regular) return regular;
+
+  let ma = recipeName.match(/^fill-(.*)-barrel$/);
+  if (ma) {
+    return fillBarrel(ma[1]);
+  }
+
+  // ma = recipeName.match(/^empty-(.*)-barrel$/);
+  ma = recipeName.match(/^(.*)-pyvoid$/);
+  if (ma) {
+    return {
+      ingredients: [
+        {
+          colon: `item:${ma[1]}`,
+          amount: 1,
+        },
+      ],
+      products: [
+        {
+          colon: `item:ash`,
+          amount: 1,
+          probability: 0.2,
+        },
+      ],
+    };
+  }
+
+  ma = recipeName.match(/^(.*)-pyvoid(?:-fluid|-gas)?$/);
+  if (ma) {
+    return {
+      ingredients: [
+        {
+          colon: `fluid:${ma[1]}`,
+          amount: 20_000,
+        },
+      ],
+      products: [],
+    };
+  }
+
+  console.log('unknown recipe', recipeName);
 }
 
 /** pack { "5,3": 7, "6,3": 8 } into [5, 3, 7, 6, 3, 8] */
