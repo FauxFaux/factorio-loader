@@ -1,13 +1,14 @@
 import { Component } from 'preact';
 import { computed, data } from '../datae';
 import { Colon, splitColon } from '../muffler/colon';
-import { ColonJoined, JIngredient } from '../objects';
+import { ColonJoined, JIngredient, JProduct } from '../objects';
 import { haveMade } from '../muffler/walk-techs';
 import { stepsToUnlockRecipe, techToUnlock } from '../pages/next';
 import {
   buildMaking,
   buildMissingIngredients,
   ingredients,
+  productAsFloat,
 } from '../muffler/walk-recipes';
 
 export class HowToMake extends Component<{ colon: Colon }> {
@@ -70,8 +71,8 @@ export class HowToMake extends Component<{ colon: Colon }> {
           <tr>
             <th>Reqs</th>
             <th>Recipe name</th>
-            <th>Products</th>
             <th>Ingredients</th>
+            <th>Products</th>
           </tr>
         </thead>
         <tbody>
@@ -89,7 +90,7 @@ export class HowToMake extends Component<{ colon: Colon }> {
                   <td>
                     <ul class={'ul-none'}>
                       <li>
-                        {missing < 100 ? (
+                        {missing < 500 ? (
                           <abbr
                             title={`found a production chain requiring ${missing} entirely new items`}
                           >
@@ -132,28 +133,28 @@ export class HowToMake extends Component<{ colon: Colon }> {
                     <p>Made in: {recipe.producers?.join(', ') ?? '??'}</p>
                   </td>
                   <td>
-                    <ul class={'ul-none'}>
-                      {recipe.products
-                        .sort((a, b) => {
-                          if (a.colon === props.colon) return -1;
-                          if (b.colon === props.colon) return 1;
-                          return (b.amount ?? 1) - (a.amount ?? 1);
-                        })
-                        .map((p) => (
-                          <li>
-                            <span class={'amount'}>{p.amount}</span> &times;{' '}
-                            <ColonJoined colon={p.colon} />
-                          </li>
-                        ))}
-                    </ul>
-                  </td>
-                  <td>
-                    <ul class={'ul-none'}>
+                    <ul className={'ul-none'}>
                       {recipe.ingredients?.map((ing) => (
                         <li>
                           <IngredientLine ing={ing} />
                         </li>
                       ))}
+                    </ul>
+                  </td>
+                  <td>
+                    <ul class={'ul-none'}>
+                      {recipe.products
+                        .sort((a, b) => {
+                          if (a.colon === props.colon) return -1;
+                          if (b.colon === props.colon) return 1;
+                          return productAsFloat(b) - productAsFloat(a);
+                        })
+                        .map((p) => (
+                          <li>
+                            <ProductAmount product={p} /> &times;{' '}
+                            <ColonJoined colon={p.colon} />
+                          </li>
+                        ))}
                     </ul>
                   </td>
                 </tr>
@@ -173,6 +174,26 @@ export const IngredientLine = ({ ing }: { ing: JIngredient }) => (
   </>
 );
 
+export const ProductAmount = ({ product }: { product: JProduct }) => {
+  const perc =
+    product.probability !== undefined && product.probability !== 1
+      ? `${100 * product.probability}%`
+      : undefined;
+  if ('amount' in product) {
+    return (
+      <span className={'amount'}>
+        {perc} {product.amount}
+      </span>
+    );
+  }
+
+  return (
+    <span className={'amount'}>
+      {perc} {product.amount_min} - {product.amount_max}
+    </span>
+  );
+};
+
 const Availability = ({ colon }: { colon: string }) => {
   const [, name] = splitColon(colon);
   const ps =
@@ -184,7 +205,7 @@ const Availability = ({ colon }: { colon: string }) => {
     icon = require('svg-url-loader!flat-color-icons/svg/low_priority.svg');
     alt = 'all good; shipped on ltn';
     // 'input' for items being produced, 'output' for fluids being produced; screw it
-  } else if ((ps?.input?.total ?? 0) > 1 || (ps?.output?.total ?? 0) > 1) {
+  } else if ((ps?.input?.total ?? 0) >= 1 || (ps?.output?.total ?? 0) >= 1) {
     icon = require('svg-url-loader!flat-color-icons/svg/medium_priority.svg');
     alt = 'produced somewhere, but not shipped';
   } else {

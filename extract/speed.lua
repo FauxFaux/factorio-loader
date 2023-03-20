@@ -7,7 +7,7 @@ for _, entity in pairs(surface.find_entities_filtered({ force = "enemy" })) do
     entity.destroy()
 end
 
-for _, v in pairs(s.find_entities_filtered({ type = "inserter" })) do
+for _, v in pairs(surface.find_entities_filtered({ type = "inserter" })) do
     local d = v.drop_target
     if d ~= nil then
         if d.name == "gun-turret" then
@@ -16,7 +16,7 @@ for _, v in pairs(s.find_entities_filtered({ type = "inserter" })) do
     end
 end
 
-for _, v in pairs(s.find_entities_filtered({ type = "ammo-turret" })) do
+for _, v in pairs(surface.find_entities_filtered({ type = "ammo-turret" })) do
     v.destroy()
 end
 
@@ -25,4 +25,5 @@ game.map_settings.pollution.enabled = false
 
 game.player.surface.destroy_decoratives({})
 
+game.player.character_running_speed_modifier = 2
 game.speed = 3

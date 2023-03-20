@@ -19,8 +19,11 @@ export function unlockedItems(): Set<string> {
 export function haveMade(): Set<string> {
   return new Set(
     Object.entries(data.prodStats)
-      // yes, 'input' is the right way around
-      .filter(([, stats]) => (stats.input?.total ?? 0) > 0)
+      // either stat is fine
+      .filter(
+        ([, stats]) =>
+          (stats.input?.total ?? 0) >= 0 || (stats.output?.total ?? 0) >= 0,
+      )
       .map(([name]) => name),
   );
 }

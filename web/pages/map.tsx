@@ -31,7 +31,7 @@ function leafletMap(
     transformation,
   });
   const map = L.map(el, { crs });
-  L.tileLayer('../map-tiles/{z}/{x}/{y}.avif?v=2', {
+  L.tileLayer('../map-tiles/{z}/{x}/{y}.avif?v=3', {
     // 0, 9 are from map-tiles' first level directory; 12 is like my opinion man
     minZoom: 0,
     maxNativeZoom: 9,

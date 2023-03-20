@@ -46,7 +46,8 @@ export class Chestify extends Component<{}, { input?: string }> {
         const items = blueprint.enumerate(bp);
         const [valid, invalid] = fixupPlacements(items);
 
-        const byCount = ([, a], [__, b]) => b - a;
+        const byCount = ([, a]: [unknown, number], [, b]: [unknown, number]) =>
+          b - a;
         explain = (
           <>
             <div className={'col-6'}>

@@ -121,7 +121,7 @@
 .amount {
   display: inline-block;
   text-align: right;
-  min-width: 2em;
+  min-width: 2.2em;
 }
 
 .ul-none {

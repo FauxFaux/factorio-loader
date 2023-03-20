@@ -1,6 +1,6 @@
 import { data } from '../datae';
 import { splitColon } from './colon';
-import { JIngredient } from '../objects';
+import { JIngredient, JProduct } from '../objects';
 
 export function recipeBan(name: string): boolean {
   return (
@@ -94,9 +94,11 @@ export function buildMissingIngredients(
 }
 
 const hiddenByProducer: Record<string, string> = {
-  'kmauts-enclosure': 'item:kmauts',
+  'bhoddos-culture': 'item:bhoddos',
   'dingrits-pack': 'item:dingrits',
+  'kmauts-enclosure': 'item:kmauts',
   'scrondrix-pen': 'item:scrondrix',
+  'simik-den': 'item:simik',
 };
 
 export function ingredients(name: string): JIngredient[] {
@@ -111,4 +113,18 @@ export function ingredients(name: string): JIngredient[] {
   }
 
   return base;
+}
+
+export function productAsFloat(prod: JProduct): number {
+  const prob = prod.probability ?? 1;
+  let mid: number;
+  if ('amount' in prod) {
+    mid = prod.amount;
+  } else {
+    mid = (prod.amount_max + prod.amount_min) / 2;
+  }
+  // don't think this happens often enough that anyone cares
+  if (!Number.isFinite(mid)) mid = 1;
+  mid *= prob;
+  return mid;
 }

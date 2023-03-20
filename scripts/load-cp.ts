@@ -7,6 +7,7 @@ import { data } from '../web/datae';
 import type { JRecipe } from '../web/objects';
 import type { Colon } from '../web/muffler/colon';
 import { removeOffset } from './magic';
+import { productAsFloat } from '../web/muffler/walk-recipes';
 
 initOnNode();
 
@@ -78,18 +79,9 @@ function main() {
       }
 
       for (const prod of recipe?.products ?? []) {
-        const prob = prod.probability ?? 1;
-        let mid: number;
-        if ('amount' in prod) {
-          mid = prod.amount;
-        } else {
-          mid = (prod.amount_max + prod.amount_min) / 2;
-        }
-        mid *= prob;
-
         if (!produced[prod.colon]) produced[prod.colon] = {};
         if (!produced[prod.colon][concGrid]) produced[prod.colon][concGrid] = 0;
-        produced[prod.colon][concGrid] += runs * mid;
+        produced[prod.colon][concGrid] += runs * productAsFloat(prod);
       }
     }
 

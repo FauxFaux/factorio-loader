@@ -5,7 +5,11 @@ import { ItemIcon } from '../lists';
 import { BlockLine, ColonJoined, Fluid, Item } from '../objects';
 import { objToColon } from '../muffler/colon';
 import { humanise } from '../muffler/human';
-import { HowToMake, IngredientLine } from '../components/how-to-make';
+import {
+  HowToMake,
+  IngredientLine,
+  ProductAmount,
+} from '../components/how-to-make';
 import { AssemblerCount } from '../block-renderers';
 
 export class IoFDetail extends Component<{
@@ -268,8 +272,9 @@ class RecipeUsage extends Component<{ type: string; name: string }> {
         return (
           <tr>
             <td>
-              {recipe.localised_name} (
-              <span class="font-monospace">{name}</span>)
+              {recipe.localised_name}
+              <br />
+              <span class="font-monospace">{name}</span>
             </td>
             <td>
               <ul>
@@ -302,14 +307,10 @@ class RecipeUsage extends Component<{ type: string; name: string }> {
             <td>
               <ul>
                 {recipe.products?.map((prod) => {
-                  let statSuffix = '';
-                  if (prod.probability && prod.probability !== 1) {
-                    statSuffix = ` @ ${prod.probability * 100}%`;
-                  }
                   return (
                     <li>
-                      {prod.amount} * <ColonJoined colon={prod.colon} />
-                      {statSuffix}
+                      <ProductAmount product={prod} /> *{' '}
+                      <ColonJoined colon={prod.colon} />
                     </li>
                   );
                 })}

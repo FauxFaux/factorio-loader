@@ -1,6 +1,7 @@
 import { Component, ComponentChild, createRef } from 'preact';
 import { data } from './datae';
 import { ItemIcon, RenderIcons } from './lists';
+import { ProductAmount } from './components/how-to-make';
 
 export interface JItem {
   group: { name: string };
@@ -90,14 +91,10 @@ export class RecipeInOut extends Component<{ name: string }> {
         Products:
         <ul>
           {recipe.products?.map((prod) => {
-            let statSuffix = '';
-            if (prod.probability && prod.probability !== 1) {
-              statSuffix = ` @ ${prod.probability * 100}%`;
-            }
             return (
               <li>
-                {prod.amount} * <ColonJoined colon={prod.colon} />
-                {statSuffix}
+                <ProductAmount product={prod} /> &times;{' '}
+                <ColonJoined colon={prod.colon} />
               </li>
             );
           })}
