@@ -159,6 +159,12 @@ export class IoFDetail extends Component<{
           <></>
         )}
         <div class="row">
+          <p>
+            Ways to <a href={`/an/produces/${colon}`}>produce</a> and{' '}
+            <a href={`/an/consumes/${colon}`}>consume</a>.
+          </p>
+        </div>
+        <div class="row">
           <div className="col">
             <h3>
               LTN availability (
@@ -180,7 +186,7 @@ export class IoFDetail extends Component<{
         </div>
 
         <div className="row">
-          <h3>How to make:</h3>
+          <h3>Proposed production chains:</h3>
           <HowToMake colon={colon} />
         </div>
 

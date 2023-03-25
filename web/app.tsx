@@ -17,6 +17,7 @@ import { Next } from './pages/next';
 import { Pulses } from './pages/pulses';
 import { Chestify } from './pages/chestify';
 import { Heats } from './pages/heats';
+import { Consumes, Produces } from './pages/recipes';
 
 export class App extends Component {
   render() {
@@ -44,6 +45,8 @@ export class App extends Component {
           <Pulses path="/an/pulses/:colon" colon="from the path" />
           <Heats path="/an/heats/:colon" colon="from the path" />
           <Chestify path="/an/chestify" />
+          <Produces path="/an/produces/:colon" colon="from the path" />
+          <Consumes path="/an/consumes/:colon" colon="from the path" />
         </Router>
       </div>
     );

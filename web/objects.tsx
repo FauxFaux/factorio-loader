@@ -37,6 +37,7 @@ export interface JRecipe {
   products: JProduct[];
   localised_name: string;
   producers: string[];
+  time: number;
 }
 
 export class Recipe extends Component<{ name: string }, { expando?: boolean }> {

@@ -79,6 +79,10 @@ function main() {
     lab.recipes.map((rec) => [rec.id, stripProducers(rec.producers)] as const),
   );
 
+  const recipeDurations = Object.fromEntries(
+    lab.recipes.map((rec) => [rec.id, rec.time] as const),
+  );
+
   const tools: Tools = JSON.parse(
     fs.readFileSync(
       require.resolve('../raw/rust-tools-export-76.json'),
@@ -150,6 +154,7 @@ function main() {
       ingredients: nameTypeToColon(rec.ingredients ?? []) as JIngredient[],
       products: nameTypeToColon(rec.products ?? []) as JProduct[],
       producers: producers[name],
+      time: recipeDurations[name],
     };
   }
 
@@ -455,6 +460,7 @@ interface Tools {
       }>;
       category: string;
       localised_name: string;
+      time: number;
       // incomplete
     }
   >;
@@ -468,7 +474,7 @@ interface Tools {
 }
 
 interface Lab {
-  recipes: { id: string; producers: string[] }[];
+  recipes: { id: string; producers: string[]; time: number }[];
 }
 
 main();

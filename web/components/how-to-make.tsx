@@ -1,7 +1,7 @@
 import { Component } from 'preact';
 import { computed, data } from '../datae';
 import { Colon, splitColon } from '../muffler/colon';
-import { ColonJoined, JIngredient, JProduct } from '../objects';
+import { ColonJoined, JIngredient, JProduct, JRecipe } from '../objects';
 import { haveMade } from '../muffler/walk-techs';
 import { stepsToUnlockRecipe, techToUnlock } from '../pages/next';
 import {
@@ -132,31 +132,7 @@ export class HowToMake extends Component<{ colon: Colon }> {
                     </p>
                     <p>Made in: {recipe.producers?.join(', ') ?? '??'}</p>
                   </td>
-                  <td>
-                    <ul className={'ul-none'}>
-                      {recipe.ingredients?.map((ing) => (
-                        <li>
-                          <IngredientLine ing={ing} />
-                        </li>
-                      ))}
-                    </ul>
-                  </td>
-                  <td>
-                    <ul class={'ul-none'}>
-                      {recipe.products
-                        .sort((a, b) => {
-                          if (a.colon === props.colon) return -1;
-                          if (b.colon === props.colon) return 1;
-                          return productAsFloat(b) - productAsFloat(a);
-                        })
-                        .map((p) => (
-                          <li>
-                            <ProductAmount product={p} /> &times;{' '}
-                            <ColonJoined colon={p.colon} />
-                          </li>
-                        ))}
-                    </ul>
-                  </td>
+                  <IngProd recipe={recipe} colon={props.colon} />
                 </tr>
               );
             })}
@@ -165,6 +141,42 @@ export class HowToMake extends Component<{ colon: Colon }> {
     );
   }
 }
+
+export const IngProd = (props: { recipe: JRecipe; colon: Colon }) => (
+  <>
+    <td>
+      <ul className={'ul-none'}>
+        {props.recipe.ingredients
+          ?.sort((a, b) => {
+            if (a.colon === props.colon) return -1;
+            if (b.colon === props.colon) return 1;
+            return b.amount - a.amount;
+          })
+          .map((ing) => (
+            <li>
+              <IngredientLine ing={ing} />
+            </li>
+          ))}
+      </ul>
+    </td>
+    <td>
+      <ul class={'ul-none'}>
+        {props.recipe.products
+          .sort((a, b) => {
+            if (a.colon === props.colon) return -1;
+            if (b.colon === props.colon) return 1;
+            return productAsFloat(b) - productAsFloat(a);
+          })
+          .map((p) => (
+            <li>
+              <ProductAmount product={p} /> &times;{' '}
+              <ColonJoined colon={p.colon} />
+            </li>
+          ))}
+      </ul>
+    </td>
+  </>
+);
 
 export const IngredientLine = ({ ing }: { ing: JIngredient }) => (
   <>
@@ -175,6 +187,20 @@ export const IngredientLine = ({ ing }: { ing: JIngredient }) => (
 );
 
 export const ProductAmount = ({ product }: { product: JProduct }) => {
+  if (
+    product.probability &&
+    product.probability !== 1 &&
+    'amount' in product &&
+    product.amount === 1
+  ) {
+    return (
+      <span className={'amount'}>
+        <abbr title={`${100 * product.probability}% chance of one item`}>
+          {product.probability}
+        </abbr>
+      </span>
+    );
+  }
   const perc =
     product.probability !== undefined && product.probability !== 1
       ? `${100 * product.probability}%`
