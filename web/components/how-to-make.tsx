@@ -171,6 +171,7 @@ export const IngProd = (props: { recipe: JRecipe; colon: Colon }) => (
             <li>
               <ProductAmount product={p} /> &times;{' '}
               <ColonJoined colon={p.colon} />
+              {p.temperature ? ` @ ${p.temperature}°C` : ''}
             </li>
           ))}
       </ul>
@@ -183,8 +184,39 @@ export const IngredientLine = ({ ing }: { ing: JIngredient }) => (
     <Availability colon={ing.colon} />{' '}
     <span class={'amount'}>{ing.amount}</span> &times;{' '}
     <ColonJoined colon={ing.colon} />
+    <TempRange ing={ing} />
   </>
 );
+
+const TempRange = ({ ing }: { ing: JIngredient }) => {
+  const min =
+    (ing.minimum_temperature ?? Number.NEGATIVE_INFINITY) > -1e6
+      ? ing.minimum_temperature
+      : null;
+  const max =
+    (ing.maximum_temperature ?? Number.POSITIVE_INFINITY) < 1e6
+      ? ing.maximum_temperature
+      : null;
+  if (min === null && max === null) return null;
+  if (min === max) {
+    return <span> @ {min}°C</span>;
+  }
+
+  if (null === min) {
+    return <span> &le; {max}°C</span>;
+  }
+
+  if (null === max) {
+    return <span> &ge; {min}°C</span>;
+  }
+
+  return (
+    <span>
+      {' '}
+      @ {min}°C - {max}°C
+    </span>
+  );
+};
 
 export const ProductAmount = ({ product }: { product: JProduct }) => {
   if (

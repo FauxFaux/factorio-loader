@@ -24,11 +24,14 @@ export interface JColon {
 
 export interface JIngredient extends JColon {
   amount: number;
+  minimum_temperature?: number;
+  maximum_temperature?: number;
 }
 
 export type JProduct = JColon &
   ({ amount: number } | { amount_min: number; amount_max: number }) & {
     probability?: number;
+    temperature?: number;
   };
 
 export interface JRecipe {
