@@ -41,6 +41,7 @@ export interface JRecipe {
   localised_name: string;
   producers: string[];
   time: number;
+  unlocked_from_start?: true;
 }
 
 export class Recipe extends Component<{ name: string }, { expando?: boolean }> {

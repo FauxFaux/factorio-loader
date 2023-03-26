@@ -13,6 +13,7 @@ export function techToUnlock(recipe: string): string | null {
 }
 
 export function stepsToUnlockRecipe(recipe: string): number {
+  if (data.recipes.regular[recipe].unlocked_from_start) return 0;
   const tech = techToUnlock(recipe);
   if (!tech) return 98;
   return stepsToUnlock(tech);

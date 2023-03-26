@@ -156,6 +156,9 @@ function main() {
       producers: producers[name],
       time: recipeDurations[name],
     };
+    if (rec.enabled) {
+      regular[name].unlocked_from_start = true;
+    }
   }
 
   const recipes = {
@@ -459,6 +462,8 @@ interface Tools {
         type: string;
       }>;
       category: string;
+      // "unlocked from start": https://wiki.factorio.com/Prototype/Recipe#enabled
+      enabled: boolean;
       localised_name: string;
       time: number;
       // incomplete
