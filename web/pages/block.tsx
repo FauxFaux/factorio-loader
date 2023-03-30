@@ -37,6 +37,15 @@ export class BlockPage extends Component<{ loc: string }> {
       );
     }
 
+    // recipe executions in this brick
+    // const dats = [];
+    // for (const [xy, dat] of Object.entries(data.cp.byPos)) {
+    //   const [x, y] = xy.split(',').map((x) => parseInt(x, 10));
+    //   const hit = toBlock([x, y]);
+    //   if (String(hit) !== loc) continue;
+    //   dats.push(dat);
+    // }
+
     const { wanted, exports } = recipeDifference(obj);
 
     return (

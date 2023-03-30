@@ -238,6 +238,15 @@ class RecipeUsage extends Component<{ type: string; name: string }> {
         undefined !== recipe.ingredients?.find((ing) => ing.colon === colon),
     );
 
+    const executions: Record<string, number> = {};
+    for (const dat of Object.values(data.cp.byPos)) {
+      if (!dat.recipe || !dat.runs) continue;
+      if (!(dat.recipe in executions)) {
+        executions[dat.recipe] = 0;
+      }
+      executions[dat.recipe] += dat.runs.reduce((a, b) => a + b, 0);
+    }
+
     const inUse = new Set(recipes.map(([name]) => name));
 
     const dataByRecipe: Record<
@@ -281,6 +290,8 @@ class RecipeUsage extends Component<{ type: string; name: string }> {
               {recipe.localised_name}
               <br />
               <span class="font-monospace">{name}</span>
+              <br />
+              {executions[name] ?? 0}
             </td>
             <td>
               <ul>
