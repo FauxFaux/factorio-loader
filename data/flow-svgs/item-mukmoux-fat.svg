@@ -24,9 +24,9 @@
 <!-- &#45;3,4 (Lard from Cottonguts)&#45;&gt;4,6 (Circuit substrate and Doped silicon) -->
 <g id="edge1" class="edge">
 <title>&#45;3,4 (Lard from Cottonguts)&#45;&gt;4,6 (Circuit substrate and Doped silicon)</title>
-<path fill="none" stroke="black" stroke-width="1.42" d="M641.57,-18C661.35,-18 682.06,-18 702.82,-18"/>
-<polygon fill="black" stroke="black" stroke-width="1.42" points="703.02,-21.5 713.02,-18 703.02,-14.5 703.02,-21.5"/>
-<text text-anchor="middle" x="672.19" y="-6.8" font-family="Times,serif" font-size="14.00">mukmoux&#45;fat*22592</text>
+<path fill="none" stroke="black" stroke-width="0.65" d="M641.57,-18C661.35,-18 682.06,-18 702.82,-18"/>
+<polygon fill="black" stroke="black" stroke-width="0.65" points="703.02,-21.5 713.02,-18 703.02,-14.5 703.02,-21.5"/>
+<text text-anchor="middle" x="672.19" y="-6.8" font-family="Times,serif" font-size="14.00">mukmoux&#45;fat*2016</text>
 </g>
 <!-- 1,9 (Ammunition) -->
 <g id="node3" class="node">
@@ -37,9 +37,9 @@
 <!-- &#45;3,4 (Lard from Cottonguts)&#45;&gt;1,9 (Ammunition) -->
 <g id="edge2" class="edge">
 <title>&#45;3,4 (Lard from Cottonguts)&#45;&gt;1,9 (Ammunition)</title>
-<path fill="none" stroke="black" stroke-width="0.58" d="M362.96,-18C307.47,-18 244.77,-18 193.64,-18"/>
-<polygon fill="black" stroke="black" stroke-width="0.58" points="193.58,-14.5 183.58,-18 193.58,-21.5 193.58,-14.5"/>
-<text text-anchor="middle" x="278.3" y="-6.8" font-family="Times,serif" font-size="14.00">mukmoux&#45;fat*9168</text>
+<path fill="none" stroke="black" stroke-width="1.35" d="M362.96,-18C307.47,-18 244.77,-18 193.64,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1.35" points="193.58,-14.5 183.58,-18 193.58,-21.5 193.58,-14.5"/>
+<text text-anchor="middle" x="278.3" y="-6.8" font-family="Times,serif" font-size="14.00">mukmoux&#45;fat*4160</text>
 </g>
 </g>
 </svg>

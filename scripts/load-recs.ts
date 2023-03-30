@@ -2,7 +2,6 @@
 import * as fs from 'fs';
 import * as yaml from 'js-yaml';
 
-import { toBlock } from './magic';
 import { initOnNode, loadTrainFlows } from './data-hack-for-node';
 import { Coord, data } from '../web/datae';
 import {
@@ -12,11 +11,9 @@ import {
 import { Colon, objToColon, tupleToColon } from '../web/muffler/colon';
 import { sortByKeys } from '../web/muffler/deter';
 import { JIngredient, JProduct, JRecipe } from '../web/objects';
-import { loadCells } from './loaders';
+import { BlockId, loadCells, loadRec } from './loaders';
 
 initOnNode(['doc', 'technologies', 'prodStats']);
-
-type BlockId = Coord;
 
 function distSq(a: Coord, b: Coord) {
   const dx = a[0] - b[0];
@@ -197,7 +194,7 @@ function main() {
     return byBlock[sid];
   };
 
-  for (const obj of load('tags')) {
+  for (const obj of loadRec('tags')) {
     const block = getBlock(obj.block);
     block.tags.push(obj.name);
   }
@@ -206,7 +203,7 @@ function main() {
     getBlock(id).tags = [name];
   }
 
-  for (const obj of load('assembling-machine')) {
+  for (const obj of loadRec('assembling-machine')) {
     const block = getBlock(obj.block);
     const label = `${obj.name}\0${obj.ext[0]}`;
     if (!block.asm[label]) {
@@ -217,7 +214,7 @@ function main() {
   }
 
   // close enough, eh
-  for (const obj of load('furnace')) {
+  for (const obj of loadRec('furnace')) {
     const block = getBlock(obj.block);
     const label = `${obj.name}\0${obj.ext[0]}`;
     if (!block.asm[label]) {
@@ -234,13 +231,13 @@ function main() {
     }
   }
 
-  for (const obj of load('boiler')) {
+  for (const obj of loadRec('boiler')) {
     const block = getBlock(obj.block);
     block.boilers += 1;
   }
 
   const stopNames: [Coord, string, number][] = [];
-  for (const obj of load('train-stop')) {
+  for (const obj of loadRec('train-stop')) {
     if (obj.name !== 'logistic-train-stop') continue;
     stopNames.push([obj.pos, obj.ext[0], parseInt(obj.ext[1])]);
   }
@@ -257,7 +254,7 @@ function main() {
 
   const stopCombinator: Record<string, string[]> = {};
 
-  for (const obj of load('constant-combinator')) {
+  for (const obj of loadRec('constant-combinator')) {
     if (obj.name !== 'constant-combinator') continue;
     let stop;
     try {
@@ -291,7 +288,7 @@ function main() {
     }
   }
 
-  for (const obj of load('train-stop-input')) {
+  for (const obj of loadRec('train-stop-input')) {
     const block = getBlock(obj.block);
     const [stopLoc, name, stopId] = nearbyStation(obj.pos, 1);
     const splitPoint = obj.ext.indexOf('red');
@@ -322,22 +319,22 @@ function main() {
     }
   }
 
-  for (const obj of load('container')) {
+  for (const obj of loadRec('container')) {
     const block = getBlock(obj.block);
     addItems(block.items, obj);
   }
 
-  for (const obj of load('logistic-container')) {
+  for (const obj of loadRec('logistic-container')) {
     const block = getBlock(obj.block);
     addItems(block.items, obj);
   }
 
-  for (const obj of load('storage-tank')) {
+  for (const obj of loadRec('storage-tank')) {
     const block = getBlock(obj.block);
     addItems(block.fluids, obj);
   }
 
-  for (const obj of load('resource')) {
+  for (const obj of loadRec('resource')) {
     const block = getBlock(obj.block);
     if (!block.resources[obj.name]) block.resources[obj.name] = 0;
     block.resources[obj.name] += parseInt(obj.ext[0]);
@@ -409,21 +406,6 @@ function signals(arr: string[]): [string, string, number][] {
     res.push([arr[i], arr[i + 1], parseFloat(arr[i + 2])]);
   }
   return res;
-}
-
-function load(kind: string) {
-  const items: { block: BlockId; name: string; ext: string[]; pos: Coord }[] =
-    [];
-  for (const line of loadCells(kind)) {
-    // (\036)
-    const [x, y, _dir, name, ...ext] = line;
-    const pos = [parseFloat(x), parseFloat(y)] as const;
-    if (!Number.isFinite(pos[0]) || !Number.isFinite(pos[1]))
-      throw new Error(`invalid x/y: ${x}/${y}`);
-    const block = toBlock(pos);
-    items.push({ block, name, ext, pos });
-  }
-  return items;
 }
 
 function nameTypeToColon(items: Record<string, any>[]) {

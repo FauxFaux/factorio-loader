@@ -4,6 +4,8 @@ import { Colon } from './muffler/colon';
 import { LtnSummary, precomputeLtnSummary } from './ltn-summary';
 
 export type Coord = readonly [number, number];
+// concatenated positions; i.e. `${x},${y}`
+export type ConcPos = string;
 
 export const data = {
   doc: {} as Record<string, BlockContent>,
@@ -30,6 +32,10 @@ export const data = {
       unlocks: string[];
     }
   >,
+  cp: {} as {
+    ticks: number[];
+    byPos: Record<ConcPos, { runs?: number[]; recipe?: string; name?: string }>;
+  },
 } as const;
 
 export interface FlowStats {

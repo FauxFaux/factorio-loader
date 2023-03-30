@@ -24,9 +24,9 @@
 <!-- 1,4 (Casein and Melamine)&#45;&gt;2,4 (Formica and Phenolic boards) -->
 <g id="edge1" class="edge">
 <title>1,4 (Casein and Melamine)&#45;&gt;2,4 (Formica and Phenolic boards)</title>
-<path fill="none" stroke="black" stroke-width="1.78" d="M608.26,-18C628.3,-18 649.22,-18 670,-18"/>
-<polygon fill="black" stroke="black" stroke-width="1.78" points="670.19,-21.5 680.19,-18 670.19,-14.5 670.19,-21.5"/>
-<text text-anchor="middle" x="639.13" y="-6.8" font-family="Times,serif" font-size="14.00">melamine*336960</text>
+<path fill="none" stroke="black" stroke-width="1.87" d="M608.26,-18C628.3,-18 649.22,-18 670,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1.87" points="670.19,-21.5 680.19,-18 670.19,-14.5 670.19,-21.5"/>
+<text text-anchor="middle" x="639.13" y="-6.8" font-family="Times,serif" font-size="14.00">melamine*130200</text>
 </g>
 <!-- &#45;5,2 (Optical fiber) -->
 <g id="node3" class="node">
@@ -37,9 +37,9 @@
 <!-- 1,4 (Casein and Melamine)&#45;&gt;&#45;5,2 (Optical fiber) -->
 <g id="edge2" class="edge">
 <title>1,4 (Casein and Melamine)&#45;&gt;&#45;5,2 (Optical fiber)</title>
-<path fill="none" stroke="black" stroke-width="0.22" d="M337.77,-18C293.41,-18 244.76,-18 202.82,-18"/>
-<polygon fill="black" stroke="black" stroke-width="0.22" points="202.59,-14.5 192.59,-18 202.59,-21.5 202.59,-14.5"/>
-<text text-anchor="middle" x="270.29" y="-6.8" font-family="Times,serif" font-size="14.00">melamine*41168</text>
+<path fill="none" stroke="black" stroke-width="0.13" d="M337.77,-18C293.41,-18 244.76,-18 202.82,-18"/>
+<polygon fill="black" stroke="black" stroke-width="0.13" points="202.59,-14.5 192.59,-18 202.59,-21.5 202.59,-14.5"/>
+<text text-anchor="middle" x="270.29" y="-6.8" font-family="Times,serif" font-size="14.00">melamine*8720</text>
 </g>
 </g>
 </svg>

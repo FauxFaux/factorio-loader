@@ -12,34 +12,34 @@
 <!-- &#45;7,&#45;3 (Ulric Manure) -->
 <g id="node1" class="node">
 <title>&#45;7,&#45;3 (Ulric Manure)</title>
-<ellipse fill="none" stroke="black" cx="512.66" cy="-18" rx="102.88" ry="18"/>
-<text text-anchor="middle" x="512.66" y="-14.3" font-family="Times,serif" font-size="14.00">&#45;7,&#45;3 (Ulric Manure)</text>
-</g>
-<!-- &#45;4,2 (This line not currently using manure, Ralesia seeds) -->
-<g id="node2" class="node">
-<title>&#45;4,2 (This line not currently using manure, Ralesia seeds)</title>
-<ellipse fill="none" stroke="black" cx="964.23" cy="-18" rx="276.75" ry="18"/>
-<text text-anchor="middle" x="964.23" y="-14.3" font-family="Times,serif" font-size="14.00">&#45;4,2 (This line not currently using manure, Ralesia seeds)</text>
-</g>
-<!-- &#45;7,&#45;3 (Ulric Manure)&#45;&gt;&#45;4,2 (This line not currently using manure, Ralesia seeds) -->
-<g id="edge1" class="edge">
-<title>&#45;7,&#45;3 (Ulric Manure)&#45;&gt;&#45;4,2 (This line not currently using manure, Ralesia seeds)</title>
-<path fill="none" stroke="black" stroke-width="0.43" d="M615.41,-18C634.59,-18 655.48,-18 677.19,-18"/>
-<polygon fill="black" stroke="black" stroke-width="0.43" points="677.22,-21.5 687.22,-18 677.22,-14.5 677.22,-21.5"/>
-<text text-anchor="middle" x="646.3" y="-6.8" font-family="Times,serif" font-size="14.00">manure*73208</text>
+<ellipse fill="none" stroke="black" cx="728.44" cy="-18" rx="102.88" ry="18"/>
+<text text-anchor="middle" x="728.44" y="-14.3" font-family="Times,serif" font-size="14.00">&#45;7,&#45;3 (Ulric Manure)</text>
 </g>
 <!-- &#45;6,4 (Urea) -->
-<g id="node3" class="node">
+<g id="node2" class="node">
 <title>&#45;6,4 (Urea)</title>
-<ellipse fill="none" stroke="black" cx="61.09" cy="-18" rx="61.19" ry="18"/>
-<text text-anchor="middle" x="61.09" y="-14.3" font-family="Times,serif" font-size="14.00">&#45;6,4 (Urea)</text>
+<ellipse fill="none" stroke="black" cx="1180.01" cy="-18" rx="61.19" ry="18"/>
+<text text-anchor="middle" x="1180.01" y="-14.3" font-family="Times,serif" font-size="14.00">&#45;6,4 (Urea)</text>
 </g>
 <!-- &#45;7,&#45;3 (Ulric Manure)&#45;&gt;&#45;6,4 (Urea) -->
-<g id="edge2" class="edge">
+<g id="edge1" class="edge">
 <title>&#45;7,&#45;3 (Ulric Manure)&#45;&gt;&#45;6,4 (Urea)</title>
-<path fill="none" stroke="black" stroke-width="1.57" d="M409.91,-18C325.27,-18 207.43,-18 132.71,-18"/>
-<polygon fill="black" stroke="black" stroke-width="1.57" points="132.46,-14.5 122.46,-18 132.46,-21.5 132.46,-14.5"/>
-<text text-anchor="middle" x="213.31" y="-21.8" font-family="Times,serif" font-size="14.00">manure*264208</text>
+<path fill="none" stroke="black" stroke-width="1.68" d="M831.19,-18C915.83,-18 1033.67,-18 1108.4,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1.68" points="1108.65,-21.5 1118.65,-18 1108.64,-14.5 1108.65,-21.5"/>
+<text text-anchor="middle" x="911.79" y="-21.8" font-family="Times,serif" font-size="14.00">manure*100600</text>
+</g>
+<!-- &#45;4,2 (This line not currently using manure, Ralesia seeds) -->
+<g id="node3" class="node">
+<title>&#45;4,2 (This line not currently using manure, Ralesia seeds)</title>
+<ellipse fill="none" stroke="black" cx="276.88" cy="-18" rx="276.75" ry="18"/>
+<text text-anchor="middle" x="276.88" y="-14.3" font-family="Times,serif" font-size="14.00">&#45;4,2 (This line not currently using manure, Ralesia seeds)</text>
+</g>
+<!-- &#45;7,&#45;3 (Ulric Manure)&#45;&gt;&#45;4,2 (This line not currently using manure, Ralesia seeds) -->
+<g id="edge2" class="edge">
+<title>&#45;7,&#45;3 (Ulric Manure)&#45;&gt;&#45;4,2 (This line not currently using manure, Ralesia seeds)</title>
+<path fill="none" stroke="black" stroke-width="0.32" d="M625.69,-18C606.51,-18 585.62,-18 563.91,-18"/>
+<polygon fill="black" stroke="black" stroke-width="0.32" points="563.88,-14.5 553.88,-18 563.88,-21.5 563.88,-14.5"/>
+<text text-anchor="middle" x="568.05" y="-6.8" font-family="Times,serif" font-size="14.00">manure*19280</text>
 </g>
 </g>
 </svg>
