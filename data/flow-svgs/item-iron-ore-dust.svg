@@ -24,9 +24,9 @@
 <!-- 1,10 (Iron Ore Dust)&#45;&gt;1,12 (Molten Iron) -->
 <g id="edge1" class="edge">
 <title>1,10 (Iron Ore Dust)&#45;&gt;1,12 (Molten Iron)</title>
-<path fill="none" stroke="black" stroke-width="0.33" d="M122.47,-214.89C154.51,-246.94 221.92,-314.35 258.62,-351.05"/>
-<polygon fill="black" stroke="black" stroke-width="0.33" points="256.41,-353.79 265.96,-358.39 261.36,-348.84 256.41,-353.79"/>
-<text text-anchor="middle" x="122.54" y="-286.77" font-family="Times,serif" font-size="14.00">iron&#45;ore&#45;dust*6608</text>
+<path fill="none" stroke="black" stroke-width="0.58" d="M122.47,-214.89C154.51,-246.94 221.92,-314.35 258.62,-351.05"/>
+<polygon fill="black" stroke="black" stroke-width="0.58" points="256.41,-353.79 265.96,-358.39 261.36,-348.84 256.41,-353.79"/>
+<text text-anchor="middle" x="118.04" y="-286.77" font-family="Times,serif" font-size="14.00">iron&#45;ore&#45;dust*27232</text>
 </g>
 <!-- &#45;2,9 (molten steel) -->
 <g id="node4" class="node">
@@ -35,11 +35,11 @@
 <text text-anchor="middle" x="283.71" y="-14.3" font-family="Times,serif" font-size="14.00">&#45;2,9 (molten steel)</text>
 </g>
 <!-- 1,10 (Iron Ore Dust)&#45;&gt;&#45;2,9 (molten steel) -->
-<g id="edge5" class="edge">
+<g id="edge4" class="edge">
 <title>1,10 (Iron Ore Dust)&#45;&gt;&#45;2,9 (molten steel)</title>
-<path fill="none" stroke="black" stroke-width="0.1" d="M122.47,-179.24C154.51,-147.2 221.92,-79.79 258.62,-43.09"/>
-<polygon fill="black" stroke="black" stroke-width="0.1" points="261.36,-45.3 265.96,-35.75 256.41,-40.35 261.36,-45.3"/>
-<text text-anchor="middle" x="122.54" y="-114.97" font-family="Times,serif" font-size="14.00">iron&#45;ore&#45;dust*2048</text>
+<path fill="none" stroke="black" stroke-width="0.22" d="M122.47,-179.24C154.51,-147.2 221.92,-79.79 258.62,-43.09"/>
+<polygon fill="black" stroke="black" stroke-width="0.22" points="261.36,-45.3 265.96,-35.75 256.41,-40.35 261.36,-45.3"/>
+<text text-anchor="middle" x="118.04" y="-114.97" font-family="Times,serif" font-size="14.00">iron&#45;ore&#45;dust*10448</text>
 </g>
 <!-- &#45;6,7 (Iron ore dust) -->
 <g id="node3" class="node">
@@ -50,16 +50,16 @@
 <!-- &#45;6,7 (Iron ore dust)&#45;&gt;1,12 (Molten Iron) -->
 <g id="edge2" class="edge">
 <title>&#45;6,7 (Iron ore dust)&#45;&gt;1,12 (Molten Iron)</title>
-<path fill="none" stroke="black" stroke-width="0.54" d="M444.95,-214.89C412.91,-246.94 345.5,-314.35 308.8,-351.05"/>
-<polygon fill="black" stroke="black" stroke-width="0.54" points="306.06,-348.84 301.46,-358.39 311.01,-353.79 306.06,-348.84"/>
-<text text-anchor="middle" x="304.38" y="-286.77" font-family="Times,serif" font-size="14.00">iron&#45;ore&#45;dust*10992</text>
+<path fill="none" stroke="black" stroke-width="2.92" d="M444.95,-214.89C412.91,-246.94 345.5,-314.35 308.8,-351.05"/>
+<polygon fill="black" stroke="black" stroke-width="2.92" points="306.06,-348.84 301.46,-358.39 311.01,-353.79 306.06,-348.84"/>
+<text text-anchor="middle" x="299.88" y="-286.77" font-family="Times,serif" font-size="14.00">iron&#45;ore&#45;dust*138240</text>
 </g>
 <!-- &#45;6,7 (Iron ore dust)&#45;&gt;&#45;2,9 (molten steel) -->
 <g id="edge3" class="edge">
 <title>&#45;6,7 (Iron ore dust)&#45;&gt;&#45;2,9 (molten steel)</title>
-<path fill="none" stroke="black" stroke-width="1.55" d="M444.95,-179.24C412.91,-147.2 345.5,-79.79 308.8,-43.09"/>
-<polygon fill="black" stroke="black" stroke-width="1.55" points="311.01,-40.35 301.46,-35.75 306.06,-45.3 311.01,-40.35"/>
-<text text-anchor="middle" x="304.38" y="-114.97" font-family="Times,serif" font-size="14.00">iron&#45;ore&#45;dust*31248</text>
+<path fill="none" stroke="black" stroke-width="0.75" d="M444.95,-179.24C412.91,-147.2 345.5,-79.79 308.8,-43.09"/>
+<polygon fill="black" stroke="black" stroke-width="0.75" points="311.01,-40.35 301.46,-35.75 306.06,-45.3 311.01,-40.35"/>
+<text text-anchor="middle" x="304.38" y="-114.97" font-family="Times,serif" font-size="14.00">iron&#45;ore&#45;dust*35664</text>
 </g>
 <!-- &#45;1,10 (Iron Plates) -->
 <g id="node5" class="node">
@@ -68,11 +68,11 @@
 <text text-anchor="middle" x="629.67" y="-193.37" font-family="Times,serif" font-size="14.00">&#45;1,10 (Iron Plates)</text>
 </g>
 <!-- &#45;6,7 (Iron ore dust)&#45;&gt;&#45;1,10 (Iron Plates) -->
-<g id="edge4" class="edge">
+<g id="edge5" class="edge">
 <title>&#45;6,7 (Iron ore dust)&#45;&gt;&#45;1,10 (Iron Plates)</title>
-<path fill="none" stroke="black" stroke-width="2.48" d="M561.79,-197.07C561.86,-197.07 561.93,-197.07 562,-197.07"/>
-<polygon fill="black" stroke="black" stroke-width="2.48" points="552.21,-200.57 562.21,-197.07 552.21,-193.57 552.21,-200.57"/>
-<text text-anchor="middle" x="634.4" y="-200.87" font-family="Times,serif" font-size="14.00">iron&#45;ore&#45;dust*50160</text>
+<path fill="none" stroke="black" stroke-width="0.53" d="M561.79,-197.07C561.86,-197.07 561.93,-197.07 562,-197.07"/>
+<polygon fill="black" stroke="black" stroke-width="0.53" points="552.21,-200.57 562.21,-197.07 552.21,-193.57 552.21,-200.57"/>
+<text text-anchor="middle" x="634.4" y="-200.87" font-family="Times,serif" font-size="14.00">iron&#45;ore&#45;dust*25200</text>
 </g>
 </g>
 </svg>

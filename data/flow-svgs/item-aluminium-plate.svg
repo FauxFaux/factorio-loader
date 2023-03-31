@@ -24,9 +24,9 @@
 <!-- &#45;4,&#45;4 (Reserved For Aluminium Ore Drop, Aluminium)&#45;&gt;0,0 (LE BUS) -->
 <g id="edge1" class="edge">
 <title>&#45;4,&#45;4 (Reserved For Aluminium Ore Drop, Aluminium)&#45;&gt;0,0 (LE BUS)</title>
-<path fill="none" stroke="black" stroke-width="1.84" d="M871.69,-18C919.41,-18 965.89,-18 1003.23,-18"/>
-<polygon fill="black" stroke="black" stroke-width="1.84" points="1003.51,-21.5 1013.51,-18 1003.51,-14.5 1003.51,-21.5"/>
-<text text-anchor="middle" x="937.46" y="-6.8" font-family="Times,serif" font-size="14.00">aluminium&#45;plate*23840</text>
+<path fill="none" stroke="black" stroke-width="1.89" d="M871.69,-18C919.41,-18 965.89,-18 1003.23,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1.89" points="1003.51,-21.5 1013.51,-18 1003.51,-14.5 1003.51,-21.5"/>
+<text text-anchor="middle" x="937.46" y="-6.8" font-family="Times,serif" font-size="14.00">aluminium&#45;plate*34800</text>
 </g>
 <!-- 6,4 (Electronic components) -->
 <g id="node3" class="node">
@@ -37,9 +37,9 @@
 <!-- &#45;4,&#45;4 (Reserved For Aluminium Ore Drop, Aluminium)&#45;&gt;6,4 (Electronic components) -->
 <g id="edge2" class="edge">
 <title>&#45;4,&#45;4 (Reserved For Aluminium Ore Drop, Aluminium)&#45;&gt;6,4 (Electronic components)</title>
-<path fill="none" stroke="black" stroke-width="0.16" d="M355.12,-18C334.17,-18 313.46,-18 293.66,-18"/>
-<polygon fill="black" stroke="black" stroke-width="0.16" points="293.39,-14.5 283.39,-18 293.39,-21.5 293.39,-14.5"/>
-<text text-anchor="middle" x="284.39" y="-6.8" font-family="Times,serif" font-size="14.00">aluminium&#45;plate*2080</text>
+<path fill="none" stroke="black" stroke-width="0.11" d="M355.12,-18C334.17,-18 313.46,-18 293.66,-18"/>
+<polygon fill="black" stroke="black" stroke-width="0.11" points="293.39,-14.5 283.39,-18 293.39,-21.5 293.39,-14.5"/>
+<text text-anchor="middle" x="284.39" y="-6.8" font-family="Times,serif" font-size="14.00">aluminium&#45;plate*2048</text>
 </g>
 </g>
 </svg>

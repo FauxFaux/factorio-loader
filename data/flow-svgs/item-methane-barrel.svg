@@ -24,9 +24,9 @@
 <!-- 1,0 ()&#45;&gt;2,4 (Formica and Phenolic boards) -->
 <g id="edge1" class="edge">
 <title>1,0 ()&#45;&gt;2,4 (Formica and Phenolic boards)</title>
-<path fill="none" stroke="black" stroke-width="2.36" d="M417.68,-303.52C445.75,-303.52 487.41,-303.52 530.57,-303.52"/>
-<polygon fill="black" stroke="black" stroke-width="2.36" points="530.68,-307.02 540.68,-303.52 530.68,-300.02 530.68,-307.02"/>
-<text text-anchor="middle" x="474.13" y="-292.32" font-family="Times,serif" font-size="14.00">methane&#45;barrel*7784</text>
+<path fill="none" stroke="black" stroke-width="2.12" d="M417.68,-303.52C445.75,-303.52 487.41,-303.52 530.57,-303.52"/>
+<polygon fill="black" stroke="black" stroke-width="2.12" points="530.68,-307.02 540.68,-303.52 530.68,-300.02 530.68,-307.02"/>
+<text text-anchor="middle" x="474.13" y="-292.32" font-family="Times,serif" font-size="14.00">methane&#45;barrel*11496</text>
 </g>
 <!-- 4,6 (Circuit substrate and Doped silicon) -->
 <g id="node3" class="node">
@@ -37,9 +37,9 @@
 <!-- 1,0 ()&#45;&gt;4,6 (Circuit substrate and Doped silicon) -->
 <g id="edge2" class="edge">
 <title>1,0 ()&#45;&gt;4,6 (Circuit substrate and Doped silicon)</title>
-<path fill="none" stroke="black" stroke-width="0.56" d="M374.08,-321.12C350.17,-370.66 282.15,-511.61 253.24,-571.51"/>
-<polygon fill="black" stroke="black" stroke-width="0.56" points="249.98,-570.21 248.79,-580.73 256.29,-573.25 249.98,-570.21"/>
-<text text-anchor="middle" x="236.66" y="-450.12" font-family="Times,serif" font-size="14.00">methane&#45;barrel*1864</text>
+<path fill="none" stroke="black" stroke-width="0.62" d="M374.08,-321.12C350.17,-370.66 282.15,-511.61 253.24,-571.51"/>
+<polygon fill="black" stroke="black" stroke-width="0.62" points="249.98,-570.21 248.79,-580.73 256.29,-573.25 249.98,-570.21"/>
+<text text-anchor="middle" x="236.66" y="-450.12" font-family="Times,serif" font-size="14.00">methane&#45;barrel*3384</text>
 </g>
 <!-- 7,1 (item=aerogel item=clean&#45;rf&#45;gel Aerogel) -->
 <g id="node4" class="node">
@@ -50,9 +50,9 @@
 <!-- 1,0 ()&#45;&gt;7,1 (item=aerogel item=clean&#45;rf&#45;gel Aerogel) -->
 <g id="edge3" class="edge">
 <title>1,0 ()&#45;&gt;7,1 (item=aerogel item=clean&#45;rf&#45;gel Aerogel)</title>
-<path fill="none" stroke="black" stroke-width="0.08" d="M372.71,-286.09C345.51,-238.03 269.3,-103.38 236.41,-45.27"/>
-<polygon fill="black" stroke="black" stroke-width="0.08" points="239.31,-43.28 231.34,-36.3 233.22,-46.73 239.31,-43.28"/>
-<text text-anchor="middle" x="232.06" y="-169.48" font-family="Times,serif" font-size="14.00">methane&#45;barrel*256</text>
+<path fill="none" stroke="black" stroke-width="0.26" d="M372.71,-286.09C345.51,-238.03 269.3,-103.38 236.41,-45.27"/>
+<polygon fill="black" stroke="black" stroke-width="0.26" points="239.31,-43.28 231.34,-36.3 233.22,-46.73 239.31,-43.28"/>
+<text text-anchor="middle" x="227.56" y="-169.48" font-family="Times,serif" font-size="14.00">methane&#45;barrel*1392</text>
 </g>
 </g>
 </svg>

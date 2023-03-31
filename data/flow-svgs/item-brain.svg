@@ -24,9 +24,9 @@
 <!-- 0,9 (Auog Brains)&#45;&gt;0,0 (LE BUS) -->
 <g id="edge1" class="edge">
 <title>0,9 (Auog Brains)&#45;&gt;0,0 (LE BUS)</title>
-<path fill="none" stroke="black" d="M453.01,-18C481.84,-18 513.47,-18 541.58,-18"/>
-<polygon fill="black" stroke="black" points="541.77,-21.5 551.77,-18 541.77,-14.5 541.77,-21.5"/>
-<text text-anchor="middle" x="497.3" y="-6.8" font-family="Times,serif" font-size="14.00">brain*2016</text>
+<path fill="none" stroke="black" stroke-width="1.08" d="M453.01,-18C481.84,-18 513.47,-18 541.58,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1.08" points="541.77,-21.5 551.77,-18 541.77,-14.5 541.77,-21.5"/>
+<text text-anchor="middle" x="497.3" y="-6.8" font-family="Times,serif" font-size="14.00">brain*6080</text>
 </g>
 <!-- &#45;4,&#45;2 (For Science!) -->
 <g id="node3" class="node">
@@ -37,9 +37,9 @@
 <!-- 0,9 (Auog Brains)&#45;&gt;&#45;4,&#45;2 (For Science!) -->
 <g id="edge2" class="edge">
 <title>0,9 (Auog Brains)&#45;&gt;&#45;4,&#45;2 (For Science!)</title>
-<path fill="none" stroke="black" d="M269.44,-18C249.5,-18 228.21,-18 207.68,-18"/>
-<polygon fill="black" stroke="black" points="207.67,-14.5 197.67,-18 207.67,-21.5 207.67,-14.5"/>
-<text text-anchor="middle" x="238.56" y="-6.8" font-family="Times,serif" font-size="14.00">brain*2016</text>
+<path fill="none" stroke="black" stroke-width="0.92" d="M269.44,-18C249.5,-18 228.21,-18 207.68,-18"/>
+<polygon fill="black" stroke="black" stroke-width="0.92" points="207.67,-14.5 197.67,-18 207.67,-21.5 207.67,-14.5"/>
+<text text-anchor="middle" x="238.56" y="-6.8" font-family="Times,serif" font-size="14.00">brain*5184</text>
 </g>
 </g>
 </svg>

@@ -24,9 +24,9 @@
 <!-- 3,3 (Small Parts)&#45;&gt;&#45;4,&#45;2 (For Science!) -->
 <g id="edge1" class="edge">
 <title>3,3 (Small Parts)&#45;&gt;&#45;4,&#45;2 (For Science!)</title>
-<path fill="none" stroke="black" stroke-width="0.8" d="M940.01,-723.45C1078.32,-723.45 1344.13,-723.45 1493.63,-723.45"/>
-<polygon fill="black" stroke="black" stroke-width="0.8" points="1493.75,-726.95 1503.75,-723.45 1493.75,-719.95 1493.75,-726.95"/>
-<text text-anchor="middle" x="1143.82" y="-727.25" font-family="Times,serif" font-size="14.00">small&#45;parts&#45;01*7720</text>
+<path fill="none" stroke="black" stroke-width="0.91" d="M940.01,-723.45C1078.32,-723.45 1344.13,-723.45 1493.63,-723.45"/>
+<polygon fill="black" stroke="black" stroke-width="0.91" points="1493.75,-726.95 1503.75,-723.45 1493.75,-719.95 1493.75,-726.95"/>
+<text text-anchor="middle" x="1139.32" y="-727.25" font-family="Times,serif" font-size="14.00">small&#45;parts&#45;01*37720</text>
 </g>
 <!-- 3,2 (Fiberboard) -->
 <g id="node3" class="node">
@@ -37,9 +37,9 @@
 <!-- 3,3 (Small Parts)&#45;&gt;3,2 (Fiberboard) -->
 <g id="edge2" class="edge">
 <title>3,3 (Small Parts)&#45;&gt;3,2 (Fiberboard)</title>
-<path fill="none" stroke="black" stroke-width="1.51" d="M856.72,-741.46C888.34,-837.88 1037.52,-1292.9 1075.99,-1410.22"/>
-<polygon fill="black" stroke="black" stroke-width="1.51" points="1072.72,-1411.48 1079.16,-1419.9 1079.37,-1409.3 1072.72,-1411.48"/>
-<text text-anchor="middle" x="888.86" y="-1079.64" font-family="Times,serif" font-size="14.00">small&#45;parts&#45;01*14560</text>
+<path fill="none" stroke="black" stroke-width="2.59" d="M856.72,-741.46C888.34,-837.88 1037.52,-1292.9 1075.99,-1410.22"/>
+<polygon fill="black" stroke="black" stroke-width="2.59" points="1072.72,-1411.48 1079.16,-1419.9 1079.37,-1409.3 1072.72,-1411.48"/>
+<text text-anchor="middle" x="884.36" y="-1079.64" font-family="Times,serif" font-size="14.00">small&#45;parts&#45;01*107160</text>
 </g>
 <!-- 0,0 (LE BUS) -->
 <g id="node4" class="node">
@@ -50,9 +50,9 @@
 <!-- 3,3 (Small Parts)&#45;&gt;0,0 (LE BUS) -->
 <g id="edge3" class="edge">
 <title>3,3 (Small Parts)&#45;&gt;0,0 (LE BUS)</title>
-<path fill="none" stroke="black" stroke-width="0.65" d="M828.79,-740.9C738.25,-812.62 394.7,-1084.77 291.19,-1166.78"/>
-<polygon fill="black" stroke="black" stroke-width="0.65" points="288.98,-1164.06 283.31,-1173.02 293.33,-1169.55 288.98,-1164.06"/>
-<text text-anchor="middle" x="486.99" y="-957.64" font-family="Times,serif" font-size="14.00">small&#45;parts&#45;01*6320</text>
+<path fill="none" stroke="black" stroke-width="0.25" d="M828.79,-740.9C738.25,-812.62 394.7,-1084.77 291.19,-1166.78"/>
+<polygon fill="black" stroke="black" stroke-width="0.25" points="288.98,-1164.06 283.31,-1173.02 293.33,-1169.55 288.98,-1164.06"/>
+<text text-anchor="middle" x="482.49" y="-957.64" font-family="Times,serif" font-size="14.00">small&#45;parts&#45;01*10520</text>
 </g>
 <!-- &#45;3,0 (TODO: Get circuits from the train network instead of this ridiculous belt, item=lab&#45;instrument Laboratory instruments) -->
 <g id="node5" class="node">
@@ -63,8 +63,8 @@
 <!-- 3,3 (Small Parts)&#45;&gt;&#45;3,0 (TODO: Get circuits from the train network instead of this ridiculous belt, item=lab&#45;instrument Laboratory instruments) -->
 <g id="edge4" class="edge">
 <title>3,3 (Small Parts)&#45;&gt;&#45;3,0 (TODO: Get circuits from the train network instead of this ridiculous belt, item=lab&#45;instrument Laboratory instruments)</title>
-<path fill="none" stroke="black" stroke-width="1.04" d="M844.13,-705.3C808.79,-609.42 643.81,-161.83 600.98,-45.62"/>
-<polygon fill="black" stroke="black" stroke-width="1.04" points="604.18,-44.2 597.44,-36.03 597.62,-46.62 604.18,-44.2"/>
+<path fill="none" stroke="black" stroke-width="0.24" d="M844.13,-705.3C808.79,-609.42 643.81,-161.83 600.98,-45.62"/>
+<polygon fill="black" stroke="black" stroke-width="0.24" points="604.18,-44.2 597.44,-36.03 597.62,-46.62 604.18,-44.2"/>
 <text text-anchor="middle" x="645.05" y="-379.26" font-family="Times,serif" font-size="14.00">small&#45;parts&#45;01*10040</text>
 </g>
 </g>

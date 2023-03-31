@@ -24,9 +24,9 @@
 <!-- 5,10 (Reserved for More Fluid Recycling)&#45;&gt;&#45;4,&#45;3 (Breath Deeply. Exhale. (Hot Air)) -->
 <g id="edge1" class="edge">
 <title>5,10 (Reserved for More Fluid Recycling)&#45;&gt;&#45;4,&#45;3 (Breath Deeply. Exhale. (Hot Air))</title>
-<path fill="none" stroke="black" stroke-width="1.37" d="M1015.06,-35.42C861.15,-85.43 418.45,-229.27 253.43,-282.89"/>
-<polygon fill="black" stroke="black" stroke-width="1.37" points="252.33,-279.57 243.9,-285.98 254.5,-286.22 252.33,-279.57"/>
-<text text-anchor="middle" x="527.25" y="-162.96" font-family="Times,serif" font-size="14.00">combustion&#45;mixture1*400000</text>
+<path fill="none" stroke="black" stroke-width="1.43" d="M1015.06,-35.42C861.15,-85.43 418.45,-229.27 253.43,-282.89"/>
+<polygon fill="black" stroke="black" stroke-width="1.43" points="252.33,-279.57 243.9,-285.98 254.5,-286.22 252.33,-279.57"/>
+<text text-anchor="middle" x="527.25" y="-162.96" font-family="Times,serif" font-size="14.00">combustion&#45;mixture1*750000</text>
 </g>
 <!-- 1,&#45;1 (fluid=molten&#45;glass Glass, When space, make quartz separate with regular priority, Quartz) -->
 <g id="node3" class="node">
@@ -37,9 +37,9 @@
 <!-- 5,10 (Reserved for More Fluid Recycling)&#45;&gt;1,&#45;1 (fluid=molten&#45;glass Glass, When space, make quartz separate with regular priority, Quartz) -->
 <g id="edge2" class="edge">
 <title>5,10 (Reserved for More Fluid Recycling)&#45;&gt;1,&#45;1 (fluid=molten&#45;glass Glass, When space, make quartz separate with regular priority, Quartz)</title>
-<path fill="none" stroke="black" stroke-width="1.71" d="M1081.82,-36.1C1154.4,-135.99 1505.9,-619.79 1592.26,-738.66"/>
-<polygon fill="black" stroke="black" stroke-width="1.71" points="1589.53,-740.85 1598.24,-746.89 1595.2,-736.74 1589.53,-740.85"/>
-<text text-anchor="middle" x="1230.04" y="-391.18" font-family="Times,serif" font-size="14.00">combustion&#45;mixture1*500000</text>
+<path fill="none" stroke="black" stroke-width="1.43" d="M1081.82,-36.1C1154.4,-135.99 1505.9,-619.79 1592.26,-738.66"/>
+<polygon fill="black" stroke="black" stroke-width="1.43" points="1589.53,-740.85 1598.24,-746.89 1595.2,-736.74 1589.53,-740.85"/>
+<text text-anchor="middle" x="1230.04" y="-391.18" font-family="Times,serif" font-size="14.00">combustion&#45;mixture1*750000</text>
 </g>
 <!-- 0,0 (LE BUS) -->
 <g id="node4" class="node">
@@ -50,9 +50,9 @@
 <!-- 5,10 (Reserved for More Fluid Recycling)&#45;&gt;0,0 (LE BUS) -->
 <g id="edge3" class="edge">
 <title>5,10 (Reserved for More Fluid Recycling)&#45;&gt;0,0 (LE BUS)</title>
-<path fill="none" stroke="black" stroke-width="2.06" d="M1055.58,-36.03C956.73,-172.08 328.54,-1036.71 209.79,-1200.16"/>
-<polygon fill="black" stroke="black" stroke-width="2.06" points="206.65,-1198.52 203.61,-1208.67 212.31,-1202.63 206.65,-1198.52"/>
-<text text-anchor="middle" x="525.68" y="-621.89" font-family="Times,serif" font-size="14.00">combustion&#45;mixture1*600000</text>
+<path fill="none" stroke="black" stroke-width="1.33" d="M1055.58,-36.03C956.73,-172.08 328.54,-1036.71 209.79,-1200.16"/>
+<polygon fill="black" stroke="black" stroke-width="1.33" points="206.65,-1198.52 203.61,-1208.67 212.31,-1202.63 206.65,-1198.52"/>
+<text text-anchor="middle" x="525.68" y="-621.89" font-family="Times,serif" font-size="14.00">combustion&#45;mixture1*700000</text>
 </g>
 <!-- 0,8 (Tar from Coke) -->
 <g id="node5" class="node">
@@ -63,23 +63,23 @@
 <!-- 0,8 (Tar from Coke)&#45;&gt;&#45;4,&#45;3 (Breath Deeply. Exhale. (Hot Air)) -->
 <g id="edge4" class="edge">
 <title>0,8 (Tar from Coke)&#45;&gt;&#45;4,&#45;3 (Breath Deeply. Exhale. (Hot Air))</title>
-<path fill="none" stroke="black" stroke-width="0.34" d="M1055.58,-1494.13C956.73,-1358.08 328.54,-493.44 209.79,-330"/>
-<polygon fill="black" stroke="black" stroke-width="0.34" points="212.31,-327.52 203.61,-321.49 206.65,-331.64 212.31,-327.52"/>
-<text text-anchor="middle" x="525.68" y="-915.86" font-family="Times,serif" font-size="14.00">combustion&#45;mixture1*100000</text>
+<path fill="none" stroke="black" stroke-width="0.57" d="M1055.58,-1494.13C956.73,-1358.08 328.54,-493.44 209.79,-330"/>
+<polygon fill="black" stroke="black" stroke-width="0.57" points="212.31,-327.52 203.61,-321.49 206.65,-331.64 212.31,-327.52"/>
+<text text-anchor="middle" x="525.68" y="-915.86" font-family="Times,serif" font-size="14.00">combustion&#45;mixture1*300000</text>
 </g>
 <!-- 0,8 (Tar from Coke)&#45;&gt;1,&#45;1 (fluid=molten&#45;glass Glass, When space, make quartz separate with regular priority, Quartz) -->
 <g id="edge6" class="edge">
 <title>0,8 (Tar from Coke)&#45;&gt;1,&#45;1 (fluid=molten&#45;glass Glass, When space, make quartz separate with regular priority, Quartz)</title>
-<path fill="none" stroke="black" stroke-width="0.34" d="M1081.82,-1494.06C1154.4,-1394.17 1505.9,-910.37 1592.26,-791.5"/>
-<polygon fill="black" stroke="black" stroke-width="0.34" points="1595.2,-793.42 1598.24,-783.27 1589.53,-789.3 1595.2,-793.42"/>
-<text text-anchor="middle" x="1230.04" y="-1146.58" font-family="Times,serif" font-size="14.00">combustion&#45;mixture1*100000</text>
+<path fill="none" stroke="black" stroke-width="0.57" d="M1081.82,-1494.06C1154.4,-1394.17 1505.9,-910.37 1592.26,-791.5"/>
+<polygon fill="black" stroke="black" stroke-width="0.57" points="1595.2,-793.42 1598.24,-783.27 1589.53,-789.3 1595.2,-793.42"/>
+<text text-anchor="middle" x="1230.04" y="-1146.58" font-family="Times,serif" font-size="14.00">combustion&#45;mixture1*300000</text>
 </g>
 <!-- 0,8 (Tar from Coke)&#45;&gt;0,0 (LE BUS) -->
 <g id="edge5" class="edge">
 <title>0,8 (Tar from Coke)&#45;&gt;0,0 (LE BUS)</title>
-<path fill="none" stroke="black" stroke-width="0.17" d="M1019.89,-1496.3C867.74,-1446.87 402.58,-1295.73 244.03,-1244.21"/>
-<polygon fill="black" stroke="black" stroke-width="0.17" points="245.07,-1240.87 234.48,-1241.11 242.91,-1247.53 245.07,-1240.87"/>
-<text text-anchor="middle" x="529.46" y="-1374.06" font-family="Times,serif" font-size="14.00">combustion&#45;mixture1*50000</text>
+<path fill="none" stroke="black" stroke-width="0.67" d="M1019.89,-1496.3C867.74,-1446.87 402.58,-1295.73 244.03,-1244.21"/>
+<polygon fill="black" stroke="black" stroke-width="0.67" points="245.07,-1240.87 234.48,-1241.11 242.91,-1247.53 245.07,-1240.87"/>
+<text text-anchor="middle" x="524.96" y="-1374.06" font-family="Times,serif" font-size="14.00">combustion&#45;mixture1*350000</text>
 </g>
 </g>
 </svg>

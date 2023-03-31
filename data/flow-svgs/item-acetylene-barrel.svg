@@ -24,9 +24,9 @@
 <!-- &#45;2,6 (Wrong ratio of Calcium Carbide to Acetalene)&#45;&gt;&#45;3,5 (fluid=arqad&#45;honey Honey) -->
 <g id="edge1" class="edge">
 <title>&#45;2,6 (Wrong ratio of Calcium Carbide to Acetalene)&#45;&gt;&#45;3,5 (fluid=arqad&#45;honey Honey)</title>
-<path fill="none" stroke="black" stroke-width="2.14" d="M616.1,-35.58C522.28,-66.07 329.98,-128.55 230.96,-160.73"/>
-<polygon fill="black" stroke="black" stroke-width="2.14" points="229.81,-157.42 221.38,-163.84 231.97,-164.07 229.81,-157.42"/>
-<text text-anchor="middle" x="339.03" y="-101.95" font-family="Times,serif" font-size="14.00">acetylene&#45;barrel*27392</text>
+<path fill="none" stroke="black" stroke-width="2.03" d="M616.1,-35.58C522.28,-66.07 329.98,-128.55 230.96,-160.73"/>
+<polygon fill="black" stroke="black" stroke-width="2.03" points="229.81,-157.42 221.38,-163.84 231.97,-164.07 229.81,-157.42"/>
+<text text-anchor="middle" x="339.03" y="-101.95" font-family="Times,serif" font-size="14.00">acetylene&#45;barrel*46736</text>
 </g>
 <!-- 0,0 (LE BUS) -->
 <g id="node4" class="node">
@@ -37,9 +37,9 @@
 <!-- &#45;2,6 (Wrong ratio of Calcium Carbide to Acetalene)&#45;&gt;0,0 (LE BUS) -->
 <g id="edge4" class="edge">
 <title>&#45;2,6 (Wrong ratio of Calcium Carbide to Acetalene)&#45;&gt;0,0 (LE BUS)</title>
-<path fill="none" stroke="black" stroke-width="0.59" d="M670.22,-36.2C670.22,-145.02 670.22,-709.22 670.22,-842.49"/>
-<polygon fill="black" stroke="black" stroke-width="0.59" points="666.72,-842.69 670.22,-852.69 673.72,-842.69 666.72,-842.69"/>
-<text text-anchor="middle" x="590.22" y="-443.15" font-family="Times,serif" font-size="14.00">acetylene&#45;barrel*7600</text>
+<path fill="none" stroke="black" stroke-width="0.6" d="M670.22,-36.2C670.22,-145.02 670.22,-709.22 670.22,-842.49"/>
+<polygon fill="black" stroke="black" stroke-width="0.6" points="666.72,-842.69 670.22,-852.69 673.72,-842.69 666.72,-842.69"/>
+<text text-anchor="middle" x="585.72" y="-443.15" font-family="Times,serif" font-size="14.00">acetylene&#45;barrel*13856</text>
 </g>
 <!-- &#45;6,5 (Acetelyne) -->
 <g id="node3" class="node">
@@ -50,16 +50,16 @@
 <!-- &#45;6,5 (Acetelyne)&#45;&gt;&#45;3,5 (fluid=arqad&#45;honey Honey) -->
 <g id="edge2" class="edge">
 <title>&#45;6,5 (Acetelyne)&#45;&gt;&#45;3,5 (fluid=arqad&#45;honey Honey)</title>
-<path fill="none" stroke="black" stroke-width="2.54" d="M169,-689.73C169,-611.65 169,-303.91 169,-208.93"/>
-<polygon fill="black" stroke="black" stroke-width="2.54" points="172.5,-208.92 169,-198.92 165.5,-208.92 172.5,-208.92"/>
-<text text-anchor="middle" x="84.5" y="-453.13" font-family="Times,serif" font-size="14.00">acetylene&#45;barrel*32528</text>
+<path fill="none" stroke="black" stroke-width="2.4" d="M169,-689.73C169,-611.65 169,-303.91 169,-208.93"/>
+<polygon fill="black" stroke="black" stroke-width="2.4" points="172.5,-208.92 169,-198.92 165.5,-208.92 172.5,-208.92"/>
+<text text-anchor="middle" x="84.5" y="-453.13" font-family="Times,serif" font-size="14.00">acetylene&#45;barrel*55216</text>
 </g>
 <!-- &#45;6,5 (Acetelyne)&#45;&gt;0,0 (LE BUS) -->
 <g id="edge3" class="edge">
 <title>&#45;6,5 (Acetelyne)&#45;&gt;0,0 (LE BUS)</title>
-<path fill="none" stroke="black" stroke-width="0.3" d="M215.26,-722.9C308.27,-753.12 517.51,-821.11 616.44,-853.25"/>
-<polygon fill="black" stroke="black" stroke-width="0.3" points="615.64,-856.67 626.23,-856.43 617.81,-850.02 615.64,-856.67"/>
-<text text-anchor="middle" x="335.85" y="-791.88" font-family="Times,serif" font-size="14.00">acetylene&#45;barrel*3824</text>
+<path fill="none" stroke="black" stroke-width="0.44" d="M215.26,-722.9C308.27,-753.12 517.51,-821.11 616.44,-853.25"/>
+<polygon fill="black" stroke="black" stroke-width="0.44" points="615.64,-856.67 626.23,-856.43 617.81,-850.02 615.64,-856.67"/>
+<text text-anchor="middle" x="331.35" y="-791.88" font-family="Times,serif" font-size="14.00">acetylene&#45;barrel*10096</text>
 </g>
 <!-- &#45;5,1 (Acetylene) -->
 <g id="node5" class="node">
@@ -70,16 +70,16 @@
 <!-- &#45;5,1 (Acetylene)&#45;&gt;&#45;3,5 (fluid=arqad&#45;honey Honey) -->
 <g id="edge5" class="edge">
 <title>&#45;5,1 (Acetylene)&#45;&gt;&#45;3,5 (fluid=arqad&#45;honey Honey)</title>
-<path fill="none" stroke="black" stroke-width="0.39" d="M933.77,-429.35C796,-384.58 388.02,-252.02 231.29,-201.1"/>
-<polygon fill="black" stroke="black" stroke-width="0.39" points="231.93,-197.62 221.34,-197.86 229.77,-204.28 231.93,-197.62"/>
-<text text-anchor="middle" x="502.53" y="-319.02" font-family="Times,serif" font-size="14.00">acetylene&#45;barrel*4944</text>
+<path fill="none" stroke="black" stroke-width="0.49" d="M933.77,-429.35C796,-384.58 388.02,-252.02 231.29,-201.1"/>
+<polygon fill="black" stroke="black" stroke-width="0.49" points="231.93,-197.62 221.34,-197.86 229.77,-204.28 231.93,-197.62"/>
+<text text-anchor="middle" x="498.03" y="-319.02" font-family="Times,serif" font-size="14.00">acetylene&#45;barrel*11168</text>
 </g>
 <!-- &#45;5,1 (Acetylene)&#45;&gt;0,0 (LE BUS) -->
 <g id="edge6" class="edge">
 <title>&#45;5,1 (Acetylene)&#45;&gt;0,0 (LE BUS)</title>
-<path fill="none" stroke="black" stroke-width="0.03" d="M966.88,-462.41C918.09,-529.56 746.91,-765.17 689.3,-844.46"/>
-<polygon fill="black" stroke="black" stroke-width="0.03" points="686.21,-842.76 683.16,-852.91 691.87,-846.88 686.21,-842.76"/>
-<text text-anchor="middle" x="752.59" y="-657.23" font-family="Times,serif" font-size="14.00">acetylene&#45;barrel*432</text>
+<path fill="none" stroke="black" stroke-width="0.04" d="M966.88,-462.41C918.09,-529.56 746.91,-765.17 689.3,-844.46"/>
+<polygon fill="black" stroke="black" stroke-width="0.04" points="686.21,-842.76 683.16,-852.91 691.87,-846.88 686.21,-842.76"/>
+<text text-anchor="middle" x="752.59" y="-657.23" font-family="Times,serif" font-size="14.00">acetylene&#45;barrel*960</text>
 </g>
 </g>
 </svg>

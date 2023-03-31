@@ -24,9 +24,9 @@
 <!-- 3,&#45;1 (Nitrogen, Oxygen)&#45;&gt;&#45;2,9 (molten steel) -->
 <g id="edge1" class="edge">
 <title>3,&#45;1 (Nitrogen, Oxygen)&#45;&gt;&#45;2,9 (molten steel)</title>
-<path fill="none" stroke="black" stroke-width="3.48" d="M637.11,-375.32C679.6,-375.32 727.01,-375.32 768.19,-375.32"/>
-<polygon fill="black" stroke="black" stroke-width="3.48" points="768.25,-378.82 778.25,-375.32 768.25,-371.82 768.25,-378.82"/>
-<text text-anchor="middle" x="702.65" y="-364.12" font-family="Times,serif" font-size="14.00">oxygen&#45;barrel*23389</text>
+<path fill="none" stroke="black" stroke-width="2.01" d="M637.11,-375.32C679.6,-375.32 727.01,-375.32 768.19,-375.32"/>
+<polygon fill="black" stroke="black" stroke-width="2.01" points="768.25,-378.82 778.25,-375.32 768.25,-371.82 768.25,-378.82"/>
+<text text-anchor="middle" x="702.65" y="-364.12" font-family="Times,serif" font-size="14.00">oxygen&#45;barrel*31520</text>
 </g>
 <!-- 1,12 (Molten Iron) -->
 <g id="node3" class="node">
@@ -37,9 +37,9 @@
 <!-- 3,&#45;1 (Nitrogen, Oxygen)&#45;&gt;1,12 (Molten Iron) -->
 <g id="edge2" class="edge">
 <title>3,&#45;1 (Nitrogen, Oxygen)&#45;&gt;1,12 (Molten Iron)</title>
-<path fill="none" stroke="black" stroke-width="0.29" d="M520.12,-393.7C531.03,-451.28 564.63,-628.49 577.8,-697.99"/>
-<polygon fill="black" stroke="black" stroke-width="0.29" points="574.43,-699.02 579.74,-708.19 581.31,-697.71 574.43,-699.02"/>
-<text text-anchor="middle" x="477.96" y="-549.64" font-family="Times,serif" font-size="14.00">oxygen&#45;barrel*1984</text>
+<path fill="none" stroke="black" stroke-width="1.92" d="M520.12,-393.7C531.03,-451.28 564.63,-628.49 577.8,-697.99"/>
+<polygon fill="black" stroke="black" stroke-width="1.92" points="574.43,-699.02 579.74,-708.19 581.31,-697.71 574.43,-699.02"/>
+<text text-anchor="middle" x="473.46" y="-549.64" font-family="Times,serif" font-size="14.00">oxygen&#45;barrel*30112</text>
 </g>
 <!-- 2,10 (Nickel plate and Nichrome) -->
 <g id="node4" class="node">
@@ -50,9 +50,9 @@
 <!-- 3,&#45;1 (Nitrogen, Oxygen)&#45;&gt;2,10 (Nickel plate and Nichrome) -->
 <g id="edge3" class="edge">
 <title>3,&#45;1 (Nitrogen, Oxygen)&#45;&gt;2,10 (Nickel plate and Nichrome)</title>
-<path fill="none" stroke="black" stroke-width="0.13" d="M439.92,-389.28C387.03,-398.91 316.38,-411.77 259.95,-422.04"/>
-<polygon fill="black" stroke="black" stroke-width="0.13" points="259.16,-418.63 249.95,-423.86 260.42,-425.52 259.16,-418.63"/>
-<text text-anchor="middle" x="283.44" y="-409.46" font-family="Times,serif" font-size="14.00">oxygen&#45;barrel*880</text>
+<path fill="none" stroke="black" stroke-width="0.03" d="M439.92,-389.28C387.03,-398.91 316.38,-411.77 259.95,-422.04"/>
+<polygon fill="black" stroke="black" stroke-width="0.03" points="259.16,-418.63 249.95,-423.86 260.42,-425.52 259.16,-418.63"/>
+<text text-anchor="middle" x="283.44" y="-409.46" font-family="Times,serif" font-size="14.00">oxygen&#45;barrel*528</text>
 </g>
 <!-- 2,&#45;2 (Tin Plate, Organic Solvent) -->
 <g id="node5" class="node">
@@ -63,9 +63,9 @@
 <!-- 3,&#45;1 (Nitrogen, Oxygen)&#45;&gt;2,&#45;2 (Tin Plate, Organic Solvent) -->
 <g id="edge4" class="edge">
 <title>3,&#45;1 (Nitrogen, Oxygen)&#45;&gt;2,&#45;2 (Tin Plate, Organic Solvent)</title>
-<path fill="none" stroke="black" stroke-width="0.1" d="M516.76,-357.1C517.19,-298.92 518.51,-117.21 519.02,-46.53"/>
-<polygon fill="black" stroke="black" stroke-width="0.1" points="522.53,-46.2 519.1,-36.17 515.53,-46.15 522.53,-46.2"/>
-<text text-anchor="middle" x="451.39" y="-205.62" font-family="Times,serif" font-size="14.00">oxygen&#45;barrel*656</text>
+<path fill="none" stroke="black" stroke-width="0.03" d="M516.76,-357.1C517.19,-298.92 518.51,-117.21 519.02,-46.53"/>
+<polygon fill="black" stroke="black" stroke-width="0.03" points="522.53,-46.2 519.1,-36.17 515.53,-46.15 522.53,-46.2"/>
+<text text-anchor="middle" x="451.39" y="-205.62" font-family="Times,serif" font-size="14.00">oxygen&#45;barrel*516</text>
 </g>
 </g>
 </svg>

@@ -24,9 +24,9 @@
 <!-- 3,&#45;1 (Nitrogen, Oxygen)&#45;&gt;2,&#45;1 (Ammonia) -->
 <g id="edge1" class="edge">
 <title>3,&#45;1 (Nitrogen, Oxygen)&#45;&gt;2,&#45;1 (Ammonia)</title>
-<path fill="none" stroke="black" stroke-width="1.26" d="M987.12,-659.99C1113.73,-659.99 1310.2,-659.99 1424.84,-659.99"/>
-<polygon fill="black" stroke="black" stroke-width="1.26" points="1424.99,-663.49 1434.99,-659.99 1424.99,-656.49 1424.99,-663.49"/>
-<text text-anchor="middle" x="1129.98" y="-663.79" font-family="Times,serif" font-size="14.00">nitrogen&#45;barrel*5500</text>
+<path fill="none" stroke="black" stroke-width="1.4" d="M987.12,-659.99C1113.73,-659.99 1310.2,-659.99 1424.84,-659.99"/>
+<polygon fill="black" stroke="black" stroke-width="1.4" points="1424.99,-663.49 1434.99,-659.99 1424.99,-656.49 1424.99,-663.49"/>
+<text text-anchor="middle" x="1125.48" y="-663.79" font-family="Times,serif" font-size="14.00">nitrogen&#45;barrel*17250</text>
 </g>
 <!-- 1,&#45;1 (fluid=molten&#45;glass Glass, When space, make quartz separate with regular priority, Quartz) -->
 <g id="node3" class="node">
@@ -37,9 +37,9 @@
 <!-- 3,&#45;1 (Nitrogen, Oxygen)&#45;&gt;1,&#45;1 (fluid=molten&#45;glass Glass, When space, make quartz separate with regular priority, Quartz) -->
 <g id="edge2" class="edge">
 <title>3,&#45;1 (Nitrogen, Oxygen)&#45;&gt;1,&#45;1 (fluid=molten&#45;glass Glass, When space, make quartz separate with regular priority, Quartz)</title>
-<path fill="none" stroke="black" stroke-width="1.56" d="M852.24,-677.95C790.65,-753.91 551.43,-1048.95 478.67,-1138.68"/>
-<polygon fill="black" stroke="black" stroke-width="1.56" points="475.74,-1136.74 472.16,-1146.71 481.18,-1141.15 475.74,-1136.74"/>
-<text text-anchor="middle" x="589.46" y="-912.12" font-family="Times,serif" font-size="14.00">nitrogen&#45;barrel*6801</text>
+<path fill="none" stroke="black" stroke-width="0.69" d="M852.24,-677.95C790.65,-753.91 551.43,-1048.95 478.67,-1138.68"/>
+<polygon fill="black" stroke="black" stroke-width="0.69" points="475.74,-1136.74 472.16,-1146.71 481.18,-1141.15 475.74,-1136.74"/>
+<text text-anchor="middle" x="589.46" y="-912.12" font-family="Times,serif" font-size="14.00">nitrogen&#45;barrel*8501</text>
 </g>
 <!-- 1,7 (Activated Carbon) -->
 <g id="node4" class="node">
@@ -50,9 +50,9 @@
 <!-- 3,&#45;1 (Nitrogen, Oxygen)&#45;&gt;1,7 (Activated Carbon) -->
 <g id="edge3" class="edge">
 <title>3,&#45;1 (Nitrogen, Oxygen)&#45;&gt;1,7 (Activated Carbon)</title>
-<path fill="none" stroke="black" stroke-width="0.17" d="M863.96,-641.81C849.9,-551.96 787.84,-155.25 770.75,-45.96"/>
-<polygon fill="black" stroke="black" stroke-width="0.17" points="774.19,-45.36 769.19,-36.02 767.28,-46.44 774.19,-45.36"/>
-<text text-anchor="middle" x="745.85" y="-347.69" font-family="Times,serif" font-size="14.00">nitrogen&#45;barrel*750</text>
+<path fill="none" stroke="black" stroke-width="0.91" d="M863.96,-641.81C849.9,-551.96 787.84,-155.25 770.75,-45.96"/>
+<polygon fill="black" stroke="black" stroke-width="0.91" points="774.19,-45.36 769.19,-36.02 767.28,-46.44 774.19,-45.36"/>
+<text text-anchor="middle" x="736.85" y="-347.69" font-family="Times,serif" font-size="14.00">nitrogen&#45;barrel*11300</text>
 </g>
 </g>
 </svg>

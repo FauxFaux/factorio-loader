@@ -24,9 +24,9 @@
 <!-- 0,12 (Phosphate mining)&#45;&gt;3,6 (Phosphoric Acid and Phosphine gas) -->
 <g id="edge1" class="edge">
 <title>0,12 (Phosphate mining)&#45;&gt;3,6 (Phosphoric Acid and Phosphine gas)</title>
-<path fill="none" stroke="black" stroke-width="0.85" d="M593.52,-18C613.15,-18 633.9,-18 654.82,-18"/>
-<polygon fill="black" stroke="black" stroke-width="0.85" points="655.1,-21.5 665.1,-18 655.1,-14.5 655.1,-21.5"/>
-<text text-anchor="middle" x="624.17" y="-6.8" font-family="Times,serif" font-size="14.00">phosphate&#45;rock*10400</text>
+<path fill="none" stroke="black" stroke-width="0.78" d="M593.52,-18C613.15,-18 633.9,-18 654.82,-18"/>
+<polygon fill="black" stroke="black" stroke-width="0.78" points="655.1,-21.5 665.1,-18 655.1,-14.5 655.1,-21.5"/>
+<text text-anchor="middle" x="624.17" y="-6.8" font-family="Times,serif" font-size="14.00">phosphate&#45;rock*14864</text>
 </g>
 <!-- 0,0 (LE BUS) -->
 <g id="node3" class="node">
@@ -37,9 +37,9 @@
 <!-- 0,12 (Phosphate mining)&#45;&gt;0,0 (LE BUS) -->
 <g id="edge2" class="edge">
 <title>0,12 (Phosphate mining)&#45;&gt;0,0 (LE BUS)</title>
-<path fill="none" stroke="black" stroke-width="1.15" d="M343.41,-18C281.25,-18 207.92,-18 153.08,-18"/>
-<polygon fill="black" stroke="black" stroke-width="1.15" points="153.06,-14.5 143.06,-18 153.06,-21.5 153.06,-14.5"/>
-<text text-anchor="middle" x="248.24" y="-6.8" font-family="Times,serif" font-size="14.00">phosphate&#45;rock*14176</text>
+<path fill="none" stroke="black" stroke-width="1.22" d="M343.41,-18C281.25,-18 207.92,-18 153.08,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1.22" points="153.06,-14.5 143.06,-18 153.06,-21.5 153.06,-14.5"/>
+<text text-anchor="middle" x="248.24" y="-6.8" font-family="Times,serif" font-size="14.00">phosphate&#45;rock*23024</text>
 </g>
 </g>
 </svg>

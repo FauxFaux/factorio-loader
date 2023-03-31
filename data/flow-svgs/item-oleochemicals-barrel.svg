@@ -24,9 +24,9 @@
 <!-- 1,9 (Ammunition)&#45;&gt;7,2 (advanced sand castings (mold)) -->
 <g id="edge1" class="edge">
 <title>1,9 (Ammunition)&#45;&gt;7,2 (advanced sand castings (mold))</title>
-<path fill="none" stroke="black" stroke-width="1.58" d="M593.64,-18C612.84,-18 633.74,-18 655,-18"/>
-<polygon fill="black" stroke="black" stroke-width="1.58" points="655.13,-21.5 665.13,-18 655.13,-14.5 655.13,-21.5"/>
-<text text-anchor="middle" x="624.32" y="-6.8" font-family="Times,serif" font-size="14.00">oleochemicals&#45;barrel*752</text>
+<path fill="none" stroke="black" stroke-width="1.8" d="M593.64,-18C612.84,-18 633.74,-18 655,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1.8" points="655.13,-21.5 665.13,-18 655.13,-14.5 655.13,-21.5"/>
+<text text-anchor="middle" x="624.32" y="-6.8" font-family="Times,serif" font-size="14.00">oleochemicals&#45;barrel*1470</text>
 </g>
 <!-- 2,&#45;2 (Tin Plate, Organic Solvent) -->
 <g id="node3" class="node">
@@ -37,9 +37,9 @@
 <!-- 1,9 (Ammunition)&#45;&gt;2,&#45;2 (Tin Plate, Organic Solvent) -->
 <g id="edge2" class="edge">
 <title>1,9 (Ammunition)&#45;&gt;2,&#45;2 (Tin Plate, Organic Solvent)</title>
-<path fill="none" stroke="black" stroke-width="0.42" d="M409.59,-18C384.94,-18 357.49,-18 330.06,-18"/>
-<polygon fill="black" stroke="black" stroke-width="0.42" points="329.96,-14.5 319.96,-18 329.96,-21.5 329.96,-14.5"/>
-<text text-anchor="middle" x="324.32" y="-6.8" font-family="Times,serif" font-size="14.00">oleochemicals&#45;barrel*200</text>
+<path fill="none" stroke="black" stroke-width="0.2" d="M409.59,-18C384.94,-18 357.49,-18 330.06,-18"/>
+<polygon fill="black" stroke="black" stroke-width="0.2" points="329.96,-14.5 319.96,-18 329.96,-21.5 329.96,-14.5"/>
+<text text-anchor="middle" x="324.32" y="-6.8" font-family="Times,serif" font-size="14.00">oleochemicals&#45;barrel*160</text>
 </g>
 </g>
 </svg>

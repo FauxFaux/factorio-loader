@@ -24,9 +24,9 @@
 <!-- 0,0 (LE BUS)&#45;&gt;&#45;5,0 (item=small&#45;lampitem=petri&#45;dish Lamptri dishes) -->
 <g id="edge1" class="edge">
 <title>0,0 (LE BUS)&#45;&gt;&#45;5,0 (item=small&#45;lampitem=petri&#45;dish Lamptri dishes)</title>
-<path fill="none" stroke="black" stroke-width="0.69" d="M956.01,-399.81C860.96,-399.81 687.57,-399.81 538.13,-399.81"/>
-<polygon fill="black" stroke="black" stroke-width="0.69" points="537.86,-396.31 527.86,-399.81 537.86,-403.31 537.86,-396.31"/>
-<text text-anchor="middle" x="808.07" y="-388.61" font-family="Times,serif" font-size="14.00">combustion&#45;mixture1&#45;barrel*4050</text>
+<path fill="none" stroke="black" stroke-width="1.33" d="M956.01,-399.81C860.96,-399.81 687.57,-399.81 538.13,-399.81"/>
+<polygon fill="black" stroke="black" stroke-width="1.33" points="537.86,-396.31 527.86,-399.81 537.86,-403.31 537.86,-396.31"/>
+<text text-anchor="middle" x="810.32" y="-388.61" font-family="Times,serif" font-size="14.00">combustion&#45;mixture1&#45;barrel*20550</text>
 </g>
 <!-- 6,13 () -->
 <g id="node4" class="node">
@@ -37,9 +37,9 @@
 <!-- 0,0 (LE BUS)&#45;&gt;6,13 () -->
 <g id="edge3" class="edge">
 <title>0,0 (LE BUS)&#45;&gt;6,13 ()</title>
-<path fill="none" stroke="black" stroke-width="0.02" d="M1099.04,-399.81C1099.08,-399.81 1099.12,-399.81 1099.17,-399.81"/>
-<polygon fill="black" stroke="black" stroke-width="0.02" points="1089.3,-403.32 1099.3,-399.81 1089.3,-396.32 1089.3,-403.32"/>
-<text text-anchor="middle" x="1212.1" y="-403.61" font-family="Times,serif" font-size="14.00">combustion&#45;mixture1&#45;barrel*96</text>
+<path fill="none" stroke="black" stroke-width="0" d="M1099.04,-399.81C1099.08,-399.81 1099.12,-399.81 1099.17,-399.81"/>
+<polygon fill="black" stroke="black" stroke-width="0" points="1089.3,-403.32 1099.3,-399.81 1089.3,-396.32 1089.3,-403.32"/>
+<text text-anchor="middle" x="1212.1" y="-403.61" font-family="Times,serif" font-size="14.00">combustion&#45;mixture1&#45;barrel*48</text>
 </g>
 <!-- &#45;6,4 (Urea) -->
 <g id="node3" class="node">
@@ -50,16 +50,16 @@
 <!-- &#45;6,4 (Urea)&#45;&gt;0,0 (LE BUS) -->
 <g id="edge2" class="edge">
 <title>&#45;6,4 (Urea)&#45;&gt;0,0 (LE BUS)</title>
-<path fill="none" stroke="black" stroke-width="3.43" d="M663.09,-35.4C724.46,-96.77 930.99,-303.3 1002.72,-375.02"/>
-<polygon fill="black" stroke="black" stroke-width="3.43" points="1000.46,-377.72 1010.01,-382.31 1005.41,-372.77 1000.46,-377.72"/>
-<text text-anchor="middle" x="706.4" y="-209.01" font-family="Times,serif" font-size="14.00">combustion&#45;mixture1&#45;barrel*20040</text>
+<path fill="none" stroke="black" stroke-width="2.69" d="M663.09,-35.4C724.46,-96.77 930.99,-303.3 1002.72,-375.02"/>
+<polygon fill="black" stroke="black" stroke-width="2.69" points="1000.46,-377.72 1010.01,-382.31 1005.41,-372.77 1000.46,-377.72"/>
+<text text-anchor="middle" x="706.4" y="-209.01" font-family="Times,serif" font-size="14.00">combustion&#45;mixture1&#45;barrel*41720</text>
 </g>
 <!-- &#45;6,4 (Urea)&#45;&gt;&#45;5,0 (item=small&#45;lampitem=petri&#45;dish Lamptri dishes) -->
 <g id="edge5" class="edge">
 <title>&#45;6,4 (Urea)&#45;&gt;&#45;5,0 (item=small&#45;lampitem=petri&#45;dish Lamptri dishes)</title>
-<path fill="none" stroke="black" stroke-width="1.6" d="M628.29,-35.4C567.2,-96.49 362.29,-301.41 289.66,-374.03"/>
-<polygon fill="black" stroke="black" stroke-width="1.6" points="286.86,-371.88 282.26,-381.43 291.81,-376.83 286.86,-371.88"/>
-<text text-anchor="middle" x="336.98" y="-208.51" font-family="Times,serif" font-size="14.00">combustion&#45;mixture1&#45;barrel*9360</text>
+<path fill="none" stroke="black" stroke-width="1.64" d="M628.29,-35.4C567.2,-96.49 362.29,-301.41 289.66,-374.03"/>
+<polygon fill="black" stroke="black" stroke-width="1.64" points="286.86,-371.88 282.26,-381.43 291.81,-376.83 286.86,-371.88"/>
+<text text-anchor="middle" x="332.48" y="-208.51" font-family="Times,serif" font-size="14.00">combustion&#45;mixture1&#45;barrel*25360</text>
 </g>
 <!-- 4,10 (Fluid Recycling) -->
 <g id="node5" class="node">
@@ -70,16 +70,16 @@
 <!-- 4,10 (Fluid Recycling)&#45;&gt;0,0 (LE BUS) -->
 <g id="edge4" class="edge">
 <title>4,10 (Fluid Recycling)&#45;&gt;0,0 (LE BUS)</title>
-<path fill="none" stroke="black" stroke-width="0.16" d="M663.59,-763.73C725.47,-701.85 930.44,-496.88 1002.33,-424.99"/>
-<polygon fill="black" stroke="black" stroke-width="0.16" points="1005.04,-427.23 1009.64,-417.68 1000.1,-422.28 1005.04,-427.23"/>
-<text text-anchor="middle" x="715.46" y="-598.16" font-family="Times,serif" font-size="14.00">combustion&#45;mixture1&#45;barrel*950</text>
+<path fill="none" stroke="black" stroke-width="0.25" d="M663.59,-763.73C725.47,-701.85 930.44,-496.88 1002.33,-424.99"/>
+<polygon fill="black" stroke="black" stroke-width="0.25" points="1005.04,-427.23 1009.64,-417.68 1000.1,-422.28 1005.04,-427.23"/>
+<text text-anchor="middle" x="710.96" y="-598.16" font-family="Times,serif" font-size="14.00">combustion&#45;mixture1&#45;barrel*3890</text>
 </g>
 <!-- 4,10 (Fluid Recycling)&#45;&gt;&#45;5,0 (item=small&#45;lampitem=petri&#45;dish Lamptri dishes) -->
 <g id="edge6" class="edge">
 <title>4,10 (Fluid Recycling)&#45;&gt;&#45;5,0 (item=small&#45;lampitem=petri&#45;dish Lamptri dishes)</title>
-<path fill="none" stroke="black" stroke-width="0.1" d="M627.79,-763.73C566.05,-701.99 361.88,-497.82 289.55,-425.49"/>
-<polygon fill="black" stroke="black" stroke-width="0.1" points="291.73,-422.72 282.19,-418.12 286.78,-427.67 291.73,-422.72"/>
-<text text-anchor="middle" x="341.17" y="-598.41" font-family="Times,serif" font-size="14.00">combustion&#45;mixture1&#45;barrel*564</text>
+<path fill="none" stroke="black" stroke-width="0.09" d="M627.79,-763.73C566.05,-701.99 361.88,-497.82 289.55,-425.49"/>
+<polygon fill="black" stroke="black" stroke-width="0.09" points="291.73,-422.72 282.19,-418.12 286.78,-427.67 291.73,-422.72"/>
+<text text-anchor="middle" x="336.67" y="-598.41" font-family="Times,serif" font-size="14.00">combustion&#45;mixture1&#45;barrel*1336</text>
 </g>
 </g>
 </svg>

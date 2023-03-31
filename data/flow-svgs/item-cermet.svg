@@ -24,9 +24,9 @@
 <!-- 4,&#45;2 (Ceramic)&#45;&gt;6,4 (Electronic components) -->
 <g id="edge1" class="edge">
 <title>4,&#45;2 (Ceramic)&#45;&gt;6,4 (Electronic components)</title>
-<path fill="none" stroke="black" stroke-width="1.35" d="M438.93,-18C458,-18 479.11,-18 500.4,-18"/>
-<polygon fill="black" stroke="black" stroke-width="1.35" points="500.52,-21.5 510.52,-18 500.52,-14.5 500.52,-21.5"/>
-<text text-anchor="middle" x="469.66" y="-6.8" font-family="Times,serif" font-size="14.00">cermet*4144</text>
+<path fill="none" stroke="black" stroke-width="0.55" d="M438.93,-18C458,-18 479.11,-18 500.4,-18"/>
+<polygon fill="black" stroke="black" stroke-width="0.55" points="500.52,-21.5 510.52,-18 500.52,-14.5 500.52,-21.5"/>
+<text text-anchor="middle" x="469.66" y="-6.8" font-family="Times,serif" font-size="14.00">cermet*2288</text>
 </g>
 <!-- 0,0 (LE BUS) -->
 <g id="node3" class="node">
@@ -37,9 +37,9 @@
 <!-- 4,&#45;2 (Ceramic)&#45;&gt;0,0 (LE BUS) -->
 <g id="edge2" class="edge">
 <title>4,&#45;2 (Ceramic)&#45;&gt;0,0 (LE BUS)</title>
-<path fill="none" stroke="black" stroke-width="0.65" d="M284.82,-18C244.31,-18 194.64,-18 153.43,-18"/>
-<polygon fill="black" stroke="black" stroke-width="0.65" points="153.41,-14.5 143.41,-18 153.41,-21.5 153.41,-14.5"/>
-<text text-anchor="middle" x="219.12" y="-6.8" font-family="Times,serif" font-size="14.00">cermet*2016</text>
+<path fill="none" stroke="black" stroke-width="1.45" d="M284.82,-18C244.31,-18 194.64,-18 153.43,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1.45" points="153.41,-14.5 143.41,-18 153.41,-21.5 153.41,-14.5"/>
+<text text-anchor="middle" x="219.12" y="-6.8" font-family="Times,serif" font-size="14.00">cermet*6032</text>
 </g>
 </g>
 </svg>

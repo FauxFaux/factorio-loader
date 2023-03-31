@@ -24,9 +24,9 @@
 <!-- &#45;2,6 (Wrong ratio of Calcium Carbide to Acetalene)&#45;&gt;1,&#45;1 (fluid=molten&#45;glass Glass, When space, make quartz separate with regular priority, Quartz) -->
 <g id="edge1" class="edge">
 <title>&#45;2,6 (Wrong ratio of Calcium Carbide to Acetalene)&#45;&gt;1,&#45;1 (fluid=molten&#45;glass Glass, When space, make quartz separate with regular priority, Quartz)</title>
-<path fill="none" stroke="black" stroke-width="1.72" d="M1076.12,-584.96C1096.22,-584.96 1116.91,-584.96 1137.93,-584.96"/>
-<polygon fill="black" stroke="black" stroke-width="1.72" points="1137.94,-588.46 1147.94,-584.96 1137.94,-581.46 1137.94,-588.46"/>
-<text text-anchor="middle" x="1107.03" y="-573.76" font-family="Times,serif" font-size="14.00">slacked&#45;lime&#45;barrel*2448</text>
+<path fill="none" stroke="black" stroke-width="1.74" d="M1076.12,-584.96C1096.22,-584.96 1116.91,-584.96 1137.93,-584.96"/>
+<polygon fill="black" stroke="black" stroke-width="1.74" points="1137.94,-588.46 1147.94,-584.96 1137.94,-581.46 1137.94,-588.46"/>
+<text text-anchor="middle" x="1107.03" y="-573.76" font-family="Times,serif" font-size="14.00">slacked&#45;lime&#45;barrel*4896</text>
 </g>
 <!-- &#45;6,&#45;1 (item=agar Agar) -->
 <g id="node3" class="node">
@@ -37,9 +37,9 @@
 <!-- &#45;2,6 (Wrong ratio of Calcium Carbide to Acetalene)&#45;&gt;&#45;6,&#45;1 (item=agar Agar) -->
 <g id="edge2" class="edge">
 <title>&#45;2,6 (Wrong ratio of Calcium Carbide to Acetalene)&#45;&gt;&#45;6,&#45;1 (item=agar Agar)</title>
-<path fill="none" stroke="black" stroke-width="0.64" d="M820.16,-603.05C767.95,-696.22 529.38,-1121.98 466.55,-1234.13"/>
-<polygon fill="black" stroke="black" stroke-width="0.64" points="463.35,-1232.68 461.51,-1243.12 469.45,-1236.1 463.35,-1232.68"/>
-<text text-anchor="middle" x="557.86" y="-922.39" font-family="Times,serif" font-size="14.00">slacked&#45;lime&#45;barrel*912</text>
+<path fill="none" stroke="black" stroke-width="0.97" d="M820.16,-603.05C767.95,-696.22 529.38,-1121.98 466.55,-1234.13"/>
+<polygon fill="black" stroke="black" stroke-width="0.97" points="463.35,-1232.68 461.51,-1243.12 469.45,-1236.1 463.35,-1232.68"/>
+<text text-anchor="middle" x="553.36" y="-922.39" font-family="Times,serif" font-size="14.00">slacked&#45;lime&#45;barrel*2736</text>
 </g>
 <!-- 1,6 (Sodium Hydroxide, These new bullets are fun, Limestone) -->
 <g id="node4" class="node">
@@ -50,9 +50,9 @@
 <!-- &#45;2,6 (Wrong ratio of Calcium Carbide to Acetalene)&#45;&gt;1,6 (Sodium Hydroxide, These new bullets are fun, Limestone) -->
 <g id="edge3" class="edge">
 <title>&#45;2,6 (Wrong ratio of Calcium Carbide to Acetalene)&#45;&gt;1,6 (Sodium Hydroxide, These new bullets are fun, Limestone)</title>
-<path fill="none" stroke="black" stroke-width="0.64" d="M813.31,-566.74C735.86,-483.68 416.16,-140.87 325.59,-43.75"/>
-<polygon fill="black" stroke="black" stroke-width="0.64" points="327.88,-41.08 318.5,-36.15 322.76,-45.85 327.88,-41.08"/>
-<text text-anchor="middle" x="483.95" y="-309.04" font-family="Times,serif" font-size="14.00">slacked&#45;lime&#45;barrel*912</text>
+<path fill="none" stroke="black" stroke-width="0.29" d="M813.31,-566.74C735.86,-483.68 416.16,-140.87 325.59,-43.75"/>
+<polygon fill="black" stroke="black" stroke-width="0.29" points="327.88,-41.08 318.5,-36.15 322.76,-45.85 327.88,-41.08"/>
+<text text-anchor="middle" x="483.95" y="-309.04" font-family="Times,serif" font-size="14.00">slacked&#45;lime&#45;barrel*816</text>
 </g>
 </g>
 </svg>

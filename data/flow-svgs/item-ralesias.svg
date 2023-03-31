@@ -24,8 +24,8 @@
 <!-- &#45;4,2 (This line not currently using manure, Ralesia seeds)&#45;&gt;&#45;4,5 (item=arqad Arqad, Lead mine) -->
 <g id="edge1" class="edge">
 <title>&#45;4,2 (This line not currently using manure, Ralesia seeds)&#45;&gt;&#45;4,5 (item=arqad Arqad, Lead mine)</title>
-<path fill="none" stroke="black" stroke-width="1.11" d="M887.74,-18C908.6,-18 929.35,-18 949.46,-18"/>
-<polygon fill="black" stroke="black" stroke-width="1.11" points="949.6,-21.5 959.6,-18 949.6,-14.5 949.6,-21.5"/>
+<path fill="none" stroke="black" stroke-width="0.77" d="M887.74,-18C908.6,-18 929.35,-18 949.46,-18"/>
+<polygon fill="black" stroke="black" stroke-width="0.77" points="949.6,-21.5 959.6,-18 949.6,-14.5 949.6,-21.5"/>
 <text text-anchor="middle" x="918.6" y="-6.8" font-family="Times,serif" font-size="14.00">ralesias*7520</text>
 </g>
 <!-- 5,8 (Ulric Food) -->
@@ -37,9 +37,9 @@
 <!-- &#45;4,2 (This line not currently using manure, Ralesia seeds)&#45;&gt;5,8 (Ulric Food) -->
 <g id="edge2" class="edge">
 <title>&#45;4,2 (This line not currently using manure, Ralesia seeds)&#45;&gt;5,8 (Ulric Food)</title>
-<path fill="none" stroke="black" stroke-width="0.89" d="M333.86,-18C277.2,-18 221.34,-18 176.79,-18"/>
-<polygon fill="black" stroke="black" stroke-width="0.89" points="176.59,-14.5 166.59,-18 176.59,-21.5 176.59,-14.5"/>
-<text text-anchor="middle" x="280.08" y="-6.8" font-family="Times,serif" font-size="14.00">ralesias*6032</text>
+<path fill="none" stroke="black" stroke-width="1.23" d="M333.86,-18C277.2,-18 221.34,-18 176.79,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1.23" points="176.59,-14.5 166.59,-18 176.59,-21.5 176.59,-14.5"/>
+<text text-anchor="middle" x="255.33" y="-6.8" font-family="Times,serif" font-size="14.00">ralesias*12048</text>
 </g>
 </g>
 </svg>

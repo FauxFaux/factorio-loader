@@ -24,9 +24,9 @@
 <!-- &#45;3,1 (Logistic science pack, Automation Science)&#45;&gt;&#45;4,&#45;2 (For Science!) -->
 <g id="edge1" class="edge">
 <title>&#45;3,1 (Logistic science pack, Automation Science)&#45;&gt;&#45;4,&#45;2 (For Science!)</title>
-<path fill="none" stroke="black" stroke-width="1.49" d="M467.97,-18C489.19,-18 509.93,-18 529.24,-18"/>
-<polygon fill="black" stroke="black" stroke-width="1.49" points="529.5,-21.5 539.5,-18 529.5,-14.5 529.5,-21.5"/>
-<text text-anchor="middle" x="498.6" y="-6.8" font-family="Times,serif" font-size="14.00">automation&#45;science&#45;pack*3024</text>
+<path fill="none" stroke="black" stroke-width="1.55" d="M467.97,-18C489.19,-18 509.93,-18 529.24,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1.55" points="529.5,-21.5 539.5,-18 529.5,-14.5 529.5,-21.5"/>
+<text text-anchor="middle" x="498.6" y="-6.8" font-family="Times,serif" font-size="14.00">automation&#45;science&#45;pack*7104</text>
 </g>
 <!-- 0,0 (LE BUS) -->
 <g id="node3" class="node">
@@ -37,9 +37,9 @@
 <!-- 0,0 (LE BUS)&#45;&gt;&#45;4,&#45;2 (For Science!) -->
 <g id="edge2" class="edge">
 <title>0,0 (LE BUS)&#45;&gt;&#45;4,&#45;2 (For Science!)</title>
-<path fill="none" stroke="black" stroke-width="0.51" d="M809.32,-18C790.02,-18 768.69,-18 747.84,-18"/>
-<polygon fill="black" stroke="black" stroke-width="0.51" points="747.66,-14.5 737.66,-18 747.66,-21.5 747.66,-14.5"/>
-<text text-anchor="middle" x="888.08" y="-21.8" font-family="Times,serif" font-size="14.00">automation&#45;science&#45;pack*1024</text>
+<path fill="none" stroke="black" stroke-width="0.45" d="M809.32,-18C790.02,-18 768.69,-18 747.84,-18"/>
+<polygon fill="black" stroke="black" stroke-width="0.45" points="747.66,-14.5 737.66,-18 747.66,-21.5 747.66,-14.5"/>
+<text text-anchor="middle" x="888.08" y="-21.8" font-family="Times,serif" font-size="14.00">automation&#45;science&#45;pack*2064</text>
 </g>
 </g>
 </svg>

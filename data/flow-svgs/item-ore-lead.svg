@@ -24,9 +24,9 @@
 <!-- &#45;3,5 (fluid=arqad&#45;honey Honey)&#45;&gt;&#45;3,2 (Lead and Solder) -->
 <g id="edge1" class="edge">
 <title>&#45;3,5 (fluid=arqad&#45;honey Honey)&#45;&gt;&#45;3,2 (Lead and Solder)</title>
-<path fill="none" stroke="black" stroke-width="1.07" d="M677.81,-18C709.04,-18 741.42,-18 771.35,-18"/>
-<polygon fill="black" stroke="black" stroke-width="1.07" points="771.4,-21.5 781.4,-18 771.4,-14.5 771.4,-21.5"/>
-<text text-anchor="middle" x="724.58" y="-6.8" font-family="Times,serif" font-size="14.00">ore&#45;lead*202680</text>
+<path fill="none" stroke="black" stroke-width="0.93" d="M677.81,-18C709.04,-18 741.42,-18 771.35,-18"/>
+<polygon fill="black" stroke="black" stroke-width="0.93" points="771.4,-21.5 781.4,-18 771.4,-14.5 771.4,-21.5"/>
+<text text-anchor="middle" x="724.58" y="-6.8" font-family="Times,serif" font-size="14.00">ore&#45;lead*329880</text>
 </g>
 <!-- &#45;3,3 (Lead dust (silver plate)) -->
 <g id="node3" class="node">
@@ -37,9 +37,9 @@
 <!-- &#45;3,5 (fluid=arqad&#45;honey Honey)&#45;&gt;&#45;3,3 (Lead dust (silver plate)) -->
 <g id="edge2" class="edge">
 <title>&#45;3,5 (fluid=arqad&#45;honey Honey)&#45;&gt;&#45;3,3 (Lead dust (silver plate))</title>
-<path fill="none" stroke="black" stroke-width="0.93" d="M363.11,-18C342.71,-18 321.83,-18 301.45,-18"/>
-<polygon fill="black" stroke="black" stroke-width="0.93" points="301.18,-14.5 291.18,-18 301.18,-21.5 301.18,-14.5"/>
-<text text-anchor="middle" x="302.53" y="-6.8" font-family="Times,serif" font-size="14.00">ore&#45;lead*177840</text>
+<path fill="none" stroke="black" stroke-width="1.07" d="M363.11,-18C342.71,-18 321.83,-18 301.45,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1.07" points="301.18,-14.5 291.18,-18 301.18,-21.5 301.18,-14.5"/>
+<text text-anchor="middle" x="302.53" y="-6.8" font-family="Times,serif" font-size="14.00">ore&#45;lead*380760</text>
 </g>
 </g>
 </svg>

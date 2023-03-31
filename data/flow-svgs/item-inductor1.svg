@@ -24,9 +24,9 @@
 <!-- &#45;6,&#45;4 (High&#45;Power Resistors, Ceramic Capacitor, Inductor)&#45;&gt;2,5 (Simple Circuits) -->
 <g id="edge1" class="edge">
 <title>&#45;6,&#45;4 (High&#45;Power Resistors, Ceramic Capacitor, Inductor)&#45;&gt;2,5 (Simple Circuits)</title>
-<path fill="none" stroke="black" stroke-width="0.88" d="M806.47,-18C827.88,-18 848.68,-18 868.06,-18"/>
-<polygon fill="black" stroke="black" stroke-width="0.88" points="868.06,-21.5 878.06,-18 868.06,-14.5 868.06,-21.5"/>
-<text text-anchor="middle" x="837.26" y="-6.8" font-family="Times,serif" font-size="14.00">inductor1*1568</text>
+<path fill="none" stroke="black" stroke-width="1.12" d="M806.47,-18C827.88,-18 848.68,-18 868.06,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1.12" points="868.06,-21.5 878.06,-18 868.06,-14.5 868.06,-21.5"/>
+<text text-anchor="middle" x="837.26" y="-6.8" font-family="Times,serif" font-size="14.00">inductor1*5224</text>
 </g>
 <!-- 0,0 (LE BUS) -->
 <g id="node3" class="node">
@@ -37,9 +37,9 @@
 <!-- &#45;6,&#45;4 (High&#45;Power Resistors, Ceramic Capacitor, Inductor)&#45;&gt;0,0 (LE BUS) -->
 <g id="edge2" class="edge">
 <title>&#45;6,&#45;4 (High&#45;Power Resistors, Ceramic Capacitor, Inductor)&#45;&gt;0,0 (LE BUS)</title>
-<path fill="none" stroke="black" stroke-width="1.12" d="M250.05,-18C215.05,-18 181.68,-18 153.47,-18"/>
-<polygon fill="black" stroke="black" stroke-width="1.12" points="153.32,-14.5 143.32,-18 153.32,-21.5 153.32,-14.5"/>
-<text text-anchor="middle" x="201.76" y="-6.8" font-family="Times,serif" font-size="14.00">inductor1*2016</text>
+<path fill="none" stroke="black" stroke-width="0.88" d="M250.05,-18C215.05,-18 181.68,-18 153.47,-18"/>
+<polygon fill="black" stroke="black" stroke-width="0.88" points="153.32,-14.5 143.32,-18 153.32,-21.5 153.32,-14.5"/>
+<text text-anchor="middle" x="201.76" y="-6.8" font-family="Times,serif" font-size="14.00">inductor1*4096</text>
 </g>
 </g>
 </svg>
