@@ -1,5 +1,5 @@
 import { data } from '../datae';
-import { splitColon } from './colon';
+import { Colon, splitColon } from './colon';
 import { JIngredient, JProduct } from '../objects';
 
 export function recipeBan(name: string): boolean {
@@ -11,8 +11,9 @@ export function recipeBan(name: string): boolean {
   );
 }
 
+export type RecipeName = string;
 export function buildMaking() {
-  const recipesMaking: Record<string, string[]> = {};
+  const recipesMaking: Record<Colon, RecipeName[]> = {};
   for (const [name, recipe] of Object.entries(data.recipes.regular)) {
     if (recipeBan(name)) continue;
     for (const prod of recipe.products) {

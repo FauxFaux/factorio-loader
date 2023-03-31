@@ -49,6 +49,7 @@ export const computed = {
   ltnSummary: {} as Record<string, LtnSummary>,
   fluidBarrel: {} as Record<string, string>,
   barrelFluid: {} as Record<string, string>,
+  recipeExecs: {} as Record<string, number>,
 };
 
 export type Loc = string;
@@ -61,4 +62,13 @@ export function precompute() {
   computed.barrelFluid = Object.fromEntries(
     Object.entries(computed.fluidBarrel).map(([k, v]) => [v, k] as const),
   );
+
+  for (const dat of Object.values(data.cp.byPos)) {
+    if (!(dat.recipe && dat.runs)) {
+      continue;
+    }
+    computed.recipeExecs[dat.recipe] =
+      (computed.recipeExecs[dat.recipe] ?? 0) +
+      (dat.runs.reduce((a, b) => a + b, 0) ?? 0);
+  }
 }
