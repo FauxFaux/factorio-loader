@@ -1,13 +1,14 @@
 import { minBy } from 'lodash';
 
 import { Component } from 'preact';
-import { Colon, fromColon } from '../muffler/colon';
+import { Colon, fromColon, splitColon } from '../muffler/colon';
 import { BlockLine, ColonJoined } from '../objects';
 import { buildMaking, RecipeName } from '../muffler/walk-recipes';
 import { computed, Coord, data } from '../datae';
 import { TempRange } from '../components/how-to-make';
 import { GpsLink } from '../lists';
 import { BRICK_H, BRICK_W, toBlock } from '../../scripts/magic';
+import { humanise } from '../muffler/human';
 
 function minDist(a: Coord[], b: Coord[]) {
   return Math.min(
@@ -42,7 +43,7 @@ export class CurrentChain extends Component<{ colon: Colon }> {
       0,
     );
 
-    const [[using, usingD], ...rest] = Object.entries(dataByRecipe).sort(
+    const [[using, usingD]] = Object.entries(dataByRecipe).sort(
       ([, a], [, b]) => b.execs - a.execs,
     );
 
@@ -91,17 +92,32 @@ export class CurrentChain extends Component<{ colon: Colon }> {
       return locs;
     };
 
+    const inBus = (colon: Colon) => {
+      const [kind, item] = splitColon(colon);
+      switch (kind) {
+        case 'item':
+          return data.doc['0,0'].items[item];
+        case 'fluid':
+          return data.doc['0,0'].fluids[item];
+        default:
+          return undefined;
+      }
+    };
+
     page.push(pickLocation(usingD.locs, wayPoints, recp.localised_name));
     maybeAddWaypoints(usingD.locs, props.colon);
 
     for (const ing of recp.ingredients.sort(
       (a, b) =>
-        minDist(locsForColon(a.colon), refs) -
-        minDist(locsForColon(b.colon), refs),
+        // minDist(locsForColon(a.colon), refs) -
+        // minDist(locsForColon(b.colon), refs),
+        (inBus(a.colon) ?? 0) - (inBus(b.colon) ?? 0),
     )) {
       const locs = locsForColon(ing.colon).sort(
         (a, b) => minDist([a], refs) - minDist([b], refs),
       );
+      const busHas = inBus(ing.colon) ?? 0;
+      const avail = busHas / ing.amount;
       page.push(
         <li>
           <a
@@ -112,7 +128,11 @@ export class CurrentChain extends Component<{ colon: Colon }> {
             🎯
           </a>{' '}
           <ColonJoined colon={ing.colon} />
-          <TempRange ing={ing} />
+          <TempRange ing={ing} /> (
+          <span class={avail > 1 ? 'color: green' : 'color: red'}>
+            {humanise(busHas)} / {ing.amount} stored
+          </span>{' '}
+          in bus)
           {pickLocation(
             locs,
             wayPoints,
@@ -225,6 +245,7 @@ function pickLocation(
           <li>
             <GpsLink gps={[lx, ly]} caption={`${caption} ${desc}`} />
             {desc}
+            {/*{data.cp.byPos[String([lx.toFixed(0),ly.toFixed(0)])]?.runs?.join(',')}*/}
           </li>
         );
       })}

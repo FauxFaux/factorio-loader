@@ -161,7 +161,8 @@ export class IoFDetail extends Component<{
         <div class="row">
           <p>
             Ways to <a href={`/an/produces/${colon}`}>produce</a> and{' '}
-            <a href={`/an/consumes/${colon}`}>consume</a>.
+            <a href={`/an/consumes/${colon}`}>consume</a>.{' '}
+            <a href={`/an/current-chain/${colon}`}>Current chain</a>.
           </p>
         </div>
         <div class="row">
