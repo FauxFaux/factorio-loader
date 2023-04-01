@@ -1,23 +1,130 @@
-import { Colon } from '../muffler/colon';
+import { Colon, fromColon } from '../muffler/colon';
 import { Component } from 'preact';
 import { data } from '../datae';
 import { IngProd } from '../components/how-to-make';
 import { stepsToUnlockRecipe } from './next';
-import { ColonJoined, JRecipe } from '../objects';
+import { ColonJoined, JProduct, JRecipe } from '../objects';
+import { productAsFloat } from '../muffler/walk-recipes';
 
-export class Consumes extends Component<{ colon: Colon }> {
-  render(props: { colon: Colon }) {
+interface Filters {
+  buildings: boolean;
+  multipleInputs: boolean;
+  multipleOutputs: boolean;
+}
+
+function isBuilding(colon: Colon) {
+  const [kind, obj] = fromColon(colon);
+  if (kind !== 'item') return false;
+  return (
+    obj.subgroup.name.includes('-buildings-') || // e.g. crystal mine
+    obj.subgroup.name === 'py-extraction' ||
+    obj.subgroup.name === 'py-power'
+  );
+}
+
+function buildingRecipe(products: JProduct[]) {
+  return (
+    products.length === 1 &&
+    productAsFloat(products[0]) === 1 &&
+    isBuilding(products[0].colon)
+  );
+}
+
+export class Consumes extends Component<{ colon: Colon }, Filters> {
+  render(props: { colon: Colon }, state: Filters) {
     const consumesThis = Object.entries(data.recipes.regular).filter(
       ([, { ingredients }]) =>
         !!ingredients.find((p) => p.colon === props.colon),
     );
+
+    if (!Object.keys(state).length) {
+      state = {
+        buildings: !consumesThis.every(([, { products }]) =>
+          buildingRecipe(products),
+        ),
+        multipleInputs: consumesThis.every(
+          ([, { ingredients }]) => ingredients.length > 1,
+        ),
+        multipleOutputs: consumesThis.every(
+          ([, { products }]) => products.length > 1,
+        ),
+      };
+    }
+
+    let excluded = {
+      buildings: 0,
+      multipleInputs: 0,
+      multipleOutputs: 0,
+    };
+
+    const consumesObj = Object.fromEntries(consumesThis);
+    for (const [name, { ingredients, products }] of Object.entries(
+      consumesObj,
+    )) {
+      if (!state.buildings && buildingRecipe(products)) {
+        excluded.buildings++;
+        delete consumesObj[name];
+      }
+      if (!state.multipleInputs && ingredients.length !== 1) {
+        excluded.multipleInputs++;
+        delete consumesObj[name];
+      }
+      if (!state.multipleOutputs && products.length !== 1) {
+        excluded.multipleOutputs++;
+        delete consumesObj[name];
+      }
+    }
+
     return (
-      <div class={'col'}>
-        <h2>
-          Consuming <ColonJoined colon={props.colon} />:
-        </h2>
-        <RecipeTable recipes={consumesThis} colon={props.colon} />
-      </div>
+      <>
+        <div className={'row'}>
+          <div class={'col'}>
+            <h2>
+              Consuming <ColonJoined colon={props.colon} />:
+            </h2>
+          </div>
+        </div>
+        <div className={'row'}>
+          <div class={'col'}>
+            <div class={'form-check'}>
+              <input
+                class={'form-check-input'}
+                type={'checkbox'}
+                id={'buildings'}
+                checked={state.buildings}
+                onChange={(e) =>
+                  this.setState({ buildings: e.currentTarget.checked })
+                }
+              />
+              <label class={'form-check-label'} for={'buildings'}>
+                Buildings ({excluded.buildings} excluded)
+              </label>
+            </div>
+            <div class={'form-check'}>
+              <input
+                class={'form-check-input'}
+                type={'checkbox'}
+                id={'otherInputs'}
+                checked={state.multipleInputs}
+                onChange={(e) =>
+                  this.setState({ multipleInputs: e.currentTarget.checked })
+                }
+              />
+              <label class={'form-check-label'} for={'otherInputs'}>
+                Multiple inputs ({excluded.multipleInputs} excluded)
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class={'row'}>
+          <div class={'col'}>
+            <RecipeTable
+              recipes={Object.entries(consumesObj)}
+              colon={props.colon}
+            />
+          </div>
+        </div>
+      </>
     );
   }
 }
