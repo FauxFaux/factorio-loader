@@ -104,9 +104,20 @@ export class CurrentChain extends Component<{ colon: Colon }> {
       );
       page.push(
         <li>
+          <a
+            href={`/an/current-chain/${ing.colon}`}
+            title="focus in on this item"
+            style="text-decoration: none; color: inherit; font-size: 75%; vertical-align: middle"
+          >
+            🎯
+          </a>{' '}
           <ColonJoined colon={ing.colon} />
           <TempRange ing={ing} />
-          {pickLocation(locs, wayPoints, ing.colon)}
+          {pickLocation(
+            locs,
+            wayPoints,
+            fromColon(ing.colon)[1].localised_name,
+          )}
         </li>,
       );
 
