@@ -28,5 +28,9 @@ export function humanise(count: number | undefined) {
         {(count / 1e3).toFixed() + 'k'}
       </abbr>
     );
-  return <abbr title="just a piddly digit">{count.toFixed()}</abbr>;
+  if (count.toString() === count.toFixed()) {
+    return <span>{count}</span>;
+  }
+
+  return <abbr title={`${count}`}>{count.toFixed(1)}</abbr>;
 }

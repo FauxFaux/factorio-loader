@@ -129,8 +129,9 @@ export class CurrentChain extends Component<{ colon: Colon }> {
           </a>{' '}
           <ColonJoined colon={ing.colon} />
           <TempRange ing={ing} /> (
-          <span class={avail > 1 ? 'color: green' : 'color: red'}>
-            {humanise(busHas)} / {ing.amount} stored
+          <span style={avail > 1 ? 'color: #4f4' : 'color: #f44'}>
+            {humanise(busHas)} / {ing.amount}{' '}
+            {ing.colon.startsWith('fluid:') ? ' in a tank' : 'stored'}
           </span>{' '}
           in bus)
           {pickLocation(
@@ -145,14 +146,24 @@ export class CurrentChain extends Component<{ colon: Colon }> {
     }
 
     return (
-      <div class="row">
-        <div class="col">
-          <h2>
-            <ColonJoined colon={props.colon} />
-          </h2>
-          <ul class={'current-chain-ul'}>{page}</ul>
+      <>
+        <div class="row">
+          <div class="col">
+            <h2>
+              <ColonJoined colon={props.colon} />
+            </h2>
+            <ul class={'current-chain-ul'}>{page}</ul>
+          </div>
         </div>
-      </div>
+        <div class="row">
+          <div class="col">
+            <p>
+              'stored' means "in a chest somewhere", not necessarily available
+              to the logistics network.
+            </p>
+          </div>
+        </div>
+      </>
     );
   }
 }
