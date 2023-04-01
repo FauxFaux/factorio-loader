@@ -111,7 +111,7 @@ export class CurrentChain extends Component<{ colon: Colon }> {
       (a, b) =>
         // minDist(locsForColon(a.colon), refs) -
         // minDist(locsForColon(b.colon), refs),
-        (inBus(a.colon) ?? 0) - (inBus(b.colon) ?? 0),
+        (inBus(a.colon) ?? 0) / a.amount - (inBus(b.colon) ?? 0) / b.amount,
     )) {
       const locs = locsForColon(ing.colon).sort(
         (a, b) => minDist([a], refs) - minDist([b], refs),
