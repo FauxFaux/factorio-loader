@@ -13,7 +13,7 @@ import { sortByKeys } from '../web/muffler/deter';
 import { JIngredient, JProduct, JRecipe } from '../web/objects';
 import { BlockId, loadCells, loadRec } from './loaders';
 
-initOnNode(['doc', 'technologies', 'prodStats']);
+initOnNode(['doc', 'meta', 'technologies', 'prodStats']);
 
 function distSq(a: Coord, b: Coord) {
   const dx = a[0] - b[0];
@@ -174,6 +174,15 @@ function main() {
     ),
   );
 
+  const isSpawn = patch.merge['0,0'].sort();
+
+  const meta: (typeof data)['meta'] = {
+    isSpawn,
+  };
+  fs.writeFileSync('data/meta.json', JSON.stringify(meta), {
+    encoding: 'utf-8',
+  });
+
   const byBlock: Record<string, BlockContent> = {};
   const getBlock = (id: BlockId | string) => {
     let sid = String(id);
@@ -227,7 +236,7 @@ function main() {
   for (const block of Object.values(byBlock)) {
     for (const obj of Object.values(block.asm)) {
       obj.locations.sort();
-      obj.locations = obj.locations.slice(0, 2);
+      obj.locations = obj.locations.slice(0, 6);
     }
   }
 

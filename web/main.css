@@ -141,3 +141,7 @@
   font-family: monospace;
   font-size: small;
 }
+
+.current-chain-ul > li {
+  margin-top: 1em;
+}

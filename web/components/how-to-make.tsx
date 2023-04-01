@@ -188,7 +188,7 @@ export const IngredientLine = ({ ing }: { ing: JIngredient }) => (
   </>
 );
 
-const TempRange = ({ ing }: { ing: JIngredient }) => {
+export const TempRange = ({ ing }: { ing: JIngredient }) => {
   const min =
     (ing.minimum_temperature ?? Number.NEGATIVE_INFINITY) > -1e6
       ? ing.minimum_temperature

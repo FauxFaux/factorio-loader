@@ -9,6 +9,9 @@ export type ConcPos = string;
 
 export const data = {
   doc: {} as Record<string, BlockContent>,
+  meta: {} as {
+    isSpawn: Loc[];
+  },
   items: {} as Record<string, JItem>,
   icons: {} as Record<string, string>,
   fluids: {} as Record<string, JFluid>,
