@@ -1,13 +1,16 @@
 * monitor iron stations for landfill trains
 * more shopping centre storage boxes
 * queue rennae and maybe rennae mk2 (for yaedlols -> lots) (for kmauts)
+* queue hydrolaise amplification for kmauts
 * queue high capacity gas bladder, for helium
 * queue? food mk3 for another kmaut food option
+* emergency saline water needs to run on salt, not stone
 * lamptri dishes needs combustion mixture overflow into glass produciton
 * move subcritical water production next to the biomass source
 * chemical science prioritises going into labs
 * chromium processing is kinda wedged on tailings barrels
 * upgrade pyscience building(!)
+* processor's output filter is on the wrong item
 * unwedge pink shit assembler; output size on its waste product is too low
 * import drilling fluid 2 and make a fucktonne of saline water for chlorine 
 * lag on some pyscience based on request sizes e.g. wood

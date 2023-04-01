@@ -130,6 +130,10 @@ function main() {
       continue;
     }
 
+    if (name.startsWith('blackhole-fuel-') && !(name in producers)) {
+      continue;
+    }
+
     if (
       rec.ingredients?.length === 2 &&
       rec.products?.length === 1 &&
