@@ -20,6 +20,7 @@ import { Heats } from './pages/heats';
 import { Consumes, Produces } from './pages/recipes';
 import { Whence } from './pages/whence';
 import { CurrentChain } from './pages/current-chain';
+import { FromAir } from './pages/from-air';
 
 export class App extends Component {
   render() {
@@ -51,6 +52,7 @@ export class App extends Component {
           <Consumes path="/an/consumes/:colon" colon="from the path" />
           <Whence path="/an/whence/:colon" colon="from the path" />
           <CurrentChain path="/an/current-chain/:colon" colon="from the path" />
+          <FromAir path="/an/from-air" />
         </Router>
       </div>
     );

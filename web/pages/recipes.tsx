@@ -31,25 +31,17 @@ function buildingRecipe(products: JProduct[]) {
 }
 
 export class Consumes extends Component<{ colon: Colon }, Filters> {
+  state = {
+    buildings: false,
+    multipleInputs: true,
+    multipleOutputs: true,
+  };
+
   render(props: { colon: Colon }, state: Filters) {
     const consumesThis = Object.entries(data.recipes.regular).filter(
       ([, { ingredients }]) =>
         !!ingredients.find((p) => p.colon === props.colon),
     );
-
-    if (!Object.keys(state).length) {
-      state = {
-        buildings: !consumesThis.every(([, { products }]) =>
-          buildingRecipe(products),
-        ),
-        multipleInputs: consumesThis.every(
-          ([, { ingredients }]) => ingredients.length > 1,
-        ),
-        multipleOutputs: consumesThis.every(
-          ([, { products }]) => products.length > 1,
-        ),
-      };
-    }
 
     let excluded = {
       buildings: 0,
@@ -64,10 +56,12 @@ export class Consumes extends Component<{ colon: Colon }, Filters> {
       if (!state.buildings && buildingRecipe(products)) {
         excluded.buildings++;
         delete consumesObj[name];
+        continue;
       }
       if (!state.multipleInputs && ingredients.length !== 1) {
         excluded.multipleInputs++;
         delete consumesObj[name];
+        continue;
       }
       if (!state.multipleOutputs && products.length !== 1) {
         excluded.multipleOutputs++;
@@ -86,6 +80,10 @@ export class Consumes extends Component<{ colon: Colon }, Filters> {
         </div>
         <div className={'row'}>
           <div class={'col'}>
+            <div class={'alert alert-warning'}>
+              These filters seem to be a bit janky, don't click too fast? This
+              really shouldn't be possible. JS not even once.
+            </div>
             <div class={'form-check'}>
               <input
                 class={'form-check-input'}
@@ -105,13 +103,27 @@ export class Consumes extends Component<{ colon: Colon }, Filters> {
                 class={'form-check-input'}
                 type={'checkbox'}
                 id={'otherInputs'}
-                checked={state.multipleInputs}
-                onChange={(e) =>
+                checked={state.multipleInputs ?? false}
+                onInput={(e) =>
                   this.setState({ multipleInputs: e.currentTarget.checked })
                 }
               />
               <label class={'form-check-label'} for={'otherInputs'}>
                 Multiple inputs ({excluded.multipleInputs} excluded)
+              </label>
+            </div>
+            <div class={'form-check'}>
+              <input
+                class={'form-check-input'}
+                type={'checkbox'}
+                id={'otherOutputs'}
+                checked={state.multipleOutputs ?? false}
+                onInput={(e) =>
+                  this.setState({ multipleOutputs: e.currentTarget.checked })
+                }
+              />
+              <label class={'form-check-label'} for={'otherOutputs'}>
+                Multiple outputs ({excluded.multipleOutputs} excluded)
               </label>
             </div>
           </div>
