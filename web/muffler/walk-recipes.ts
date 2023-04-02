@@ -100,14 +100,13 @@ const hiddenByProducer: Record<string, string> = {
   'kmauts-enclosure': 'item:kmauts',
   'scrondrix-pen': 'item:scrondrix',
   'simik-den': 'item:simik',
-  'sap-extractor': 'item:sap-tree',
   'fawogae-plantation': 'item:fawogae',
   'ralesia-plantation': 'item:ralesias',
   'mega-farm': 'item:disabled-mega-farm',
   'yotoi-aloe-orchard': 'item:yotoi-aloe',
   'guar-gum-plantation': 'item:guar',
   'zipir-reef': 'item:zipir',
-  // moss, fish, and seaweed are excluded, as they don't have non-environmental bootstraps
+  // moss, fish, sap, and seaweed are excluded, as they don't have non-environmental bootstraps
 };
 
 export function ingredients(name: string): JIngredient[] {

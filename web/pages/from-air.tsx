@@ -12,7 +12,7 @@ export class FromAir extends Component {
     for (let i = 0; i < 20; i++) {
       const have: Record<Colon, RecipeName> = {};
       for (const [name, recipe] of Object.entries(data.recipes.regular)) {
-        if (/biomass-.*-spore/.test(name)) continue;
+        if (/biomass-(?:saps|.*-spore)/.test(name)) continue;
         if (!recipe.producers) continue;
         if (ingredients(name).every((ing) => ing.colon in had)) {
           for (const product of recipe.products) {
@@ -49,7 +49,11 @@ export class FromAir extends Component {
                     <ColonJoined colon={colon} />
                   </td>
                   <td>
-                    <Recipe name={recipe} />
+                    {recipe === 'environment' ? (
+                      'found'
+                    ) : (
+                      <Recipe name={recipe} />
+                    )}
                   </td>
                   <td>
                     {ingredients(recipe).map((ing) => (
