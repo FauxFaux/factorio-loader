@@ -37,5 +37,5 @@ end
  * wait ~10 minutes
  * `faux@sek:/srv/facto.goeswhere.com%`
  * `mv map-tiles map-tiles-$(date +%Y%m%d%H%M%S)`
- * `mv ~/tiledir map-tiles`
+ * `mv ~/tiledir map-tiles && chmod a+rX -R map-tiles`
  * update the version number in `leafletMap`
