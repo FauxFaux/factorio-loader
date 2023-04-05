@@ -21,6 +21,7 @@ import { Consumes, Produces } from './pages/recipes';
 import { Whence } from './pages/whence';
 import { CurrentChain } from './pages/current-chain';
 import { FromAir } from './pages/from-air';
+import { Resources } from './pages/resources';
 
 export class App extends Component {
   render() {
@@ -53,6 +54,7 @@ export class App extends Component {
           <Whence path="/an/whence/:colon" colon="from the path" />
           <CurrentChain path="/an/current-chain/:colon" colon="from the path" />
           <FromAir path="/an/from-air" />
+          <Resources path="/an/resources/:resource?" />
         </Router>
       </div>
     );
@@ -92,6 +94,11 @@ const header = (
           <li>
             <a href="/an/chestify" className="nav-link px-2 text-white">
               Chestify
+            </a>
+          </li>
+          <li>
+            <a href="/an/resources" className="nav-link px-2 text-white">
+              Resources
             </a>
           </li>
           <li>
