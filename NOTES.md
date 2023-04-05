@@ -26,3 +26,16 @@ for chunk in surface.get_chunks() do
   end
 end
 ```
+
+### screenshots
+
+ * run the top hunk of screenshots.lua manually in the console
+ * wait ~4 minutes
+ * run `faux@astoria:~/code/tiledir% rm -rf out; RUST_LOG=info nice cargo run --release ~/ins/factorio/script-output -s 7 -q 80`
+ * wait ~30 minutes
+ * `rsync -a out/ fau.xxx:tiledir`
+ * wait ~10 minutes
+ * `faux@sek:/srv/facto.goeswhere.com%`
+ * `mv map-tiles map-tiles-$(date +%Y%m%d%H%M%S)`
+ * `mv ~/tiledir map-tiles`
+ * update the version number in `leafletMap`
