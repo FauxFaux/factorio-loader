@@ -60,14 +60,40 @@ export class Plan extends Component<{ encoded?: string }, PlanState> {
     const effectsSection = (
       <div class={'row'}>
         <div class={'col'}>
-          <h3>Net</h3>
+          <h3>Surplus</h3>
           <ul>
             {Object.entries(effects)
               .sort(([, a], [, b]) => b - a)
-              .filter(([, amount]) => amount != 0)
+              .filter(([, amount]) => amount > 1e-4)
               .map(([colon, amount]) => (
                 <li>
                   {humanise(amount)} &times; <ColonJoined colon={colon} />
+                </li>
+              ))}
+          </ul>
+        </div>
+        <div className={'col'}>
+          <h3>Missing</h3>
+          <ul>
+            {Object.entries(effects)
+              .sort(([, a], [, b]) => b - a)
+              .filter(([, amount]) => amount < -1e-4)
+              .map(([colon, amount]) => (
+                <li>
+                  {humanise(amount)} &times; <ColonJoined colon={colon} />
+                </li>
+              ))}
+          </ul>
+        </div>
+        <div className={'col'}>
+          <h3>Balanced</h3>
+          <ul>
+            {Object.entries(effects)
+              .sort(([, a], [, b]) => b - a)
+              .filter(([, amount]) => Math.abs(amount) <= 1e-4)
+              .map(([colon, amount]) => (
+                <li>
+                  <ColonJoined colon={colon} />
                 </li>
               ))}
           </ul>
@@ -79,11 +105,14 @@ export class Plan extends Component<{ encoded?: string }, PlanState> {
       <>
         <div className={'row'}>
           <div className={'col'}>
-            <button
-              onClick={() => route(`${US}${pack(state.manifest, brotli)}`)}
-            >
-              Save
-            </button>
+            <p>
+              <button
+                class={'btn btn-primary'}
+                onClick={() => route(`${US}${pack(state.manifest, brotli)}`)}
+              >
+                Save
+              </button>
+            </p>
           </div>
         </div>
         {effectsSection}
@@ -167,6 +196,7 @@ export class ManifestTable extends Component<
       <table class={'table'}>
         <thead>
           <tr>
+            <th></th>
             <th>Recipe</th>
             <th>Count</th>
             <th>Speed</th>
@@ -181,33 +211,60 @@ export class ManifestTable extends Component<
             return (
               <tr>
                 <td>
-                  <LongName
-                    name={job.recipe}
-                    recipe={data.recipes.regular[job.recipe]}
+                  <button
+                    class={'btn btn-sm btn-danger'}
+                    onClick={() => {
+                      manifest.jobs.splice(manifest.jobs.indexOf(job), 1);
+                      this.setState({ manifest });
+                      this.props.onChange(manifest);
+                    }}
+                    title={'Remove job'}
+                  >
+                    ❌️
+                  </button>
+                </td>
+                <td>
+                  {recp.localised_name}{' '}
+                  <span class={'text-muted'}>
+                    ({job.recipe})<br />
+                    Made in: {recp.producers.join(', ')}
+                  </span>
+                </td>
+                <td>
+                  <input
+                    class={'form-control'}
+                    size={4}
+                    style={'width: 5em; text-align: right'}
+                    type={'number'}
+                    min={0}
+                    value={job.count}
+                    onChange={(e) => {
+                      job.count = parseInt(
+                        (e.target as HTMLInputElement).value,
+                      );
+                      this.setState({ manifest });
+                      this.props.onChange(manifest);
+                    }}
                   />
                 </td>
                 <td>
-                  <button
-                    onClick={() => {
-                      job.count -= 1;
+                  <input
+                    class={'form-control'}
+                    size={6}
+                    style={'width: 6em; text-align: right'}
+                    type={'number'}
+                    min={0}
+                    step={0.2}
+                    value={job.craftingSpeed}
+                    onChange={(e) => {
+                      job.craftingSpeed = parseFloat(
+                        (e.target as HTMLInputElement).value,
+                      );
                       this.setState({ manifest });
                       this.props.onChange(manifest);
                     }}
-                  >
-                    -
-                  </button>
-                  {job.count}
-                  <button
-                    onClick={() => {
-                      job.count += 1;
-                      this.setState({ manifest });
-                      this.props.onChange(manifest);
-                    }}
-                  >
-                    +
-                  </button>
+                  />
                 </td>
-                <td>{job.craftingSpeed}</td>
                 <td>
                   {data.recipes.regular[job.recipe].ingredients.map((ing) => (
                     <li>
@@ -256,7 +313,11 @@ class PickRecipe extends Component<{ puck: (recipe: string) => void }> {
   };
   render(props: { puck: () => void }, state: { recipe: string }) {
     return (
-      <select value={state.recipe} onChange={this.onChange}>
+      <select
+        class="form-control"
+        value={state.recipe}
+        onChange={this.onChange}
+      >
         {Object.keys(data.recipes.regular).map((recipe) => (
           <option value={recipe}>{recipe}</option>
         ))}

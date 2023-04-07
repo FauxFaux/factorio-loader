@@ -32,7 +32,7 @@ export function humanise(count: number | undefined) {
     return <span>{count}</span>;
   }
 
-  if (Math.abs(count) > 10) {
+  if (Math.abs(count) > 8.9) {
     return <abbr title={`${count.toPrecision(5)}`}>{count.toFixed()}</abbr>;
   }
 
