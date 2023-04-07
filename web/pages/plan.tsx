@@ -7,7 +7,6 @@ import { productAsFloat, RecipeName } from '../muffler/walk-recipes';
 import { data } from '../datae';
 import { ColonJoined } from '../objects';
 import { Colon } from '../muffler/colon';
-import { LongName } from './recipes';
 import { humanise } from '../muffler/human';
 import { route } from 'preact-router';
 
@@ -91,7 +90,7 @@ export class Plan extends Component<{ encoded?: string }, PlanState> {
             {Object.entries(effects)
               .sort(([, a], [, b]) => b - a)
               .filter(([, amount]) => Math.abs(amount) <= 1e-4)
-              .map(([colon, amount]) => (
+              .map(([colon]) => (
                 <li>
                   <ColonJoined colon={colon} />
                 </li>
@@ -227,7 +226,7 @@ export class ManifestTable extends Component<
                   {recp.localised_name}{' '}
                   <span class={'text-muted'}>
                     ({job.recipe})<br />
-                    Made in: {recp.producers.join(', ')}
+                    Made in: {recp.producers?.join(', ') ?? '??'}
                   </span>
                 </td>
                 <td>
