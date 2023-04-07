@@ -197,7 +197,13 @@ const RecipeTable = (props: { recipes: [string, JRecipe][]; colon: Colon }) => (
   </table>
 );
 
-const LongName = ({ name, recipe }: { name: string; recipe: JRecipe }) => (
+export const LongName = ({
+  name,
+  recipe,
+}: {
+  name: string;
+  recipe: JRecipe;
+}) => (
   <td>
     <p>{recipe.localised_name}</p>
     <p>

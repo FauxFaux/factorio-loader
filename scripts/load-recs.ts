@@ -438,8 +438,13 @@ function stripProducers(producers: string[]): string[] {
     ...new Set(
       producers.map((p) =>
         p
-          .replace(/-mk0\d|-\d$/, '')
-          .replace('assembling-machine', 'automated-factory'),
+          .replace(/-?mk0\d|-\d$/, '')
+          .replace('assembling-machine', 'automated-factory')
+          .replace(
+            /advanced-foundry|electric-furnace|steel-furnace|stone-furnace/,
+            'furnace',
+          )
+          .replace('pumpjack-hightech', 'pumpjack'),
       ),
     ),
   ].sort();

@@ -32,5 +32,9 @@ export function humanise(count: number | undefined) {
     return <span>{count}</span>;
   }
 
-  return <abbr title={`${count}`}>{count.toFixed(1)}</abbr>;
+  if (Math.abs(count) > 10) {
+    return <abbr title={`${count.toPrecision(5)}`}>{count.toFixed()}</abbr>;
+  }
+
+  return <abbr title={`${count.toPrecision(5)}`}>{count.toPrecision(1)}</abbr>;
 }

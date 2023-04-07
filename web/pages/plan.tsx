@@ -1,13 +1,15 @@
 import { Component } from 'preact';
-import { route } from 'preact-router';
 import type { BrotliWasmType } from 'brotli-wasm';
 import { useEffect } from 'preact/hooks';
 import * as base64 from '@protobufjs/base64';
 
 import { productAsFloat, RecipeName } from '../muffler/walk-recipes';
 import { data } from '../datae';
-import { ColonJoined, RecipeInOut } from '../objects';
+import { ColonJoined } from '../objects';
 import { Colon } from '../muffler/colon';
+import { LongName } from './recipes';
+import { humanise } from '../muffler/human';
+import { route } from 'preact-router';
 
 interface Job {
   recipe: RecipeName;
@@ -23,9 +25,7 @@ const US = '/an/plan/';
 
 interface PlanState {
   brotli: BrotliWasmType | null;
-  pickRecipe: string;
-  pickCount: number;
-  pickSpeed: number;
+  manifest: Manifest;
 }
 
 export class Plan extends Component<{ encoded?: string }, PlanState> {
@@ -38,47 +38,14 @@ export class Plan extends Component<{ encoded?: string }, PlanState> {
     if (brotli === null) {
       return <div>Failed to load brotli-wasm, see console for details</div>;
     }
-    const manifest = unpack(props.encoded, brotli);
-
-    const addRecipe = (
-      <div class={'row'}>
-        <div class={'col'}>
-          <select value={state.pickRecipe} onChange={this.pickRecipeChange}>
-            {Object.keys(data.recipes.regular).map((recipe) => (
-              <option value={recipe}>{recipe}</option>
-            ))}
-          </select>
-          <input
-            value={state.pickCount}
-            onInput={this.pickCountChange}
-            type="number"
-            min={0}
-          />
-          <input
-            value={state.pickSpeed}
-            onInput={this.pickSpeedChange}
-            type="number"
-            step={0.01}
-            min={0}
-          />
-          <button
-            onClick={() => {
-              manifest.jobs.push({
-                recipe: state.pickRecipe,
-                craftingSpeed: 1,
-                count: state.pickCount,
-              });
-              route(`${US}${pack(manifest, brotli)}`);
-            }}
-          >
-            Add
-          </button>
-        </div>
-      </div>
-    );
+    if (!state.manifest) {
+      const manifest = unpack(props.encoded, brotli);
+      this.setState({ manifest });
+      return <div>Too lazy to fix the flow control...</div>;
+    }
 
     const effects: Record<Colon, number> = {};
-    for (const job of manifest.jobs) {
+    for (const job of state.manifest.jobs) {
       const recp = data.recipes.regular[job.recipe];
       const scale = (job.count * job.craftingSpeed) / recp.time;
       for (const ing of recp.ingredients) {
@@ -100,7 +67,7 @@ export class Plan extends Component<{ encoded?: string }, PlanState> {
               .filter(([, amount]) => amount != 0)
               .map(([colon, amount]) => (
                 <li>
-                  {amount} &times; <ColonJoined colon={colon} />
+                  {humanise(amount)} &times; <ColonJoined colon={colon} />
                 </li>
               ))}
           </ul>
@@ -110,53 +77,27 @@ export class Plan extends Component<{ encoded?: string }, PlanState> {
 
     return (
       <>
+        <div className={'row'}>
+          <div className={'col'}>
+            <button
+              onClick={() => route(`${US}${pack(state.manifest, brotli)}`)}
+            >
+              Save
+            </button>
+          </div>
+        </div>
         {effectsSection}
-
-        {addRecipe}
         <div class={'row'}>
           <div class={'col'}>
-            <table class={'table'}>
-              <thead>
-                <tr>
-                  <th>Recipe</th>
-                  <th>Count</th>
-                  <th>Speed</th>
-                </tr>
-              </thead>
-              <tbody>
-                {manifest.jobs.map((job) => (
-                  <tr>
-                    <td>{job.recipe}</td>
-                    <td>{job.count}</td>
-                    <td>{job.craftingSpeed}</td>
-                    <td>
-                      <RecipeInOut name={job.recipe} />
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <ManifestTable
+              manifest={state.manifest}
+              onChange={(manifest) => this.setState({ manifest })}
+            />
           </div>
         </div>
       </>
     );
   }
-
-  pickCountChange = (e: Event) => {
-    this.setState({
-      pickCount: parseInt((e.target as HTMLInputElement).value),
-    });
-  };
-
-  pickRecipeChange = (e: Event) => {
-    this.setState({ pickRecipe: (e.target as HTMLInputElement).value });
-  };
-
-  pickSpeedChange = (e: Event) => {
-    this.setState({
-      pickSpeed: parseFloat((e.target as HTMLInputElement).value),
-    });
-  };
 }
 
 function unpack(encoded: string | undefined, brotli: BrotliWasmType): Manifest {
@@ -200,4 +141,126 @@ function loadBrotli(
       }
     })();
   }, []);
+}
+
+interface ManifestTableProps {
+  manifest: Manifest;
+  onChange: (manifest: Manifest) => void;
+}
+
+interface ManifestState {
+  manifest: Manifest;
+}
+
+export class ManifestTable extends Component<
+  ManifestTableProps,
+  ManifestState
+> {
+  state = {
+    manifest: this.props.manifest,
+  };
+
+  render(props: ManifestTableProps, state: ManifestState) {
+    const manifest = state.manifest;
+
+    return (
+      <table class={'table'}>
+        <thead>
+          <tr>
+            <th>Recipe</th>
+            <th>Count</th>
+            <th>Speed</th>
+            <th>Ingredients</th>
+            <th>Products</th>
+          </tr>
+        </thead>
+        <tbody>
+          {manifest.jobs.map((job) => {
+            const recp = data.recipes.regular[job.recipe];
+            const scale = (job.count * job.craftingSpeed) / recp.time;
+            return (
+              <tr>
+                <td>
+                  <LongName
+                    name={job.recipe}
+                    recipe={data.recipes.regular[job.recipe]}
+                  />
+                </td>
+                <td>
+                  <button
+                    onClick={() => {
+                      job.count -= 1;
+                      this.setState({ manifest });
+                      this.props.onChange(manifest);
+                    }}
+                  >
+                    -
+                  </button>
+                  {job.count}
+                  <button
+                    onClick={() => {
+                      job.count += 1;
+                      this.setState({ manifest });
+                      this.props.onChange(manifest);
+                    }}
+                  >
+                    +
+                  </button>
+                </td>
+                <td>{job.craftingSpeed}</td>
+                <td>
+                  {data.recipes.regular[job.recipe].ingredients.map((ing) => (
+                    <li>
+                      {humanise(ing.amount * scale)} &times;{' '}
+                      <ColonJoined colon={ing.colon} />
+                    </li>
+                  ))}
+                </td>
+                <td>
+                  {data.recipes.regular[job.recipe].products.map((prod) => (
+                    <li>
+                      {humanise(productAsFloat(prod) * scale)} &times;{' '}
+                      <ColonJoined colon={prod.colon} />
+                    </li>
+                  ))}
+                </td>
+              </tr>
+            );
+          })}
+          <tr>
+            <td colSpan={5}>
+              <PickRecipe
+                puck={(recipe) => {
+                  manifest.jobs.push({
+                    recipe,
+                    craftingSpeed: 1,
+                    count: 1,
+                  });
+                  this.setState({ manifest });
+                  this.props.onChange(manifest);
+                }}
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    );
+  }
+}
+
+class PickRecipe extends Component<{ puck: (recipe: string) => void }> {
+  onChange = (e: Event) => {
+    const recipe = (e.target as HTMLInputElement).value;
+    this.setState({ recipe });
+    this.props.puck(recipe);
+  };
+  render(props: { puck: () => void }, state: { recipe: string }) {
+    return (
+      <select value={state.recipe} onChange={this.onChange}>
+        {Object.keys(data.recipes.regular).map((recipe) => (
+          <option value={recipe}>{recipe}</option>
+        ))}
+      </select>
+    );
+  }
 }
