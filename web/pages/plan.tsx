@@ -6,7 +6,7 @@ import * as base64 from '@protobufjs/base64';
 
 import { productAsFloat, RecipeName } from '../muffler/walk-recipes';
 import { data } from '../datae';
-import { RecipeInOut } from '../objects';
+import { ColonJoined, RecipeInOut } from '../objects';
 import { Colon } from '../muffler/colon';
 
 interface Job {
@@ -79,11 +79,12 @@ export class Plan extends Component<{ encoded?: string }, PlanState> {
 
     const effects: Record<Colon, number> = {};
     for (const job of manifest.jobs) {
-      const scale = job.count * job.craftingSpeed;
-      for (const ing of data.recipes.regular[job.recipe].ingredients) {
+      const recp = data.recipes.regular[job.recipe];
+      const scale = (job.count * job.craftingSpeed) / recp.time;
+      for (const ing of recp.ingredients) {
         effects[ing.colon] = (effects[ing.colon] || 0) - ing.amount * scale;
       }
-      for (const prod of data.recipes.regular[job.recipe].products) {
+      for (const prod of recp.products) {
         effects[prod.colon] =
           (effects[prod.colon] || 0) + productAsFloat(prod) * scale;
       }
@@ -92,13 +93,16 @@ export class Plan extends Component<{ encoded?: string }, PlanState> {
     const effectsSection = (
       <div class={'row'}>
         <div class={'col'}>
-          <h3>Effects</h3>
+          <h3>Net</h3>
           <ul>
-            {Object.entries(effects).map(([colon, amount]) => (
-              <li>
-                {colon}: {amount}
-              </li>
-            ))}
+            {Object.entries(effects)
+              .sort(([, a], [, b]) => b - a)
+              .filter(([, amount]) => amount != 0)
+              .map(([colon, amount]) => (
+                <li>
+                  {amount} &times; <ColonJoined colon={colon} />
+                </li>
+              ))}
           </ul>
         </div>
       </div>
