@@ -22,6 +22,7 @@ import { Whence } from './pages/whence';
 import { CurrentChain } from './pages/current-chain';
 import { FromAir } from './pages/from-air';
 import { Resources } from './pages/resources';
+import { Plan } from './pages/plan';
 
 export class App extends Component {
   render() {
@@ -55,6 +56,7 @@ export class App extends Component {
           <CurrentChain path="/an/current-chain/:colon" colon="from the path" />
           <FromAir path="/an/from-air" />
           <Resources path="/an/resources/:resource?" />
+          <Plan path="/an/plan/:encoded?" />
         </Router>
       </div>
     );
