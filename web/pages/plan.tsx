@@ -1,15 +1,17 @@
 import { Component } from 'preact';
+import { route } from 'preact-router';
 import type { BrotliWasmType } from 'brotli-wasm';
 import { useEffect } from 'preact/hooks';
 import * as base64 from '@protobufjs/base64';
-import { RecipeName } from '../muffler/walk-recipes';
-import { route } from 'preact-router';
 
-type AssemblerName = string;
+import { productAsFloat, RecipeName } from '../muffler/walk-recipes';
+import { data } from '../datae';
+import { RecipeInOut } from '../objects';
+import { Colon } from '../muffler/colon';
 
 interface Job {
   recipe: RecipeName;
-  assembler: AssemblerName;
+  craftingSpeed: number;
   count: number;
 }
 
@@ -19,14 +21,15 @@ interface Manifest {
 
 const US = '/an/plan/';
 
-export class Plan extends Component<
-  { encoded?: string },
-  { brotli: BrotliWasmType | null }
-> {
-  render(
-    props: { encoded?: string },
-    state: { brotli: BrotliWasmType | null },
-  ) {
+interface PlanState {
+  brotli: BrotliWasmType | null;
+  pickRecipe: string;
+  pickCount: number;
+  pickSpeed: number;
+}
+
+export class Plan extends Component<{ encoded?: string }, PlanState> {
+  render(props: { encoded?: string }, state: PlanState) {
     const brotli = state.brotli;
     if (brotli === undefined) {
       loadBrotli(this.setState.bind(this));
@@ -37,24 +40,119 @@ export class Plan extends Component<
     }
     const manifest = unpack(props.encoded, brotli);
 
-    return (
-      <div>
-        {JSON.stringify(manifest)}
-        <button
-          onClick={() => {
-            manifest.jobs.push({
-              recipe: 'iron-plate',
-              assembler: 'assembling-machine-1',
-              count: 1,
-            });
-            route(`${US}${pack(manifest, brotli)}`);
-          }}
-        >
-          Add
-        </button>
+    const addRecipe = (
+      <div class={'row'}>
+        <div class={'col'}>
+          <select value={state.pickRecipe} onChange={this.pickRecipeChange}>
+            {Object.keys(data.recipes.regular).map((recipe) => (
+              <option value={recipe}>{recipe}</option>
+            ))}
+          </select>
+          <input
+            value={state.pickCount}
+            onInput={this.pickCountChange}
+            type="number"
+            min={0}
+          />
+          <input
+            value={state.pickSpeed}
+            onInput={this.pickSpeedChange}
+            type="number"
+            step={0.01}
+            min={0}
+          />
+          <button
+            onClick={() => {
+              manifest.jobs.push({
+                recipe: state.pickRecipe,
+                craftingSpeed: 1,
+                count: state.pickCount,
+              });
+              route(`${US}${pack(manifest, brotli)}`);
+            }}
+          >
+            Add
+          </button>
+        </div>
       </div>
     );
+
+    const effects: Record<Colon, number> = {};
+    for (const job of manifest.jobs) {
+      const scale = job.count * job.craftingSpeed;
+      for (const ing of data.recipes.regular[job.recipe].ingredients) {
+        effects[ing.colon] = (effects[ing.colon] || 0) - ing.amount * scale;
+      }
+      for (const prod of data.recipes.regular[job.recipe].products) {
+        effects[prod.colon] =
+          (effects[prod.colon] || 0) + productAsFloat(prod) * scale;
+      }
+    }
+
+    const effectsSection = (
+      <div class={'row'}>
+        <div class={'col'}>
+          <h3>Effects</h3>
+          <ul>
+            {Object.entries(effects).map(([colon, amount]) => (
+              <li>
+                {colon}: {amount}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    );
+
+    return (
+      <>
+        {effectsSection}
+
+        {addRecipe}
+        <div class={'row'}>
+          <div class={'col'}>
+            <table class={'table'}>
+              <thead>
+                <tr>
+                  <th>Recipe</th>
+                  <th>Count</th>
+                  <th>Speed</th>
+                </tr>
+              </thead>
+              <tbody>
+                {manifest.jobs.map((job) => (
+                  <tr>
+                    <td>{job.recipe}</td>
+                    <td>{job.count}</td>
+                    <td>{job.craftingSpeed}</td>
+                    <td>
+                      <RecipeInOut name={job.recipe} />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </>
+    );
   }
+
+  pickCountChange = (e: Event) => {
+    this.setState({
+      pickCount: parseInt((e.target as HTMLInputElement).value),
+    });
+  };
+
+  pickRecipeChange = (e: Event) => {
+    this.setState({ pickRecipe: (e.target as HTMLInputElement).value });
+  };
+
+  pickSpeedChange = (e: Event) => {
+    this.setState({
+      pickSpeed: parseFloat((e.target as HTMLInputElement).value),
+    });
+  };
 }
 
 function unpack(encoded: string | undefined, brotli: BrotliWasmType): Manifest {
