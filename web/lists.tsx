@@ -3,7 +3,7 @@ import { data } from './datae';
 import { Stop } from '../scripts/load-recs';
 import { ItemOrFluid } from './objects';
 import { compareWithoutIcons } from './muffler/names';
-import { Colon, tupleToColon } from './muffler/colon';
+import { Colon, splitColon, tupleToColon } from './muffler/colon';
 
 function smatch(name: string, props: { search?: string }) {
   // TODO: proper string comparison
@@ -118,10 +118,12 @@ export class RenderIcons extends Component<{ text: string }> {
   }
 }
 
-export class ItemList extends Component<
-  { limit?: number },
-  { search?: string }
-> {
+interface ItemListProps {
+  limit?: number;
+  onPick?: (colon: Colon) => void;
+}
+
+export class ItemList extends Component<ItemListProps, { search?: string }> {
   itemAsms: Record<Colon, number> = {};
 
   constructor() {
@@ -143,17 +145,14 @@ export class ItemList extends Component<
     this.setState({ search });
   };
 
-  render(
-    state: { limit?: number },
-    props: { search?: string },
-  ): ComponentChild {
+  render(props: ItemListProps, state: { search?: string }): ComponentChild {
     const found = [
       ...Object.entries(data.items).map(([n, i]) => [n, i, 'item'] as const),
       ...Object.entries(data.fluids).map(([n, i]) => [n, i, 'fluid'] as const),
     ]
       .filter(([name, item]) => {
         // TODO: search other attributes?
-        return smatch(name, props) || smatch(item.localised_name, props);
+        return smatch(name, state) || smatch(item.localised_name, state);
       })
       .sort(([, { localised_name: a }], [, { localised_name: b }]) =>
         compareWithoutIcons(a, b),
@@ -169,8 +168,20 @@ export class ItemList extends Component<
           ></input>
         </p>
         <table>
-          {found.slice(0, state.limit ?? Infinity).map(([name, item, type]) => (
+          {found.slice(0, props.limit ?? Infinity).map(([name, item, type]) => (
             <tr class="item-list">
+              {props.onPick ? (
+                <td>
+                  <button
+                    class="btn btn-sm btn-outline-secondary"
+                    onClick={() => props.onPick?.(tupleToColon([type, name]))}
+                  >
+                    +
+                  </button>
+                </td>
+              ) : (
+                <></>
+              )}
               <td title="being made in x factories">
                 {this.itemAsms[tupleToColon([type, name])]}
               </td>
@@ -182,7 +193,13 @@ export class ItemList extends Component<
               </td>
             </tr>
           ))}
-          {found.length >= (state.limit ?? Infinity) ? <li>...</li> : <></>}
+          {found.length >= (props.limit ?? Infinity) ? (
+            <tr>
+              <td colSpan={4}>...</td>
+            </tr>
+          ) : (
+            <></>
+          )}
         </table>
       </div>
     );

@@ -5,10 +5,11 @@ import * as base64 from '@protobufjs/base64';
 
 import { productAsFloat, RecipeName } from '../muffler/walk-recipes';
 import { data } from '../datae';
-import { ColonJoined } from '../objects';
-import { Colon } from '../muffler/colon';
+import { ColonJoined, JRecipe } from '../objects';
+import { Colon, fromColon, splitColon } from '../muffler/colon';
 import { humanise } from '../muffler/human';
 import { route } from 'preact-router';
+import { ItemIcon, ItemList } from '../lists';
 
 interface Job {
   recipe: RecipeName;
@@ -191,7 +192,7 @@ export class ManifestTable extends Component<
   render(props: ManifestTableProps, state: ManifestState) {
     const manifest = state.manifest;
 
-    return (
+    const table = (
       <table class={'table'}>
         <thead>
           <tr>
@@ -283,23 +284,26 @@ export class ManifestTable extends Component<
               </tr>
             );
           })}
-          <tr>
-            <td colSpan={5}>
-              <PickRecipe
-                puck={(recipe) => {
-                  manifest.jobs.push({
-                    recipe,
-                    craftingSpeed: 1,
-                    count: 1,
-                  });
-                  this.setState({ manifest });
-                  this.props.onChange(manifest);
-                }}
-              />
-            </td>
-          </tr>
         </tbody>
       </table>
+    );
+
+    return (
+      <>
+        {table}
+        <hr />
+        <PickRecipe
+          puck={(recipe) => {
+            manifest.jobs.push({
+              recipe,
+              craftingSpeed: 1,
+              count: 1,
+            });
+            this.setState({ manifest });
+            this.props.onChange(manifest);
+          }}
+        />
+      </>
     );
   }
 }
@@ -310,17 +314,91 @@ class PickRecipe extends Component<{ puck: (recipe: string) => void }> {
     this.setState({ recipe });
     this.props.puck(recipe);
   };
-  render(props: { puck: () => void }, state: { recipe: string }) {
+
+  render(
+    props: { puck: () => void },
+    state: { colon?: Colon; recipe?: string },
+  ) {
+    if (!state.colon) {
+      return (
+        <>
+          <p>Pick a new recicpe for...</p>
+          <ItemList limit={30} onPick={(colon) => this.setState({ colon })} />
+        </>
+      );
+    }
+    const bad = (recp: JRecipe): number =>
+      recp.products.length +
+      recp.ingredients.map((ing) => ing.amount).reduce((a, b) => a + b, 0) +
+      recp.time / 10;
+
     return (
-      <select
-        class="form-control"
-        value={state.recipe}
-        onChange={this.onChange}
-      >
-        {Object.keys(data.recipes.regular).map((recipe) => (
-          <option value={recipe}>{recipe}</option>
-        ))}
-      </select>
+      <>
+        Picking a recipe for{' '}
+        <button
+          class="btn btn-sm"
+          onClick={() => this.setState({ colon: undefined })}
+        >
+          ❌️
+        </button>
+        <ColonJoined colon={state.colon} />
+        <table class={'table'}>
+          <tbody>
+            {Object.entries(data.recipes.regular)
+              .filter(
+                ([recipe, recp]) =>
+                  undefined !==
+                  recp.products.find((prod) => prod.colon === state.colon),
+              )
+              .sort(([, a], [, b]) => bad(a) - bad(b))
+              .map(([recipe, recp]) => (
+                <tr>
+                  <td>
+                    <button
+                      class="btn btn-sm"
+                      onClick={() => this.props.puck(recipe)}
+                    >
+                      ➕
+                    </button>
+                  </td>
+                  <td>
+                    {recp.localised_name}{' '}
+                    <span class={'text-muted'}>{recipe}</span>
+                  </td>
+                  <td>{recp.time}</td>
+                  <td>
+                    {recp.ingredients.map((ing) => {
+                      const [, item] = fromColon(ing.colon);
+                      return (
+                        <>
+                          {humanise(ing.amount)}
+                          <ItemIcon
+                            name={splitColon(ing.colon)[1]}
+                            alt={item.localised_name}
+                          />
+                        </>
+                      );
+                    })}
+                  </td>
+                  <td>
+                    {recp.products.map((prod) => {
+                      const [, item] = fromColon(prod.colon);
+                      return (
+                        <>
+                          {humanise(productAsFloat(prod))}
+                          <ItemIcon
+                            name={splitColon(prod.colon)[1]}
+                            alt={item.localised_name}
+                          />
+                        </>
+                      );
+                    })}
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </>
     );
   }
 }
