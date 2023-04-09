@@ -3,7 +3,7 @@ import { data } from './datae';
 import { Stop } from '../scripts/load-recs';
 import { ItemOrFluid } from './objects';
 import { compareWithoutIcons } from './muffler/names';
-import { Colon, splitColon, tupleToColon } from './muffler/colon';
+import { Colon, tupleToColon } from './muffler/colon';
 
 function smatch(name: string, props: { search?: string }) {
   // TODO: proper string comparison
@@ -54,9 +54,10 @@ export class StationList extends Component<
             placeholder="Search station names..."
           ></input>
         </p>
-        <ul>
+        <ul style={'list-style: none; padding-left: 0'}>
           {found.slice(0, state.limit ?? Infinity).map(([name, stops]) => (
             <li>
+              <GpsLink caption={name} gps={stops[0].stop.gps} />{' '}
               <RenderIcons text={name} />{' '}
               {stops.length !== 1 ? `(${stops.length} stops)` : ''}
               {stops.map(({ blockNo }) => (
@@ -168,7 +169,7 @@ export class ItemList extends Component<ItemListProps, { search?: string }> {
           ></input>
         </p>
         <table>
-          {found.slice(0, props.limit ?? Infinity).map(([name, item, type]) => (
+          {found.slice(0, props.limit ?? Infinity).map(([name, , type]) => (
             <tr class="item-list">
               {props.onPick ? (
                 <td>

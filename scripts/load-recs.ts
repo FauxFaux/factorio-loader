@@ -100,6 +100,9 @@ function main() {
   placeOverrides['pumpjack'] = 'pumpjack-mk01';
 
   for (const [name, rec] of Object.entries(tools.recipe_prototypes)) {
+    // producers as a proxy for things factoriolab thinks are valid, which seems more reliable
+    if (!(name in producers)) continue;
+
     if (name.endsWith('-pyvoid')) {
       if (
         rec.products.length !== 1 ||
@@ -130,7 +133,7 @@ function main() {
       continue;
     }
 
-    if (name.startsWith('blackhole-fuel-') && !(name in producers)) {
+    if (name.startsWith('blackhole-fuel-')) {
       continue;
     }
 

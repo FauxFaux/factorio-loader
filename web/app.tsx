@@ -122,12 +122,12 @@ class Home extends Component {
     return (
       <div class="row">
         <div class="col">
-          <h2>Stations</h2>
-          <StationList limit={100} />
-        </div>
-        <div class="col">
           <h2>Items</h2>
-          <ItemList limit={100} />
+          <ItemList limit={60} />
+        </div>
+        <div className="col">
+          <h2>Stations</h2>
+          <StationList limit={60} />
         </div>
       </div>
     );
