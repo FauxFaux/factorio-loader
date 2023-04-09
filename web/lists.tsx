@@ -4,6 +4,7 @@ import { Stop } from '../scripts/load-recs';
 import { ItemOrFluid } from './objects';
 import { compareWithoutIcons } from './muffler/names';
 import { Colon, tupleToColon } from './muffler/colon';
+import { BlockLink } from './pages/station-status';
 
 function smatch(name: string, props: { search?: string }) {
   // TODO: proper string comparison
@@ -61,9 +62,9 @@ export class StationList extends Component<
               <RenderIcons text={name} />{' '}
               {stops.length !== 1 ? `(${stops.length} stops)` : ''}
               {stops.map(({ blockNo }) => (
-                <a style="padding: 0 4px" href={`/block/${blockNo}`}>
-                  {blockNo}
-                </a>
+                <span style="padding: 0 4px">
+                  <BlockLink loc={blockNo} />
+                </span>
               ))}
             </li>
           ))}
