@@ -27,6 +27,7 @@
     "inflection": "^2.0.1",
     "js-yaml": "^4.1.0",
     "leaflet": "^1.9.3",
+    "lodash.clonedeep": "^4.5.0",
     "lodash.partition": "^4.6.0",
     "pako": "^2.1.0",
     "preact": "^10.11",

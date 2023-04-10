@@ -1,10 +1,13 @@
-import { Colon, fromColon } from '../muffler/colon';
+import { cloneDeep } from 'lodash';
+import { Colon, fromColon, splitColon } from '../muffler/colon';
 import { Component } from 'preact';
 import { data } from '../datae';
 import { IngProd } from '../components/how-to-make';
 import { stepsToUnlockRecipe } from './next';
 import { ColonJoined, JProduct, JRecipe } from '../objects';
 import { productAsFloat } from '../muffler/walk-recipes';
+import * as bp from '../muffler/blueprints';
+import { Blueprint, buildRequestFilters } from '../muffler/blueprints';
 
 interface Filters {
   buildings: boolean;
@@ -197,26 +200,62 @@ const RecipeTable = (props: { recipes: [string, JRecipe][]; colon: Colon }) => (
   </table>
 );
 
+type DeepWriteable<T> = { -readonly [P in keyof T]: DeepWriteable<T[P]> };
+
 export const LongName = ({
   name,
   recipe,
 }: {
   name: string;
   recipe: JRecipe;
-}) => (
-  <td>
-    <p>{recipe.localised_name}</p>
-    <p>
-      <span className={'font-monospace'}>{name}</span>
-    </p>
-    <p>
-      Made in:{' '}
-      <span className={'font-monospace'}>
-        {recipe.producers?.join(', ') ?? '??'}
-      </span>
-    </p>
-  </td>
-);
+}) => {
+  const madeIn = recipe.producers?.join(', ') ?? '??';
+  let copyPrint = null;
+  if (
+    madeIn === 'automated-factory' &&
+    recipe.products.length === 1 &&
+    recipe.products[0].colon.startsWith('item:') &&
+    recipe.ingredients.every((ing) => ing.colon.startsWith('item:'))
+  ) {
+    const template = cloneDeep(BP_TEMPLATE) as DeepWriteable<
+      typeof BP_TEMPLATE
+    >;
+    const product = recipe.products[0];
+    const productName = splitColon(product.colon)[1];
+    (template.entities[0].recipe as string) = name;
+    (template.entities[3].control_behavior.logistic_condition.first_signal
+      .name as string) = productName;
+    (template.entities[5].request_filters as unknown[]) = buildRequestFilters(
+      Object.fromEntries(
+        recipe.ingredients.map((ing) => [ing.colon, ing.amount]),
+      ),
+    );
+
+    copyPrint = bp.encode(template);
+  }
+  return (
+    <td>
+      <p>{recipe.localised_name}</p>
+      <p>
+        <span className={'font-monospace'}>{name}</span>
+      </p>
+      <p>
+        Made in: <span className={'font-monospace'}>{madeIn}</span>
+      </p>
+      {copyPrint && (
+        <p>
+          Shopping centre-style assembler with 1x requests:
+          <textarea
+            class={'form-control big-boy'}
+            readonly={true}
+            style={{ width: '100%' }}
+            value={copyPrint ?? ''}
+          />
+        </p>
+      )}
+    </td>
+  );
+};
 
 function inUse(name: string): boolean {
   for (const brick of Object.values(data.doc)) {
@@ -227,3 +266,88 @@ function inUse(name: string): boolean {
   }
   return false;
 }
+
+const BP_TEMPLATE = {
+  icons: [
+    {
+      signal: {
+        type: 'item',
+        name: 'automated-factory-mk01',
+      },
+      index: 1,
+    },
+  ],
+  entities: [
+    {
+      entity_number: 1,
+      name: 'automated-factory-mk01',
+      position: {
+        x: -88.5,
+        y: -577.5,
+      },
+      recipe: 'TEMPLATE',
+    },
+    {
+      entity_number: 2,
+      name: 'medium-electric-pole',
+      position: {
+        x: -93.5,
+        y: -577.5,
+      },
+    },
+    {
+      entity_number: 3,
+      name: 'stack-inserter',
+      position: {
+        x: -92.5,
+        y: -574.5,
+      },
+      direction: 6,
+    },
+    {
+      entity_number: 4,
+      name: 'fast-inserter',
+      position: {
+        x: -92.5,
+        y: -575.5,
+      },
+      direction: 2,
+      control_behavior: {
+        logistic_condition: {
+          first_signal: {
+            type: 'item',
+            name: 'TEMPLATE',
+          },
+          constant: 5,
+          comparator: '<',
+        },
+        connect_to_logistic_network: true,
+      },
+    },
+    {
+      entity_number: 5,
+      name: 'logistic-chest-passive-provider',
+      position: {
+        x: -93.5,
+        y: -575.5,
+      },
+    },
+    {
+      entity_number: 6,
+      name: 'logistic-chest-requester',
+      position: {
+        x: -93.5,
+        y: -574.5,
+      },
+      request_filters: [
+        {
+          index: 1,
+          name: 'TEMPLATE',
+          count: 180,
+        },
+      ],
+    },
+  ],
+  item: 'blueprint',
+  version: 281479275151360,
+} as const;

@@ -54,6 +54,17 @@ export function enumerate(input: Blueprint): Record<Colon, number> {
   return result;
 }
 
+export function buildRequestFilters(input: Record<string, number>) {
+  return Object.entries(input).map(([colon, count], i) => {
+    const [, name] = splitColon(colon);
+    return {
+      count,
+      index: i + 1,
+      name,
+    };
+  });
+}
+
 export function toChest(
   reference: Blueprint,
   input: Record<Colon, number>,
@@ -65,15 +76,6 @@ export function toChest(
       type: 'item',
     },
   };
-  const request_filters = Object.entries(input).map(([colon, count], i) => {
-    const [, name] = splitColon(colon);
-    return {
-      count,
-      index: i + 1,
-      name,
-    };
-  });
-
   return {
     entities: [
       {
@@ -83,7 +85,7 @@ export function toChest(
           x: 0,
           y: 0,
         },
-        request_filters,
+        request_filters: buildRequestFilters(input),
       },
     ],
     icons: [justChest],
