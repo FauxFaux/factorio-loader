@@ -231,7 +231,9 @@ export const LongName = ({
       ),
     );
 
-    copyPrint = bp.encode(template);
+    const productItem = fromColon(product.colon)[1];
+    const loc = productItem.group.name;
+    copyPrint = [bp.encode(template), loc];
   }
   return (
     <td>
@@ -244,12 +246,13 @@ export const LongName = ({
       </p>
       {copyPrint && (
         <p>
-          Shopping centre-style assembler with 1x requests:
+          "1x" shopping-centre assembler for section{' '}
+          <span class={'font-monospace'}>{copyPrint[1]}</span>:
           <textarea
             class={'form-control big-boy'}
             readonly={true}
             style={{ width: '100%' }}
-            value={copyPrint ?? ''}
+            value={copyPrint[0] ?? ''}
           />
         </p>
       )}
