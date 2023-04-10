@@ -145,3 +145,16 @@
 .current-chain-ul > li {
   margin-top: 1em;
 }
+
+.chestify-summary > thead > tr > th:nth-child(2),
+.chestify-summary > thead > tr > th:nth-child(3),
+.chestify-summary > tbody > tr > td:nth-child(2),
+.chestify-summary > tbody > tr > td:nth-child(3)
+{
+  text-align: right;
+}
+
+.chestify-banned > td {
+  text-decoration: line-through;
+  font-style: italic;
+}

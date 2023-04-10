@@ -5,7 +5,10 @@ import { Colon, fromColon, splitColon, tupleToColon } from '../muffler/colon';
 import { data } from '../datae';
 import { ItemIcon } from '../lists';
 
-const banned = new Set(['item:logistic-train-stop-output']);
+const banned = new Set([
+  'item:logistic-train-stop-output',
+  'item:logistic-train-stop-input',
+]);
 
 function fixupPlacements(
   items: Record<Colon, number>,
@@ -33,11 +36,19 @@ function fixupPlacements(
   return [valid, invalid];
 }
 
-export class Chestify extends Component<{}, { input?: string }> {
+interface ChestifyState {
+  input?: string;
+  banned: Record<Colon, boolean>;
+}
+
+export class Chestify extends Component<{}, ChestifyState> {
+  state = {
+    banned: {},
+  };
   onInput = (e: any) => {
     this.setState({ input: e.target.value });
   };
-  render(props: unknown, state: { input?: string }) {
+  render(props: unknown, state: ChestifyState) {
     let output;
     let explain;
     if (state.input) {
@@ -46,8 +57,15 @@ export class Chestify extends Component<{}, { input?: string }> {
         const items = blueprint.enumerate(bp);
         const [valid, invalid] = fixupPlacements(items);
 
-        const byCount = ([, a]: [unknown, number], [, b]: [unknown, number]) =>
-          b - a;
+        const byCount = (
+          [ac, an]: [Colon, number],
+          [bc, bn]: [Colon, number],
+        ) => stacks(bc, bn) - stacks(ac, an) || bn - an;
+        const wantedStacks = Object.entries(valid)
+          .filter(([name]) => !state.banned[name])
+          .map(([colon, count]) => stacks(colon, count))
+          .reduce((a, b) => a + b, 0);
+        const capacityStacks = 48;
         explain = (
           <>
             <div className={'col-6'}>
@@ -61,22 +79,93 @@ export class Chestify extends Component<{}, { input?: string }> {
                 ))}
             </div>
             <div className={'col-6'}>
-              <h2>Chest will request</h2>
-              {Object.entries(valid)
-                .sort(byCount)
-                .map(([name, count]) => (
-                  <li>
-                    <span class={'amount'}>{count}</span> &times;{' '}
-                    <ColonJoined colon={name} />
-                  </li>
-                ))}
+              <h2>
+                Chest will request{' '}
+                <span style={wantedStacks > capacityStacks ? 'color: red' : ''}>
+                  {wantedStacks}/{capacityStacks}
+                </span>{' '}
+                stacks:
+              </h2>
+              <table class={'table chestify-summary'}>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Stacks</th>
+                    <th>Items</th>
+                    <th>Item</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {Object.entries(valid)
+                    .sort(byCount)
+                    .map(([name, count]) => (
+                      <tr class={state.banned[name] ? 'chestify-banned' : ''}>
+                        <td>
+                          <button
+                            class={'btn btn-sm'}
+                            onClick={() =>
+                              this.setState(({ banned }) => ({
+                                banned: { ...banned, [name]: !banned[name] },
+                              }))
+                            }
+                          >
+                            ❌
+                          </button>
+                        </td>
+                        <td>{stacks(name, count)}</td>
+                        <td>{count}</td>
+                        <td>
+                          <ColonJoined colon={name} />
+                        </td>
+                      </tr>
+                    ))}
+                  <tr>
+                    <td>
+                      <button
+                        className={'btn btn-sm'}
+                        onClick={() =>
+                          this.setState(({ banned }) => ({
+                            banned: {
+                              ...banned,
+                              'item:arithmetic-combinator': true,
+                              'item:decider-combinator': true,
+                              'item:constant-combinator': true,
+                              'item:logistic-train-stop': true,
+                              'item:rail-signal': true,
+                              'item:rail-chain-signal': true,
+                              'item:py-roboport-mk01': true,
+                              'item:medium-electric-pole': true,
+                              'item:long-handed-inserter': true,
+                              'item:filter-inserter': true,
+                              'item:py-storehouse-basic': true,
+                              'item:fast-underground-belt': true,
+                              'item:logistic-storage-chest': true,
+                              'item:rail': true,
+                              'item:big-electric-pole': true,
+                            },
+                          }))
+                        }
+                      >
+                        ❌
+                      </button>
+                    </td>
+                    <td colSpan={3} style={'text-align: left'}>
+                      Exclude everything on a shuttle train
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </>
         );
 
         const chesty = blueprint.toChest(
           bp,
-          Object.fromEntries(Object.entries(valid).sort(byCount)),
+          Object.fromEntries(
+            Object.entries(valid)
+              .filter(([name]) => !state.banned[name])
+              .sort(byCount),
+          ),
         );
         output = (
           <textarea
@@ -126,4 +215,10 @@ export class Chestify extends Component<{}, { input?: string }> {
       </>
     );
   }
+}
+
+function stacks(colon: Colon, items: number): number {
+  const [, obj] = fromColon(colon);
+  if ('stack_size' in obj) return Math.ceil(items / obj.stack_size);
+  throw new Error(`unexpected object ${obj} for stack size`);
 }

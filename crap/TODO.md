@@ -1,5 +1,6 @@
 * capacitor core has no output limiter
 * battery assembler (by complex circuits) needs more sodium hydroxide requests, more inserters
+* make whatever epoxy needs somewhere
 * sand crusher has no output limiter (destroying gravel)
 * queue chelator, criden, cottongut 3 for new science recipes
 * (don't, fetal serum shortage, maybe even make it tighter) unblock scrondrix output
