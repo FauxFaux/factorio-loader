@@ -1,8 +1,8 @@
-* capacitor core has no output limiter
-* battery assembler (by complex circuits) needs more sodium hydroxide requests, more inserters
+* oleochemicals is using the guts based hydrogen chloride recipe
 * make whatever epoxy needs somewhere
-* sand crusher has no output limiter (destroying gravel)
 * queue chelator, criden, cottongut 3 for new science recipes
+* duplicate nylon brick to solve the hcl problem?
+
 * (don't, fetal serum shortage, maybe even make it tighter) unblock scrondrix output
 * queue (phagnot mk01, phagnot mk02, then) high capacity gas bladder, for helium
 * bootstrap rennea
