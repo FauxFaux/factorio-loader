@@ -46,7 +46,7 @@ export class Plan extends Component<{ encoded?: string }, PlanState> {
 
     const effects: Record<Colon, number> = {};
     for (const job of state.manifest.jobs) {
-      const recp = data.recipes.regular[job.recipe];
+      const recp = makeRecipe(job);
       const scale = (job.count * job.craftingSpeed) / recp.time;
       for (const ing of recp.ingredients) {
         effects[ing.colon] = (effects[ing.colon] || 0) - ing.amount * scale;
@@ -181,6 +181,37 @@ interface ManifestState {
   manifest: Manifest;
 }
 
+function makeRecipe(job: Job): JRecipe {
+  if (job.recipe === 'boiler:biomass') {
+    return {
+      time: 1,
+      ingredients: [
+        {
+          colon: 'fluid:water',
+          amount: 60,
+        },
+        {
+          colon: 'item:biomass',
+          // 1.8MW (https://wiki.factorio.com/Boiler) / 1MJ
+          amount: 1.8,
+        },
+      ],
+      products: [
+        {
+          colon: 'fluid:steam',
+          amount: 60,
+          temperature: 165,
+        },
+      ],
+      producers: ['boiler'],
+      localised_name: 'Boiler consuming biomass (fake)',
+      category: 'fake',
+      unlocked_from_start: true,
+    };
+  }
+  return data.recipes.regular[job.recipe];
+}
+
 export class ManifestTable extends Component<
   ManifestTableProps,
   ManifestState
@@ -206,7 +237,7 @@ export class ManifestTable extends Component<
         </thead>
         <tbody>
           {manifest.jobs.map((job) => {
-            const recp = data.recipes.regular[job.recipe];
+            const recp = makeRecipe(job);
             const scale = (job.count * job.craftingSpeed) / recp.time;
             return (
               <tr>
@@ -266,7 +297,7 @@ export class ManifestTable extends Component<
                   />
                 </td>
                 <td>
-                  {data.recipes.regular[job.recipe].ingredients.map((ing) => (
+                  {makeRecipe(job).ingredients.map((ing) => (
                     <li>
                       {humanise(ing.amount * scale)} &times;{' '}
                       <ColonJoined colon={ing.colon} />
@@ -274,7 +305,7 @@ export class ManifestTable extends Component<
                   ))}
                 </td>
                 <td>
-                  {data.recipes.regular[job.recipe].products.map((prod) => (
+                  {makeRecipe(job).products.map((prod) => (
                     <li>
                       {humanise(productAsFloat(prod) * scale)} &times;{' '}
                       <ColonJoined colon={prod.colon} />
@@ -303,6 +334,21 @@ export class ManifestTable extends Component<
             this.props.onChange(manifest);
           }}
         />
+        <hr />
+        <button
+          class={'btn btn-primary'}
+          onClick={() => {
+            manifest.jobs.push({
+              recipe: 'boiler:biomass',
+              craftingSpeed: 1,
+              count: 1,
+            });
+            this.setState({ manifest });
+            this.props.onChange(manifest);
+          }}
+        >
+          Add boiler (biomass)
+        </button>
       </>
     );
   }
