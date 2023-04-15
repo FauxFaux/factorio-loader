@@ -10,6 +10,7 @@ import { Colon, fromColon, splitColon } from '../muffler/colon';
 import { humanise } from '../muffler/human';
 import { route } from 'preact-router';
 import { ItemIcon, ItemList } from '../lists';
+import { stackSize } from "./chestify";
 
 interface Job {
   recipe: RecipeName;
@@ -68,6 +69,8 @@ export class Plan extends Component<{ encoded?: string }, PlanState> {
               .map(([colon, amount]) => (
                 <li>
                   {humanise(amount)} &times; <ColonJoined colon={colon} />
+                  {/*minutes per train*/}
+                  {humanise(1 / (amount / stackSize(colon) * 60 / 50))}
                 </li>
               ))}
           </ul>
@@ -81,6 +84,8 @@ export class Plan extends Component<{ encoded?: string }, PlanState> {
               .map(([colon, amount]) => (
                 <li>
                   {humanise(amount)} &times; <ColonJoined colon={colon} />
+                  {humanise(1 / (amount / stackSize(colon) * 60 / 50))}
+
                 </li>
               ))}
           </ul>

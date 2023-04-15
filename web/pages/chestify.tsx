@@ -218,7 +218,12 @@ export class Chestify extends Component<{}, ChestifyState> {
 }
 
 function stacks(colon: Colon, items: number): number {
+  return Math.ceil(items / stackSize(colon));
+}
+
+export function stackSize(colon: Colon): number {
   const [, obj] = fromColon(colon);
-  if ('stack_size' in obj) return Math.ceil(items / obj.stack_size);
-  throw new Error(`unexpected object ${obj} for stack size`);
+  if ('stack_size' in obj) return obj.stack_size;
+  // 10 barrels with 50 fluids in each
+  return 10 * 50;
 }
