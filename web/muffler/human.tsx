@@ -20,12 +20,20 @@ export function humanise(count: number | undefined) {
         {(count / 1e6).toFixed() + 'M'}
       </abbr>
     );
-  if (count > 1e3)
+  if (count > 9.5e3)
     return (
       <abbr
         title={`${count.toLocaleString('en', { maximumFractionDigits: 0 })}`}
       >
         {(count / 1e3).toFixed() + 'k'}
+      </abbr>
+    );
+  if (count > 1e3)
+    return (
+      <abbr
+        title={`${count.toLocaleString('en', { maximumFractionDigits: 0 })}`}
+      >
+        {(count / 1e3).toFixed(1) + 'k'}
       </abbr>
     );
   if (count.toString() === count.toFixed()) {

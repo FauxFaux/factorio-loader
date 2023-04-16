@@ -185,3 +185,19 @@
 .plan-number-table--naughty {
   color: #be0000;
 }
+
+.busy-trains-table tr td {
+  text-align: right;
+}
+
+.busy-trains-table tr td:nth-child(1) {
+  text-align: left;
+}
+
+.busy-trains-table--risky {
+  background-color: #440 !important;
+}
+
+.busy-trains-table--naughty {
+  background-color: #400 !important;
+}

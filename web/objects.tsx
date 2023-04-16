@@ -191,7 +191,7 @@ export class BlockLine extends Component<{ block: string }> {
     return (
       <span>
         <a href={'/block/' + props.block}>{props.block}</a> (
-        <TagList tags={data.doc[props.block].tags} />)
+        <TagList tags={data.doc[props.block]?.tags} />)
       </span>
     );
   }

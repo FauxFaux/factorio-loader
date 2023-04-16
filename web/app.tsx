@@ -23,6 +23,7 @@ import { CurrentChain } from './pages/current-chain';
 import { FromAir } from './pages/from-air';
 import { Resources } from './pages/resources';
 import { Plan } from './pages/plan';
+import { BusyTrains } from './pages/busy-trains';
 
 export class App extends Component {
   render() {
@@ -57,6 +58,7 @@ export class App extends Component {
           <FromAir path="/an/from-air" />
           <Resources path="/an/resources/:resource?" />
           <Plan path="/an/plan/:encoded?" />
+          <BusyTrains path="/an/busy-trains" />
         </Router>
       </div>
     );

@@ -2,6 +2,8 @@ const [ox, oy] = [-16, -48];
 export const BRICK_W = 192;
 export const BRICK_H = 128;
 
+export const TICKS_PER_SECOND = 42.5;
+
 export function removeOffset([x, y]: readonly [number, number]): readonly [
   number,
   number,
