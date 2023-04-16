@@ -9,37 +9,37 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 40)">
 <title>%3</title>
 <polygon fill="white" stroke="transparent" points="-4,4 -4,-40 1884.65,-40 1884.65,4 -4,4"/>
-<!-- &#45;4,4 (item=ammonium&#45;chloride Ammonium chloride) -->
+<!-- 1,&#45;1 (fluid=molten&#45;glass Glass, When space, make quartz separate with regular priority, Quartz) -->
 <g id="node1" class="node">
-<title>&#45;4,4 (item=ammonium&#45;chloride Ammonium chloride)</title>
-<ellipse fill="none" stroke="black" cx="254.78" cy="-18" rx="254.55" ry="18"/>
-<text text-anchor="middle" x="254.78" y="-14.3" font-family="Times,serif" font-size="14.00">&#45;4,4 (item=ammonium&#45;chloride Ammonium chloride)</text>
+<title>1,&#45;1 (fluid=molten&#45;glass Glass, When space, make quartz separate with regular priority, Quartz)</title>
+<ellipse fill="none" stroke="black" cx="457.56" cy="-18" rx="457.62" ry="18"/>
+<text text-anchor="middle" x="457.56" y="-14.3" font-family="Times,serif" font-size="14.00">1,&#45;1 (fluid=molten&#45;glass Glass, When space, make quartz separate with regular priority, Quartz)</text>
 </g>
 <!-- &#45;6,&#45;2 (item=fertilizer Fertiliser) -->
 <g id="node2" class="node">
 <title>&#45;6,&#45;2 (item=fertilizer Fertiliser)</title>
-<ellipse fill="none" stroke="black" cx="737.54" cy="-18" rx="155.97" ry="18"/>
-<text text-anchor="middle" x="737.54" y="-14.3" font-family="Times,serif" font-size="14.00">&#45;6,&#45;2 (item=fertilizer Fertiliser)</text>
-</g>
-<!-- &#45;4,4 (item=ammonium&#45;chloride Ammonium chloride)&#45;&gt;&#45;6,&#45;2 (item=fertilizer Fertiliser) -->
-<g id="edge1" class="edge">
-<title>&#45;4,4 (item=ammonium&#45;chloride Ammonium chloride)&#45;&gt;&#45;6,&#45;2 (item=fertilizer Fertiliser)</title>
-<path fill="none" stroke="black" stroke-width="1.74" d="M509.59,-18C530.53,-18 551.34,-18 571.38,-18"/>
-<polygon fill="black" stroke="black" stroke-width="1.74" points="571.46,-21.5 581.46,-18 571.46,-14.5 571.46,-21.5"/>
-<text text-anchor="middle" x="540.48" y="-6.8" font-family="Times,serif" font-size="14.00">ammonium&#45;chloride*33232</text>
-</g>
-<!-- 1,&#45;1 (fluid=molten&#45;glass Glass, When space, make quartz separate with regular priority, Quartz) -->
-<g id="node3" class="node">
-<title>1,&#45;1 (fluid=molten&#45;glass Glass, When space, make quartz separate with regular priority, Quartz)</title>
-<ellipse fill="none" stroke="black" cx="1423.09" cy="-18" rx="457.62" ry="18"/>
-<text text-anchor="middle" x="1423.09" y="-14.3" font-family="Times,serif" font-size="14.00">1,&#45;1 (fluid=molten&#45;glass Glass, When space, make quartz separate with regular priority, Quartz)</text>
+<ellipse fill="none" stroke="black" cx="1143.1" cy="-18" rx="155.97" ry="18"/>
+<text text-anchor="middle" x="1143.1" y="-14.3" font-family="Times,serif" font-size="14.00">&#45;6,&#45;2 (item=fertilizer Fertiliser)</text>
 </g>
 <!-- 1,&#45;1 (fluid=molten&#45;glass Glass, When space, make quartz separate with regular priority, Quartz)&#45;&gt;&#45;6,&#45;2 (item=fertilizer Fertiliser) -->
-<g id="edge2" class="edge">
+<g id="edge1" class="edge">
 <title>1,&#45;1 (fluid=molten&#45;glass Glass, When space, make quartz separate with regular priority, Quartz)&#45;&gt;&#45;6,&#45;2 (item=fertilizer Fertiliser)</title>
-<path fill="none" stroke="black" stroke-width="0.26" d="M965.34,-18C944.04,-18 923.42,-18 903.85,-18"/>
-<polygon fill="black" stroke="black" stroke-width="0.26" points="903.71,-14.5 893.71,-18 903.71,-21.5 903.71,-14.5"/>
-<text text-anchor="middle" x="888.34" y="-6.8" font-family="Times,serif" font-size="14.00">ammonium&#45;chloride*5013</text>
+<path fill="none" stroke="black" stroke-width="0.3" d="M915.3,-18C936.6,-18 957.23,-18 976.8,-18"/>
+<polygon fill="black" stroke="black" stroke-width="0.3" points="976.94,-21.5 986.94,-18 976.94,-14.5 976.94,-21.5"/>
+<text text-anchor="middle" x="946.05" y="-6.8" font-family="Times,serif" font-size="14.00">ammonium&#45;chloride*5888</text>
+</g>
+<!-- &#45;4,4 (item=ammonium&#45;chloride Ammonium chloride) -->
+<g id="node3" class="node">
+<title>&#45;4,4 (item=ammonium&#45;chloride Ammonium chloride)</title>
+<ellipse fill="none" stroke="black" cx="1625.87" cy="-18" rx="254.55" ry="18"/>
+<text text-anchor="middle" x="1625.87" y="-14.3" font-family="Times,serif" font-size="14.00">&#45;4,4 (item=ammonium&#45;chloride Ammonium chloride)</text>
+</g>
+<!-- &#45;4,4 (item=ammonium&#45;chloride Ammonium chloride)&#45;&gt;&#45;6,&#45;2 (item=fertilizer Fertiliser) -->
+<g id="edge2" class="edge">
+<title>&#45;4,4 (item=ammonium&#45;chloride Ammonium chloride)&#45;&gt;&#45;6,&#45;2 (item=fertilizer Fertiliser)</title>
+<path fill="none" stroke="black" stroke-width="1.7" d="M1371.06,-18C1350.11,-18 1329.31,-18 1309.27,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1.7" points="1309.18,-14.5 1299.18,-18 1309.18,-21.5 1309.18,-14.5"/>
+<text text-anchor="middle" x="1291.66" y="-6.8" font-family="Times,serif" font-size="14.00">ammonium&#45;chloride*33232</text>
 </g>
 </g>
 </svg>

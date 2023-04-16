@@ -12,34 +12,34 @@
 <!-- &#45;5,&#45;1 (Coal and Coke and Syngas and Ash and Coke Oven Gas and...) -->
 <g id="node1" class="node">
 <title>&#45;5,&#45;1 (Coal and Coke and Syngas and Ash and Coke Oven Gas and...)</title>
-<ellipse fill="none" stroke="black" cx="629" cy="-18" rx="325.74" ry="18"/>
-<text text-anchor="middle" x="629" y="-14.3" font-family="Times,serif" font-size="14.00">&#45;5,&#45;1 (Coal and Coke and Syngas and Ash and Coke Oven Gas and...)</text>
-</g>
-<!-- 0,0 (LE BUS) -->
-<g id="node2" class="node">
-<title>0,0 (LE BUS)</title>
-<ellipse fill="none" stroke="black" cx="1142.31" cy="-18" rx="71.49" ry="18"/>
-<text text-anchor="middle" x="1142.31" y="-14.3" font-family="Times,serif" font-size="14.00">0,0 (LE BUS)</text>
-</g>
-<!-- &#45;5,&#45;1 (Coal and Coke and Syngas and Ash and Coke Oven Gas and...)&#45;&gt;0,0 (LE BUS) -->
-<g id="edge1" class="edge">
-<title>&#45;5,&#45;1 (Coal and Coke and Syngas and Ash and Coke Oven Gas and...)&#45;&gt;0,0 (LE BUS)</title>
-<path fill="none" stroke="black" stroke-width="0.19" d="M954.82,-18C993.66,-18 1030.23,-18 1060.57,-18"/>
-<polygon fill="black" stroke="black" stroke-width="0.19" points="1060.61,-21.5 1070.61,-18 1060.61,-14.5 1060.61,-21.5"/>
-<text text-anchor="middle" x="1027.94" y="-6.8" font-family="Times,serif" font-size="14.00">coal*10096</text>
+<ellipse fill="none" stroke="black" cx="584.8" cy="-18" rx="325.74" ry="18"/>
+<text text-anchor="middle" x="584.8" y="-14.3" font-family="Times,serif" font-size="14.00">&#45;5,&#45;1 (Coal and Coke and Syngas and Ash and Coke Oven Gas and...)</text>
 </g>
 <!-- 1,7 (Activated Carbon) -->
-<g id="node3" class="node">
+<g id="node2" class="node">
 <title>1,7 (Activated Carbon)</title>
-<ellipse fill="none" stroke="black" cx="115.69" cy="-18" rx="115.88" ry="18"/>
-<text text-anchor="middle" x="115.69" y="-14.3" font-family="Times,serif" font-size="14.00">1,7 (Activated Carbon)</text>
+<ellipse fill="none" stroke="black" cx="1098.12" cy="-18" rx="115.88" ry="18"/>
+<text text-anchor="middle" x="1098.12" y="-14.3" font-family="Times,serif" font-size="14.00">1,7 (Activated Carbon)</text>
 </g>
 <!-- &#45;5,&#45;1 (Coal and Coke and Syngas and Ash and Coke Oven Gas and...)&#45;&gt;1,7 (Activated Carbon) -->
-<g id="edge2" class="edge">
+<g id="edge1" class="edge">
 <title>&#45;5,&#45;1 (Coal and Coke and Syngas and Ash and Coke Oven Gas and...)&#45;&gt;1,7 (Activated Carbon)</title>
-<path fill="none" stroke="black" stroke-width="1.81" d="M303.19,-18C281.73,-18 260.98,-18 241.59,-18"/>
-<polygon fill="black" stroke="black" stroke-width="1.81" points="241.57,-14.5 231.57,-18 241.57,-21.5 241.57,-14.5"/>
-<text text-anchor="middle" x="272.39" y="-6.8" font-family="Times,serif" font-size="14.00">coal*97472</text>
+<path fill="none" stroke="black" stroke-width="1.45" d="M910.62,-18C932.07,-18 952.82,-18 972.22,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1.45" points="972.23,-21.5 982.23,-18 972.23,-14.5 972.23,-21.5"/>
+<text text-anchor="middle" x="941.42" y="-6.8" font-family="Times,serif" font-size="14.00">coal*534528</text>
+</g>
+<!-- 0,0 (LE BUS) -->
+<g id="node3" class="node">
+<title>0,0 (LE BUS)</title>
+<ellipse fill="none" stroke="black" cx="71.49" cy="-18" rx="71.49" ry="18"/>
+<text text-anchor="middle" x="71.49" y="-14.3" font-family="Times,serif" font-size="14.00">0,0 (LE BUS)</text>
+</g>
+<!-- &#45;5,&#45;1 (Coal and Coke and Syngas and Ash and Coke Oven Gas and...)&#45;&gt;0,0 (LE BUS) -->
+<g id="edge2" class="edge">
+<title>&#45;5,&#45;1 (Coal and Coke and Syngas and Ash and Coke Oven Gas and...)&#45;&gt;0,0 (LE BUS)</title>
+<path fill="none" stroke="black" stroke-width="0.55" d="M258.99,-18C220.14,-18 183.58,-18 153.24,-18"/>
+<polygon fill="black" stroke="black" stroke-width="0.55" points="153.19,-14.5 143.19,-18 153.19,-21.5 153.19,-14.5"/>
+<text text-anchor="middle" x="206.11" y="-6.8" font-family="Times,serif" font-size="14.00">coal*200464</text>
 </g>
 </g>
 </svg>

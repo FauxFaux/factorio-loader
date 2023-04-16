@@ -12,57 +12,57 @@
 <!-- 0,7 (Coal Gas) -->
 <g id="node1" class="node">
 <title>0,7 (Coal Gas)</title>
-<ellipse fill="none" stroke="black" cx="450.4" cy="-18" rx="76.09" ry="18"/>
-<text text-anchor="middle" x="450.4" y="-14.3" font-family="Times,serif" font-size="14.00">0,7 (Coal Gas)</text>
-</g>
-<!-- 4,10 (Fluid Recycling) -->
-<g id="node2" class="node">
-<title>4,10 (Fluid Recycling)</title>
-<ellipse fill="none" stroke="black" cx="112.44" cy="-355.96" rx="112.38" ry="18"/>
-<text text-anchor="middle" x="112.44" y="-352.26" font-family="Times,serif" font-size="14.00">4,10 (Fluid Recycling)</text>
-</g>
-<!-- 0,7 (Coal Gas)&#45;&gt;4,10 (Fluid Recycling) -->
-<g id="edge1" class="edge">
-<title>0,7 (Coal Gas)&#45;&gt;4,10 (Fluid Recycling)</title>
-<path fill="none" stroke="black" stroke-width="0.5" d="M432.7,-35.69C376.71,-91.68 203.26,-265.13 137.8,-330.6"/>
-<polygon fill="black" stroke="black" stroke-width="0.5" points="134.96,-328.48 130.37,-338.03 139.91,-333.43 134.96,-328.48"/>
-<text text-anchor="middle" x="206.75" y="-186.94" font-family="Times,serif" font-size="14.00">flue&#45;gas&#45;barrel*20442</text>
+<ellipse fill="none" stroke="black" cx="450.4" cy="-693.91" rx="76.09" ry="18"/>
+<text text-anchor="middle" x="450.4" y="-690.21" font-family="Times,serif" font-size="14.00">0,7 (Coal Gas)</text>
 </g>
 <!-- 0,6 (Flue Gas Disposal, Syngas From Flue Gas) -->
-<g id="node5" class="node">
+<g id="node2" class="node">
 <title>0,6 (Flue Gas Disposal, Syngas From Flue Gas)</title>
 <ellipse fill="none" stroke="black" cx="788.35" cy="-355.96" rx="229.36" ry="18"/>
 <text text-anchor="middle" x="788.35" y="-352.26" font-family="Times,serif" font-size="14.00">0,6 (Flue Gas Disposal, Syngas From Flue Gas)</text>
 </g>
 <!-- 0,7 (Coal Gas)&#45;&gt;0,6 (Flue Gas Disposal, Syngas From Flue Gas) -->
-<g id="edge4" class="edge">
+<g id="edge1" class="edge">
 <title>0,7 (Coal Gas)&#45;&gt;0,6 (Flue Gas Disposal, Syngas From Flue Gas)</title>
-<path fill="none" stroke="black" stroke-width="0.19" d="M468.09,-35.69C524.06,-91.67 697.42,-265.03 762.93,-330.54"/>
-<polygon fill="black" stroke="black" stroke-width="0.19" points="760.47,-333.02 770.01,-337.62 765.42,-328.07 760.47,-333.02"/>
-<text text-anchor="middle" x="541.51" y="-186.92" font-family="Times,serif" font-size="14.00">flue&#45;gas&#45;barrel*7912</text>
+<path fill="none" stroke="black" stroke-width="1.02" d="M468.09,-676.22C524.06,-620.25 697.42,-446.88 762.93,-381.37"/>
+<polygon fill="black" stroke="black" stroke-width="1.02" points="765.42,-383.84 770.01,-374.29 760.47,-378.89 765.42,-383.84"/>
+<text text-anchor="middle" x="532.51" y="-532.6" font-family="Times,serif" font-size="14.00">flue&#45;gas&#45;barrel*226662</text>
+</g>
+<!-- 4,10 (Fluid Recycling) -->
+<g id="node4" class="node">
+<title>4,10 (Fluid Recycling)</title>
+<ellipse fill="none" stroke="black" cx="112.44" cy="-355.96" rx="112.38" ry="18"/>
+<text text-anchor="middle" x="112.44" y="-352.26" font-family="Times,serif" font-size="14.00">4,10 (Fluid Recycling)</text>
+</g>
+<!-- 0,7 (Coal Gas)&#45;&gt;4,10 (Fluid Recycling) -->
+<g id="edge5" class="edge">
+<title>0,7 (Coal Gas)&#45;&gt;4,10 (Fluid Recycling)</title>
+<path fill="none" stroke="black" stroke-width="0.81" d="M432.7,-676.22C376.71,-620.23 203.26,-446.78 137.8,-381.32"/>
+<polygon fill="black" stroke="black" stroke-width="0.81" points="139.91,-378.48 130.37,-373.88 134.96,-383.43 139.91,-378.48"/>
+<text text-anchor="middle" x="202.25" y="-532.57" font-family="Times,serif" font-size="14.00">flue&#45;gas&#45;barrel*180298</text>
 </g>
 <!-- &#45;2,9 (molten steel) -->
 <g id="node3" class="node">
 <title>&#45;2,9 (molten steel)</title>
-<ellipse fill="none" stroke="black" cx="450.4" cy="-693.91" rx="95.58" ry="18"/>
-<text text-anchor="middle" x="450.4" y="-690.21" font-family="Times,serif" font-size="14.00">&#45;2,9 (molten steel)</text>
+<ellipse fill="none" stroke="black" cx="450.4" cy="-18" rx="95.58" ry="18"/>
+<text text-anchor="middle" x="450.4" y="-14.3" font-family="Times,serif" font-size="14.00">&#45;2,9 (molten steel)</text>
+</g>
+<!-- &#45;2,9 (molten steel)&#45;&gt;0,6 (Flue Gas Disposal, Syngas From Flue Gas) -->
+<g id="edge4" class="edge">
+<title>&#45;2,9 (molten steel)&#45;&gt;0,6 (Flue Gas Disposal, Syngas From Flue Gas)</title>
+<path fill="none" stroke="black" stroke-width="0.18" d="M468.09,-35.69C524.06,-91.67 697.42,-265.03 762.93,-330.54"/>
+<polygon fill="black" stroke="black" stroke-width="0.18" points="760.47,-333.02 770.01,-337.62 765.42,-328.07 760.47,-333.02"/>
+<text text-anchor="middle" x="537.01" y="-186.92" font-family="Times,serif" font-size="14.00">flue&#45;gas&#45;barrel*40933</text>
 </g>
 <!-- &#45;2,9 (molten steel)&#45;&gt;4,10 (Fluid Recycling) -->
 <g id="edge2" class="edge">
 <title>&#45;2,9 (molten steel)&#45;&gt;4,10 (Fluid Recycling)</title>
-<path fill="none" stroke="black" stroke-width="1.55" d="M432.7,-676.22C376.71,-620.23 203.26,-446.78 137.8,-381.32"/>
-<polygon fill="black" stroke="black" stroke-width="1.55" points="139.91,-378.48 130.37,-373.88 134.96,-383.43 139.91,-378.48"/>
-<text text-anchor="middle" x="206.75" y="-532.57" font-family="Times,serif" font-size="14.00">flue&#45;gas&#45;barrel*63955</text>
-</g>
-<!-- &#45;2,9 (molten steel)&#45;&gt;0,6 (Flue Gas Disposal, Syngas From Flue Gas) -->
-<g id="edge5" class="edge">
-<title>&#45;2,9 (molten steel)&#45;&gt;0,6 (Flue Gas Disposal, Syngas From Flue Gas)</title>
-<path fill="none" stroke="black" stroke-width="0.17" d="M468.09,-676.22C524.06,-620.25 697.42,-446.88 762.93,-381.37"/>
-<polygon fill="black" stroke="black" stroke-width="0.17" points="765.42,-383.84 770.01,-374.29 760.47,-378.89 765.42,-383.84"/>
-<text text-anchor="middle" x="541.51" y="-532.6" font-family="Times,serif" font-size="14.00">flue&#45;gas&#45;barrel*7136</text>
+<path fill="none" stroke="black" stroke-width="0.07" d="M432.7,-35.69C376.71,-91.68 203.26,-265.13 137.8,-330.6"/>
+<polygon fill="black" stroke="black" stroke-width="0.07" points="134.96,-328.48 130.37,-338.03 139.91,-333.43 134.96,-328.48"/>
+<text text-anchor="middle" x="206.75" y="-186.94" font-family="Times,serif" font-size="14.00">flue&#45;gas&#45;barrel*14528</text>
 </g>
 <!-- &#45;5,5 (fluid=flue&#45;gas Flue gas) -->
-<g id="node4" class="node">
+<g id="node5" class="node">
 <title>&#45;5,5 (fluid=flue&#45;gas Flue gas)</title>
 <ellipse fill="none" stroke="black" cx="1005.94" cy="-355.96" rx="145.67" ry="18"/>
 <text text-anchor="middle" x="1005.94" y="-352.26" font-family="Times,serif" font-size="14.00">&#45;5,5 (fluid=flue&#45;gas Flue gas)</text>
@@ -70,9 +70,9 @@
 <!-- &#45;5,5 (fluid=flue&#45;gas Flue gas)&#45;&gt;0,6 (Flue Gas Disposal, Syngas From Flue Gas) -->
 <g id="edge3" class="edge">
 <title>&#45;5,5 (fluid=flue&#45;gas Flue gas)&#45;&gt;0,6 (Flue Gas Disposal, Syngas From Flue Gas)</title>
-<path fill="none" stroke="black" stroke-width="2.59" d="M860.2,-355.96C860.12,-355.96 860.05,-355.96 859.97,-355.96"/>
-<polygon fill="black" stroke="black" stroke-width="2.59" points="869.74,-352.46 859.74,-355.96 869.73,-359.46 869.74,-352.46"/>
-<text text-anchor="middle" x="777.08" y="-359.76" font-family="Times,serif" font-size="14.00">flue&#45;gas&#45;barrel*106600</text>
+<path fill="none" stroke="black" stroke-width="2.91" d="M860.2,-355.96C860.12,-355.96 860.05,-355.96 859.97,-355.96"/>
+<polygon fill="black" stroke="black" stroke-width="2.91" points="869.74,-352.46 859.74,-355.96 869.73,-359.46 869.74,-352.46"/>
+<text text-anchor="middle" x="777.08" y="-359.76" font-family="Times,serif" font-size="14.00">flue&#45;gas&#45;barrel*646281</text>
 </g>
 </g>
 </svg>

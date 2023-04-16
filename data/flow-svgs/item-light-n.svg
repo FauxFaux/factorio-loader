@@ -24,9 +24,9 @@
 <!-- 4,6 (Circuit substrate and Doped silicon)&#45;&gt;0,0 (LE BUS) -->
 <g id="edge1" class="edge">
 <title>4,6 (Circuit substrate and Doped silicon)&#45;&gt;0,0 (LE BUS)</title>
-<path fill="none" stroke="black" stroke-width="0.35" d="M754.56,-18C800.92,-18 847.75,-18 885.7,-18"/>
-<polygon fill="black" stroke="black" stroke-width="0.35" points="886.16,-21.5 896.16,-18 886.16,-14.5 886.16,-21.5"/>
-<text text-anchor="middle" x="842.63" y="-6.8" font-family="Times,serif" font-size="14.00">light&#45;n*2128</text>
+<path fill="none" stroke="black" stroke-width="0.31" d="M754.56,-18C800.92,-18 847.75,-18 885.7,-18"/>
+<polygon fill="black" stroke="black" stroke-width="0.31" points="886.16,-21.5 896.16,-18 886.16,-14.5 886.16,-21.5"/>
+<text text-anchor="middle" x="842.63" y="-6.8" font-family="Times,serif" font-size="14.00">light&#45;n*2816</text>
 </g>
 <!-- 6,4 (Electronic components) -->
 <g id="node3" class="node">
@@ -37,9 +37,9 @@
 <!-- 4,6 (Circuit substrate and Doped silicon)&#45;&gt;6,4 (Electronic components) -->
 <g id="edge2" class="edge">
 <title>4,6 (Circuit substrate and Doped silicon)&#45;&gt;6,4 (Electronic components)</title>
-<path fill="none" stroke="black" stroke-width="1.65" d="M355.26,-18C334.53,-18 313.71,-18 293.63,-18"/>
-<polygon fill="black" stroke="black" stroke-width="1.65" points="293.52,-14.5 283.52,-18 293.52,-21.5 293.52,-14.5"/>
-<text text-anchor="middle" x="299.7" y="-6.8" font-family="Times,serif" font-size="14.00">light&#45;n*10176</text>
+<path fill="none" stroke="black" stroke-width="1.69" d="M355.26,-18C334.53,-18 313.71,-18 293.63,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1.69" points="293.52,-14.5 283.52,-18 293.52,-21.5 293.52,-14.5"/>
+<text text-anchor="middle" x="299.7" y="-6.8" font-family="Times,serif" font-size="14.00">light&#45;n*15088</text>
 </g>
 </g>
 </svg>

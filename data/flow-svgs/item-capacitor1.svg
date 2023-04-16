@@ -12,34 +12,34 @@
 <!-- &#45;6,&#45;4 (High&#45;Power Resistors, Ceramic Capacitor, Inductor) -->
 <g id="node1" class="node">
 <title>&#45;6,&#45;4 (High&#45;Power Resistors, Ceramic Capacitor, Inductor)</title>
-<ellipse fill="none" stroke="black" cx="528.26" cy="-18" rx="278.35" ry="18"/>
-<text text-anchor="middle" x="528.26" y="-14.3" font-family="Times,serif" font-size="14.00">&#45;6,&#45;4 (High&#45;Power Resistors, Ceramic Capacitor, Inductor)</text>
-</g>
-<!-- 2,5 (Simple Circuits) -->
-<g id="node2" class="node">
-<title>2,5 (Simple Circuits)</title>
-<ellipse fill="none" stroke="black" cx="985.03" cy="-18" rx="106.68" ry="18"/>
-<text text-anchor="middle" x="985.03" y="-14.3" font-family="Times,serif" font-size="14.00">2,5 (Simple Circuits)</text>
-</g>
-<!-- &#45;6,&#45;4 (High&#45;Power Resistors, Ceramic Capacitor, Inductor)&#45;&gt;2,5 (Simple Circuits) -->
-<g id="edge1" class="edge">
-<title>&#45;6,&#45;4 (High&#45;Power Resistors, Ceramic Capacitor, Inductor)&#45;&gt;2,5 (Simple Circuits)</title>
-<path fill="none" stroke="black" stroke-width="1.6" d="M806.47,-18C827.88,-18 848.68,-18 868.06,-18"/>
-<polygon fill="black" stroke="black" stroke-width="1.6" points="868.06,-21.5 878.06,-18 868.06,-14.5 868.06,-21.5"/>
-<text text-anchor="middle" x="837.26" y="-6.8" font-family="Times,serif" font-size="14.00">capacitor1*8176</text>
+<ellipse fill="none" stroke="black" cx="563.36" cy="-18" rx="278.35" ry="18"/>
+<text text-anchor="middle" x="563.36" y="-14.3" font-family="Times,serif" font-size="14.00">&#45;6,&#45;4 (High&#45;Power Resistors, Ceramic Capacitor, Inductor)</text>
 </g>
 <!-- 0,0 (LE BUS) -->
-<g id="node3" class="node">
+<g id="node2" class="node">
 <title>0,0 (LE BUS)</title>
-<ellipse fill="none" stroke="black" cx="71.49" cy="-18" rx="71.49" ry="18"/>
-<text text-anchor="middle" x="71.49" y="-14.3" font-family="Times,serif" font-size="14.00">0,0 (LE BUS)</text>
+<ellipse fill="none" stroke="black" cx="1020.12" cy="-18" rx="71.49" ry="18"/>
+<text text-anchor="middle" x="1020.12" y="-14.3" font-family="Times,serif" font-size="14.00">0,0 (LE BUS)</text>
 </g>
 <!-- &#45;6,&#45;4 (High&#45;Power Resistors, Ceramic Capacitor, Inductor)&#45;&gt;0,0 (LE BUS) -->
-<g id="edge2" class="edge">
+<g id="edge1" class="edge">
 <title>&#45;6,&#45;4 (High&#45;Power Resistors, Ceramic Capacitor, Inductor)&#45;&gt;0,0 (LE BUS)</title>
-<path fill="none" stroke="black" stroke-width="0.4" d="M250.05,-18C215.05,-18 181.68,-18 153.47,-18"/>
-<polygon fill="black" stroke="black" stroke-width="0.4" points="153.32,-14.5 143.32,-18 153.32,-21.5 153.32,-14.5"/>
-<text text-anchor="middle" x="201.76" y="-6.8" font-family="Times,serif" font-size="14.00">capacitor1*2044</text>
+<path fill="none" stroke="black" stroke-width="1" d="M841.56,-18C876.57,-18 909.93,-18 938.14,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1" points="938.3,-21.5 948.3,-18 938.3,-14.5 938.3,-21.5"/>
+<text text-anchor="middle" x="889.85" y="-6.8" font-family="Times,serif" font-size="14.00">capacitor1*4081</text>
+</g>
+<!-- 2,5 (Simple Circuits) -->
+<g id="node3" class="node">
+<title>2,5 (Simple Circuits)</title>
+<ellipse fill="none" stroke="black" cx="106.59" cy="-18" rx="106.68" ry="18"/>
+<text text-anchor="middle" x="106.59" y="-14.3" font-family="Times,serif" font-size="14.00">2,5 (Simple Circuits)</text>
+</g>
+<!-- &#45;6,&#45;4 (High&#45;Power Resistors, Ceramic Capacitor, Inductor)&#45;&gt;2,5 (Simple Circuits) -->
+<g id="edge2" class="edge">
+<title>&#45;6,&#45;4 (High&#45;Power Resistors, Ceramic Capacitor, Inductor)&#45;&gt;2,5 (Simple Circuits)</title>
+<path fill="none" stroke="black" stroke-width="1" d="M285.15,-18C263.74,-18 242.94,-18 223.55,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1" points="223.55,-14.5 213.55,-18 223.55,-21.5 223.55,-14.5"/>
+<text text-anchor="middle" x="224.85" y="-6.8" font-family="Times,serif" font-size="14.00">capacitor1*4051</text>
 </g>
 </g>
 </svg>

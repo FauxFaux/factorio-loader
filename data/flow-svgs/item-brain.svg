@@ -12,34 +12,34 @@
 <!-- 0,9 (Auog Brains) -->
 <g id="node1" class="node">
 <title>0,9 (Auog Brains)</title>
-<ellipse fill="none" stroke="black" cx="361.22" cy="-18" rx="91.78" ry="18"/>
-<text text-anchor="middle" x="361.22" y="-14.3" font-family="Times,serif" font-size="14.00">0,9 (Auog Brains)</text>
-</g>
-<!-- 0,0 (LE BUS) -->
-<g id="node2" class="node">
-<title>0,0 (LE BUS)</title>
-<ellipse fill="none" stroke="black" cx="623.66" cy="-18" rx="71.49" ry="18"/>
-<text text-anchor="middle" x="623.66" y="-14.3" font-family="Times,serif" font-size="14.00">0,0 (LE BUS)</text>
-</g>
-<!-- 0,9 (Auog Brains)&#45;&gt;0,0 (LE BUS) -->
-<g id="edge1" class="edge">
-<title>0,9 (Auog Brains)&#45;&gt;0,0 (LE BUS)</title>
-<path fill="none" stroke="black" stroke-width="1.08" d="M453.01,-18C481.84,-18 513.47,-18 541.58,-18"/>
-<polygon fill="black" stroke="black" stroke-width="1.08" points="541.77,-21.5 551.77,-18 541.77,-14.5 541.77,-21.5"/>
-<text text-anchor="middle" x="497.3" y="-6.8" font-family="Times,serif" font-size="14.00">brain*6080</text>
+<ellipse fill="none" stroke="black" cx="333.93" cy="-18" rx="91.78" ry="18"/>
+<text text-anchor="middle" x="333.93" y="-14.3" font-family="Times,serif" font-size="14.00">0,9 (Auog Brains)</text>
 </g>
 <!-- &#45;4,&#45;2 (For Science!) -->
-<g id="node3" class="node">
+<g id="node2" class="node">
 <title>&#45;4,&#45;2 (For Science!)</title>
-<ellipse fill="none" stroke="black" cx="98.79" cy="-18" rx="98.58" ry="18"/>
-<text text-anchor="middle" x="98.79" y="-14.3" font-family="Times,serif" font-size="14.00">&#45;4,&#45;2 (For Science!)</text>
+<ellipse fill="none" stroke="black" cx="596.36" cy="-18" rx="98.58" ry="18"/>
+<text text-anchor="middle" x="596.36" y="-14.3" font-family="Times,serif" font-size="14.00">&#45;4,&#45;2 (For Science!)</text>
 </g>
 <!-- 0,9 (Auog Brains)&#45;&gt;&#45;4,&#45;2 (For Science!) -->
-<g id="edge2" class="edge">
+<g id="edge1" class="edge">
 <title>0,9 (Auog Brains)&#45;&gt;&#45;4,&#45;2 (For Science!)</title>
-<path fill="none" stroke="black" stroke-width="0.92" d="M269.44,-18C249.5,-18 228.21,-18 207.68,-18"/>
-<polygon fill="black" stroke="black" stroke-width="0.92" points="207.67,-14.5 197.67,-18 207.67,-21.5 207.67,-14.5"/>
-<text text-anchor="middle" x="238.56" y="-6.8" font-family="Times,serif" font-size="14.00">brain*5184</text>
+<path fill="none" stroke="black" stroke-width="1.57" d="M425.71,-18C445.66,-18 466.94,-18 487.47,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1.57" points="487.48,-21.5 497.48,-18 487.48,-14.5 487.48,-21.5"/>
+<text text-anchor="middle" x="456.59" y="-6.8" font-family="Times,serif" font-size="14.00">brain*22032</text>
+</g>
+<!-- 0,0 (LE BUS) -->
+<g id="node3" class="node">
+<title>0,0 (LE BUS)</title>
+<ellipse fill="none" stroke="black" cx="71.49" cy="-18" rx="71.49" ry="18"/>
+<text text-anchor="middle" x="71.49" y="-14.3" font-family="Times,serif" font-size="14.00">0,0 (LE BUS)</text>
+</g>
+<!-- 0,9 (Auog Brains)&#45;&gt;0,0 (LE BUS) -->
+<g id="edge2" class="edge">
+<title>0,9 (Auog Brains)&#45;&gt;0,0 (LE BUS)</title>
+<path fill="none" stroke="black" stroke-width="0.43" d="M242.14,-18C213.31,-18 181.68,-18 153.57,-18"/>
+<polygon fill="black" stroke="black" stroke-width="0.43" points="153.38,-14.5 143.38,-18 153.38,-21.5 153.38,-14.5"/>
+<text text-anchor="middle" x="197.86" y="-6.8" font-family="Times,serif" font-size="14.00">brain*6096</text>
 </g>
 </g>
 </svg>

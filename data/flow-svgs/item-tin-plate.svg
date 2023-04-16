@@ -12,47 +12,47 @@
 <!-- 2,&#45;2 (Tin Plate, Organic Solvent) -->
 <g id="node1" class="node">
 <title>2,&#45;2 (Tin Plate, Organic Solvent)</title>
-<ellipse fill="none" stroke="black" cx="466.07" cy="-446.16" rx="159.77" ry="18"/>
-<text text-anchor="middle" x="466.07" y="-442.46" font-family="Times,serif" font-size="14.00">2,&#45;2 (Tin Plate, Organic Solvent)</text>
+<ellipse fill="none" stroke="black" cx="466.07" cy="-411.63" rx="159.77" ry="18"/>
+<text text-anchor="middle" x="466.07" y="-407.93" font-family="Times,serif" font-size="14.00">2,&#45;2 (Tin Plate, Organic Solvent)</text>
 </g>
 <!-- &#45;6,&#45;4 (High&#45;Power Resistors, Ceramic Capacitor, Inductor) -->
 <g id="node2" class="node">
 <title>&#45;6,&#45;4 (High&#45;Power Resistors, Ceramic Capacitor, Inductor)</title>
-<ellipse fill="none" stroke="black" cx="976.13" cy="-446.16" rx="278.35" ry="18"/>
-<text text-anchor="middle" x="976.13" y="-442.46" font-family="Times,serif" font-size="14.00">&#45;6,&#45;4 (High&#45;Power Resistors, Ceramic Capacitor, Inductor)</text>
+<ellipse fill="none" stroke="black" cx="976.13" cy="-411.63" rx="278.35" ry="18"/>
+<text text-anchor="middle" x="976.13" y="-407.93" font-family="Times,serif" font-size="14.00">&#45;6,&#45;4 (High&#45;Power Resistors, Ceramic Capacitor, Inductor)</text>
 </g>
 <!-- 2,&#45;2 (Tin Plate, Organic Solvent)&#45;&gt;&#45;6,&#45;4 (High&#45;Power Resistors, Ceramic Capacitor, Inductor) -->
 <g id="edge1" class="edge">
 <title>2,&#45;2 (Tin Plate, Organic Solvent)&#45;&gt;&#45;6,&#45;4 (High&#45;Power Resistors, Ceramic Capacitor, Inductor)</title>
-<path fill="none" stroke="black" stroke-width="1.09" d="M626.05,-446.16C645.76,-446.16 666.35,-446.16 687.26,-446.16"/>
-<polygon fill="black" stroke="black" stroke-width="1.09" points="687.54,-449.66 697.54,-446.16 687.54,-442.66 687.54,-449.66"/>
-<text text-anchor="middle" x="656.65" y="-434.96" font-family="Times,serif" font-size="14.00">tin&#45;plate*10176</text>
-</g>
-<!-- 6,4 (Electronic components) -->
-<g id="node3" class="node">
-<title>6,4 (Electronic components)</title>
-<ellipse fill="none" stroke="black" cx="141.69" cy="-839.78" rx="141.88" ry="18"/>
-<text text-anchor="middle" x="141.69" y="-836.08" font-family="Times,serif" font-size="14.00">6,4 (Electronic components)</text>
-</g>
-<!-- 2,&#45;2 (Tin Plate, Organic Solvent)&#45;&gt;6,4 (Electronic components) -->
-<g id="edge2" class="edge">
-<title>2,&#45;2 (Tin Plate, Organic Solvent)&#45;&gt;6,4 (Electronic components)</title>
-<path fill="none" stroke="black" stroke-width="0.95" d="M451.28,-464.1C399.25,-527.24 224.4,-739.42 163.12,-813.78"/>
-<polygon fill="black" stroke="black" stroke-width="0.95" points="160.21,-811.8 156.55,-821.74 165.62,-816.25 160.21,-811.8"/>
-<text text-anchor="middle" x="255.7" y="-642.74" font-family="Times,serif" font-size="14.00">tin&#45;plate*8912</text>
+<path fill="none" stroke="black" stroke-width="0.61" d="M626.05,-411.63C645.76,-411.63 666.35,-411.63 687.26,-411.63"/>
+<polygon fill="black" stroke="black" stroke-width="0.61" points="687.54,-415.13 697.54,-411.63 687.54,-408.13 687.54,-415.13"/>
+<text text-anchor="middle" x="656.65" y="-400.43" font-family="Times,serif" font-size="14.00">tin&#45;plate*8496</text>
 </g>
 <!-- 5,8 (Ulric Food) -->
-<g id="node4" class="node">
+<g id="node3" class="node">
 <title>5,8 (Ulric Food)</title>
-<ellipse fill="none" stroke="black" cx="188.86" cy="-18" rx="83.39" ry="18"/>
-<text text-anchor="middle" x="188.86" y="-14.3" font-family="Times,serif" font-size="14.00">5,8 (Ulric Food)</text>
+<ellipse fill="none" stroke="black" cx="188.86" cy="-839.78" rx="83.39" ry="18"/>
+<text text-anchor="middle" x="188.86" y="-836.08" font-family="Times,serif" font-size="14.00">5,8 (Ulric Food)</text>
 </g>
 <!-- 2,&#45;2 (Tin Plate, Organic Solvent)&#45;&gt;5,8 (Ulric Food) -->
-<g id="edge3" class="edge">
+<g id="edge2" class="edge">
 <title>2,&#45;2 (Tin Plate, Organic Solvent)&#45;&gt;5,8 (Ulric Food)</title>
-<path fill="none" stroke="black" stroke-width="0.96" d="M454.33,-428.04C410.67,-360.6 257.49,-124 205.94,-44.38"/>
-<polygon fill="black" stroke="black" stroke-width="0.96" points="208.82,-42.38 200.44,-35.89 202.94,-46.19 208.82,-42.38"/>
-<text text-anchor="middle" x="278.64" y="-240.01" font-family="Times,serif" font-size="14.00">tin&#45;plate*9024</text>
+<path fill="none" stroke="black" stroke-width="1.29" d="M454.33,-429.75C410.67,-497.18 257.49,-733.78 205.94,-813.41"/>
+<polygon fill="black" stroke="black" stroke-width="1.29" points="202.94,-811.6 200.44,-821.89 208.82,-815.4 202.94,-811.6"/>
+<text text-anchor="middle" x="274.14" y="-625.38" font-family="Times,serif" font-size="14.00">tin&#45;plate*18016</text>
+</g>
+<!-- 6,4 (Electronic components) -->
+<g id="node4" class="node">
+<title>6,4 (Electronic components)</title>
+<ellipse fill="none" stroke="black" cx="141.69" cy="-18" rx="141.88" ry="18"/>
+<text text-anchor="middle" x="141.69" y="-14.3" font-family="Times,serif" font-size="14.00">6,4 (Electronic components)</text>
+</g>
+<!-- 2,&#45;2 (Tin Plate, Organic Solvent)&#45;&gt;6,4 (Electronic components) -->
+<g id="edge3" class="edge">
+<title>2,&#45;2 (Tin Plate, Organic Solvent)&#45;&gt;6,4 (Electronic components)</title>
+<path fill="none" stroke="black" stroke-width="1.11" d="M451.28,-393.69C399.25,-330.55 224.4,-118.36 163.12,-44.01"/>
+<polygon fill="black" stroke="black" stroke-width="1.11" points="165.62,-41.53 156.55,-36.04 160.21,-45.98 165.62,-41.53"/>
+<text text-anchor="middle" x="251.2" y="-222.65" font-family="Times,serif" font-size="14.00">tin&#45;plate*15488</text>
 </g>
 </g>
 </svg>

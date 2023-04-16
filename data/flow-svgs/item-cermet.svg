@@ -12,34 +12,34 @@
 <!-- 4,&#45;2 (Ceramic) -->
 <g id="node1" class="node">
 <title>4,&#45;2 (Ceramic)</title>
-<ellipse fill="none" stroke="black" cx="361.87" cy="-18" rx="76.89" ry="18"/>
-<text text-anchor="middle" x="361.87" y="-14.3" font-family="Times,serif" font-size="14.00">4,&#45;2 (Ceramic)</text>
-</g>
-<!-- 6,4 (Electronic components) -->
-<g id="node2" class="node">
-<title>6,4 (Electronic components)</title>
-<ellipse fill="none" stroke="black" cx="652.25" cy="-18" rx="141.88" ry="18"/>
-<text text-anchor="middle" x="652.25" y="-14.3" font-family="Times,serif" font-size="14.00">6,4 (Electronic components)</text>
-</g>
-<!-- 4,&#45;2 (Ceramic)&#45;&gt;6,4 (Electronic components) -->
-<g id="edge1" class="edge">
-<title>4,&#45;2 (Ceramic)&#45;&gt;6,4 (Electronic components)</title>
-<path fill="none" stroke="black" stroke-width="0.55" d="M438.93,-18C458,-18 479.11,-18 500.4,-18"/>
-<polygon fill="black" stroke="black" stroke-width="0.55" points="500.52,-21.5 510.52,-18 500.52,-14.5 500.52,-21.5"/>
-<text text-anchor="middle" x="469.66" y="-6.8" font-family="Times,serif" font-size="14.00">cermet*2288</text>
+<ellipse fill="none" stroke="black" cx="432.07" cy="-18" rx="76.89" ry="18"/>
+<text text-anchor="middle" x="432.07" y="-14.3" font-family="Times,serif" font-size="14.00">4,&#45;2 (Ceramic)</text>
 </g>
 <!-- 0,0 (LE BUS) -->
-<g id="node3" class="node">
+<g id="node2" class="node">
 <title>0,0 (LE BUS)</title>
-<ellipse fill="none" stroke="black" cx="71.49" cy="-18" rx="71.49" ry="18"/>
-<text text-anchor="middle" x="71.49" y="-14.3" font-family="Times,serif" font-size="14.00">0,0 (LE BUS)</text>
+<ellipse fill="none" stroke="black" cx="722.45" cy="-18" rx="71.49" ry="18"/>
+<text text-anchor="middle" x="722.45" y="-14.3" font-family="Times,serif" font-size="14.00">0,0 (LE BUS)</text>
 </g>
 <!-- 4,&#45;2 (Ceramic)&#45;&gt;0,0 (LE BUS) -->
-<g id="edge2" class="edge">
+<g id="edge1" class="edge">
 <title>4,&#45;2 (Ceramic)&#45;&gt;0,0 (LE BUS)</title>
-<path fill="none" stroke="black" stroke-width="1.45" d="M284.82,-18C244.31,-18 194.64,-18 153.43,-18"/>
-<polygon fill="black" stroke="black" stroke-width="1.45" points="153.41,-14.5 143.41,-18 153.41,-21.5 153.41,-14.5"/>
-<text text-anchor="middle" x="219.12" y="-6.8" font-family="Times,serif" font-size="14.00">cermet*6032</text>
+<path fill="none" stroke="black" stroke-width="0.76" d="M509.12,-18C549.64,-18 599.3,-18 640.52,-18"/>
+<polygon fill="black" stroke="black" stroke-width="0.76" points="640.53,-21.5 650.53,-18 640.53,-14.5 640.53,-21.5"/>
+<text text-anchor="middle" x="598.32" y="-6.8" font-family="Times,serif" font-size="14.00">cermet*4032</text>
+</g>
+<!-- 6,4 (Electronic components) -->
+<g id="node3" class="node">
+<title>6,4 (Electronic components)</title>
+<ellipse fill="none" stroke="black" cx="141.69" cy="-18" rx="141.88" ry="18"/>
+<text text-anchor="middle" x="141.69" y="-14.3" font-family="Times,serif" font-size="14.00">6,4 (Electronic components)</text>
+</g>
+<!-- 4,&#45;2 (Ceramic)&#45;&gt;6,4 (Electronic components) -->
+<g id="edge2" class="edge">
+<title>4,&#45;2 (Ceramic)&#45;&gt;6,4 (Electronic components)</title>
+<path fill="none" stroke="black" stroke-width="1.24" d="M355.01,-18C335.94,-18 314.84,-18 293.54,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1.24" points="293.42,-14.5 283.42,-18 293.42,-21.5 293.42,-14.5"/>
+<text text-anchor="middle" x="300.78" y="-6.8" font-family="Times,serif" font-size="14.00">cermet*6560</text>
 </g>
 </g>
 </svg>

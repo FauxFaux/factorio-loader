@@ -24,9 +24,9 @@
 <!-- 0,0 (LE BUS)&#45;&gt;&#45;3,1 (Logistic science pack, Automation Science) -->
 <g id="edge1" class="edge">
 <title>0,0 (LE BUS)&#45;&gt;&#45;3,1 (Logistic science pack, Automation Science)</title>
-<path fill="none" stroke="black" stroke-width="0.57" d="M769.03,-18C798.84,-18 835.35,-18 873.38,-18"/>
-<polygon fill="black" stroke="black" stroke-width="0.57" points="873.6,-21.5 883.6,-18 873.6,-14.5 873.6,-21.5"/>
-<text text-anchor="middle" x="821.2" y="-6.8" font-family="Times,serif" font-size="14.00">petri&#45;dish&#45;bacteria*2016</text>
+<path fill="none" stroke="black" stroke-width="0.55" d="M769.03,-18C798.84,-18 835.35,-18 873.38,-18"/>
+<polygon fill="black" stroke="black" stroke-width="0.55" points="873.6,-21.5 883.6,-18 873.6,-14.5 873.6,-21.5"/>
+<text text-anchor="middle" x="821.2" y="-6.8" font-family="Times,serif" font-size="14.00">petri&#45;dish&#45;bacteria*3024</text>
 </g>
 <!-- &#45;4,2 (This line not currently using manure, Ralesia seeds) -->
 <g id="node3" class="node">
@@ -37,9 +37,9 @@
 <!-- 0,0 (LE BUS)&#45;&gt;&#45;4,2 (This line not currently using manure, Ralesia seeds) -->
 <g id="edge2" class="edge">
 <title>0,0 (LE BUS)&#45;&gt;&#45;4,2 (This line not currently using manure, Ralesia seeds)</title>
-<path fill="none" stroke="black" stroke-width="1.43" d="M625.46,-18C607.16,-18 586.33,-18 564.19,-18"/>
-<polygon fill="black" stroke="black" stroke-width="1.43" points="563.92,-14.5 553.92,-18 563.92,-21.5 563.92,-14.5"/>
-<text text-anchor="middle" x="551.07" y="-6.8" font-family="Times,serif" font-size="14.00">petri&#45;dish&#45;bacteria*5008</text>
+<path fill="none" stroke="black" stroke-width="1.45" d="M625.46,-18C607.16,-18 586.33,-18 564.19,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1.45" points="563.92,-14.5 553.92,-18 563.92,-21.5 563.92,-14.5"/>
+<text text-anchor="middle" x="551.07" y="-6.8" font-family="Times,serif" font-size="14.00">petri&#45;dish&#45;bacteria*8009</text>
 </g>
 </g>
 </svg>

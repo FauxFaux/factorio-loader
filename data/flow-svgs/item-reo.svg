@@ -12,34 +12,34 @@
 <!-- &#45;2,5 (Rare Earth Oxides) -->
 <g id="node1" class="node">
 <title>&#45;2,5 (Rare Earth Oxides)</title>
-<ellipse fill="none" stroke="black" cx="595.2" cy="-18" rx="124.28" ry="18"/>
-<text text-anchor="middle" x="595.2" y="-14.3" font-family="Times,serif" font-size="14.00">&#45;2,5 (Rare Earth Oxides)</text>
-</g>
-<!-- 6,4 (Electronic components) -->
-<g id="node2" class="node">
-<title>6,4 (Electronic components)</title>
-<ellipse fill="none" stroke="black" cx="990.87" cy="-18" rx="141.88" ry="18"/>
-<text text-anchor="middle" x="990.87" y="-14.3" font-family="Times,serif" font-size="14.00">6,4 (Electronic components)</text>
-</g>
-<!-- &#45;2,5 (Rare Earth Oxides)&#45;&gt;6,4 (Electronic components) -->
-<g id="edge1" class="edge">
-<title>&#45;2,5 (Rare Earth Oxides)&#45;&gt;6,4 (Electronic components)</title>
-<path fill="none" stroke="black" stroke-width="1" d="M719.58,-18C757.41,-18 799.42,-18 838.86,-18"/>
-<polygon fill="black" stroke="black" stroke-width="1" points="839.09,-21.5 849.09,-18 839.09,-14.5 839.09,-21.5"/>
-<text text-anchor="middle" x="812.72" y="-21.8" font-family="Times,serif" font-size="14.00">reo*2272</text>
+<ellipse fill="none" stroke="black" cx="537.36" cy="-18" rx="124.28" ry="18"/>
+<text text-anchor="middle" x="537.36" y="-14.3" font-family="Times,serif" font-size="14.00">&#45;2,5 (Rare Earth Oxides)</text>
 </g>
 <!-- 4,6 (Circuit substrate and Doped silicon) -->
-<g id="node3" class="node">
+<g id="node2" class="node">
 <title>4,6 (Circuit substrate and Doped silicon)</title>
-<ellipse fill="none" stroke="black" cx="199.53" cy="-18" rx="199.56" ry="18"/>
-<text text-anchor="middle" x="199.53" y="-14.3" font-family="Times,serif" font-size="14.00">4,6 (Circuit substrate and Doped silicon)</text>
+<ellipse fill="none" stroke="black" cx="933.03" cy="-18" rx="199.56" ry="18"/>
+<text text-anchor="middle" x="933.03" y="-14.3" font-family="Times,serif" font-size="14.00">4,6 (Circuit substrate and Doped silicon)</text>
 </g>
 <!-- &#45;2,5 (Rare Earth Oxides)&#45;&gt;4,6 (Circuit substrate and Doped silicon) -->
-<g id="edge2" class="edge">
+<g id="edge1" class="edge">
 <title>&#45;2,5 (Rare Earth Oxides)&#45;&gt;4,6 (Circuit substrate and Doped silicon)</title>
-<path fill="none" stroke="black" stroke-width="1" d="M470.83,-18C451.07,-18 430.17,-18 409.1,-18"/>
-<polygon fill="black" stroke="black" stroke-width="1" points="409.08,-14.5 399.08,-18 409.08,-21.5 409.08,-14.5"/>
-<text text-anchor="middle" x="439.96" y="-6.8" font-family="Times,serif" font-size="14.00">reo*2288</text>
+<path fill="none" stroke="black" stroke-width="1.47" d="M661.74,-18C681.49,-18 702.39,-18 723.46,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1.47" points="723.48,-21.5 733.48,-18 723.48,-14.5 723.48,-21.5"/>
+<text text-anchor="middle" x="692.6" y="-6.8" font-family="Times,serif" font-size="14.00">reo*12752</text>
+</g>
+<!-- 6,4 (Electronic components) -->
+<g id="node3" class="node">
+<title>6,4 (Electronic components)</title>
+<ellipse fill="none" stroke="black" cx="141.69" cy="-18" rx="141.88" ry="18"/>
+<text text-anchor="middle" x="141.69" y="-14.3" font-family="Times,serif" font-size="14.00">6,4 (Electronic components)</text>
+</g>
+<!-- &#45;2,5 (Rare Earth Oxides)&#45;&gt;6,4 (Electronic components) -->
+<g id="edge2" class="edge">
+<title>&#45;2,5 (Rare Earth Oxides)&#45;&gt;6,4 (Electronic components)</title>
+<path fill="none" stroke="black" stroke-width="0.53" d="M412.98,-18C375.15,-18 333.14,-18 293.7,-18"/>
+<polygon fill="black" stroke="black" stroke-width="0.53" points="293.47,-14.5 283.47,-18 293.47,-21.5 293.47,-14.5"/>
+<text text-anchor="middle" x="319.84" y="-21.8" font-family="Times,serif" font-size="14.00">reo*4592</text>
 </g>
 </g>
 </svg>
