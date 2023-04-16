@@ -158,3 +158,30 @@
   text-decoration: line-through;
   font-style: italic;
 }
+
+.plan-number-table {
+  width: 100%;
+}
+
+.plan-table-col {
+  min-height: 18em;
+}
+
+.plan-number-table > tbody > tr > td:nth-child(1)
+{
+  text-align: right;
+}
+
+.plan-number-table > tbody > tr > td:nth-child(3)
+{
+  text-align: right;
+  font-size: small;
+}
+
+.plan-number-table--risky {
+  color: #bebe00;
+}
+
+.plan-number-table--naughty {
+  color: #be0000;
+}

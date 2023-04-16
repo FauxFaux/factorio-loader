@@ -10,7 +10,7 @@ import { Colon, fromColon, splitColon } from '../muffler/colon';
 import { humanise } from '../muffler/human';
 import { route } from 'preact-router';
 import { ItemIcon, ItemList } from '../lists';
-import { stackSize } from "./chestify";
+import { stackSize } from './chestify';
 
 interface Job {
   recipe: RecipeName;
@@ -58,37 +58,69 @@ export class Plan extends Component<{ encoded?: string }, PlanState> {
       }
     }
 
+    const NumberTableRow = ({
+      colon,
+      amount,
+    }: {
+      colon: Colon;
+      amount: number;
+    }) => {
+      // 50: typical LTN load
+      const fullTrain = stackSize(colon) * 50;
+      const filterInserterSpeed = 4.62; // items per second
+      const hour = 60 * 60;
+      const maxTrainsPerHour = hour / (fullTrain / (8 * filterInserterSpeed));
+      const tph = (amount * hour) / fullTrain;
+      return (
+        <tr>
+          <td style={'text-align: right'}>{humanise(amount)} &times;</td>
+          <td>
+            <ColonJoined colon={colon} />
+          </td>
+          <td
+            style={'text-align: right'}
+            class={
+              tph > 15
+                ? 'plan-number-table--naughty'
+                : tph > maxTrainsPerHour
+                ? 'plan-number-table--risky'
+                : ''
+            }
+          >
+            {tph.toFixed(1)}
+            <abbr title={'trains per hour, at 50 stacks (barrelled)'}>tph</abbr>
+          </td>
+        </tr>
+      );
+    };
+
     const effectsSection = (
       <div class={'row'}>
-        <div class={'col'}>
+        <div class={'col plan-table-col'}>
           <h3>Surplus</h3>
-          <ul>
-            {Object.entries(effects)
-              .sort(([, a], [, b]) => b - a)
-              .filter(([, amount]) => amount > 1e-4)
-              .map(([colon, amount]) => (
-                <li>
-                  {humanise(amount)} &times; <ColonJoined colon={colon} />
-                  {/*minutes per train*/}
-                  {humanise(1 / (amount / stackSize(colon) * 60 / 50))}
-                </li>
-              ))}
-          </ul>
+          <table class={'plan-number-table'}>
+            <tbody>
+              {Object.entries(effects)
+                .sort(([, a], [, b]) => b - a)
+                .filter(([, amount]) => amount > 1e-4)
+                .map(([colon, amount]) => (
+                  <NumberTableRow colon={colon} amount={amount} />
+                ))}
+            </tbody>
+          </table>
         </div>
         <div className={'col'}>
           <h3>Missing</h3>
-          <ul>
-            {Object.entries(effects)
-              .sort(([, a], [, b]) => b - a)
-              .filter(([, amount]) => amount < -1e-4)
-              .map(([colon, amount]) => (
-                <li>
-                  {humanise(amount)} &times; <ColonJoined colon={colon} />
-                  {humanise(1 / (amount / stackSize(colon) * 60 / 50))}
-
-                </li>
-              ))}
-          </ul>
+          <table className={'plan-number-table'}>
+            <tbody>
+              {Object.entries(effects)
+                .sort(([, a], [, b]) => b - a)
+                .filter(([, amount]) => amount < -1e-4)
+                .map(([colon, amount]) => (
+                  <NumberTableRow colon={colon} amount={-amount} />
+                ))}
+            </tbody>
+          </table>
         </div>
         <div className={'col'}>
           <h3>Balanced</h3>
@@ -354,6 +386,7 @@ export class ManifestTable extends Component<
         >
           Add boiler (biomass)
         </button>
+        <hr style={'margin-top: 60em'} />
       </>
     );
   }
