@@ -64,8 +64,18 @@ export function colonMapCombinator(stop: Stop): Record<Colon, number> {
 }
 
 interface LtnSettings {
+  'ltn-max-train-length'?: number;
+  'ltn-max-trains'?: number;
   'ltn-provider-stack-threshold'?: number;
   'ltn-provider-threshold'?: number;
+  'ltn-requester-threshold'?: number;
+  'ltn-requester-stack-threshold'?: number;
+  'ltn-requester-priority'?: number;
+  'ltn-provider-priority'?: number;
+  'ltn-network-id'?: number;
+  'ltn-disable-warnings'?: number;
+  'ltn-depot'?: number;
+  'ltn-depot-priority'?: number;
 
   // there are other options here, they're present in the data but I have not mapped them
 }

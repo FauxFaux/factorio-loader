@@ -201,3 +201,21 @@
 .busy-trains-table--naughty {
   background-color: #400 !important;
 }
+
+.station-config tr td {
+  text-align: right;
+}
+
+.station-config tr td:nth-child(1) {
+  text-align: left;
+}
+
+.station-config th {
+  top:0;
+  background: var(--bs-body-bg);
+  position: sticky;
+}
+
+.station-config--naughty {
+  background-color: #400 !important;
+}

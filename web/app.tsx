@@ -24,6 +24,7 @@ import { FromAir } from './pages/from-air';
 import { Resources } from './pages/resources';
 import { Plan } from './pages/plan';
 import { BusyTrains } from './pages/busy-trains';
+import { StationConfig } from './pages/station-config';
 
 export class App extends Component {
   render() {
@@ -59,6 +60,7 @@ export class App extends Component {
           <Resources path="/an/resources/:resource?" />
           <Plan path="/an/plan/:encoded?" />
           <BusyTrains path="/an/busy-trains" />
+          <StationConfig path="/an/station-config" />
         </Router>
       </div>
     );
