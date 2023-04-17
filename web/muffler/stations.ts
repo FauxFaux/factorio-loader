@@ -63,7 +63,7 @@ export function colonMapCombinator(stop: Stop): Record<Colon, number> {
   );
 }
 
-interface LtnSettings {
+export interface LtnSettings {
   'ltn-max-train-length'?: number;
   'ltn-max-trains'?: number;
   'ltn-provider-stack-threshold'?: number;

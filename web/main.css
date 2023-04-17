@@ -219,3 +219,19 @@
 .station-config--naughty {
   background-color: #400 !important;
 }
+
+.station-config-sorter {
+  cursor: pointer;
+}
+
+.station-config label {
+  white-space: nowrap;
+}
+
+.station-config-sorter:hover {
+  text-decoration: underline;
+}
+
+.station-config-sorter-active {
+  text-decoration: underline;
+}
