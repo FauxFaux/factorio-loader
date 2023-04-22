@@ -169,17 +169,36 @@ export class HowToMake extends Component<{ colon: Colon }> {
                           >
                             ⊥
                           </td>
-                          {Object.values(availableFactories).map(
-                            ({ speed: baseSpeed }) => (
-                              <td>
-                                {humanise(
-                                  recipe.time /
-                                    (baseSpeed *
-                                      (1 + (Object.values(modules)?.[0] ?? 0))),
-                                  { altSuffix: 's/exec' },
-                                )}
-                              </td>
-                            ),
+                          {Object.values(availableFactories).some(
+                            ({ speed }) =>
+                              speed !==
+                              Object.values(availableFactories)[0].speed,
+                          ) ? (
+                            Object.values(availableFactories).map(
+                              ({ speed: baseSpeed }) => (
+                                <td>
+                                  {humanise(
+                                    recipe.time /
+                                      (baseSpeed *
+                                        (1 +
+                                          (Object.values(modules)?.[0] ?? 0))),
+                                    { altSuffix: 's/exec' },
+                                  )}
+                                </td>
+                              ),
+                            )
+                          ) : (
+                            <td
+                              style={'text-align: center'}
+                              colSpan={Object.values(availableFactories).length}
+                            >
+                              {humanise(
+                                recipe.time /
+                                  (Object.values(availableFactories)[0].speed *
+                                    (1 + (Object.values(modules)?.[0] ?? 0))),
+                                { altSuffix: 's/exec' },
+                              )}
+                            </td>
                           )}
                         </tr>
                         {Object.entries(modules ?? {}).map(([mod, speed]) => (
