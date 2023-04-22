@@ -235,3 +235,7 @@
 .station-config-sorter-active {
   text-decoration: underline;
 }
+
+.build-speed th, .build-speed td {
+  text-align: right;
+}

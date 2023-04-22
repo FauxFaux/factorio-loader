@@ -341,11 +341,13 @@ class RecipeUsage extends Component<{ type: string; name: string }> {
     return (
       <table class="table">
         <thead>
-          <th>Recipe name</th>
-          <th>Assemblers making</th>
-          <th>Bricks</th>
-          <th>Inputs</th>
-          <th>Outputs</th>
+          <tr>
+            <th>Recipe name</th>
+            <th>Assemblers making</th>
+            <th>Bricks</th>
+            <th>Inputs</th>
+            <th>Outputs</th>
+          </tr>
         </thead>
         <tbody>{rows}</tbody>
       </table>

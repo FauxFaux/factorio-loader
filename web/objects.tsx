@@ -39,7 +39,7 @@ export interface JRecipe {
   ingredients: JIngredient[];
   products: JProduct[];
   localised_name: string;
-  producers: string[];
+  producerClass: string;
   time: number;
   unlocked_from_start?: true;
 }

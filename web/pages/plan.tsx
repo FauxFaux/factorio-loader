@@ -240,7 +240,7 @@ function makeRecipe(job: Job): JRecipe {
           temperature: 165,
         },
       ],
-      producers: ['boiler'],
+      producerClass: 'boiler',
       localised_name: 'Boiler consuming biomass (fake)',
       category: 'fake',
       unlocked_from_start: true,
@@ -295,7 +295,7 @@ export class ManifestTable extends Component<
                   {recp.localised_name}{' '}
                   <span class={'text-muted'}>
                     ({job.recipe})<br />
-                    Made in: {recp.producers?.join(', ') ?? '??'}
+                    Made in: {recp.producerClass}
                   </span>
                 </td>
                 <td>

@@ -1,4 +1,4 @@
-import { data } from '../datae';
+import { data, Limitation } from '../datae';
 import { Colon, splitColon } from './colon';
 import { JIngredient, JProduct } from '../objects';
 
@@ -42,12 +42,9 @@ export function buildMissingIngredients(
 
   for (let i = 0; i < 50; i++) {
     let updated = 0;
-    for (const [name, rec] of Object.entries(data.recipes.regular)) {
+    for (const name of Object.keys(data.recipes.regular)) {
       if (recipeBan(name)) continue;
       if (name in missingIngredients) continue;
-
-      // this appears to mean that the recipe is invalid?
-      if (!rec.producers) continue;
 
       const ings = ingredients(name).filter((ing) => !canMake.has(ing.colon));
 
@@ -109,10 +106,49 @@ const hiddenByProducer: Record<string, string> = {
   // moss, fish, sap, and seaweed are excluded, as they don't have non-environmental bootstraps
 };
 
+export const limitations: Record<string, Limitation> = {
+  'arqad-hive': 'arqad',
+  'arthurian-pen': 'arthurian',
+  'auog-paddock': 'auog',
+  'bhoddos-culture': 'bhoddos',
+  'cadaveric-arum': 'cadaveric-arum',
+  'cridren-enclosure': 'cridren',
+  'dhilmos-pool': 'dhilmos',
+  'dingrits-pack': 'dingrits',
+  'fawogae-plantation': 'fawogae',
+  'fish-farm': 'fish',
+  fwf: 'tree-mk01',
+  'grods-swamp': 'grod',
+  'kicalk-plantation': 'kicalk',
+  'kmauts-enclosure': 'kmauts',
+  'moss-farm': 'moss',
+  'mukmoux-pasture': 'mukmoux',
+  'navens-culture': 'navens',
+  'phadai-enclosure': 'phadai',
+  'phagnot-corral': 'phagnot',
+  'ralesia-plantation': 'ralesias',
+  'rennea-plantation': 'rennea',
+  'sap-extractor': 'sap-tree',
+  'scrondrix-pen': 'scrondrix',
+  'seaweed-crop': 'seaweed',
+  'simik-den': 'simik',
+  'sponge-culture': 'sea-sponge',
+  'trits-reef': 'trits',
+  'tuuphra-plantation': 'tuuphra',
+  'ulric-corral': 'ulric',
+  'vonix-den': 'vonix',
+  'vrauks-paddock': 'vrauks',
+  xenopen: 'xeno',
+  'xyhiphoe-pool': 'xyhiphoe',
+  'yaedols-culture': 'yaedols',
+  'yotoi-aloe-orchard': 'yotoi',
+  'zipir-reef': 'zipir1',
+};
+
 export function ingredients(name: string): JIngredient[] {
   const rec = data.recipes.regular[name];
   if (!rec) return [];
-  const producers = (rec.producers ?? []).sort().join(',');
+  const producers = rec.producerClass;
 
   const base = rec.ingredients ?? [];
 

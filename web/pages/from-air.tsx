@@ -13,7 +13,6 @@ export class FromAir extends Component {
       const have: Record<Colon, RecipeName> = {};
       for (const [name, recipe] of Object.entries(data.recipes.regular)) {
         if (/biomass-(?:saps|.*-spore)/.test(name)) continue;
-        if (!recipe.producers) continue;
         if (ingredients(name).every((ing) => ing.colon in had)) {
           for (const product of recipe.products) {
             if (!(product.colon in had)) {

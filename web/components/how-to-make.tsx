@@ -8,8 +8,11 @@ import {
   buildMaking,
   buildMissingIngredients,
   ingredients,
+  limitations,
   productAsFloat,
 } from '../muffler/walk-recipes';
+import { ItemIcon } from '../lists';
+import { humanise } from '../muffler/human';
 
 export class HowToMake extends Component<{ colon: Colon }> {
   render(props: { colon: Colon }) {
@@ -38,8 +41,6 @@ export class HowToMake extends Component<{ colon: Colon }> {
       const newIngredients = new Set<string>();
       for (const name of scanning) {
         if (!name) continue;
-        const recipe = data.recipes.regular[name];
-        if (!recipe.producers) continue;
         for (const ing of ingredients(name)) {
           const colon = ing.colon;
           if (canMake.has(colon)) continue;
@@ -85,6 +86,17 @@ export class HowToMake extends Component<{ colon: Colon }> {
               const lockedTechs = stepsToUnlockRecipe(name);
               const toUnlock = techToUnlock(name) ?? '??';
               const missing = missingIngredients[name];
+              const availableFactories =
+                data.meta.factories[recipe.producerClass];
+              if (!availableFactories) {
+                throw new Error(`no factories for ${recipe.producerClass}`);
+              }
+              const modules =
+                data.meta.modules[limitations[recipe.producerClass]];
+
+              const factoryName = data.items[
+                Object.keys(availableFactories)[0]
+              ].localised_name.replace(/( MK\s*\d+)$| 1$/, '');
               return (
                 <tr>
                   <td>
@@ -130,7 +142,50 @@ export class HowToMake extends Component<{ colon: Colon }> {
                     <p>
                       <abbr title={name}>{recipe.localised_name}</abbr>
                     </p>
-                    <p>Made in: {recipe.producers?.join(', ') ?? '??'}</p>
+                    <p>Made in: {factoryName}</p>
+                    <table class={'build-speed'}>
+                      <thead>
+                        <tr>
+                          <th />
+                          {Object.entries(availableFactories).map(
+                            ([fac, { speed, modules }]) => (
+                              <th>
+                                <ItemIcon
+                                  name={fac}
+                                  alt={`${fac} (crafting speed: ${speed}, modules: ${modules})`}
+                                />
+                              </th>
+                            ),
+                          )}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {Object.entries(modules ?? {}).map(([mod, speed]) => (
+                          <tr>
+                            <td>
+                              <ItemIcon
+                                name={mod}
+                                alt={`${mod} (speed bonus: +${(
+                                  speed * 100
+                                ).toFixed()}%)`}
+                              />
+                            </td>
+                            {Object.values(availableFactories).map(
+                              ({ speed: baseSpeed, modules }) => (
+                                <td>
+                                  {humanise(
+                                    recipe.time /
+                                      (baseSpeed * (1 + speed * modules)),
+                                    { altSuffix: 's/exec' },
+                                  )}
+                                </td>
+                              ),
+                            )}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                    <p></p>
                   </td>
                   <IngProd recipe={recipe} colon={props.colon} />
                 </tr>

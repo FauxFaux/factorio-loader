@@ -152,12 +152,16 @@ function main() {
       }
     }
 
+    if (producers[name].length !== 1) {
+      throw new Error(`multiple producers for recipe: ${name}`);
+    }
+
     regular[name] = {
       category: rec.category,
       localised_name: rec.localised_name,
       ingredients: nameTypeToColon(rec.ingredients ?? []) as JIngredient[],
       products: nameTypeToColon(rec.products ?? []) as JProduct[],
-      producers: producers[name],
+      producerClass: producers[name][0],
       time: recipeDurations[name],
     };
     if (rec.enabled) {

@@ -7,7 +7,7 @@ import { stepsToUnlockRecipe } from './next';
 import { ColonJoined, JProduct, JRecipe } from '../objects';
 import { productAsFloat } from '../muffler/walk-recipes';
 import * as bp from '../muffler/blueprints';
-import { Blueprint, buildRequestFilters } from '../muffler/blueprints';
+import { buildRequestFilters } from '../muffler/blueprints';
 
 interface Filters {
   buildings: boolean;
@@ -209,7 +209,7 @@ export const LongName = ({
   name: string;
   recipe: JRecipe;
 }) => {
-  const madeIn = recipe.producers?.join(', ') ?? '??';
+  const madeIn = recipe.producerClass;
   let copyPrint = null;
   if (
     madeIn === 'automated-factory' &&
