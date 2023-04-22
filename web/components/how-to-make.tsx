@@ -91,8 +91,8 @@ export class HowToMake extends Component<{ colon: Colon }> {
               if (!availableFactories) {
                 throw new Error(`no factories for ${recipe.producerClass}`);
               }
-              const modules =
-                data.meta.modules[limitations[recipe.producerClass]];
+              const limitation = limitations[recipe.producerClass];
+              const modules = limitation ? data.meta.modules[limitation] : {};
 
               const factoryName = data.items[
                 Object.keys(availableFactories)[0]
@@ -160,12 +160,34 @@ export class HowToMake extends Component<{ colon: Colon }> {
                         </tr>
                       </thead>
                       <tbody>
+                        <tr>
+                          <td
+                            title={
+                              'with the minimal set of modules to function'
+                            }
+                            style={'text-align: center'}
+                          >
+                            ⊥
+                          </td>
+                          {Object.values(availableFactories).map(
+                            ({ speed: baseSpeed }) => (
+                              <td>
+                                {humanise(
+                                  recipe.time /
+                                    (baseSpeed *
+                                      (1 + (Object.values(modules)?.[0] ?? 0))),
+                                  { altSuffix: 's/exec' },
+                                )}
+                              </td>
+                            ),
+                          )}
+                        </tr>
                         {Object.entries(modules ?? {}).map(([mod, speed]) => (
                           <tr>
                             <td>
                               <ItemIcon
                                 name={mod}
-                                alt={`${mod} (speed bonus: +${(
+                                alt={`rammed full of '${mod}' (speed bonus: +${(
                                   speed * 100
                                 ).toFixed()}%)`}
                               />
