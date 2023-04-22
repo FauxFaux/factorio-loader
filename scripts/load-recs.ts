@@ -3,7 +3,7 @@ import * as fs from 'fs';
 import * as yaml from 'js-yaml';
 
 import { initOnNode, loadTrainFlows } from './data-hack-for-node';
-import { Coord, data } from '../web/datae';
+import { Coord, data, Factory, FactoryClass } from '../web/datae';
 import {
   isProvideStation,
   provideStationPurpose,
@@ -181,9 +181,33 @@ function main() {
     ),
   );
 
+  const factories: (typeof data)['meta']['factories'] = {};
+  for (const item of lab.items) {
+    if (!item.factory) continue;
+    const clazz = stripProducer(item.id);
+    if (!factories[clazz]) {
+      factories[clazz] = {};
+    }
+    factories[clazz][item.id] = {
+      speed: item.factory.speed,
+      modules: item.factory.modules,
+    };
+  }
+
+  const modules: (typeof data)['meta']['modules'] = {};
+  for (const item of lab.items) {
+    if (!item.module) continue;
+    if (!modules[item.module.limitation]) {
+      modules[item.module.limitation] = {};
+    }
+    modules[item.module.limitation][item.id] = item.module.speed;
+  }
+
   const isSpawn = patch.merge['0,0'].sort();
 
   const meta: (typeof data)['meta'] = {
+    factories: sortByKeys(factories),
+    modules: sortByKeys(modules),
     isSpawn,
   };
   fs.writeFileSync('data/meta.json', JSON.stringify(meta), {
@@ -436,21 +460,19 @@ function nameTypeToColon(items: Record<string, any>[]) {
     .sort((a, b) => a.colon.localeCompare(b.colon));
 }
 
-function stripProducers(producers: string[]): string[] {
-  return [
-    ...new Set(
-      producers.map((p) =>
-        p
-          .replace(/-?mk0\d|-\d$/, '')
-          .replace('assembling-machine', 'automated-factory')
-          .replace(
-            /advanced-foundry|electric-furnace|steel-furnace|stone-furnace/,
-            'furnace',
-          )
-          .replace('pumpjack-hightech', 'pumpjack'),
-      ),
-    ),
-  ].sort();
+function stripProducer(p: Factory): FactoryClass {
+  return p
+    .replace(/-?mk0\d|-\d$/, '')
+    .replace('assembling-machine', 'automated-factory')
+    .replace(
+      /advanced-foundry|electric-furnace|steel-furnace|stone-furnace/,
+      'furnace',
+    )
+    .replace('pumpjack-hightech', 'pumpjack');
+}
+
+function stripProducers(producers: Factory[]): FactoryClass[] {
+  return [...new Set(producers.map((p) => stripProducer(p)))].sort();
 }
 
 interface Tools {
@@ -482,6 +504,20 @@ interface Tools {
 }
 
 interface Lab {
+  items: {
+    category: string;
+    id: string;
+    factory?: {
+      speed: number;
+      modules: number;
+      // incomplete
+    };
+    module: {
+      speed: number;
+      limitation: string;
+    };
+    // incomplete
+  }[];
   recipes: { id: string; producers: string[]; time: number }[];
 }
 

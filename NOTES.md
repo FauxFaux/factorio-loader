@@ -22,6 +22,7 @@ game.player.surface.always_day=true
 game.player.force.character_inventory_slots_bonus=100
 game.player.teleport(game.player.selected.position)
 game.player.cheat_mode=true
+game.player.insert{name="construction-robot-ht", count=500}
 ```
 
 ```lua

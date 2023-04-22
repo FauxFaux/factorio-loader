@@ -7,9 +7,21 @@ export type Coord = readonly [number, number];
 // concatenated positions; i.e. `${x},${y}`
 export type ConcPos = string;
 
+// e.g. `automated-factory`
+export type FactoryClass = string;
+// e.g. `automated-factory-mk01`
+export type Factory = string;
+
+export type Limitation = string;
+
 export const data = {
   doc: {} as Record<string, BlockContent>,
   meta: {} as {
+    factories: Record<
+      FactoryClass,
+      Record<Factory, { speed: number; modules: number }>
+    >;
+    modules: Record<Limitation, Record<string, number>>;
     isSpawn: Loc[];
   },
   items: {} as Record<string, JItem>,
