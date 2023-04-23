@@ -25,6 +25,7 @@ import { Resources } from './pages/resources';
 import { Plan } from './pages/plan';
 import { BusyTrains } from './pages/busy-trains';
 import { StationConfig } from './pages/station-config';
+import { TrainTraffic } from './pages/train-traffic';
 
 export class App extends Component {
   render() {
@@ -61,6 +62,7 @@ export class App extends Component {
           <Plan path="/an/plan/:encoded?" />
           <BusyTrains path="/an/busy-trains" />
           <StationConfig path="/an/station-config" />
+          <TrainTraffic path="/an/train-traffic" />
         </Router>
       </div>
     );
