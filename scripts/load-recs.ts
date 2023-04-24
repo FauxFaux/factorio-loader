@@ -15,12 +15,6 @@ import { BlockId, loadCells, loadRec } from './loaders';
 
 initOnNode(['doc', 'meta', 'technologies', 'prodStats']);
 
-function distSq(a: Coord, b: Coord) {
-  const dx = a[0] - b[0];
-  const dy = a[1] - b[1];
-  return dx * dx + dy * dy;
-}
-
 /** type, name, count
  * e.g. "item", "empty-barrel", -9000
  */
@@ -55,6 +49,7 @@ export type BlockContent = {
   items: Record<string, number>;
   fluids: Record<string, number>;
   resources: Record<string, number>;
+  requesters: [Coord, Record<string, number>][];
   boilers: number;
 };
 
@@ -232,6 +227,7 @@ function main() {
         items: {},
         fluids: {},
         resources: {},
+        requesters: [],
         boilers: 0,
       };
     }
@@ -354,13 +350,18 @@ function main() {
     });
   }
 
-  function addItems(items: Record<string, number>, obj: { ext: string[] }) {
+  /** returns items (modified in place) */
+  function addItems(
+    items: Record<string, number>,
+    obj: { ext: string[] },
+  ): Record<string, number> {
     for (let i = 0; i < obj.ext.length; i += 2) {
       const itemName = obj.ext[i];
       const itemCount = parseInt(obj.ext[i + 1]);
       if (!items[itemName]) items[itemName] = 0;
       items[itemName] += itemCount;
     }
+    return items;
   }
 
   for (const obj of loadRec('container')) {
@@ -371,6 +372,9 @@ function main() {
   for (const obj of loadRec('logistic-container')) {
     const block = getBlock(obj.block);
     addItems(block.items, obj);
+    if (obj.name === 'logistic-chest-requester') {
+      block.requesters.push([obj.pos, sortByKeys(addItems({}, obj))]);
+    }
   }
 
   for (const obj of loadRec('storage-tank')) {

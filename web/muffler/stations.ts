@@ -1,6 +1,6 @@
 import { Stop } from '../../scripts/load-recs';
 import { Colon, fromColon, tupleToColon } from './colon';
-import { data } from '../datae';
+import { Coord, data } from '../datae';
 import { cleanupName, closelyMatches } from './names';
 
 export function isProvideStation(name: string): boolean {
@@ -61,6 +61,12 @@ export function colonMapCombinator(stop: Stop): Record<Colon, number> {
       ([type, name, value]) => [tupleToColon([type, name]), value] as const,
     ),
   );
+}
+
+export function distSq(a: Coord, b: Coord) {
+  const dx = a[0] - b[0];
+  const dy = a[1] - b[1];
+  return dx * dx + dy * dy;
 }
 
 export interface LtnSettings {

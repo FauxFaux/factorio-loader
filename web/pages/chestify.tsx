@@ -217,7 +217,7 @@ export class Chestify extends Component<{}, ChestifyState> {
   }
 }
 
-function stacks(colon: Colon, items: number): number {
+export function stacks(colon: Colon, items: number): number {
   return Math.ceil(items / stackSize(colon));
 }
 

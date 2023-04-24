@@ -26,6 +26,7 @@ import { Plan } from './pages/plan';
 import { BusyTrains } from './pages/busy-trains';
 import { StationConfig } from './pages/station-config';
 import { TrainTraffic } from './pages/train-traffic';
+import { ReqChests } from './pages/req-chests';
 
 export class App extends Component {
   render() {
@@ -63,6 +64,7 @@ export class App extends Component {
           <BusyTrains path="/an/busy-trains" />
           <StationConfig path="/an/station-config" />
           <TrainTraffic path="/an/train-traffic" />
+          <ReqChests path="/an/req-chests/:brick" brick={'from the path'} />
         </Router>
       </div>
     );

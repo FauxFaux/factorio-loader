@@ -48,3 +48,13 @@ end
  * `mv map-tiles map-tiles-$(date +%Y%m%d%H%M%S)`
  * `mv ~/tiledir map-tiles && chmod a+rX -R map-tiles`
  * update the version number in `leafletMap`
+
+* sodium hydroxide provide
+
+* empty barrel request
+* ammonia request
+* benzene request
+
+ * hydrogen chloride provide
+
+ * nylon provide
