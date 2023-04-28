@@ -5,6 +5,7 @@ import * as yaml from 'js-yaml';
 import { initOnNode, loadTrainFlows } from './data-hack-for-node';
 import { Coord, data, Factory, FactoryClass } from '../web/datae';
 import {
+  distSq,
   isProvideStation,
   provideStationPurpose,
 } from '../web/muffler/stations';

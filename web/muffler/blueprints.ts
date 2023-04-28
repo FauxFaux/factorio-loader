@@ -1,6 +1,9 @@
 import { atob, btoa } from 'abab';
 import pako from 'pako';
+import _chunk from 'lodash/chunk';
 import { Colon, splitColon, tupleToColon } from './colon';
+import { RecipeName } from './walk-recipes';
+import { data } from '../datae';
 
 export interface Blueprint {
   entities?: Entity[];
@@ -23,6 +26,8 @@ export interface Entity {
   name: string;
   inventory?: unknown;
   position?: unknown;
+  recipe?: string;
+  direction?: number;
 
   request_filters?: { name: string; count: number; index?: number }[];
 }
@@ -54,7 +59,7 @@ export function enumerate(input: Blueprint): Record<Colon, number> {
   return result;
 }
 
-export function buildRequestFilters(input: Record<string, number>) {
+export function buildRequestFilters(input: Record<Colon, number>) {
   return Object.entries(input).map(([colon, count], i) => {
     const [, name] = splitColon(colon);
     return {
@@ -92,4 +97,97 @@ export function toChest(
     item: 'blueprint',
     version: input.version,
   };
+}
+
+export function toBlueprint(entities: Entity[]): Blueprint {
+  return {
+    entities: entities.map((entity, entity_number) => ({
+      ...entity,
+      entity_number: entity_number + 1,
+    })),
+    item: 'blueprint',
+    version: 281479275151360,
+  };
+}
+
+function ingredientMap(recp: string): Record<Colon, number> {
+  return Object.fromEntries(
+    data.recipes.regular[recp]?.ingredients?.map(
+      (ing) => [ing.colon, ing.amount] as const,
+    ) ?? [],
+  );
+}
+
+function mergeReq(
+  leftReq: Record<string, number>,
+  rightReq: Record<string, number>,
+): Record<string, number> {
+  const result: Record<string, number> = {};
+  for (const [name, amount] of Object.entries(leftReq)) {
+    result[name] = (result[name] ?? 0) + amount;
+  }
+  for (const [name, amount] of Object.entries(rightReq)) {
+    result[name] = (result[name] ?? 0) + amount;
+  }
+  return result;
+}
+
+function roundUpFour(n: number) {
+  return Math.ceil(n / 4) * 4;
+}
+
+function roundUpReq(req: Record<string, number>): Record<string, number> {
+  return Object.fromEntries(
+    Object.entries(req).map(
+      ([name, amount]) => [name, roundUpFour((amount + 1) * 1.1)] as const,
+    ),
+  );
+}
+
+export function mallAssemblers(recipes: RecipeName[][]): Entity[] {
+  let x = 0;
+  let y = 0;
+  const entities: Entity[] = [];
+  for (const [leftStack, rightStack] of _chunk(recipes, 2)) {
+    for (let stackItem = 0; stackItem < leftStack.length; ++stackItem) {
+      const leftRecp: RecipeName | undefined = leftStack[stackItem];
+      const rightRecp: RecipeName | undefined = rightStack?.[stackItem];
+      const leftReq = ingredientMap(leftRecp);
+      const rightReq = ingredientMap(rightRecp);
+      const req = roundUpReq(mergeReq(leftReq, rightReq));
+
+      entities.push({
+        name: 'assembling-machine-2',
+        position: { x, y },
+        recipe: leftRecp,
+      });
+      entities.push({
+        name: 'stack-inserter',
+        position: { x: x + 2, y },
+        // inserting to the right
+        direction: 2,
+      });
+      entities.push({
+        name: 'logistic-chest-requester',
+        request_filters: buildRequestFilters(req),
+        position: { x: x + 3, y },
+      });
+      entities.push({
+        name: 'stack-inserter',
+        position: { x: x + 4, y },
+        // inserting to the left
+        direction: 6,
+      });
+      entities.push({
+        name: 'assembling-machine-2',
+        position: { x: x + 6, y },
+        recipe: rightRecp,
+      });
+      y += 3;
+    }
+    y = 0;
+    x += 8;
+  }
+
+  return entities;
 }

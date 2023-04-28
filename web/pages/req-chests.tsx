@@ -1,5 +1,5 @@
 import { Component } from 'preact';
-import { Coord, data, Loc } from '../datae';
+import { Coord, data } from '../datae';
 import { GpsLink } from '../lists';
 import { stacks } from './chestify';
 import { ColonJoined } from '../objects';

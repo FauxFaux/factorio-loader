@@ -54,7 +54,7 @@ export class TrainTraffic extends Component<{}, TrainTrafficState> {
             pings
               .filter(([, , , , dx, dy]) => dx !== 0 && dy !== 0)
               .map((ping) => {
-                const [tick, x, y, s, dx, dy] = ping;
+                const [_tick, x, y, s, _dx, _dy] = ping;
 
                 return (
                   <>
@@ -78,7 +78,7 @@ export class TrainTraffic extends Component<{}, TrainTrafficState> {
 function hslToHex(h: number, s: number, l: number) {
   l /= 100;
   const a = (s * Math.min(l, 1 - l)) / 100;
-  const f = (n) => {
+  const f = (n: number) => {
     const k = (n + h / 30) % 12;
     const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
     return Math.round(255 * color)
