@@ -1,6 +1,44 @@
 import { Component } from 'preact';
 import { mallAssemblers, toBlueprint } from '../muffler/blueprints';
 import * as blueprint from '../muffler/blueprints';
+import { range } from 'lodash';
+
+const cpOrder = [
+  'glassworks-mk01',
+  'advanced-foundry-mk01',
+  'automated-factory-mk01',
+  'ground-borer',
+  'wpu',
+  'ball-mill-mk01',
+  'carbon-filter',
+  'classifier',
+  'desulfurizator-unit',
+  'distilator',
+  'evaporator',
+  'fluid-separator',
+  'fts-reactor',
+  'gasifier',
+  'hpf',
+  'methanol-reactor',
+  'olefin-plant',
+  'jaw-crusher',
+  'power-house',
+  'quenching-tower',
+  'rectisol',
+  'solid-separator',
+  'tar-processing-unit',
+  'washer',
+];
+
+const cpExtra = [
+  'co2-absorber',
+  'cooling-tower-mk01',
+  'cooling-tower-mk02',
+  'tailings-pond',
+  'gasturbinemk01',
+  'gasturbinemk02',
+  // 'gasturbinemk03',
+];
 
 const alOrder = [
   'atomizer-mk01',
@@ -63,14 +101,48 @@ function upgrade(name: string, n: number): string {
   return name.replace('-mk01', `-mk0${n}`);
 }
 
+function wrapAt(names: string[], n: number): string[][] {
+  const ret: string[][] = range(0, n).map(() => []);
+  for (let i = 0; i < names.length; ++i) {
+    ret[i % n].push(names[i]);
+  }
+  return ret;
+}
+
+function padToSameLength(names: string[][]): string[][] {
+  const max = Math.max(...names.map((n) => n.length));
+  return names.map((n) => n.concat(Array(max - n.length).fill(undefined)));
+}
+
+function stack(top: string[][], bottom: string[][]) {
+  if (top.length !== bottom.length) throw new Error('length mismatch');
+  top = padToSameLength(top);
+  const ret: string[][] = [];
+  for (let i = 0; i < top.length; ++i) {
+    ret.push(top[i].concat(bottom[i]));
+  }
+  return ret;
+}
+
 export class Mall extends Component {
   render() {
-    const stackers = alOrder.map((name) => [
-      name,
-      upgrade(name, 2),
-      upgrade(name, 3),
-      upgrade(name, 4),
-    ]);
+    const cpMk01 = wrapAt(cpOrder, 10);
+    const cpMk02 = wrapAt(
+      cpOrder.map((name) => upgrade(name, 2)),
+      10,
+    );
+    const cpExtraMk01 = wrapAt(cpExtra, 10);
+
+    const alMk01 = wrapAt(alOrder, 10);
+    const alMk02 = wrapAt(
+      alOrder.map((name) => upgrade(name, 2)),
+      10,
+    );
+
+    const cp = stack(cpMk01, stack(cpMk02, cpExtraMk01));
+    const al = stack(alMk01, alMk02);
+
+    const stackers = [...cp, ...al];
 
     return (
       <textarea readonly={true} style={'width: 100%'}>

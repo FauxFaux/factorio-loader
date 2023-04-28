@@ -28,6 +28,20 @@ export interface Entity {
   position?: unknown;
   recipe?: string;
   direction?: number;
+  // massively over-specified
+  control_behavior?: {
+    logistic_condition: {
+      first_signal: {
+        type: 'item';
+        name: string;
+      };
+      constant: number;
+      comparator: '<';
+    };
+    connect_to_logistic_network: true;
+  };
+  // e.g. power poles
+  neighbours?: number[];
 
   request_filters?: { name: string; count: number; index?: number }[];
 }
@@ -144,11 +158,23 @@ function roundUpReq(req: Record<string, number>): Record<string, number> {
   );
 }
 
+function onlyProduct(recp: string) {
+  const recpD = data.recipes.regular[recp];
+  const products = recpD?.products ?? [];
+  if (1 !== products.length)
+    throw new Error(
+      `need exactly one product for ${recp}: ${JSON.stringify(recpD)}`,
+    );
+  return splitColon(products[0].colon)[1];
+}
+
 export function mallAssemblers(recipes: RecipeName[][]): Entity[] {
   let x = 0;
   let y = 0;
   const entities: Entity[] = [];
+  let lastPole: number | undefined;
   for (const [leftStack, rightStack] of _chunk(recipes, 2)) {
+    lastPole = undefined;
     for (let stackItem = 0; stackItem < leftStack.length; ++stackItem) {
       const leftRecp: RecipeName | undefined = leftStack[stackItem];
       const rightRecp: RecipeName | undefined = rightStack?.[stackItem];
@@ -156,37 +182,90 @@ export function mallAssemblers(recipes: RecipeName[][]): Entity[] {
       const rightReq = ingredientMap(rightRecp);
       const req = roundUpReq(mergeReq(leftReq, rightReq));
 
+      if (leftRecp) {
+        entities.push({
+          name: 'assembling-machine-2',
+          position: { x, y },
+          recipe: leftRecp,
+        });
+        entities.push({
+          name: 'stack-inserter',
+          position: { x: x + 2, y },
+          // inserting to the right
+          direction: 2,
+        });
+        entities.push({
+          name: 'inserter',
+          position: { x: x + 2, y: y - 1 },
+          // inserting to the left
+          direction: 6,
+          control_behavior: {
+            logistic_condition: {
+              first_signal: {
+                type: 'item',
+                name: onlyProduct(leftRecp),
+              },
+              constant: 5,
+              comparator: '<',
+            },
+            connect_to_logistic_network: true,
+          },
+        });
+      }
+      if (Object.entries(req).length !== 0) {
+        entities.push({
+          name: 'logistic-chest-requester',
+          request_filters: buildRequestFilters(req),
+          position: { x: x + 3, y },
+        });
+      }
+      if (rightRecp) {
+        entities.push({
+          name: 'stack-inserter',
+          position: { x: x + 4, y },
+          // inserting to the left
+          direction: 6,
+        });
+        entities.push({
+          name: 'assembling-machine-2',
+          position: { x: x + 6, y },
+          recipe: rightRecp,
+        });
+        entities.push({
+          name: 'inserter',
+          position: { x: x + 4, y: y - 1 },
+          // inserting to the right
+          direction: 2,
+          control_behavior: {
+            logistic_condition: {
+              first_signal: {
+                type: 'item',
+                name: onlyProduct(rightRecp),
+              },
+              constant: 5,
+              comparator: '<',
+            },
+            connect_to_logistic_network: true,
+          },
+        });
+      }
+      if (leftRecp || rightRecp) {
+        entities.push({
+          name: 'logistic-chest-passive-provider',
+          position: { x: x + 3, y: y - 1 },
+        });
+      }
       entities.push({
-        name: 'assembling-machine-2',
-        position: { x, y },
-        recipe: leftRecp,
+        name: 'small-electric-pole',
+        position: { x: x + 3, y: y + 1 },
+        neighbours: lastPole ? [lastPole] : undefined,
       });
-      entities.push({
-        name: 'stack-inserter',
-        position: { x: x + 2, y },
-        // inserting to the right
-        direction: 2,
-      });
-      entities.push({
-        name: 'logistic-chest-requester',
-        request_filters: buildRequestFilters(req),
-        position: { x: x + 3, y },
-      });
-      entities.push({
-        name: 'stack-inserter',
-        position: { x: x + 4, y },
-        // inserting to the left
-        direction: 6,
-      });
-      entities.push({
-        name: 'assembling-machine-2',
-        position: { x: x + 6, y },
-        recipe: rightRecp,
-      });
+      // XXX sensitive to entities order
+      lastPole = entities.length;
       y += 3;
     }
     y = 0;
-    x += 8;
+    x += 9;
   }
 
   return entities;
