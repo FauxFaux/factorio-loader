@@ -3,7 +3,7 @@ import pako from 'pako';
 import _chunk from 'lodash/chunk';
 import { Colon, splitColon, tupleToColon } from './colon';
 import { RecipeName } from './walk-recipes';
-import { data } from '../datae';
+import { data, Factory, FactoryClass } from '../datae';
 
 export interface Blueprint {
   entities?: Entity[];
@@ -269,4 +269,19 @@ export function mallAssemblers(recipes: RecipeName[][]): Entity[] {
   }
 
   return entities;
+}
+
+export function stripProducer(p: Factory): FactoryClass {
+  return p
+    .replace(/-?mk0\d|-\d$/, '')
+    .replace('assembling-machine', 'automated-factory')
+    .replace(
+      /advanced-foundry|electric-furnace|steel-furnace|stone-furnace/,
+      'furnace',
+    )
+    .replace('pumpjack-hightech', 'pumpjack');
+}
+
+export function stripProducers(producers: Factory[]): FactoryClass[] {
+  return [...new Set(producers.map((p) => stripProducer(p)))].sort();
 }

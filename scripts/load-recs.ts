@@ -13,6 +13,7 @@ import { Colon, objToColon, tupleToColon } from '../web/muffler/colon';
 import { sortByKeys } from '../web/muffler/deter';
 import { JIngredient, JProduct, JRecipe } from '../web/objects';
 import { BlockId, loadCells, loadRec } from './loaders';
+import { stripProducer } from '../web/muffler/blueprints';
 
 initOnNode(['doc', 'meta', 'technologies', 'prodStats']);
 
@@ -467,21 +468,6 @@ function nameTypeToColon(items: Record<string, any>[]) {
       return { colon, ...next };
     })
     .sort((a, b) => a.colon.localeCompare(b.colon));
-}
-
-function stripProducer(p: Factory): FactoryClass {
-  return p
-    .replace(/-?mk0\d|-\d$/, '')
-    .replace('assembling-machine', 'automated-factory')
-    .replace(
-      /advanced-foundry|electric-furnace|steel-furnace|stone-furnace/,
-      'furnace',
-    )
-    .replace('pumpjack-hightech', 'pumpjack');
-}
-
-function stripProducers(producers: Factory[]): FactoryClass[] {
-  return [...new Set(producers.map((p) => stripProducer(p)))].sort();
 }
 
 interface Tools {

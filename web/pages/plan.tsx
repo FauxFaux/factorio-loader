@@ -3,7 +3,11 @@ import type { BrotliWasmType } from 'brotli-wasm';
 import { useEffect } from 'preact/hooks';
 import * as base64 from '@protobufjs/base64';
 
-import { productAsFloat, RecipeName } from '../muffler/walk-recipes';
+import {
+  limitations,
+  productAsFloat,
+  RecipeName,
+} from '../muffler/walk-recipes';
 import { data } from '../datae';
 import { ColonJoined, JRecipe } from '../objects';
 import { Colon, fromColon, splitColon } from '../muffler/colon';
@@ -11,6 +15,7 @@ import { humanise } from '../muffler/human';
 import { route } from 'preact-router';
 import { ItemIcon, ItemList } from '../lists';
 import { stackSize } from './chestify';
+import { decode, stripProducer } from '../muffler/blueprints';
 
 interface Job {
   recipe: RecipeName;
@@ -27,6 +32,18 @@ const US = '/an/plan/';
 interface PlanState {
   brotli: BrotliWasmType | null;
   manifest: Manifest;
+  blueprintIn?: string;
+}
+
+function typicalSpeed(name: string) {
+  const clazz = stripProducer(name);
+  const factory = data.meta.factories[clazz]?.[name];
+  const speed = factory?.speed;
+  if (speed === undefined) return 0.001;
+  const limit = limitations[clazz];
+  if (!limit) return speed;
+  const modules = data.meta.modules[limit];
+  return (1 + (Object.values(modules)?.[0] ?? 0)) * speed;
 }
 
 export class Plan extends Component<{ encoded?: string }, PlanState> {
@@ -151,6 +168,22 @@ export class Plan extends Component<{ encoded?: string }, PlanState> {
               </button>
             </p>
           </div>
+          <div class={'col'}>
+            <input
+              type={'text'}
+              style="width: 5em; display: revert; margin: 2px"
+              class={'form-control'}
+              onChange={(e) => {
+                this.setState({ blueprintIn: (e.target as any)?.value });
+              }}
+            />
+            <button
+              className={'btn btn-primary'}
+              onClick={() => this.loadBlueprint()}
+            >
+              Load from blueprint
+            </button>
+          </div>
         </div>
         {effectsSection}
         <div class={'row'}>
@@ -163,6 +196,33 @@ export class Plan extends Component<{ encoded?: string }, PlanState> {
         </div>
       </>
     );
+  }
+
+  loadBlueprint() {
+    const blueprint = this.state.blueprintIn;
+    if (!blueprint) {
+      return;
+    }
+    const manifest: Manifest = {
+      jobs: [],
+    };
+    const countByLabel: Record<string, number> = {};
+    const decoded = decode(blueprint);
+    for (const entity of decoded.entities ?? []) {
+      if (!entity.recipe) continue;
+      if (!data.recipes.regular[entity.recipe]) continue;
+      const label = `${entity.name}\0${entity.recipe}`;
+      countByLabel[label] = (countByLabel[label] || 0) + 1;
+    }
+    for (const [label, count] of Object.entries(countByLabel)) {
+      const [name, recipe] = label.split('\0');
+      manifest.jobs.push({
+        recipe,
+        count,
+        craftingSpeed: typicalSpeed(name),
+      });
+    }
+    this.setState({ manifest });
   }
 }
 
