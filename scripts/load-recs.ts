@@ -13,7 +13,7 @@ import { Colon, objToColon, tupleToColon } from '../web/muffler/colon';
 import { sortByKeys } from '../web/muffler/deter';
 import { JIngredient, JProduct, JRecipe } from '../web/objects';
 import { BlockId, loadCells, loadRec } from './loaders';
-import { stripProducer } from '../web/muffler/blueprints';
+import { stripProducer, stripProducers } from '../web/muffler/blueprints';
 
 initOnNode(['doc', 'meta', 'technologies', 'prodStats']);
 

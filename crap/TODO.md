@@ -1,6 +1,7 @@
 * tin mine 1 needs more miners
 * tin mine 2 needs stack inserters (and more steam; moss 2? moss farm mk02? composter mk02? co2 mk2? or just paste a new one)
 * saline water needs to be set to underflow only
+* fertilizer brick isn't requesting blood/zogna as the combinator is off
 * make https://facto.goeswhere.com/#/item/nonconductive-phazogen
   * make on site from available stuff: 
     * slaughter kmauts or maybe arquad on site
