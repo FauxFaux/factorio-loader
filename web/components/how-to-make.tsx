@@ -86,17 +86,7 @@ export class HowToMake extends Component<{ colon: Colon }> {
               const lockedTechs = stepsToUnlockRecipe(name);
               const toUnlock = techToUnlock(name) ?? '??';
               const missing = missingIngredients[name];
-              const availableFactories =
-                data.meta.factories[recipe.producerClass];
-              if (!availableFactories) {
-                throw new Error(`no factories for ${recipe.producerClass}`);
-              }
-              const limitation = limitations[recipe.producerClass];
-              const modules = limitation ? data.meta.modules[limitation] : {};
-
-              const factoryName = data.items[
-                Object.keys(availableFactories)[0]
-              ].localised_name.replace(/( MK\s*\d+)$| 1$/, '');
+              const factoryName = factoryFriendlyName(recipe.producerClass);
               return (
                 <tr>
                   <td>
@@ -143,89 +133,7 @@ export class HowToMake extends Component<{ colon: Colon }> {
                       <abbr title={name}>{recipe.localised_name}</abbr>
                     </p>
                     <p>Made in: {factoryName}</p>
-                    <table class={'build-speed'}>
-                      <thead>
-                        <tr>
-                          <th />
-                          {Object.entries(availableFactories).map(
-                            ([fac, { speed, modules }]) => (
-                              <th>
-                                <ItemIcon
-                                  name={fac}
-                                  alt={`${fac} (crafting speed: ${speed}, modules: ${modules})`}
-                                />
-                              </th>
-                            ),
-                          )}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td
-                            title={
-                              'with the minimal set of modules to function'
-                            }
-                            style={'text-align: center'}
-                          >
-                            ⊥
-                          </td>
-                          {Object.values(availableFactories).some(
-                            ({ speed }) =>
-                              speed !==
-                              Object.values(availableFactories)[0].speed,
-                          ) ? (
-                            Object.values(availableFactories).map(
-                              ({ speed: baseSpeed }) => (
-                                <td>
-                                  {humanise(
-                                    recipe.time /
-                                      (baseSpeed *
-                                        (1 +
-                                          (Object.values(modules)?.[0] ?? 0))),
-                                    { altSuffix: 's/exec' },
-                                  )}
-                                </td>
-                              ),
-                            )
-                          ) : (
-                            <td
-                              style={'text-align: center'}
-                              colSpan={Object.values(availableFactories).length}
-                            >
-                              {humanise(
-                                recipe.time /
-                                  (Object.values(availableFactories)[0].speed *
-                                    (1 + (Object.values(modules)?.[0] ?? 0))),
-                                { altSuffix: 's/exec' },
-                              )}
-                            </td>
-                          )}
-                        </tr>
-                        {Object.entries(modules ?? {}).map(([mod, speed]) => (
-                          <tr>
-                            <td>
-                              <ItemIcon
-                                name={mod}
-                                alt={`rammed full of '${mod}' (speed bonus: +${(
-                                  speed * 100
-                                ).toFixed()}%)`}
-                              />
-                            </td>
-                            {Object.values(availableFactories).map(
-                              ({ speed: baseSpeed, modules }) => (
-                                <td>
-                                  {humanise(
-                                    recipe.time /
-                                      (baseSpeed * (1 + speed * modules)),
-                                    { altSuffix: 's/exec' },
-                                  )}
-                                </td>
-                              ),
-                            )}
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                    <BuildSpeed recipe={recipe} />
                     <p></p>
                   </td>
                   <IngProd recipe={recipe} colon={props.colon} />
@@ -368,3 +276,113 @@ const Availability = ({ colon }: { colon: string }) => {
   }
   return <img class={'avail-icon'} src={icon} alt={alt} />;
 };
+
+export function factoryFriendlyName(producerClass: string) {
+  const availableFactories = data.meta.factories[producerClass];
+  if (!availableFactories) {
+    throw new Error(`no factories for ${producerClass}`);
+  }
+
+  return data.items[Object.keys(availableFactories)[0]].localised_name.replace(
+    /( MK\s*\d+)$| 1$/,
+    '',
+  );
+}
+
+interface BuildSpeedProps {
+  recipe: JRecipe;
+}
+
+export class BuildSpeed extends Component<BuildSpeedProps> {
+  render(props: BuildSpeedProps) {
+    const recipe = props.recipe;
+    const availableFactories = data.meta.factories[recipe.producerClass];
+    if (!availableFactories) {
+      return (
+        <p class={'error'}>
+          Invalid class: {recipe.producerClass} for {recipe.localised_name}
+        </p>
+      );
+    }
+    const limitation = limitations[recipe.producerClass];
+    const modules = limitation ? data.meta.modules[limitation] : {};
+
+    return (
+      <table class={'build-speed'}>
+        <thead>
+          <tr>
+            <th />
+            {Object.entries(availableFactories).map(
+              ([fac, { speed, modules }]) => (
+                <th>
+                  <ItemIcon
+                    name={fac}
+                    alt={`${fac} (crafting speed: ${speed}, modules: ${modules})`}
+                  />
+                </th>
+              ),
+            )}
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td
+              title={'with the minimal set of modules to function'}
+              style={'text-align: center'}
+            >
+              ⊥
+            </td>
+            {Object.values(availableFactories).some(
+              ({ speed }) =>
+                speed !== Object.values(availableFactories)[0].speed,
+            ) ? (
+              Object.values(availableFactories).map(({ speed: baseSpeed }) => (
+                <td>
+                  {humanise(
+                    recipe.time /
+                      (baseSpeed * (1 + (Object.values(modules)?.[0] ?? 0))),
+                    { altSuffix: 's/exec' },
+                  )}
+                </td>
+              ))
+            ) : (
+              <td
+                style={'text-align: center'}
+                colSpan={Object.values(availableFactories).length}
+              >
+                {humanise(
+                  recipe.time /
+                    (Object.values(availableFactories)[0].speed *
+                      (1 + (Object.values(modules)?.[0] ?? 0))),
+                  { altSuffix: 's/exec' },
+                )}
+              </td>
+            )}
+          </tr>
+          {Object.entries(modules ?? {}).map(([mod, speed]) => (
+            <tr>
+              <td>
+                <ItemIcon
+                  name={mod}
+                  alt={`rammed full of '${mod}' (speed bonus: +${(
+                    speed * 100
+                  ).toFixed()}%)`}
+                />
+              </td>
+              {Object.values(availableFactories).map(
+                ({ speed: baseSpeed, modules }) => (
+                  <td>
+                    {humanise(
+                      recipe.time / (baseSpeed * (1 + speed * modules)),
+                      { altSuffix: 's/exec' },
+                    )}
+                  </td>
+                ),
+              )}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    );
+  }
+}

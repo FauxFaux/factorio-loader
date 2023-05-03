@@ -36,6 +36,16 @@ for chunk in surface.get_chunks() do
 end
 ```
 
+
+### blueprints
+
+inventory contains just one blueprint book
+```
+/c print(game.player.get_inventory(defines.inventory.character_main)[1].get_inventory(defines.inventory.chest).insert({name="blueprint",count=10}))
+/c print(game.player.get_inventory(defines.inventory.character_main)[1].get_inventory(defines.inventory.chest)[1].create_blueprint({surface=game.player.surface, force=game.player.force, area={left_top={-94,-596}, right_bottom={-31,-555}}}))
+```
+
+
 ### screenshots
 
  * run the top hunk of screenshots.lua manually in the console
