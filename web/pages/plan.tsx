@@ -192,6 +192,7 @@ export class Plan extends Component<{ encoded?: string }, PlanState> {
           <div class={'col'}>
             <ManifestTable
               manifest={state.manifest}
+              effects={effects}
               onChange={(manifest) => this.setState({ manifest })}
             />
           </div>
@@ -274,6 +275,7 @@ function loadBrotli(
 interface ManifestTableProps {
   manifest: Manifest;
   onChange: (manifest: Manifest) => void;
+  effects: Record<Colon, number>;
 }
 
 interface ManifestState {
@@ -311,6 +313,27 @@ function makeRecipe(job: Job): JRecipe {
   const recp = makeUpRecipe(job.recipe);
   if (!recp) throw new Error(`Unknown recipe ${job.recipe}`);
   return recp;
+}
+
+function colourAmount(effect: number | undefined, actual: number) {
+  const colours = ['#8a0605', '#ab4230', '#e7dbcd', '#918f63', '#71b27e'];
+
+  const eff = effect ?? 0;
+  const err = eff / actual;
+  const pick = () => {
+    if (err < -0.8) return colours[0];
+    if (err < -0.02) return colours[1];
+    // -2% to +10% is the middle band, yellow
+    if (err < 0.1) return colours[2];
+    if (err < 0.8) return colours[3];
+    return colours[4];
+  };
+
+  return (
+    <span style={`color: ${pick()}`} class={'amount'}>
+      {humanise(actual)}
+    </span>
+  );
 }
 
 export class ManifestTable extends Component<
@@ -399,20 +422,30 @@ export class ManifestTable extends Component<
                   />
                 </td>
                 <td>
-                  {makeRecipe(job).ingredients.map((ing) => (
-                    <li>
-                      {humanise(ing.amount * scale)} &times;{' '}
-                      <ColonJoined colon={ing.colon} />
-                    </li>
-                  ))}
+                  <ul style={'list-style-type: none; padding: 0; margin: 0'}>
+                    {makeRecipe(job).ingredients.map((ing) => (
+                      <li>
+                        {colourAmount(
+                          props.effects[ing.colon],
+                          ing.amount * scale,
+                        )}{' '}
+                        &times; <ColonJoined colon={ing.colon} />
+                      </li>
+                    ))}
+                  </ul>
                 </td>
                 <td>
-                  {makeRecipe(job).products.map((prod) => (
-                    <li>
-                      {humanise(productAsFloat(prod) * scale)} &times;{' '}
-                      <ColonJoined colon={prod.colon} />
-                    </li>
-                  ))}
+                  <ul style={'list-style-type: none; padding: 0; margin: 0'}>
+                    {makeRecipe(job).products.map((prod) => (
+                      <li>
+                        {colourAmount(
+                          props.effects[prod.colon],
+                          productAsFloat(prod) * scale,
+                        )}{' '}
+                        &times; <ColonJoined colon={prod.colon} />
+                      </li>
+                    ))}
+                  </ul>
                 </td>
               </tr>
             );
