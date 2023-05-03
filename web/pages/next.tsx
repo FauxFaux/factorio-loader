@@ -3,6 +3,7 @@ import { Component } from 'preact';
 import { data } from '../datae';
 import { ColonJoined, Recipe } from '../objects';
 import { unlockedRecipes } from '../muffler/walk-techs';
+import { makeUpRecipe } from '../muffler/walk-recipes';
 
 export function techToUnlock(recipe: string): string | null {
   const found = Object.entries(data.technologies).find(([, tech]) =>
@@ -13,7 +14,7 @@ export function techToUnlock(recipe: string): string | null {
 }
 
 export function stepsToUnlockRecipe(recipe: string): number {
-  if (data.recipes.regular[recipe].unlocked_from_start) return 0;
+  if (makeUpRecipe(recipe)?.unlocked_from_start) return 0;
   const tech = techToUnlock(recipe);
   if (!tech) return 98;
   return stepsToUnlock(tech);
@@ -36,7 +37,7 @@ export class Next extends Component<{}> {
     const canMake = new Set(
       [...unlockedRecipes()].flatMap(
         (recipe) =>
-          data.recipes.regular[recipe]?.products?.flatMap((p) => p.colon) ?? [],
+          makeUpRecipe(recipe)?.products?.flatMap((p) => p.colon) ?? [],
       ),
     );
 
@@ -59,7 +60,7 @@ export class Next extends Component<{}> {
               const products = [
                 ...new Set(
                   tech.unlocks.flatMap((u) =>
-                    data.recipes.regular[u].products.map((p) => p.colon),
+                    makeUpRecipe(u)!.products.map((p) => p.colon),
                   ),
                 ),
               ];

@@ -1,6 +1,6 @@
 import { data, Limitation } from '../datae';
 import { Colon, splitColon } from './colon';
-import { JIngredient, JProduct } from '../objects';
+import { JIngredient, JProduct, JRecipe } from '../objects';
 
 export function recipeBan(name: string): boolean {
   return (
@@ -9,6 +9,90 @@ export function recipeBan(name: string): boolean {
     name.endsWith('-pyvoid-fluid') ||
     name.endsWith('-pyvoid-gas')
   );
+}
+
+function fillBarrel(fluidName: string): JRecipe {
+  return {
+    ingredients: [
+      {
+        colon: 'item:empty-barrel',
+        amount: 1,
+      },
+      {
+        colon: `fluid:${fluidName}`,
+        amount: 50,
+      },
+    ],
+    products: [
+      {
+        // TODO: gross approximation
+        colon: `item:${fluidName}-barrel`,
+        amount: 1,
+      },
+    ],
+    producerClass: 'automated-factory',
+    localised_name: `Fill \`${fluidName}\` Barrel`,
+    time: 0.2,
+    unlocked_from_start: true,
+    category: 'intermediate-products',
+  };
+}
+
+export function makeUpRecipe(recipeName: string): JRecipe | undefined {
+  const regular = data.recipes.regular[recipeName];
+  if (regular) return regular;
+
+  let ma = recipeName.match(/^fill-(.*)-barrel$/);
+  if (ma) {
+    return fillBarrel(ma[1]);
+  }
+
+  ma = recipeName.match(/^(.*)-pyvoid$/);
+  if (ma) {
+    return {
+      ingredients: [
+        {
+          colon: `item:${ma[1]}`,
+          amount: 1,
+        },
+      ],
+      products: [
+        {
+          colon: `item:ash`,
+          amount: 1,
+          probability: 0.2,
+        },
+      ],
+      // as in, the building named Burner
+      producerClass: 'burner',
+      localised_name: `Void \`${ma[1]}\``,
+      unlocked_from_start: true,
+      category: 'void',
+      // guess
+      time: 0.2,
+    };
+  }
+
+  ma = recipeName.match(/^(.*)-pyvoid(?:-fluid|-gas)?$/);
+  if (ma) {
+    return {
+      ingredients: [
+        {
+          colon: `fluid:${ma[1]}`,
+          amount: 20_000,
+        },
+      ],
+      products: [],
+      producerClass: 'sinkhole',
+      localised_name: `Void \`${ma[1]}\``,
+      unlocked_from_start: true,
+      category: 'void',
+      // guess
+      time: 0.2,
+    };
+  }
+
+  return undefined;
 }
 
 export type RecipeName = string;
@@ -146,7 +230,7 @@ export const limitations: Record<string, Limitation> = {
 };
 
 export function ingredients(name: string): JIngredient[] {
-  const rec = data.recipes.regular[name];
+  const rec = makeUpRecipe(name);
   if (!rec) return [];
   const producers = rec.producerClass;
 

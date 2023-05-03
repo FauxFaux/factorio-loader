@@ -5,6 +5,7 @@ import * as base64 from '@protobufjs/base64';
 
 import {
   limitations,
+  makeUpRecipe,
   productAsFloat,
   RecipeName,
 } from '../muffler/walk-recipes';
@@ -306,7 +307,9 @@ function makeRecipe(job: Job): JRecipe {
       unlocked_from_start: true,
     };
   }
-  return data.recipes.regular[job.recipe];
+  const recp = makeUpRecipe(job.recipe);
+  if (!recp) throw new Error(`Unknown recipe ${job.recipe}`);
+  return recp;
 }
 
 export class ManifestTable extends Component<

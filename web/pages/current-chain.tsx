@@ -3,7 +3,7 @@ import { minBy } from 'lodash';
 import { Component } from 'preact';
 import { Colon, fromColon, splitColon } from '../muffler/colon';
 import { BlockLine, ColonJoined } from '../objects';
-import { buildMaking, RecipeName } from '../muffler/walk-recipes';
+import { buildMaking, makeUpRecipe, RecipeName } from '../muffler/walk-recipes';
 import { computed, Coord, data } from '../datae';
 import { TempRange } from '../components/how-to-make';
 import { GpsLink } from '../lists';
@@ -49,7 +49,7 @@ export class CurrentChain extends Component<{ colon: Colon }> {
 
     const page = [];
 
-    const recp = data.recipes.regular[using];
+    const recp = makeUpRecipe(using)!;
     const percNo = ((usingD.execs / totalUsage) * 100).toFixed(0);
     const perc = totalUsage > 0 ? `(${percNo}%)` : null;
     page.push(

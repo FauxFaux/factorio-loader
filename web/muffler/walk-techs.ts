@@ -8,14 +8,6 @@ export function unlockedRecipes(): Set<string> {
   );
 }
 
-export function unlockedItems(): Set<string> {
-  return new Set(
-    [...unlockedRecipes()].flatMap((recipe) =>
-      data.recipes.regular[recipe].products.flatMap((p) => p.colon),
-    ),
-  );
-}
-
 export function haveMade(): Set<string> {
   return new Set(
     Object.entries(data.prodStats)

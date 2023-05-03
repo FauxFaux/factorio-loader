@@ -2,8 +2,8 @@ import { atob, btoa } from 'abab';
 import pako from 'pako';
 import _chunk from 'lodash/chunk';
 import { Colon, splitColon, tupleToColon } from './colon';
-import { RecipeName } from './walk-recipes';
-import { data, Factory, FactoryClass } from '../datae';
+import { makeUpRecipe, RecipeName } from './walk-recipes';
+import { Factory, FactoryClass } from '../datae';
 
 export interface Blueprint {
   entities?: Entity[];
@@ -126,7 +126,7 @@ export function toBlueprint(entities: Entity[]): Blueprint {
 
 function ingredientMap(recp: string): Record<Colon, number> {
   return Object.fromEntries(
-    data.recipes.regular[recp]?.ingredients?.map(
+    makeUpRecipe(recp)?.ingredients?.map(
       (ing) => [ing.colon, ing.amount] as const,
     ) ?? [],
   );
@@ -159,7 +159,7 @@ function roundUpReq(req: Record<string, number>): Record<string, number> {
 }
 
 function onlyProduct(recp: string) {
-  const recpD = data.recipes.regular[recp];
+  const recpD = makeUpRecipe(recp);
   const products = recpD?.products ?? [];
   if (1 !== products.length)
     throw new Error(
