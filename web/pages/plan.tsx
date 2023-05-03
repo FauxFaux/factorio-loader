@@ -17,7 +17,7 @@ import { route } from 'preact-router';
 import { ItemIcon, ItemList } from '../lists';
 import { stackSize } from './chestify';
 import { decode, stripProducer } from '../muffler/blueprints';
-import { BuildSpeed, factoryFriendlyName } from '../components/how-to-make';
+import { BuildTime, factoryFriendlyName } from '../components/how-to-make';
 
 interface Job {
   recipe: RecipeName;
@@ -358,9 +358,9 @@ export class ManifestTable extends Component<
                 <td>
                   {recp.localised_name}{' '}
                   <span class={'text-muted'}>
-                    ({job.recipe})<br />
-                    Made in: {factoryFriendlyName(recp.producerClass)}
-                    <BuildSpeed recipe={recp} />
+                    (<span class={'font-monospace'}>{job.recipe}</span> in{' '}
+                    {factoryFriendlyName(recp.producerClass)})<br />
+                    <BuildTime recipe={recp} speedsNotTimes={true} />
                   </span>
                 </td>
                 <td>

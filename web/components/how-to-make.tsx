@@ -133,7 +133,7 @@ export class HowToMake extends Component<{ colon: Colon }> {
                       <abbr title={name}>{recipe.localised_name}</abbr>
                     </p>
                     <p>Made in: {factoryName}</p>
-                    <BuildSpeed recipe={recipe} />
+                    <BuildTime recipe={recipe} />
                     <p></p>
                   </td>
                   <IngProd recipe={recipe} colon={props.colon} />
@@ -291,9 +291,10 @@ export function factoryFriendlyName(producerClass: string) {
 
 interface BuildSpeedProps {
   recipe: JRecipe;
+  speedsNotTimes?: boolean;
 }
 
-export class BuildSpeed extends Component<BuildSpeedProps> {
+export class BuildTime extends Component<BuildSpeedProps> {
   render(props: BuildSpeedProps) {
     const recipe = props.recipe;
     const availableFactories = data.meta.factories[recipe.producerClass];
@@ -306,6 +307,11 @@ export class BuildSpeed extends Component<BuildSpeedProps> {
     }
     const limitation = limitations[recipe.producerClass];
     const modules = limitation ? data.meta.modules[limitation] : {};
+
+    const speedo = props.speedsNotTimes
+      ? (speed: number) => speed.toFixed(3).replace(/\.?0+$/, '')
+      : (speed: number) =>
+          humanise(recipe.time / speed, { altSuffix: 's/exec' });
 
     return (
       <table class={'build-speed'}>
@@ -338,11 +344,7 @@ export class BuildSpeed extends Component<BuildSpeedProps> {
             ) ? (
               Object.values(availableFactories).map(({ speed: baseSpeed }) => (
                 <td>
-                  {humanise(
-                    recipe.time /
-                      (baseSpeed * (1 + (Object.values(modules)?.[0] ?? 0))),
-                    { altSuffix: 's/exec' },
-                  )}
+                  {speedo(baseSpeed * (1 + (Object.values(modules)?.[0] ?? 0)))}
                 </td>
               ))
             ) : (
@@ -350,11 +352,9 @@ export class BuildSpeed extends Component<BuildSpeedProps> {
                 style={'text-align: center'}
                 colSpan={Object.values(availableFactories).length}
               >
-                {humanise(
-                  recipe.time /
-                    (Object.values(availableFactories)[0].speed *
-                      (1 + (Object.values(modules)?.[0] ?? 0))),
-                  { altSuffix: 's/exec' },
+                {speedo(
+                  Object.values(availableFactories)[0].speed *
+                    (1 + (Object.values(modules)?.[0] ?? 0)),
                 )}
               </td>
             )}
@@ -371,12 +371,7 @@ export class BuildSpeed extends Component<BuildSpeedProps> {
               </td>
               {Object.values(availableFactories).map(
                 ({ speed: baseSpeed, modules }) => (
-                  <td>
-                    {humanise(
-                      recipe.time / (baseSpeed * (1 + speed * modules)),
-                      { altSuffix: 's/exec' },
-                    )}
-                  </td>
+                  <td>{speedo(baseSpeed * (1 + speed * modules))}</td>
                 ),
               )}
             </tr>
