@@ -383,7 +383,15 @@ export class ManifestTable extends Component<
                   <span class={'text-muted'}>
                     (<span class={'font-monospace'}>{job.recipe}</span> in{' '}
                     {factoryFriendlyName(recp.producerClass)})<br />
-                    <BuildTime recipe={recp} speedsNotTimes={true} />
+                    <BuildTime
+                      recipe={recp}
+                      speedsNotTimes={true}
+                      onClick={(speed) => {
+                        job.craftingSpeed = speed;
+                        this.setState({ manifest });
+                        this.props.onChange(manifest);
+                      }}
+                    />
                   </span>
                 </td>
                 <td>

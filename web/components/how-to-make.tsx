@@ -292,6 +292,7 @@ export function factoryFriendlyName(producerClass: string) {
 interface BuildSpeedProps {
   recipe: JRecipe;
   speedsNotTimes?: boolean;
+  onClick?: (speed: number) => void;
 }
 
 export class BuildTime extends Component<BuildSpeedProps> {
@@ -309,7 +310,16 @@ export class BuildTime extends Component<BuildSpeedProps> {
     const modules = limitation ? data.meta.modules[limitation] : {};
 
     const speedo = props.speedsNotTimes
-      ? (speed: number) => speed.toFixed(3).replace(/\.?0+$/, '')
+      ? (speed: number) => (
+          <a
+            onClick={() => props.onClick?.(speed)}
+            style={
+              props.onClick ? 'cursor: pointer; text-decoration: underline' : ''
+            }
+          >
+            {speed.toFixed(3).replace(/\.?0+$/, '')}
+          </a>
+        )
       : (speed: number) =>
           humanise(recipe.time / speed, { altSuffix: 's/exec' });
 
