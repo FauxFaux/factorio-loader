@@ -210,6 +210,8 @@ export const limitations: Record<string, Limitation> = {
   'navens-culture': 'navens',
   'phadai-enclosure': 'phadai',
   'phagnot-corral': 'phagnot',
+  // don't ask
+  'prandium-lab': 'cottongut-mk01',
   'ralesia-plantation': 'ralesias',
   'rennea-plantation': 'rennea',
   'sap-extractor': 'sap-tree',

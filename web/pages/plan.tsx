@@ -1,4 +1,4 @@
-import { Component } from 'preact';
+import { Component, createRef } from 'preact';
 import type { BrotliWasmType } from 'brotli-wasm';
 import { useEffect } from 'preact/hooks';
 import * as base64 from '@protobufjs/base64';
@@ -280,6 +280,7 @@ interface ManifestTableProps {
 
 interface ManifestState {
   manifest: Manifest;
+  recipeColon?: Colon;
 }
 
 function makeRecipe(job: Job): JRecipe {
@@ -344,6 +345,9 @@ export class ManifestTable extends Component<
     manifest: this.props.manifest,
   };
 
+  pickRecipe = createRef();
+  lastRow = createRef();
+
   render(props: ManifestTableProps, state: ManifestState) {
     const manifest = state.manifest;
 
@@ -364,7 +368,7 @@ export class ManifestTable extends Component<
             const recp = makeRecipe(job);
             const scale = (job.count * job.craftingSpeed) / recp.time;
             return (
-              <tr>
+              <tr ref={this.lastRow}>
                 <td>
                   <button
                     class={'btn btn-sm btn-danger'}
@@ -380,19 +384,21 @@ export class ManifestTable extends Component<
                 </td>
                 <td>
                   {recp.localised_name}{' '}
-                  <span class={'text-muted'}>
+                  <span class={'text-muted'} style={'font-size: 70%'}>
                     (<span class={'font-monospace'}>{job.recipe}</span> in{' '}
-                    {factoryFriendlyName(recp.producerClass)})<br />
-                    <BuildTime
-                      recipe={recp}
-                      speedsNotTimes={true}
-                      onClick={(speed) => {
-                        job.craftingSpeed = speed;
-                        this.setState({ manifest });
-                        this.props.onChange(manifest);
-                      }}
-                    />
+                    {factoryFriendlyName(recp.producerClass)})
                   </span>
+                  <br />
+                  <BuildTime
+                    recipe={recp}
+                    speedsNotTimes={true}
+                    onClick={(speed) => {
+                      // FLOATS
+                      job.craftingSpeed = Math.round(speed * 1000) / 1000;
+                      this.setState({ manifest });
+                      this.props.onChange(manifest);
+                    }}
+                  />
                 </td>
                 <td>
                   <input
@@ -433,6 +439,16 @@ export class ManifestTable extends Component<
                   <ul style={'list-style-type: none; padding: 0; margin: 0'}>
                     {makeRecipe(job).ingredients.map((ing) => (
                       <li>
+                        <a
+                          title={'find a producer'}
+                          style={'cursor: pointer'}
+                          onClick={() => {
+                            this.setState({ recipeColon: ing.colon });
+                            this.pickRecipe.current?.scrollIntoView();
+                          }}
+                        >
+                          +
+                        </a>
                         {colourAmount(
                           props.effects[ing.colon],
                           ing.amount * scale,
@@ -465,16 +481,21 @@ export class ManifestTable extends Component<
     return (
       <>
         {table}
-        <hr />
+        <hr ref={this.pickRecipe} />
         <PickRecipe
+          setColon={(colon) => {
+            this.setState({ recipeColon: colon });
+          }}
+          colon={state.recipeColon}
           puck={(recipe) => {
             manifest.jobs.push({
               recipe,
               craftingSpeed: 1,
               count: 1,
             });
-            this.setState({ manifest });
-            this.props.onChange(manifest);
+            this.setState({ manifest, recipeColon: undefined });
+            props.onChange(manifest);
+            this.lastRow.current?.scrollIntoView();
           }}
         />
         <hr />
@@ -498,47 +519,48 @@ export class ManifestTable extends Component<
   }
 }
 
-class PickRecipe extends Component<{ puck: (recipe: string) => void }> {
+interface PickRecipeProps {
+  setColon: (colon: Colon | undefined) => void;
+  puck: (recipe: string) => void;
+  colon?: Colon;
+}
+
+class PickRecipe extends Component<PickRecipeProps> {
   onChange = (e: Event) => {
     const recipe = (e.target as HTMLInputElement).value;
     this.setState({ recipe });
     this.props.puck(recipe);
   };
 
-  render(
-    props: { puck: () => void },
-    state: { colon?: Colon; recipe?: string },
-  ) {
-    if (!state.colon) {
+  render(props: PickRecipeProps) {
+    if (!props.colon) {
       return (
         <>
           <p>Pick a new recicpe for...</p>
-          <ItemList limit={30} onPick={(colon) => this.setState({ colon })} />
+          <ItemList limit={30} onPick={(colon) => props.setColon(colon)} />
         </>
       );
     }
     const bad = (recp: JRecipe): number =>
       recp.products.length +
       recp.ingredients.map((ing) => ing.amount).reduce((a, b) => a + b, 0) +
-      recp.time / 10;
+      // mostly only relevant for AL animals, which have huge times
+      recp.time / 100;
 
     return (
       <>
         Picking a recipe for{' '}
-        <button
-          class="btn btn-sm"
-          onClick={() => this.setState({ colon: undefined })}
-        >
+        <button class="btn btn-sm" onClick={() => props.setColon(undefined)}>
           ❌️
         </button>
-        <ColonJoined colon={state.colon} />
+        <ColonJoined colon={props.colon} />
         <table class={'table'}>
           <tbody>
             {Object.entries(data.recipes.regular)
               .filter(
                 ([recipe, recp]) =>
                   undefined !==
-                  recp.products.find((prod) => prod.colon === state.colon),
+                  recp.products.find((prod) => prod.colon === props.colon),
               )
               .sort(([, a], [, b]) => bad(a) - bad(b))
               .map(([recipe, recp]) => (
