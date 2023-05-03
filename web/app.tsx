@@ -28,6 +28,7 @@ import { StationConfig } from './pages/station-config';
 import { TrainTraffic } from './pages/train-traffic';
 import { ReqChests } from './pages/req-chests';
 import { Mall } from './pages/mall';
+import RedirectIof from './pages/redirect-iof';
 
 export class App extends Component {
   render() {
@@ -38,8 +39,9 @@ export class App extends Component {
           <Home path="/" />
           <WhatTheBrick path="/what-the-brick" />
           <StationStatus path="/station-status" />
-          <IoFDetail path="/item/:name" type="item" name="from the path" />
-          <IoFDetail path="/fluid/:name" type="fluid" name="from the path" />
+          <RedirectIof path="/item/:name" type="item" name="from the path" />
+          <RedirectIof path="/fluid/:name" type="fluid" name="from the path" />
+          <IoFDetail path="/an/detail/:colon" colon="from the path" />
           <BlockPage path="/block/:loc" loc="from the path" />
           <LtnTree
             path="/ltn-tree/:type/:name"

@@ -3,7 +3,7 @@ import { computed, Coord, data } from '../datae';
 import { LtnProvides, LtnRequests } from '../ltn-avail';
 import { ItemIcon } from '../lists';
 import { BlockLine, ColonJoined, Fluid, Item } from '../objects';
-import { objToColon } from '../muffler/colon';
+import { Colon, objToColon, splitColon } from '../muffler/colon';
 import { humanise } from '../muffler/human';
 import {
   HowToMake,
@@ -13,34 +13,31 @@ import {
 import { AssemblerCount } from '../block-renderers';
 
 export class IoFDetail extends Component<{
-  name: string;
-  type: 'item' | 'fluid';
+  colon: Colon;
 }> {
-  render(props: { name: string; type: 'item' | 'fluid' }) {
-    const obj = (props.type === 'item' ? data.items : data.fluids)[props.name];
+  render(props: { colon: Colon }) {
+    const [kind, name] = splitColon(props.colon);
+    const obj = (kind === 'item' ? data.items : data.fluids)[name];
     if (!obj)
       return (
         <span>
-          unknown {props.type} {props.name}
+          unknown {kind} {name}
         </span>
       );
 
-    const colon = objToColon(props);
+    const colon = props.colon;
     const stats = data.prodStats[colon];
 
-    const barrelled =
-      props.type === 'fluid' ? computed.fluidBarrel[props.name] : undefined;
+    const barrelled = kind === 'fluid' ? computed.fluidBarrel[name] : undefined;
     const unBarrelled =
-      props.type === 'item' ? computed.barrelFluid[props.name] : undefined;
+      kind === 'item' ? computed.barrelFluid[name] : undefined;
 
     const flowDia = data.flowDiagrams.includes(colon)
       ? `../data/flow-svgs/${colon.replace(':', '-')}.svg`
       : undefined;
 
     const blocksWith = Object.entries(data.doc).flatMap(([loc, block]) =>
-      block.resources[props.name]
-        ? [[loc, block.resources[props.name]] as const]
-        : [],
+      block.resources[name] ? [[loc, block.resources[name]] as const] : [],
     );
 
     const maxBlock = Math.max(...blocksWith.map(([, amount]) => amount));
@@ -52,7 +49,7 @@ export class IoFDetail extends Component<{
     const storage = (
       <>
         <h3>Storage:</h3>
-        <Storage type={props.type} name={props.name} />
+        <Storage type={kind} name={name} />
         {Object.keys(blocksWith).length ? (
           <>
             <h3>Blocks with this resource:</h3>
@@ -120,18 +117,14 @@ export class IoFDetail extends Component<{
       <>
         <div class="row">
           <h2>
-            <ItemIcon name={props.name} alt={props.name} /> {obj.localised_name}
+            <ItemIcon name={name} alt={name} /> {obj.localised_name}
           </h2>
           <p>
-            type: <span className="font-monospace">{props.type}</span>;
-            stack-size:
+            type: <span className="font-monospace">{kind}</span>; stack-size:
             <span className="font-monospace">
-              {props.type === 'item'
-                ? data.items[props.name].stack_size
-                : 'fluid'}
+              {kind === 'item' ? data.items[name].stack_size : 'fluid'}
             </span>
-            ; internal-name:<span class="font-monospace">{props.name}</span>;
-            group:
+            ; internal-name:<span class="font-monospace">{name}</span>; group:
             <span class="font-monospace">{obj.group?.name}</span>; subgroup:
             <span class="font-monospace">{obj.subgroup?.name}</span>.
           </p>
@@ -168,8 +161,8 @@ export class IoFDetail extends Component<{
         <div class="row">
           <div className="col">
             <h3>
-              LTN availability (
-              <a href={`/ltn-tree/${props.type}/${props.name}`}>debug</a>):
+              LTN availability (<a href={`/ltn-tree/${kind}/${name}`}>debug</a>
+              ):
             </h3>
             <LtnProvides colon={colon} />
             <h3>LTN requests:</h3>
@@ -183,7 +176,7 @@ export class IoFDetail extends Component<{
 
         <div className="row">
           <h3>Recipes in use in factory, most assemblers first:</h3>
-          <RecipeUsage type={props.type} name={props.name} />
+          <RecipeUsage type={kind} name={name} />
         </div>
 
         <div className="row">

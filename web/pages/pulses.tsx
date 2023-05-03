@@ -6,6 +6,7 @@ import { useEffect } from 'preact/hooks';
 import { BlockLink } from './station-status';
 import { splitColon } from '../muffler/colon';
 import { ItemIcon } from '../lists';
+import { stackSize } from './chestify';
 
 function topN<T>(n: number, entries: (readonly [T, number])[]) {
   entries.sort((a, b) => b[1] - a[1]);
@@ -105,9 +106,7 @@ export class Pulses extends Component<{ colon: string }> {
       end = Math.max(end, start + duration);
     }
 
-    const amountScale =
-      (data.items[splitColon(props.colon)[1]]?.stack_size ?? 500) *
-      STACKS_PER_TRAIN;
+    const amountScale = stackSize(props.colon) * STACKS_PER_TRAIN;
 
     const srcLiner = computeLine(sources);
     const sinkLiner = computeLine(sinks);
