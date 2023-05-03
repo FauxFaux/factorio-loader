@@ -1,18 +1,3 @@
-* saline water needs to be set to underflow only
-* fertilizer brick isn't requesting blood/zogna as the combinator is off
-* make https://facto.goeswhere.com/#/item/nonconductive-phazogen
-  * make on site from available stuff: 
-    * slaughter kmauts or maybe arquad on site
-    * make chelators from flown in fawogae on site
-  * import:
-    * https://facto.goeswhere.com/#/item/kicalk-seeds
-  * readily available:
-    * biosample
-  * make super alloy from:
-    * phagnot sacks (slaughtered in the slaughterry)
-    * moly trioxide blueprint below
-  * 
-
 * make vanadium pentoxide from tar/silver-zinc-alloy?
   * and fix tar production (import clay, or go via bitumen from oil sand)
   * and stop being a bitch about superb steel?
@@ -33,8 +18,6 @@
 
 * move subcritical water production next to the biomass source
 * chromium processing is kinda wedged on tailings barrels
-* import drilling fluid 2 and make a fucktonne of saline water for chlorine 
-* bunch of alienlife assemblers are jammed
 
 * bunch of stations need stack inserters (biomass)
 
