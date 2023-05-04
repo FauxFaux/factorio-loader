@@ -19,7 +19,10 @@ export const data = {
   meta: {} as {
     factories: Record<
       FactoryClass,
-      Record<Factory, { speed: number; modules: number }>
+      Record<
+        Factory,
+        { speed: number; modules: number; dims: [number, number] }
+      >
     >;
     modules: Record<Limitation, Record<string, number>>;
     isSpawn: Loc[];

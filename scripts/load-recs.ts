@@ -189,9 +189,12 @@ function main() {
     if (!factories[clazz]) {
       factories[clazz] = {};
     }
+    const entity = tools.entity_prototypes[item.id];
+    if (!entity) throw new Error(`missing entity: ${item.id}`);
     factories[clazz][item.id] = {
       speed: item.factory.speed,
       modules: item.factory.modules,
+      dims: [entity.tile_width, entity.tile_height],
     };
   }
 
@@ -486,6 +489,14 @@ interface Tools {
       enabled: boolean;
       localised_name: string;
       time: number;
+      // incomplete
+    }
+  >;
+  entity_prototypes: Record<
+    string,
+    {
+      tile_height: number;
+      tile_width: number;
       // incomplete
     }
   >;

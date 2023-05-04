@@ -10,6 +10,7 @@ import {
   productAsFloat,
   RecipeName,
 } from '../muffler/walk-recipes';
+import { BRICK_W, BRICK_H } from '../../scripts/magic';
 import { data } from '../datae';
 import { ColonJoined, JRecipe } from '../objects';
 import { Colon, fromColon, splitColon } from '../muffler/colon';
@@ -91,6 +92,7 @@ export class Plan extends Component<{ encoded?: string }, PlanState> {
     }
 
     const effects = jobsEffects(state.manifest.jobs);
+    const area = areaGuess(state.manifest.jobs);
 
     const NumberTableRow = ({
       colon,
@@ -196,6 +198,16 @@ export class Plan extends Component<{ encoded?: string }, PlanState> {
                 Save
               </button>
             </p>
+          </div>
+          <div class={'col'}>
+            <h3>
+              Estimated fill:{' '}
+              <abbr
+                title={`~${area.toLocaleString()} tiles of ~12k recommended max`}
+              >
+                {((area / 12000) * 100).toFixed()}%
+              </abbr>
+            </h3>
           </div>
           <div class={'col'}>
             <input
@@ -682,4 +694,21 @@ function balance(manifest: Manifest): Manifest {
   }
 
   throw new Error('Failed to converge');
+}
+
+function areaGuess(jobs: Job[]) {
+  let area = 0;
+  for (const job of jobs) {
+    const recp = makeRecipe(job);
+    const clazz = recp.producerClass;
+    let [w, h] = Object.values(data.meta.factories[clazz])[0].dims;
+    if (h < w) {
+      [w, h] = [h, w];
+    }
+    const lanes = recp.ingredients.length + recp.products.length;
+    h += Math.min(lanes, 3);
+    w += Math.max(lanes - 3, 0);
+    area += w * h * job.count;
+  }
+  return area;
 }
