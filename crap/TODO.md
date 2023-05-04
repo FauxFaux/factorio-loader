@@ -1,3 +1,5 @@
+* sodium sulphate isn't requesting iron
+
 * make vanadium pentoxide from tar/silver-zinc-alloy?
   * and fix tar production (import clay, or go via bitumen from oil sand)
   * and stop being a bitch about superb steel?

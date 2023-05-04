@@ -2,6 +2,7 @@ import { Component, createRef } from 'preact';
 import type { BrotliWasmType } from 'brotli-wasm';
 import { useEffect } from 'preact/hooks';
 import * as base64 from '@protobufjs/base64';
+import _cloneDeep from 'lodash.clonedeep';
 
 import {
   limitations,
@@ -48,6 +49,31 @@ function typicalSpeed(name: string) {
   return (1 + (Object.values(modules)?.[0] ?? 0)) * speed;
 }
 
+function effectsOf(
+  recp: JRecipe,
+  scale: number,
+  effects: Record<string, number> = {},
+) {
+  for (const ing of recp.ingredients) {
+    effects[ing.colon] = (effects[ing.colon] || 0) - ing.amount * scale;
+  }
+  for (const prod of recp.products) {
+    effects[prod.colon] =
+      (effects[prod.colon] || 0) + productAsFloat(prod) * scale;
+  }
+  return effects;
+}
+
+function jobsEffects(jobs: Job[]) {
+  const effects: Record<Colon, number> = {};
+  for (const job of jobs) {
+    const recp = makeRecipe(job);
+    const scale = (job.count * job.craftingSpeed) / recp.time;
+    effectsOf(recp, scale, effects);
+  }
+  return effects;
+}
+
 export class Plan extends Component<{ encoded?: string }, PlanState> {
   render(props: { encoded?: string }, state: PlanState) {
     const brotli = state.brotli;
@@ -64,18 +90,7 @@ export class Plan extends Component<{ encoded?: string }, PlanState> {
       return <div>Too lazy to fix the flow control...</div>;
     }
 
-    const effects: Record<Colon, number> = {};
-    for (const job of state.manifest.jobs) {
-      const recp = makeRecipe(job);
-      const scale = (job.count * job.craftingSpeed) / recp.time;
-      for (const ing of recp.ingredients) {
-        effects[ing.colon] = (effects[ing.colon] || 0) - ing.amount * scale;
-      }
-      for (const prod of recp.products) {
-        effects[prod.colon] =
-          (effects[prod.colon] || 0) + productAsFloat(prod) * scale;
-      }
-    }
+    const effects = jobsEffects(state.manifest.jobs);
 
     const NumberTableRow = ({
       colon,
@@ -129,7 +144,19 @@ export class Plan extends Component<{ encoded?: string }, PlanState> {
           </table>
         </div>
         <div className={'col'}>
-          <h3>Missing</h3>
+          <h3>
+            Missing (
+            <a
+              style={{ cursor: 'pointer' }}
+              onClick={() => {
+                const next = balance(state.manifest);
+                this.setState({ manifest: next });
+              }}
+            >
+              ⚖️
+            </a>
+            )
+          </h3>
           <table className={'plan-number-table'}>
             <tbody>
               {Object.entries(effects)
@@ -193,7 +220,13 @@ export class Plan extends Component<{ encoded?: string }, PlanState> {
             <ManifestTable
               manifest={state.manifest}
               effects={effects}
-              onChange={(manifest) => this.setState({ manifest })}
+              onChange={(manifest) =>
+                this.setState({
+                  manifest: {
+                    jobs: [...manifest.jobs],
+                  },
+                })
+              }
             />
           </div>
         </div>
@@ -279,7 +312,6 @@ interface ManifestTableProps {
 }
 
 interface ManifestState {
-  manifest: Manifest;
   recipeColon?: Colon;
 }
 
@@ -341,15 +373,11 @@ export class ManifestTable extends Component<
   ManifestTableProps,
   ManifestState
 > {
-  state = {
-    manifest: this.props.manifest,
-  };
-
   pickRecipe = createRef();
   lastRow = createRef();
 
   render(props: ManifestTableProps, state: ManifestState) {
-    const manifest = state.manifest;
+    const manifest = props.manifest;
 
     const table = (
       <table class={'table'}>
@@ -364,7 +392,7 @@ export class ManifestTable extends Component<
           </tr>
         </thead>
         <tbody>
-          {manifest.jobs.map((job) => {
+          {manifest.jobs.map((job, i) => {
             const recp = makeRecipe(job);
             const scale = (job.count * job.craftingSpeed) / recp.time;
             return (
@@ -373,9 +401,9 @@ export class ManifestTable extends Component<
                   <button
                     class={'btn btn-sm btn-danger'}
                     onClick={() => {
-                      manifest.jobs.splice(manifest.jobs.indexOf(job), 1);
-                      this.setState({ manifest });
-                      this.props.onChange(manifest);
+                      const jobs = [...manifest.jobs];
+                      jobs.splice(i, 1);
+                      this.props.onChange({ jobs });
                     }}
                     title={'Remove job'}
                   >
@@ -395,7 +423,6 @@ export class ManifestTable extends Component<
                     onClick={(speed) => {
                       // FLOATS
                       job.craftingSpeed = Math.round(speed * 1000) / 1000;
-                      this.setState({ manifest });
                       this.props.onChange(manifest);
                     }}
                   />
@@ -412,7 +439,6 @@ export class ManifestTable extends Component<
                       job.count = parseInt(
                         (e.target as HTMLInputElement).value,
                       );
-                      this.setState({ manifest });
                       this.props.onChange(manifest);
                     }}
                   />
@@ -430,7 +456,6 @@ export class ManifestTable extends Component<
                       job.craftingSpeed = parseFloat(
                         (e.target as HTMLInputElement).value,
                       );
-                      this.setState({ manifest });
                       this.props.onChange(manifest);
                     }}
                   />
@@ -488,13 +513,17 @@ export class ManifestTable extends Component<
           }}
           colon={state.recipeColon}
           puck={(recipe) => {
-            manifest.jobs.push({
-              recipe,
-              craftingSpeed: 1,
-              count: 1,
+            this.setState({ recipeColon: undefined });
+            props.onChange({
+              jobs: [
+                ...manifest.jobs,
+                {
+                  recipe,
+                  craftingSpeed: 1,
+                  count: 1,
+                },
+              ],
             });
-            this.setState({ manifest, recipeColon: undefined });
-            props.onChange(manifest);
             this.lastRow.current?.scrollIntoView();
           }}
         />
@@ -502,13 +531,16 @@ export class ManifestTable extends Component<
         <button
           class={'btn btn-primary'}
           onClick={() => {
-            manifest.jobs.push({
-              recipe: 'boiler:biomass',
-              craftingSpeed: 1,
-              count: 1,
+            props.onChange({
+              jobs: [
+                ...manifest.jobs,
+                {
+                  recipe: 'boiler:biomass',
+                  craftingSpeed: 1,
+                  count: 1,
+                },
+              ],
             });
-            this.setState({ manifest });
-            this.props.onChange(manifest);
           }}
         >
           Add boiler (biomass)
@@ -613,4 +645,41 @@ class PickRecipe extends Component<PickRecipeProps> {
       </>
     );
   }
+}
+
+function balance(manifest: Manifest): Manifest {
+  const jobs = _cloneDeep(manifest.jobs);
+
+  const effects = jobs.map((job, i) => {
+    const recp = makeRecipe(job);
+    const scale = job.craftingSpeed / recp.time;
+    return effectsOf(recp, scale);
+  });
+
+  const canIncrease = effects.flatMap((effect) =>
+    Object.entries(effect)
+      .filter(([, n]) => n > 0)
+      .map(([colon]) => colon),
+  );
+
+  for (let i = 0; i < 300; ++i) {
+    const current = jobsEffects(jobs);
+    let worked = false;
+    for (const [colon, score] of Object.entries(current)) {
+      if (score < 0 && canIncrease.includes(colon)) {
+        const found = effects.findIndex((effect) => effect[colon] > 0);
+        if (found === -1) continue;
+        jobs[found].count += 1;
+        worked = true;
+        break;
+      }
+    }
+    if (!worked) {
+      return {
+        jobs,
+      };
+    }
+  }
+
+  throw new Error('Failed to converge');
 }

@@ -50,6 +50,7 @@
     "@types/js-yaml": "^4.0.5",
     "@types/leaflet": "^1.9.1",
     "@types/lodash": "^4.14.191",
+    "@types/lodash.clonedeep": "^4.5.7",
     "@types/lodash.partition": "^4.6.7",
     "@types/node": "^18",
     "@types/pako": "^2.0.0",
