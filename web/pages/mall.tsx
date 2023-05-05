@@ -2,6 +2,11 @@ import { Component } from 'preact';
 import { mallAssemblers, toBlueprint } from '../muffler/blueprints';
 import * as blueprint from '../muffler/blueprints';
 import { range } from 'lodash';
+import { data } from '../datae';
+import { makeUpRecipe } from '../muffler/walk-recipes';
+import { splitColon } from '../muffler/colon';
+import { isBuilding } from './recipes';
+import { ColonJoined, Recipe } from '../objects';
 
 const cpOrder = [
   'glassworks-mk01',
@@ -144,10 +149,59 @@ export class Mall extends Component {
 
     const stackers = [...cp, ...al];
 
+    const excuses = disableExpensive(stackers);
+
     return (
-      <textarea readonly={true} style={'width: 100%'}>
-        {blueprint.encode(toBlueprint(mallAssemblers(stackers)))}
-      </textarea>
+      <>
+        <textarea readonly={true} style={'width: 100%'}>
+          {blueprint.encode(toBlueprint(mallAssemblers(stackers)))}
+        </textarea>
+        <table class={'table'}>
+          <tbody>
+            {excuses.map(([recp, reason]) => (
+              <tr>
+                <td>
+                  <Recipe name={recp} />
+                </td>
+                <td>
+                  <ColonJoined colon={reason} />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </>
     );
   }
+}
+
+function expensive(recpName: string) {
+  if (!recpName) return undefined;
+  const recp = makeUpRecipe(recpName);
+  if (!recp) return 'invalid';
+
+  for (const ing of recp.ingredients) {
+    if (isBuilding(ing.colon)) continue;
+    const [type, name] = splitColon(ing.colon);
+    if (type !== 'item') return 'fluid';
+    const busHas = data.doc['0,0'].items[name];
+    if (ing.amount > busHas * 0.05) return ing.colon;
+  }
+
+  return undefined;
+}
+
+function disableExpensive(stackers: string[][]): [string, string][] {
+  const ret: [string, string][] = [];
+  for (const row of stackers) {
+    for (let i = 0; i < row.length; ++i) {
+      const recp = row[i];
+      const tooExpensive = expensive(recp);
+      if (tooExpensive) {
+        row[i] = '';
+        ret.push([recp, tooExpensive]);
+      }
+    }
+  }
+  return ret;
 }

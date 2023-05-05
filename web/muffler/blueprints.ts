@@ -125,6 +125,7 @@ export function toBlueprint(entities: Entity[]): Blueprint {
 }
 
 function ingredientMap(recp: string): Record<Colon, number> {
+  if (!recp) return {};
   return Object.fromEntries(
     makeUpRecipe(recp)?.ingredients?.map(
       (ing) => [ing.colon, ing.amount] as const,

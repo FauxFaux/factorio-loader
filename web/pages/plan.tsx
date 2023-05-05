@@ -10,7 +10,6 @@ import {
   productAsFloat,
   RecipeName,
 } from '../muffler/walk-recipes';
-import { BRICK_W, BRICK_H } from '../../scripts/magic';
 import { data } from '../datae';
 import { ColonJoined, JRecipe } from '../objects';
 import { Colon, fromColon, splitColon } from '../muffler/colon';

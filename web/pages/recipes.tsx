@@ -15,11 +15,13 @@ interface Filters {
   multipleOutputs: boolean;
 }
 
-function isBuilding(colon: Colon) {
+export function isBuilding(colon: Colon) {
+  if (['item:concrete-wall'].includes(colon)) return true;
   const [kind, obj] = fromColon(colon);
   if (kind !== 'item') return false;
   return (
     obj.subgroup.name.includes('-buildings-') || // e.g. crystal mine
+    obj.subgroup.name === 'py-rawores-mines' || // e.g. aluminium mine
     obj.subgroup.name === 'py-extraction' ||
     obj.subgroup.name === 'py-power'
   );
