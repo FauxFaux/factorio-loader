@@ -3,7 +3,7 @@ import * as fs from 'fs';
 import * as yaml from 'js-yaml';
 
 import { initOnNode, loadTrainFlows } from './data-hack-for-node';
-import { Coord, data } from '../web/datae';
+import { Coord, data, Factory } from '../web/datae';
 import {
   distSq,
   isProvideStation,
@@ -14,6 +14,7 @@ import { sortByKeys } from '../web/muffler/deter';
 import { JIngredient, JProduct, JRecipe } from '../web/objects';
 import { BlockId, loadCells, loadRec } from './loaders';
 import { stripProducer, stripProducers } from '../web/muffler/blueprints';
+import { RecipeName } from '../web/muffler/walk-recipes';
 
 initOnNode(['doc', 'meta', 'technologies', 'prodStats']);
 
@@ -46,9 +47,15 @@ export type Stop = {
 
 export type BlockContent = {
   tags: string[];
+  /** @deprecated read from asms */
   asm: Record<string, { count: number; locations: Coord[] }>;
+  // automated-factory-mk04	/ iron-stick / { speed-module: 4 }
+  asms: [Factory, RecipeName | null, Record<string, number>, Coord][];
   stop: Stop[];
+  colons: Record<Colon, number>;
+  /** @deprecated read from colons */
   items: Record<string, number>;
+  /** @deprecated read from colons */
   fluids: Record<string, number>;
   resources: Record<string, number>;
   requesters: [Coord, Record<string, number>][];
@@ -228,9 +235,11 @@ function main() {
       byBlock[sid] = {
         tags: [],
         asm: {},
+        asms: [],
         stop: [],
         items: {},
         fluids: {},
+        colons: {},
         resources: {},
         requesters: [],
         boilers: 0,
@@ -250,12 +259,16 @@ function main() {
 
   for (const obj of loadRec('assembling-machine')) {
     const block = getBlock(obj.block);
-    const label = `${obj.name}\0${obj.ext[0]}`;
+    const recp = obj.ext[0];
+    const label = `${obj.name}\0${recp}`;
     if (!block.asm[label]) {
       block.asm[label] = { count: 0, locations: [] };
     }
     block.asm[label].count++;
     block.asm[label].locations.push(obj.pos);
+
+    const modules = addItems({}, obj.ext.slice(1));
+    block.asms.push([obj.name, recp, modules, obj.pos]);
   }
 
   // close enough, eh
@@ -274,6 +287,7 @@ function main() {
       obj.locations.sort();
       obj.locations = obj.locations.slice(0, 6);
     }
+    block.asms.sort();
   }
 
   for (const obj of loadRec('boiler')) {
@@ -358,11 +372,12 @@ function main() {
   /** returns items (modified in place) */
   function addItems(
     items: Record<string, number>,
-    obj: { ext: string[] },
+    ext: string[],
+    prefix: string = '',
   ): Record<string, number> {
-    for (let i = 0; i < obj.ext.length; i += 2) {
-      const itemName = obj.ext[i];
-      const itemCount = parseInt(obj.ext[i + 1]);
+    for (let i = 0; i < ext.length; i += 2) {
+      const itemName = prefix + ext[i];
+      const itemCount = parseInt(ext[i + 1]);
       if (!items[itemName]) items[itemName] = 0;
       items[itemName] += itemCount;
     }
@@ -371,20 +386,23 @@ function main() {
 
   for (const obj of loadRec('container')) {
     const block = getBlock(obj.block);
-    addItems(block.items, obj);
+    addItems(block.items, obj.ext);
+    addItems(block.colons, obj.ext, 'item:');
   }
 
   for (const obj of loadRec('logistic-container')) {
     const block = getBlock(obj.block);
-    addItems(block.items, obj);
+    addItems(block.items, obj.ext);
+    addItems(block.colons, obj.ext, 'item:');
     if (obj.name === 'logistic-chest-requester') {
-      block.requesters.push([obj.pos, sortByKeys(addItems({}, obj))]);
+      block.requesters.push([obj.pos, sortByKeys(addItems({}, obj.ext))]);
     }
   }
 
   for (const obj of loadRec('storage-tank')) {
     const block = getBlock(obj.block);
-    addItems(block.fluids, obj);
+    addItems(block.fluids, obj.ext);
+    addItems(block.colons, obj.ext, 'fluid:');
   }
 
   for (const obj of loadRec('resource')) {

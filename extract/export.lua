@@ -40,9 +40,18 @@ for _, ty in ipairs({
             a[#a + 1] = v.name
         end
         if ty == "assembling-machine" then
+            local recp = nil
             pcall(function()
-                a[#a + 1] = v.get_recipe().name
+                recp = v.get_recipe().name
             end)
+            a[#a + 1] = recp
+            local mi = v.get_module_inventory()
+            if mi ~= nil then
+                for item, count in pairs(mi.get_contents()) do
+                    a[#a + 1] = item
+                    a[#a + 1] = count
+                end
+            end
         end
         if ty == "train-stop" then
             a[#a + 1] = v.backer_name
