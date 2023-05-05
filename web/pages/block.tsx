@@ -1,10 +1,93 @@
 import { Component } from 'preact';
 
-import { ColonJoined, Item, ItemOrFluid, TagList } from '../objects';
+import { ColonJoined, Item, TagList } from '../objects';
 import { Assemblers, recipeDifference, TrainStops } from '../block-renderers';
 import { data } from '../datae';
 import { humanise } from '../muffler/human';
 import { BlockThumb } from './map';
+import type { BlockContent } from '../../scripts/load-recs';
+import { makeUpRecipe } from '../muffler/walk-recipes';
+import { actualSpeed, effectsOf } from './plan';
+import { Colon } from '../muffler/colon';
+import { cloneDeep } from 'lodash';
+import { stackSize } from './chestify';
+
+export function simulate(
+  asms: BlockContent['asms'],
+  include: (colon: Colon) => boolean = () => true,
+) {
+  const actions: Record<Colon, number>[] = [];
+  for (const [factory, recipeName, modules] of asms) {
+    if (!recipeName) continue;
+    const recp = makeUpRecipe(recipeName);
+    if (!recp) continue;
+    const scale = actualSpeed(factory, modules) / recp.time;
+    actions.push(effectsOf(recp, scale));
+  }
+
+  const outputs = new Set<Colon>();
+  const inputs = new Set<Colon>();
+  for (const action of actions) {
+    for (const [colon, count] of Object.entries(action)) {
+      if (count > 0) {
+        outputs.add(colon);
+      } else {
+        inputs.add(colon);
+      }
+    }
+  }
+
+  const wanted = [...inputs].filter((input) => !outputs.has(input));
+  const START_VALUE = 1e9;
+  const WARMUP = 5 * 60;
+  const TICKS = 3600;
+
+  const current: Record<Colon, number> = Object.fromEntries(
+    wanted.map((x) => [x, START_VALUE]),
+  );
+  const tick = () => {
+    for (const action of actions) {
+      if (
+        Object.entries(action)
+          .filter(([, count]) => count < 0)
+          .some(([colon, count]) => current[colon] < -count)
+      ) {
+        continue;
+      }
+      for (const [colon, count] of Object.entries(action)) {
+        current[colon] = (current[colon] ?? 0) + count;
+      }
+    }
+  };
+  for (let i = 0; i < WARMUP; ++i) {
+    tick();
+  }
+  const initial = cloneDeep(current);
+  for (let i = 0; i < TICKS; ++i) {
+    tick();
+  }
+
+  return Object.entries(current)
+    .map(
+      ([colon, count]) =>
+        [colon, (count - initial[colon] ?? 0) / TICKS] as const,
+    )
+    .filter(([, count]) => Math.abs(count) > 0.1)
+    .sort(([, a], [, b]) => Math.abs(b) - Math.abs(a))
+    .filter(([colon]) => include(colon))
+    .map(([colon, count]) => {
+      const fullTrain = stackSize(colon) * 50;
+      return (
+        <li>
+          <span class={'amount'}>
+            {humanise((count * 60 * 60) / fullTrain)}tph
+          </span>
+          <span class={'amount'}>{humanise(count)}</span>/s{' '}
+          <ColonJoined colon={colon} />
+        </li>
+      );
+    });
+}
 
 export class BlockPage extends Component<{ loc: string }> {
   render(props: { loc: string }) {
@@ -62,6 +145,14 @@ export class BlockPage extends Component<{ loc: string }> {
             <TrainStops stop={obj.stop} />
           </div>
           <div class="col">
+            <h3>Simulation (approved)</h3>
+            {simulate(
+              obj.asms,
+              (colon) => wanted.includes(colon) || exports.includes(colon),
+            )}
+            <h3>Simulation</h3>
+            {simulate(obj.asms)}
+
             <h3 title="..but does not consume">Produces</h3>
             <ul>
               {exports.map((x) => (
@@ -80,18 +171,12 @@ export class BlockPage extends Component<{ loc: string }> {
             </ul>
             <h3>Storing</h3>
             <ul>
-              {[
-                ...Object.entries(obj.items).map(
-                  ([k, v]) => [k, v, 'item'] as const,
-                ),
-                ...Object.entries(obj.fluids).map(
-                  ([k, v]) => [k, v, 'fluid'] as const,
-                ),
-              ]
+              {Object.entries(obj.colons)
                 .sort(([, a], [, b]) => b - a)
-                .map(([name, count, type]) => (
+                .map(([colon, count]) => (
                   <li>
-                    {humanise(count)} * <ItemOrFluid type={type} name={name} />
+                    <span class={'amount'}>{humanise(count)}</span> &times;{' '}
+                    <ColonJoined colon={colon} />
                   </li>
                 ))}
             </ul>

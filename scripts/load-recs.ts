@@ -274,12 +274,15 @@ function main() {
   // close enough, eh
   for (const obj of loadRec('furnace')) {
     const block = getBlock(obj.block);
-    const label = `${obj.name}\0${obj.ext[0]}`;
+    const recp = obj.ext[0];
+    const label = `${obj.name}\0${recp}`;
     if (!block.asm[label]) {
       block.asm[label] = { count: 0, locations: [] };
     }
     block.asm[label].count++;
     block.asm[label].locations.push(obj.pos);
+
+    block.asms.push([obj.name, recp, {}, obj.pos]);
   }
 
   for (const block of Object.values(byBlock)) {

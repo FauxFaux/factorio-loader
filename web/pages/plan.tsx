@@ -52,7 +52,7 @@ export function actualSpeed(name: Factory, modules: Record<string, number>) {
   return Math.round(speed * 1000) / 1000;
 }
 
-function effectsOf(
+export function effectsOf(
   recp: JRecipe,
   scale: number,
   effects: Record<string, number> = {},
