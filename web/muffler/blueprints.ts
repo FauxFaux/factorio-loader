@@ -25,6 +25,8 @@ export interface Entity {
   // presumably always an item; this is *not* colon'd
   name: string;
   inventory?: unknown;
+  // e.g. { speed_module: 6 } for factories, not an inventory apparently
+  items?: Record<string, number>;
   position?: unknown;
   recipe?: string;
   direction?: number;

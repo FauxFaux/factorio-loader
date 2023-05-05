@@ -10,7 +10,7 @@ import {
   productAsFloat,
   RecipeName,
 } from '../muffler/walk-recipes';
-import { data } from '../datae';
+import { data, Factory } from '../datae';
 import { ColonJoined, JRecipe } from '../objects';
 import { Colon, fromColon, splitColon } from '../muffler/colon';
 import { humanise } from '../muffler/human';
@@ -35,18 +35,21 @@ const US = '/an/plan/';
 interface PlanState {
   brotli: BrotliWasmType | null;
   manifest: Manifest;
-  blueprintIn?: string;
 }
 
-function typicalSpeed(name: string) {
+export function actualSpeed(name: Factory, modules: Record<string, number>) {
   const clazz = stripProducer(name);
   const factory = data.meta.factories[clazz]?.[name];
-  const speed = factory?.speed;
+  let speed = factory?.speed;
   if (speed === undefined) return 0.001;
   const limit = limitations[clazz];
   if (!limit) return speed;
-  const modules = data.meta.modules[limit];
-  return (1 + (Object.values(modules)?.[0] ?? 0)) * speed;
+  const module = data.meta.modules[limit];
+  for (const [mod, count] of Object.entries(modules)) {
+    const effect = module[mod];
+    speed *= 1 + effect * count;
+  }
+  return Math.round(speed * 1000) / 1000;
 }
 
 function effectsOf(
@@ -209,19 +212,11 @@ export class Plan extends Component<{ encoded?: string }, PlanState> {
             </h3>
           </div>
           <div class={'col'}>
-            <input
-              type={'text'}
-              style="width: 5em; display: revert; margin: 2px"
-              class={'form-control'}
-              onChange={(e) => {
-                this.setState({ blueprintIn: (e.target as any)?.value });
-              }}
-            />
             <button
               className={'btn btn-primary'}
               onClick={() => this.loadBlueprint()}
             >
-              Load from blueprint
+              Load blueprint from clipboard
             </button>
           </div>
         </div>
@@ -245,29 +240,36 @@ export class Plan extends Component<{ encoded?: string }, PlanState> {
     );
   }
 
-  loadBlueprint() {
-    const blueprint = this.state.blueprintIn;
+  async loadBlueprint() {
+    const blueprint = await navigator.clipboard.readText();
     if (!blueprint) {
       return;
     }
     const manifest: Manifest = {
       jobs: [],
     };
-    const countByLabel: Record<string, number> = {};
     const decoded = decode(blueprint);
+    const recognised: [RecipeName, number][] = [];
     for (const entity of decoded.entities ?? []) {
       if (!entity.recipe) continue;
-      if (!data.recipes.regular[entity.recipe]) continue;
-      const label = `${entity.name}\0${entity.recipe}`;
-      countByLabel[label] = (countByLabel[label] || 0) + 1;
+      if (!makeUpRecipe(entity.recipe)) continue;
+      const speed = actualSpeed(entity.name, entity.items ?? {});
+      recognised.push([entity.recipe, speed]);
     }
-    for (const [label, count] of Object.entries(countByLabel)) {
-      const [name, recipe] = label.split('\0');
-      manifest.jobs.push({
-        recipe,
-        count,
-        craftingSpeed: typicalSpeed(name),
-      });
+
+    for (const [recipe, craftingSpeed] of recognised) {
+      const job = manifest.jobs.find(
+        (job) => job.recipe === recipe && job.craftingSpeed === craftingSpeed,
+      );
+      if (job) {
+        job.count += 1;
+      } else {
+        manifest.jobs.push({
+          recipe,
+          count: 1,
+          craftingSpeed,
+        });
+      }
     }
     this.setState({ manifest });
   }
