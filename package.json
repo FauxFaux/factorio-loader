@@ -32,7 +32,7 @@
     "lodash.partition": "^4.6.0",
     "pako": "^2.1.0",
     "preact": "^10.11",
-    "preact-render-to-string": "^5.2.6",
+    "preact-render-to-string": "^6.0.3",
     "preact-router": "^4.1.0",
     "serialize-error": "^11.0.0"
   },
