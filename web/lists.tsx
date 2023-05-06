@@ -208,10 +208,12 @@ export class ItemList extends Component<ItemListProps, { search?: string }> {
   }
 }
 
-export class GpsLink extends Component<
-  { caption: string; gps: readonly [number, number] },
-  { copied?: boolean }
-> {
+interface GpsLinkProps {
+  caption: string;
+  gps: readonly [number, number];
+}
+
+export class GpsLink extends Component<GpsLinkProps, { copied?: boolean }> {
   doCopy = async () => {
     try {
       const { caption, gps } = this.props;
@@ -227,13 +229,7 @@ export class GpsLink extends Component<
   onLeave = () => {
     this.setState({ copied: false });
   };
-  render(
-    props: {
-      caption: string;
-      gps: readonly [number, number];
-    },
-    state: { copied?: boolean },
-  ): ComponentChild {
+  render(props: GpsLinkProps, state: { copied?: boolean }): ComponentChild {
     const check = require('svg-url-loader!./check.svg');
     const pin = require('svg-url-loader!./pin.svg');
 

@@ -27,8 +27,10 @@ export const data = {
     modules: Record<Limitation, Record<string, number>>;
     isSpawn: Loc[];
   },
+  /** @deprecated replace with colons */
   items: {} as Record<string, JItem>,
   icons: {} as Record<string, string>,
+  /** @deprecated replace with colons */
   fluids: {} as Record<string, JFluid>,
   recipes: {} as {
     regular: Record<string, JRecipe>;

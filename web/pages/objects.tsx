@@ -291,8 +291,11 @@ class RecipeUsage extends Component<{ type: string; name: string }> {
               <ul>
                 {Object.entries(counts.asms).map(([machine, props]) => (
                   <li>
-                    {/*'machine' here lacks the 'label' properties so we get a bit garbage out*/}
-                    <AssemblerCount label={machine} props={props} />
+                    {/*'machine' here lacks the 'label' \0 insanity, so restore it */}
+                    <AssemblerCount
+                      label={`${machine}\0${name}`}
+                      props={props}
+                    />
                   </li>
                 ))}
               </ul>

@@ -72,10 +72,12 @@ export const AssemblerCount = ({
   props: { count: number; locations: Coord[] };
 }) => {
   const [machine, recipe] = label.split('\0');
+  const machineName = data.items[machine]?.localised_name ?? machine;
+  const recipeName = data.recipes.regular[recipe]?.localised_name ?? recipe;
   return (
     <>
       {props.locations.map((loc) => (
-        <GpsLink caption={`a ${machine} making ${recipe}`} gps={loc} />
+        <GpsLink caption={`a ${machineName} making ${recipeName}`} gps={loc} />
       ))}
       {props.count} &times; <Item name={machine} />{' '}
     </>
