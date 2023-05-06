@@ -3,7 +3,7 @@ import { computed, Coord, data } from '../datae';
 import { LtnProvides, LtnRequests } from '../ltn-avail';
 import { ItemIcon } from '../lists';
 import { BlockLine, ColonJoined, Fluid, Item } from '../objects';
-import { Colon, objToColon, splitColon } from '../muffler/colon';
+import { Colon, splitColon } from '../muffler/colon';
 import { humanise } from '../muffler/human';
 import {
   HowToMake,
@@ -175,8 +175,12 @@ export class IoFDetail extends Component<{
         </div>
 
         <div className="row">
-          <h3>Recipes in use in factory, most assemblers first:</h3>
-          <RecipeUsage type={kind} name={name} />
+          <h3>Producers</h3>
+          <RecipeUsage colon={colon} producers={true} />
+        </div>
+        <div className="row">
+          <h3>Consumers</h3>
+          <RecipeUsage colon={colon} producers={false} />
         </div>
 
         <div className="row">
@@ -222,14 +226,19 @@ class Storage extends Component<{ type: 'item' | 'fluid'; name: string }> {
   }
 }
 
-class RecipeUsage extends Component<{ type: string; name: string }> {
-  render(props: { type: string; name: string }) {
-    const colon = objToColon(props);
+interface RecipeUsageProps {
+  colon: string;
+  producers: boolean;
+}
 
-    const recipes = Object.entries(data.recipes.regular).filter(
-      ([, recipe]) =>
-        undefined !== recipe.products.find((prod) => prod.colon === colon) ||
-        undefined !== recipe.ingredients?.find((ing) => ing.colon === colon),
+class RecipeUsage extends Component<RecipeUsageProps> {
+  render(props: RecipeUsageProps) {
+    const colon = props.colon;
+
+    const recipes = Object.entries(data.recipes.regular).filter(([, recipe]) =>
+      props.producers
+        ? undefined !== recipe.products.find((prod) => prod.colon === colon)
+        : undefined !== recipe.ingredients?.find((ing) => ing.colon === colon),
     );
 
     const executions: Record<string, number> = {};
