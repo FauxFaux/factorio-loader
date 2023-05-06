@@ -157,7 +157,7 @@ export class Item extends Component<{ name: string }, {}> {
     return (
       <a
         ref={this.ref}
-        href={`/item/${props.name}`}
+        href={`/an/detail/item:${props.name}`}
         class="item"
         data-bs-toggle="tooltip"
         title={`item ${props.name} (${item.stack_size})`}
@@ -177,7 +177,7 @@ export class Fluid extends Component<{ name: string }, {}> {
       <a
         class="fluid"
         data-bs-toggle="tooltip"
-        href={`/fluid/${props.name}`}
+        href={`/an/detail/fluid:${props.name}`}
         title={`fluid ${props.name}`}
       >
         {fluid.localised_name}
