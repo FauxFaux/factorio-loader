@@ -185,7 +185,7 @@ function expensive(recpName: string) {
     const [type, name] = splitColon(ing.colon);
     if (type !== 'item') return 'fluid';
     const busHas = data.doc['0,0'].items[name];
-    if (ing.amount > busHas * 0.05) return ing.colon;
+    if (ing.amount > busHas * 0.01) return ing.colon;
   }
 
   return undefined;
