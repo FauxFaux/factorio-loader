@@ -3,6 +3,8 @@ import { data } from '../datae';
 import { BlockLine } from '../objects';
 import { BlockThumb } from './map';
 import { humanise } from '../muffler/human';
+import { GpsLink } from '../lists';
+import { fromLoc } from '../../scripts/magic';
 
 export class Resources extends Component<{ resource?: string }> {
   render(props: { resource?: string }) {
@@ -67,17 +69,24 @@ export class Resources extends Component<{ resource?: string }> {
             <tbody>
               {hits
                 .sort(([, a], [, b]) => b - a)
-                .map(([name, amount]) => (
-                  <tr>
-                    <td>
-                      <BlockThumb loc={name} />
-                    </td>
-                    <td>
-                      <BlockLine block={name} />
-                    </td>
-                    <td>{humanise(amount)}</td>
-                  </tr>
-                ))}
+                .map(([name, amount]) => {
+                  const [bx, by] = fromLoc({ loc: name });
+                  return (
+                    <tr>
+                      <td>
+                        <BlockThumb loc={name} />
+                      </td>
+                      <td>
+                        <GpsLink
+                          caption={`brick ${name}`}
+                          gps={[bx + 192 / 2, by + 128 / 2]}
+                        />
+                        <BlockLine block={name} />
+                      </td>
+                      <td>{humanise(amount)}</td>
+                    </tr>
+                  );
+                })}
             </tbody>
           </table>
         </div>
