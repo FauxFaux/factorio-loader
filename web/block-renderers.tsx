@@ -12,13 +12,14 @@ import {
 import { humanise } from './muffler/human';
 import { compareWithoutIcons } from './muffler/names';
 import { expActLtn, LtnFlow, LtnPercent } from './ltn-avail';
+import { makeUpRecipe } from './muffler/walk-recipes';
 
 export function recipeDifference(brick: BlockContent) {
   const inputs: Set<string> = new Set();
   const outputs: Set<string> = new Set();
   for (const [label] of Object.entries(brick.asm)) {
     const [, recipe] = label.split('\0');
-    const recp = data.recipes.regular[recipe];
+    const recp = makeUpRecipe(recipe);
     if (!recp) continue;
 
     for (const ing of recp.ingredients ?? []) {

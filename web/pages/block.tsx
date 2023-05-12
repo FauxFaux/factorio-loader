@@ -11,6 +11,7 @@ import { actualSpeed, effectsOf } from './plan';
 import { Colon } from '../muffler/colon';
 import { cloneDeep } from 'lodash';
 import { stackSize } from './chestify';
+import { ltnSummary } from '../ltn-summary';
 
 interface Modes {
   // an unbounded amount of this is available from the rail network
@@ -18,15 +19,6 @@ interface Modes {
 
   // an unbounded amount of this can be sunk by the rail network
   outputs: Set<Colon>;
-
-  // this product may fill buffers, but, if buffers are full, the assemblers will jam
-  intermediates: Set<Colon>;
-
-  // an unbounded amount of this can be output by intermediate steps, but it is not an output
-  overflows: Set<Colon>;
-
-  // this ingredient is broken, do not consider it
-  ignore: Set<Colon>;
 }
 
 function toActions(asms: BlockContent['asms']): Record<string, number>[] {
@@ -41,24 +33,107 @@ function toActions(asms: BlockContent['asms']): Record<string, number>[] {
   return actions;
 }
 
-export function simulate(actions: Record<Colon, number>[], modes: Modes) {
-  const START_VALUE = 1e9;
+export function simulate(realActions: Record<Colon, number>[], modes: Modes) {
   const WARMUP = 5 * 60;
   const TICKS = 3600;
+  const OVERLOAD = 2;
+
+  // items involved in a cycle?
+  const required = new Set<Colon>([
+    'item:moss',
+    'item:biomass',
+    'fluid:carbon-dioxide',
+  ]);
+
+  const recipePriority = (action: Record<Colon, number>) => {
+    if (
+      Object.entries(action).some(
+        ([colon, count]) => count > 0 && required.has(colon),
+      )
+    ) {
+      return 2;
+    }
+
+    // this still deadlocks on auog butchery, __underflow hack below is closer but also deadlocks with the current stack sizes
+    const outputs = Object.entries(action)
+      .filter(([, count]) => count > 0)
+      .map(([colon]) => colon);
+    if (outputs.length === 1 && outputs[0] === 'item:cage') {
+      return -1;
+    }
+
+    return 0;
+  };
+
+  const actions = realActions
+    .map((action) => cloneDeep(action))
+    .sort((a, b) => recipePriority(b) - recipePriority(a));
+
+  for (const action of actions) {
+    const inputs = Object.entries(action)
+      .filter(([, count]) => count < 0)
+      .map(([colon]) => colon);
+
+    // sinkhole
+    if (inputs.length === 1 && inputs[0] === 'fluid:water') {
+      action['__overflow'] = 1;
+    }
+
+    const outputs = Object.entries(action)
+      .filter(([, count]) => count > 0)
+      .map(([colon]) => colon);
+    if (outputs.length === 1 && outputs[0] === 'item:cage') {
+      action['__underflow'] = 1;
+    }
+  }
+
+  const bufferSize: Record<Colon, number> = {};
+  for (const action of actions) {
+    for (const [colon, count] of Object.entries(action)) {
+      bufferSize[colon] = (bufferSize[colon] ?? 0) + OVERLOAD * Math.abs(count);
+    }
+  }
 
   const current: Record<Colon, number> = Object.fromEntries(
-    [...modes.inputs].map((x) => [x, START_VALUE]),
+    Object.entries(bufferSize).map(([colon, value]) => [colon, value / 2]),
   );
+  const overruns: Record<Colon, number> = {};
+  const underruns: Record<Colon, number> = {};
+
   const tick = () => {
     for (const action of actions) {
-      if (
-        Object.entries(action)
-          .filter(([, count]) => count < 0)
-          .some(([colon, count]) => current[colon] < -count)
-      ) {
+      // if some input is missing, don't execute
+      const underran = Object.entries(action)
+        .filter(([colon]) => !colon.startsWith('_'))
+        .filter(([colon]) => !modes.inputs.has(colon))
+        .filter(
+          ([colon, count]) =>
+            count < (action['__overflow'] ? 0.5 : 0) * bufferSize[colon],
+        )
+        .find(([colon, count]) => current[colon] < -count);
+      if (underran) {
+        const [colon, count] = underran;
+        underruns[colon] = (underruns[colon] ?? 0) - count;
         continue;
       }
-      for (const [colon, count] of Object.entries(action)) {
+
+      const overran = Object.entries(action)
+        .filter(([colon]) => !colon.startsWith('_'))
+        .filter(([colon]) => !modes.outputs.has(colon))
+        .filter(([, count]) => count > 0)
+        .find(
+          ([colon, count]) =>
+            current[colon] + count >
+            (action['__underflow'] ? 0.1 : 1) * bufferSize[colon],
+        );
+      if (overran) {
+        const [colon, count] = overran;
+        overruns[colon] = (overruns[colon] ?? 0) + count;
+        continue;
+      }
+      for (const [colon, count] of Object.entries(action).filter(
+        ([colon]) => !colon.startsWith('_'),
+      )) {
         current[colon] = (current[colon] ?? 0) + count;
       }
     }
@@ -66,14 +141,30 @@ export function simulate(actions: Record<Colon, number>[], modes: Modes) {
   for (let i = 0; i < WARMUP; ++i) {
     tick();
   }
-  const initial = cloneDeep(current);
+  const initial = cloneDeep({
+    current,
+    overruns,
+    underruns,
+  });
   for (let i = 0; i < TICKS; ++i) {
     tick();
   }
 
-  return Object.entries(current).map(
-    ([colon, count]) => [colon, (count - initial[colon] ?? 0) / TICKS] as const,
-  );
+  const scaleDown = (
+    obj: Record<Colon, number>,
+    initial: Record<Colon, number>,
+  ) =>
+    Object.entries(obj).map(
+      ([colon, count]) =>
+        [colon, (count - initial[colon] ?? 0) / TICKS] as const,
+    );
+
+  // you'd think TS could do this, wouldn't you, but no
+  return {
+    current: scaleDown(current, initial.current),
+    overruns: scaleDown(overruns, initial.overruns),
+    underruns: scaleDown(underruns, initial.underruns),
+  };
 }
 
 export class BlockPage extends Component<{ loc: string }> {
@@ -118,9 +209,12 @@ export class BlockPage extends Component<{ loc: string }> {
 
     const { wanted, exports } = recipeDifference(obj);
 
-    let simulation;
+    let simulation, result;
     {
       const actions = toActions(obj.asms);
+      for (let i = 0; i < obj.boilers; ++i) {
+        actions.push({ 'item:biomass': -(1 / 1.8), 'fluid:steam': 60 });
+      }
 
       const outputs = new Set<Colon>();
       const inputs = new Set<Colon>();
@@ -136,21 +230,25 @@ export class BlockPage extends Component<{ loc: string }> {
 
       const wanted = [...inputs].filter((input) => !outputs.has(input));
       const produced = [...outputs].filter((output) => !inputs.has(output));
-      const neither = [...outputs].filter(
-        (output) => !wanted.includes(output) && !produced.includes(output),
-      );
+
+      const ltn = ltnSummary(obj);
+
       const modes: Modes = {
         inputs: new Set(wanted),
         outputs: new Set(produced),
-        intermediates: new Set(neither),
-        overflows: new Set(),
-        ignore: new Set(),
       };
 
-      const result = simulate(actions, modes);
+      for (const req of Object.keys(ltn.requests)) {
+        modes.inputs.add(req);
+      }
 
-      simulation = result
-        .filter(([, count]) => Math.abs(count) > 0.1)
+      for (const prov of Object.keys(ltn.provides)) {
+        modes.outputs.add(prov);
+      }
+
+      result = simulate(actions, modes);
+
+      simulation = result.current
         .sort(([, a], [, b]) => Math.abs(b) - Math.abs(a))
         .filter(
           ([colon]) => modes.inputs.has(colon) || modes.outputs.has(colon),
@@ -160,7 +258,7 @@ export class BlockPage extends Component<{ loc: string }> {
           return (
             <li>
               <span class={'amount'}>
-                {humanise((count * 60 * 60) / fullTrain)}tph
+                {humanise((Math.abs(count) * 60 * 60) / fullTrain)}
               </span>
               <span class={'amount'}>{humanise(count)}</span>/s{' '}
               <ColonJoined colon={colon} />
@@ -185,6 +283,28 @@ export class BlockPage extends Component<{ loc: string }> {
           <div class="col">
             <h3>Simulation</h3>
             {simulation}
+            <h3>Overruns</h3>
+            <ul>
+              {result.overruns
+                .sort(([, a], [, b]) => b - a)
+                .map(([colon, count]) => (
+                  <li>
+                    <span class={'amount'}>{humanise(count)}</span> &times;{' '}
+                    <ColonJoined colon={colon} />
+                  </li>
+                ))}
+            </ul>
+            <h3>Underruns</h3>
+            <ul>
+              {result.underruns
+                .sort(([, a], [, b]) => b - a)
+                .map(([colon, count]) => (
+                  <li>
+                    <span class={'amount'}>{humanise(count)}</span> &times;{' '}
+                    <ColonJoined colon={colon} />
+                  </li>
+                ))}
+            </ul>
 
             <h3 title="..but does not consume">Produces</h3>
             <ul>

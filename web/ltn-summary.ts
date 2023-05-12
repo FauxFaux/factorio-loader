@@ -27,7 +27,7 @@ export function precomputeLtnSummary(): Record<string, LtnSummary> {
   return ret;
 }
 
-function ltnSummary(block: BlockContent): LtnSummary {
+export function ltnSummary(block: BlockContent): LtnSummary {
   const ret: LtnSummary = {
     looses: {},
     provides: {},
