@@ -89,11 +89,12 @@ export function buildRequestFilters(input: Record<Colon, number>) {
 export function toChest(
   reference: Blueprint,
   input: Record<Colon, number>,
+  chestName = 'logistic-chest-requester',
 ): Blueprint {
   const justChest = {
     index: 1,
     signal: {
-      name: 'logistic-chest-requester',
+      name: chestName,
       type: 'item',
     },
   };
@@ -101,7 +102,7 @@ export function toChest(
     entities: [
       {
         entity_number: 1,
-        name: 'logistic-chest-requester',
+        name: chestName,
         position: {
           x: 0,
           y: 0,
