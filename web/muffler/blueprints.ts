@@ -71,6 +71,11 @@ export function enumerate(input: Blueprint): Record<Colon, number> {
   for (const entity of input.entities ?? []) {
     const colon = tupleToColon(['item', entity.name]);
     result[colon] = (result[colon] ?? 0) + 1;
+    const modules = entity.items ?? {};
+    for (const [name, count] of Object.entries(modules)) {
+      const colon = tupleToColon(['item', name]);
+      result[colon] = (result[colon] ?? 0) + count;
+    }
   }
   return result;
 }
