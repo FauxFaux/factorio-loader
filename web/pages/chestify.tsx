@@ -49,13 +49,6 @@ export class Chestify extends Component<{}, ChestifyState> {
     this.setState({ input: e.target.value });
   };
   render(props: unknown, state: ChestifyState) {
-    let heading = (
-      <h2>
-        Receive a{' '}
-        <ItemIcon name={'logistic-chest-requester'} alt={'requester chest'} />{' '}
-        blueprint here...
-      </h2>
-    );
     let output;
     let explain;
     if (state.input) {
@@ -72,21 +65,7 @@ export class Chestify extends Component<{}, ChestifyState> {
           .filter(([name]) => !state.banned[name])
           .map(([colon, count]) => stacks(colon, count))
           .reduce((a, b) => a + b, 0);
-        const chestName = chestSizeFor(wantedStacks);
-        heading = (
-          <h2>
-            <ItemIcon
-              name={chestName}
-              alt={data.items[chestName].localised_name}
-            />{' '}
-            requesting{' '}
-            <span style={wantedStacks >= 800 ? 'color: red' : ''}>
-              {wantedStacks}
-            </span>{' '}
-            stacks
-          </h2>
-        );
-
+        const capacityStacks = 48;
         explain = (
           <>
             <div className={'col-6'}>
@@ -100,6 +79,13 @@ export class Chestify extends Component<{}, ChestifyState> {
                 ))}
             </div>
             <div className={'col-6'}>
+              <h2>
+                Chest will request{' '}
+                <span style={wantedStacks > capacityStacks ? 'color: red' : ''}>
+                  {wantedStacks}/{capacityStacks}
+                </span>{' '}
+                stacks:
+              </h2>
               <table class={'table chestify-summary'}>
                 <thead>
                   <tr>
@@ -180,7 +166,6 @@ export class Chestify extends Component<{}, ChestifyState> {
               .filter(([name]) => !state.banned[name])
               .sort(byCount),
           ),
-          chestName,
         );
         output = (
           <textarea
@@ -215,7 +200,14 @@ export class Chestify extends Component<{}, ChestifyState> {
             <textarea class={'form-control big-boy'} onChange={this.onInput} />
           </div>
           <div className={'col-6'}>
-            {heading}
+            <h2>
+              Receive a{' '}
+              <ItemIcon
+                name={'logistic-chest-requester'}
+                alt={'requester chest'}
+              />{' '}
+              blueprint here...
+            </h2>
             {output}
           </div>
         </div>
@@ -234,12 +226,4 @@ export function stackSize(colon: Colon): number {
   if ('stack_size' in obj) return obj.stack_size;
   // 10 barrels with 50 fluids in each
   return 10 * 50;
-}
-
-export function chestSizeFor(stacks: number): string {
-  if (stacks <= 48) return 'logistic-chest-requester';
-  if (stacks <= 75) return 'py-shed-requester';
-  if (stacks <= 150) return 'py-storehouse-requester';
-  if (stacks <= 450) return 'py-warehouse-requester';
-  return 'py-deposit-requester';
 }
