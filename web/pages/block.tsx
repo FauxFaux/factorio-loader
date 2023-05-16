@@ -12,6 +12,7 @@ import { Colon } from '../muffler/colon';
 import { cloneDeep } from 'lodash';
 import { stackSize } from './chestify';
 import { ltnSummary } from '../ltn-summary';
+import { sortByKeys } from "../muffler/deter";
 
 interface Modes {
   // an unbounded amount of this is available from the rail network
@@ -31,6 +32,88 @@ function toActions(asms: BlockContent['asms']): Record<string, number>[] {
     actions.push(effectsOf(recp, scale));
   }
   return actions;
+}
+
+function applyEfficiencies(actions: Record<Colon, number>[], efficiencies: number[]) {
+  const result: Record<string, number> = {};
+  for (let act = 0; act < actions.length; act++) {
+    const action = actions[act];
+    for (const [colon, count] of Object.entries(action)) {
+      result[colon] = (result[colon] || 0) + count * efficiencies[act];
+    }
+  }
+  return result;
+}
+
+function scoreResult(result: Record<string, number>, modes: Modes) {
+  let score = 0;
+  for (const [colon, count] of Object.entries(result)) {
+    if (modes.inputs.has(colon)) {
+      // consuming inputs good
+      if (count < 0) {
+        score += Math.abs(count);
+      }
+    } else {
+      // consuming non-inputs very bad
+      if (count < 0) {
+        score -= 10 * Math.abs(count);
+      }
+    }
+
+    if (modes.outputs.has(colon)) {
+      // generating outputs good (generating negative outputs bad)
+      score += count;
+    } else {
+      // generating intermediates bad
+      if (count > 0) {
+        score -= 2 * count;
+      }
+    }
+  }
+  return score;
+}
+
+export function guess(realActions: Record<Colon, number>[], modes: Modes) {
+  const actionCount: Record<string, number> = {};
+  for (const action of realActions) {
+    // oh yes I did
+    const k = JSON.stringify(sortByKeys(action));
+    actionCount[k] = (actionCount[k] || 0) + 1;
+  }
+
+  const actions: Record<Colon, number>[] = [];
+  for (const [k, count] of Object.entries(actionCount)) {
+    const action: Record<Colon, number> = JSON.parse(k);
+    for (const k of Object.keys(action)) {
+      action[k] *= count;
+    }
+    actions.push(action);
+  }
+
+  let bestScore = -Infinity;
+  let bestEfficiency: number[] = [];
+
+  for (let t = 0; t < 1_000_000; ++t) {
+    const efficiencies: number[] = [];
+    for (let i = 0; i < actions.length; ++i) {
+      efficiencies.push(1 - (Math.random() * Math.random()));
+    }
+
+    const result = applyEfficiencies(actions, efficiencies);
+    let score = scoreResult(result, modes);
+
+    if (score > bestScore) {
+      bestScore = score;
+      bestEfficiency = efficiencies;
+    }
+  }
+
+  return {
+    actions,
+    bestScore,
+    bestEfficiency,
+    result: applyEfficiencies(actions, bestEfficiency),
+  };
 }
 
 export function simulate(realActions: Record<Colon, number>[], modes: Modes) {
@@ -209,7 +292,7 @@ export class BlockPage extends Component<{ loc: string }> {
 
     const { wanted, exports } = recipeDifference(obj);
 
-    let simulation, result;
+    let simulation, result, guessy;
     {
       const actions = toActions(obj.asms);
       for (let i = 0; i < obj.boilers; ++i) {
@@ -247,6 +330,7 @@ export class BlockPage extends Component<{ loc: string }> {
       }
 
       result = simulate(actions, modes);
+      guessy = <pre>{JSON.stringify(guess(actions, modes), null, 2)}</pre>;
 
       simulation = result.current
         .sort(([, a], [, b]) => Math.abs(b) - Math.abs(a))
@@ -281,6 +365,8 @@ export class BlockPage extends Component<{ loc: string }> {
             <TrainStops stop={obj.stop} />
           </div>
           <div class="col">
+            <h3>Guess</h3>
+            {guessy}
             <h3>Simulation</h3>
             {simulation}
             <h3>Overruns</h3>

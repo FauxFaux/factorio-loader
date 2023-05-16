@@ -1,13 +1,9 @@
 * bhoddos chests are limited to NOT WORKING for LTN purposes
-* moss active provider chest in south base
-* legacy paragen factory is bogged down because there's too much paragen
 * no molten glass because sodium hydroxide
-* bus needs to request stone so yotoi can produce bedding
-* bus needs to assemble bio-containers and move them to the biosample mine
+
 * sodium sulphate isn't requesting iron
 * sodium sulphate output limiter
 * bus needs to import lubricant
-* queue food stage 3, copper stage 3, nanotech
 * move psk assembler to next to great alien sample assembler?
 
 * make vanadium pentoxide from tar/silver-zinc-alloy?
