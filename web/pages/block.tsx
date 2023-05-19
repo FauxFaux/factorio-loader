@@ -12,7 +12,7 @@ import { Colon } from '../muffler/colon';
 import { cloneDeep } from 'lodash';
 import { stackSize } from './chestify';
 import { ltnSummary } from '../ltn-summary';
-import { sortByKeys } from "../muffler/deter";
+import { sortByKeys } from '../muffler/deter';
 
 interface Modes {
   // an unbounded amount of this is available from the rail network
@@ -34,7 +34,22 @@ function toActions(asms: BlockContent['asms']): Record<string, number>[] {
   return actions;
 }
 
-function applyEfficiencies(actions: Record<Colon, number>[], efficiencies: number[]) {
+function toContributions(actions: Record<Colon, number>[]) {
+  const result: Record<string, Record<number, number>> = {};
+  for (let i = 0; i < actions.length; i++) {
+    const action = actions[i];
+    for (const [colon, count] of Object.entries(action)) {
+      if (!result[colon]) result[colon] = {};
+      result[colon][i] = (result[colon][i] || 0) + count;
+    }
+  }
+  return result;
+}
+
+function applyEfficiencies(
+  actions: Record<Colon, number>[],
+  efficiencies: number[],
+) {
   const result: Record<string, number> = {};
   for (let act = 0; act < actions.length; act++) {
     const action = actions[act];
@@ -73,7 +88,7 @@ function scoreResult(result: Record<string, number>, modes: Modes) {
   return score;
 }
 
-export function guess(realActions: Record<Colon, number>[], modes: Modes) {
+function mergeDuplicateActions(realActions: Record<Colon, number>[]) {
   const actionCount: Record<string, number> = {};
   for (const action of realActions) {
     // oh yes I did
@@ -89,18 +104,39 @@ export function guess(realActions: Record<Colon, number>[], modes: Modes) {
     }
     actions.push(action);
   }
+  return actions;
+}
+
+export function guess(realActions: Record<Colon, number>[], modes: Modes) {
+  const actions = mergeDuplicateActions(realActions);
+
+  const contributions = toContributions(actions);
+
+  const terms: string[] = [];
+  for (const [colon, contrib] of Object.entries(contributions)) {
+    const amt = Object.entries(contrib)
+      .map(([eff, count]) => `(e[${eff}]*${count})`)
+      .join('+');
+    if (modes.inputs.has(colon)) {
+      terms.push(`-${amt}`);
+    } else if (modes.outputs.has(colon)) {
+      terms.push(amt);
+    } else {
+      terms.push(`-Math.abs(${amt})`);
+    }
+  }
+  const f: (eff: number[]) => number = eval(`(e) => ${terms.join('+')}`);
 
   let bestScore = -Infinity;
   let bestEfficiency: number[] = [];
 
-  for (let t = 0; t < 1_000_000; ++t) {
+  for (let t = 0; t < 100_000_000; ++t) {
     const efficiencies: number[] = [];
     for (let i = 0; i < actions.length; ++i) {
-      efficiencies.push(1 - (Math.random() * Math.random()));
+      efficiencies.push(1 - Math.random() * Math.random());
     }
 
-    const result = applyEfficiencies(actions, efficiencies);
-    let score = scoreResult(result, modes);
+    const score = f(efficiencies);
 
     if (score > bestScore) {
       bestScore = score;
@@ -292,7 +328,7 @@ export class BlockPage extends Component<{ loc: string }> {
 
     const { wanted, exports } = recipeDifference(obj);
 
-    let simulation, result, guessy;
+    let simulation, result, guessy, contr;
     {
       const actions = toActions(obj.asms);
       for (let i = 0; i < obj.boilers; ++i) {
@@ -331,6 +367,15 @@ export class BlockPage extends Component<{ loc: string }> {
 
       result = simulate(actions, modes);
       guessy = <pre>{JSON.stringify(guess(actions, modes), null, 2)}</pre>;
+      contr = (
+        <pre>
+          {JSON.stringify(
+            toContributions(mergeDuplicateActions(actions)),
+            null,
+            2,
+          )}
+        </pre>
+      );
 
       simulation = result.current
         .sort(([, a], [, b]) => Math.abs(b) - Math.abs(a))
@@ -365,6 +410,8 @@ export class BlockPage extends Component<{ loc: string }> {
             <TrainStops stop={obj.stop} />
           </div>
           <div class="col">
+            <h3>Contr</h3>
+            {contr}
             <h3>Guess</h3>
             {guessy}
             <h3>Simulation</h3>
