@@ -107,6 +107,41 @@ function mergeDuplicateActions(realActions: Record<Colon, number>[]) {
   return actions;
 }
 
+function hillClimbMutates(
+  f: (eff: number[]) => number,
+  efficiencies: number[],
+) {
+  let score = f(efficiencies);
+
+  for (let i = 0; i < 100; ++i) {
+    const tweak = Math.floor(Math.random() * efficiencies.length);
+    while (true) {
+      const up = Math.min(efficiencies[tweak] + Math.random() * 0.05, 1);
+      const down = Math.max(efficiencies[tweak] - Math.random() * 0.05, 0);
+      const upScore = f([
+        ...efficiencies.slice(0, tweak),
+        up,
+        ...efficiencies.slice(tweak + 1),
+      ]);
+      const downScore = f([
+        ...efficiencies.slice(0, tweak),
+        down,
+        ...efficiencies.slice(tweak + 1),
+      ]);
+      if (upScore > score) {
+        efficiencies[tweak] = up;
+        score = upScore;
+      } else if (downScore > score) {
+        efficiencies[tweak] = down;
+        score = downScore;
+      } else {
+        break;
+      }
+    }
+  }
+  return score;
+}
+
 export function guess(realActions: Record<Colon, number>[], modes: Modes) {
   const actions = mergeDuplicateActions(realActions);
 
@@ -114,15 +149,16 @@ export function guess(realActions: Record<Colon, number>[], modes: Modes) {
 
   const terms: string[] = [];
   for (const [colon, contrib] of Object.entries(contributions)) {
+    const mod = colon.startsWith('fluid:') ? 1 / 100 : 1;
     const amt = Object.entries(contrib)
-      .map(([eff, count]) => `(e[${eff}]*${count})`)
+      .map(([eff, count]) => `(e[${eff}]*${count}*${mod})`)
       .join('+');
     if (modes.inputs.has(colon)) {
       terms.push(`-${amt}`);
     } else if (modes.outputs.has(colon)) {
       terms.push(amt);
     } else {
-      terms.push(`-Math.abs(${amt})`);
+      terms.push(`-100*Math.abs(${amt})`);
     }
   }
   const f: (eff: number[]) => number = eval(`(e) => ${terms.join('+')}`);
@@ -130,13 +166,13 @@ export function guess(realActions: Record<Colon, number>[], modes: Modes) {
   let bestScore = -Infinity;
   let bestEfficiency: number[] = [];
 
-  for (let t = 0; t < 100_000_000; ++t) {
+  for (let t = 0; t < 1_000; ++t) {
     const efficiencies: number[] = [];
     for (let i = 0; i < actions.length; ++i) {
       efficiencies.push(1 - Math.random() * Math.random());
     }
 
-    const score = f(efficiencies);
+    const score = hillClimbMutates(f, efficiencies);
 
     if (score > bestScore) {
       bestScore = score;
