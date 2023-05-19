@@ -8,11 +8,12 @@ import { BlockThumb } from './map';
 import type { BlockContent } from '../../scripts/load-recs';
 import { makeUpRecipe } from '../muffler/walk-recipes';
 import { actualSpeed, effectsOf } from './plan';
-import { Colon } from '../muffler/colon';
+import { Colon, fromColon, splitColon } from '../muffler/colon';
 import { cloneDeep } from 'lodash';
 import { stackSize } from './chestify';
 import { ltnSummary } from '../ltn-summary';
 import { sortByKeys } from '../muffler/deter';
+import { ItemIcon } from '../lists';
 
 interface Modes {
   // an unbounded amount of this is available from the rail network
@@ -58,34 +59,6 @@ function applyEfficiencies(
     }
   }
   return result;
-}
-
-function scoreResult(result: Record<string, number>, modes: Modes) {
-  let score = 0;
-  for (const [colon, count] of Object.entries(result)) {
-    if (modes.inputs.has(colon)) {
-      // consuming inputs good
-      if (count < 0) {
-        score += Math.abs(count);
-      }
-    } else {
-      // consuming non-inputs very bad
-      if (count < 0) {
-        score -= 10 * Math.abs(count);
-      }
-    }
-
-    if (modes.outputs.has(colon)) {
-      // generating outputs good (generating negative outputs bad)
-      score += count;
-    } else {
-      // generating intermediates bad
-      if (count > 0) {
-        score -= 2 * count;
-      }
-    }
-  }
-  return score;
 }
 
 function mergeDuplicateActions(realActions: Record<Colon, number>[]) {
@@ -142,7 +115,7 @@ function hillClimbMutates(
   return score;
 }
 
-export function guess(realActions: Record<Colon, number>[], modes: Modes) {
+export function findEfficiencies(realActions: Record<Colon, number>[], modes: Modes) {
   const actions = mergeDuplicateActions(realActions);
 
   const contributions = toContributions(actions);
@@ -364,7 +337,7 @@ export class BlockPage extends Component<{ loc: string }> {
 
     const { wanted, exports } = recipeDifference(obj);
 
-    let simulation, result, guessy, contr;
+    let simulation, result, guessy, efficiencies;
     {
       const actions = toActions(obj.asms);
       for (let i = 0; i < obj.boilers; ++i) {
@@ -402,15 +375,29 @@ export class BlockPage extends Component<{ loc: string }> {
       }
 
       result = simulate(actions, modes);
-      guessy = <pre>{JSON.stringify(guess(actions, modes), null, 2)}</pre>;
-      contr = (
-        <pre>
-          {JSON.stringify(
-            toContributions(mergeDuplicateActions(actions)),
-            null,
-            2,
-          )}
-        </pre>
+      efficiencies = findEfficiencies(actions, modes);
+      guessy = (
+        <>
+          <ul>
+            {efficiencies.actions.map((action, i) => (
+              <li>
+                <span class={'amount'}>{Math.round(efficiencies.bestEfficiency[i] * 100)}%</span>{' '}
+                {Object.entries(action)
+                  .sort(([, a], [, b]) => a - b)
+                  .map(([colon, count]) => {
+                    const [, item] = fromColon(colon);
+                    const [, name] = splitColon(colon);
+                    return (
+                      <>
+                        <span class={'amount'}>{humanise(count)}</span>{' '}
+                        <ItemIcon name={name} alt={item.localised_name} />
+                      </>
+                    );
+                  })}
+              </li>
+            ))}
+          </ul>
+        </>
       );
 
       simulation = result.current
@@ -446,8 +433,6 @@ export class BlockPage extends Component<{ loc: string }> {
             <TrainStops stop={obj.stop} />
           </div>
           <div class="col">
-            <h3>Contr</h3>
-            {contr}
             <h3>Guess</h3>
             {guessy}
             <h3>Simulation</h3>
@@ -479,6 +464,7 @@ export class BlockPage extends Component<{ loc: string }> {
             <ul>
               {exports.map((x) => (
                 <li>
+                  <span class={'amount'}>{humanise(efficiencies.result[x], { altSuffix: '/s'})}</span>
                   <ColonJoined colon={x} />
                 </li>
               ))}
@@ -487,6 +473,7 @@ export class BlockPage extends Component<{ loc: string }> {
             <ul>
               {wanted.map((x) => (
                 <li>
+                  <span class={'amount'}>{humanise(efficiencies.result[x], { altSuffix: '/s'})}</span>
                   <ColonJoined colon={x} />
                 </li>
               ))}
