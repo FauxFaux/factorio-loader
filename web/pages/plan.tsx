@@ -581,7 +581,7 @@ class PickRecipe extends Component<PickRecipeProps> {
     if (!props.colon) {
       return (
         <>
-          <p>Pick a new recicpe for...</p>
+          <p>Pick a new recipe for...</p>
           <ItemList limit={30} onPick={(colon) => props.setColon(colon)} />
         </>
       );
