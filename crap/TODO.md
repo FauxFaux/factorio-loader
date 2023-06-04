@@ -1,3 +1,5 @@
+* no agar as request sizes are wrong for e.g. salt
+* would probably be better using seaweed mk2 and water based recipes
 * lab instruments isn't correctly requesting rubber, breaking logistic science packs; reroute belts tot use buffer?
 
 * sodium sulphate isn't requesting iron
