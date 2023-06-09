@@ -17,8 +17,8 @@ import { makeUpRecipe } from './muffler/walk-recipes';
 export function recipeDifference(brick: BlockContent) {
   const inputs: Set<string> = new Set();
   const outputs: Set<string> = new Set();
-  for (const [label] of Object.entries(brick.asm)) {
-    const [, recipe] = label.split('\0');
+  for (const [, recipe] of brick.asms) {
+    if (!recipe) continue;
     const recp = makeUpRecipe(recipe);
     if (!recp) continue;
 
@@ -38,8 +38,9 @@ export function recipeDifference(brick: BlockContent) {
 
   const wanted = [...inputs].filter((input) => !outputs.has(input));
   const exports = [...outputs].filter((output) => !inputs.has(output));
+  const intermediates = [...inputs].filter((input) => outputs.has(input));
 
-  return { wanted, exports };
+  return { wanted, intermediates, exports };
 }
 
 export class Assemblers extends Component<{ brick: BlockContent }> {

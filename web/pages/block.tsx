@@ -1,4 +1,6 @@
 import { Component } from 'preact';
+import type { JSX } from 'preact';
+import { isEqual } from 'lodash';
 
 import { ColonJoined, Item, TagList } from '../objects';
 import { Assemblers, recipeDifference, TrainStops } from '../block-renderers';
@@ -8,10 +10,12 @@ import { BlockThumb } from './map';
 import type { BlockContent } from '../../scripts/load-recs';
 import { makeUpRecipe } from '../muffler/walk-recipes';
 import { actualSpeed, effectsOf } from './plan';
-import { Colon, fromColon, splitColon } from '../muffler/colon';
+import { Colon, fromColon, splitColon, tupleToColon } from '../muffler/colon';
 import { ltnSummary } from '../ltn-summary';
 import { sortByKeys } from '../muffler/deter';
 import { ItemIcon } from '../lists';
+import { colonMapCombinator } from '../muffler/stations';
+import { stackSize } from './chestify';
 
 interface Modes {
   // an unbounded amount of this is available from the rail network
@@ -135,7 +139,7 @@ export function findEfficiencies(
       terms.push(`-100*Math.abs(${amt})`);
     }
   }
-  const f: (eff: number[]) => number = eval(`(e) => ${terms.join('+')}`);
+  const f: (eff: number[]) => number = eval(`(e) => ${terms.join('+')}+0`);
 
   let bestScore = -Infinity;
   let bestEfficiency: number[] = [];
@@ -162,8 +166,15 @@ export function findEfficiencies(
   };
 }
 
-export class BlockPage extends Component<{ loc: string }> {
-  render(props: { loc: string }) {
+interface BlockState {
+  calcModes: Record<Colon, 'import' | 'export' | 'internal' | 'shrug'>;
+}
+
+export class BlockPage extends Component<{ loc: string }, BlockState> {
+  state = {
+    calcModes: {},
+  };
+  render(props: { loc: string }, state: BlockState) {
     const loc = props.loc;
     const obj = data.doc[loc];
     if (!obj) {
@@ -202,15 +213,13 @@ export class BlockPage extends Component<{ loc: string }> {
     //   dats.push(dat);
     // }
 
-    const { wanted, exports } = recipeDifference(obj);
+    const actions = toActions(obj.asms);
+    for (let i = 0; i < obj.boilers; ++i) {
+      actions.push({ 'item:biomass': -(1 / 1.8), 'fluid:steam': 60 });
+    }
 
     let guessy, efficiencies: ReturnType<typeof findEfficiencies>;
     {
-      const actions = toActions(obj.asms);
-      for (let i = 0; i < obj.boilers; ++i) {
-        actions.push({ 'item:biomass': -(1 / 1.8), 'fluid:steam': 60 });
-      }
-
       const outputs = new Set<Colon>();
       const inputs = new Set<Colon>();
       for (const action of actions) {
@@ -269,6 +278,192 @@ export class BlockPage extends Component<{ loc: string }> {
       );
     }
 
+    const { wanted, intermediates, exports } = recipeDifference(obj);
+
+    const requested: Record<string, number> = {};
+    for (const stop of obj.stop) {
+      for (const [colon, count] of Object.entries(colonMapCombinator(stop))) {
+        if (colon.startsWith('virtual:')) continue;
+        requested[colon] = (requested[colon] || 0) + count;
+      }
+    }
+
+    const provides: Record<string, string[]> = {};
+    for (const stop of obj.stop) {
+      for (const provision of stop.provides) {
+        const item = tupleToColon(provision);
+        provides[item] = provides[item] || [];
+        provides[item].push(stop.name);
+      }
+    }
+
+    const wantedMissing = wanted.filter((x) => !requested[x]);
+    const exportsUnused = exports.filter((x) => !provides[x]);
+    const intermediatesNotMentioned = intermediates.filter(
+      (x) => !requested[x] && !provides[x],
+    );
+
+    const newCalcModes = { ...state.calcModes };
+
+    for (const colon of Object.keys(requested)) {
+      if (newCalcModes[colon]) {
+        continue;
+      }
+      if (colon in provides) {
+        newCalcModes[colon] = 'shrug';
+        continue;
+      }
+      newCalcModes[colon] = 'import';
+    }
+
+    for (const colon of Object.keys(provides)) {
+      if (!newCalcModes[colon]) {
+        newCalcModes[colon] = 'export';
+      }
+    }
+
+    for (const colon of intermediatesNotMentioned) {
+      if (!newCalcModes[colon]) {
+        newCalcModes[colon] = 'internal';
+      }
+    }
+
+    for (const colon of wantedMissing) {
+      if (!newCalcModes[colon]) {
+        newCalcModes[colon] = 'shrug';
+      }
+    }
+
+    for (const colon of exportsUnused) {
+      if (!newCalcModes[colon]) {
+        newCalcModes[colon] = 'shrug';
+      }
+    }
+
+    if (!isEqual(newCalcModes, state.calcModes)) {
+      this.setState({ calcModes: newCalcModes });
+    }
+
+    const icons = {
+      import: '➡',
+      export: '⬅',
+      internal: '🩻',
+      shrug: '🤷',
+    };
+
+    const opts = (colon: string) => {
+      return (['import', 'internal', 'export', 'shrug'] as const).map(
+        (mode) => (
+          <td>
+            <input
+              class={'form-check-input'}
+              type={'radio'}
+              name={colon}
+              value={mode}
+              checked={state.calcModes[colon] === mode}
+              onChange={() =>
+                this.setState({
+                  calcModes: { ...state.calcModes, [colon]: mode },
+                })
+              }
+            />
+          </td>
+        ),
+      );
+    };
+
+    const recpUsage = (colon: Colon) => {
+      if (wanted.includes(colon)) {
+        return 'import';
+      }
+      if (intermediates.includes(colon)) {
+        return 'internal';
+      }
+      if (exports.includes(colon)) {
+        return 'export';
+      }
+      return 'shrug';
+    };
+
+    const rows: JSX.Element[] = [];
+    for (const [pos, arr, f] of [
+      [
+        'import',
+        [...Object.keys(requested), ...wantedMissing],
+        (colon: Colon) => {
+          if (!(colon in requested)) {
+            return (
+              <td colSpan={2} style={'text-align: center'}>
+                heresy import?
+              </td>
+            );
+          }
+          const count = requested[colon] || 0;
+          const stacks = -count / stackSize(colon);
+          return (
+            <>
+              <td style={'text-align: right'}>{humanise(-count)}</td>
+              <td
+                style={
+                  'text-align: right; ' + (stacks < 50 ? 'color: red' : '')
+                }
+              >
+                {humanise(stacks, { altSuffix: ' stacks' })}
+              </td>
+            </>
+          );
+        },
+      ],
+      [
+        'export',
+        [
+          ...Object.keys(provides).filter((x) => !(x in requested)),
+          ...exportsUnused,
+        ],
+        (colon: Colon) => (
+          <td colSpan={2} style={'text-align: center'}>
+            {provides[colon]?.map((name) => (
+              <abbr title={`being provided by ${name}`}>🚉</abbr>
+            )) ?? (
+              <abbr title={'heresy export, or mislabelled station?'}>😈</abbr>
+            )}
+          </td>
+        ),
+      ],
+      ['internal', intermediatesNotMentioned, () => <td colSpan={2} />],
+    ] as const) {
+      for (const colon of arr) {
+        const recpType = recpUsage(colon);
+        rows.push(
+          <tr>
+            <td title={pos}>{icons[pos]}</td>
+            <td title={recpType}>{icons[recpType]}</td>
+            {f(colon)}
+            <td>
+              <ColonJoined colon={colon} />
+            </td>
+            {opts(colon)}
+          </tr>,
+        );
+      }
+    }
+
+    const understanding = (
+      <table class={'table'} style={'width: auto'}>
+        <thead>
+          <tr>
+            <th colSpan={4}>Guess</th>
+            <th>Item</th>
+            <th title={'import'}>➡</th>
+            <th title={'internal'}>🩻</th>
+            <th title={'export'}>⬅</th>
+            <th title={'ignore'}>🤷‍♀️</th>
+          </tr>
+        </thead>
+        <tbody>{rows}</tbody>
+      </table>
+    );
+
     return (
       <>
         <div class="row">
@@ -324,6 +519,12 @@ export class BlockPage extends Component<{ loc: string }> {
                 </li>
               ))}
             </ul>
+          </div>
+        </div>
+        <div class="row">
+          <div class={'col'}>
+            <h3>Understanding</h3>
+            {understanding}
           </div>
         </div>
         <div class={'row'}>
