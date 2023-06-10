@@ -16,14 +16,6 @@ import { ItemIcon } from '../lists';
 import { colonMapCombinator } from '../muffler/stations';
 import { stackSize } from './chestify';
 
-interface Modes {
-  // an unbounded amount of this is available from the rail network
-  inputs: Set<Colon>;
-
-  // an unbounded amount of this can be sunk by the rail network
-  outputs: Set<Colon>;
-}
-
 function toActions(asms: BlockContent['asms']): Record<string, number>[] {
   const actions: Record<Colon, number>[] = [];
   for (const [factory, recipeName, modules] of asms) {
@@ -65,6 +57,7 @@ function applyEfficiencies(
 function mergeDuplicateActions(realActions: Record<Colon, number>[]) {
   const actionCount: Record<string, number> = {};
   for (const action of realActions) {
+    if (Object.keys(action).length === 0) continue;
     // oh yes I did
     const k = JSON.stringify(sortByKeys(action));
     actionCount[k] = (actionCount[k] || 0) + 1;
@@ -118,9 +111,19 @@ function hillClimbMutates(
 
 export function findEfficiencies(
   realActions: Record<Colon, number>[],
-  modes: Modes,
+  modes: BlockState['calcModes'],
 ) {
-  const actions = mergeDuplicateActions(realActions);
+  const shrugs = Object.entries(modes)
+    .filter(([k, v]) => v === 'shrug')
+    .map(([k]) => k);
+  const withoutShrugs = realActions.map((action) => {
+    const result: Record<Colon, number> = { ...action };
+    for (const shrug of shrugs) {
+      delete result[shrug];
+    }
+    return result;
+  });
+  const actions = mergeDuplicateActions(withoutShrugs);
 
   const contributions = toContributions(actions);
 
@@ -130,9 +133,9 @@ export function findEfficiencies(
     const amt = Object.entries(contrib)
       .map(([eff, count]) => `(e[${eff}]*${count}*${mod})`)
       .join('+');
-    if (modes.inputs.has(colon)) {
+    if (modes[colon] === 'import') {
       terms.push(`-${amt}`);
-    } else if (modes.outputs.has(colon)) {
+    } else if (modes[colon] === 'export') {
       terms.push(amt);
     } else {
       terms.push(`-100*Math.abs(${amt})`);
@@ -237,20 +240,7 @@ export class BlockPage extends Component<{ loc: string }, BlockState> {
       actions.push({ 'item:biomass': -(1 / 1.8), 'fluid:steam': 60 });
     }
 
-    const modes: Modes = {
-      inputs: new Set(
-        Object.entries(state.calcModes)
-          .filter(([, v]) => v === 'import')
-          .map(([k]) => k),
-      ),
-      outputs: new Set(
-        Object.entries(state.calcModes)
-          .filter(([, v]) => v === 'export')
-          .map(([k]) => k),
-      ),
-    };
-
-    const efficiencies = findEfficiencies(actions, modes);
+    const efficiencies = findEfficiencies(actions, state.calcModes);
     const effTable = (
       <ul>
         {efficiencies.actions.map((action, i) => (
