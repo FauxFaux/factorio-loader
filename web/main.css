@@ -239,3 +239,9 @@
 .build-speed th, .build-speed td {
   text-align: right;
 }
+
+.action-pill {
+  color: inherit;
+  text-decoration: none;
+  background: #333;
+}

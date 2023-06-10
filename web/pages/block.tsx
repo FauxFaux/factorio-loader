@@ -248,18 +248,7 @@ export class BlockPage extends Component<{ loc: string }, BlockState> {
             <span class={'amount'}>
               {Math.round(efficiencies.bestEfficiency[i] * 100)}%
             </span>{' '}
-            {Object.entries(action)
-              .sort(([, a], [, b]) => a - b)
-              .map(([colon, count]) => {
-                const [, item] = fromColon(colon);
-                const [, name] = splitColon(colon);
-                return (
-                  <>
-                    <span class={'amount'}>{humanise(count)}</span>{' '}
-                    <ItemIcon name={name} alt={item.localised_name} />
-                  </>
-                );
-              })}
+            <Action action={action} />
           </li>
         ))}
       </ul>
@@ -395,6 +384,9 @@ export class BlockPage extends Component<{ loc: string }, BlockState> {
     ] as const) {
       for (const colon of arr) {
         const recpType = recpUsage(colon);
+        const relevantActions = efficiencies.actions.filter((action) => {
+          return action[colon] !== undefined;
+        });
         rows.push(
           <tr>
             <td title={pos}>{icons[pos]}</td>
@@ -406,9 +398,16 @@ export class BlockPage extends Component<{ loc: string }, BlockState> {
             {opts(colon)}
             <td>
               <span class={'amount'}>
-                {humanise(efficiencies.result[colon], { altSuffix: '/s' })}
+                {humanise(efficiencies.result[colon], { altSuffix: '/s' })}/s
               </span>
-              /s
+            </td>
+            <td>
+              {relevantActions.map((action, i) => (
+                <span style={'margin-left: 0.6em'}>
+                  {Math.round(efficiencies.bestEfficiency[i] * 100)}%{' '}
+                  <Action action={action} />
+                </span>
+              ))}
             </td>
           </tr>,
         );
@@ -426,6 +425,7 @@ export class BlockPage extends Component<{ loc: string }, BlockState> {
             <th title={'export'}>⬅</th>
             <th title={'ignore'}>🤷‍♀️</th>
             <th title={'production (net)'}>net</th>
+            <th>relevant actions</th>
           </tr>
         </thead>
         <tbody>{rows}</tbody>
@@ -535,4 +535,48 @@ export class BlockPage extends Component<{ loc: string }, BlockState> {
       </>
     );
   }
+}
+
+const Action = (props: { action: Record<Colon, number> }) => {
+  const consumes = Object.entries(props.action).filter(([, v]) => v < 0);
+  const produces = Object.entries(props.action).filter(([, v]) => v > 0);
+  // TODO: this is colon sorted, not localised_name sorted
+  consumes.sort(([a], [b]) => a.localeCompare(b));
+  produces.sort(([a], [b]) => a.localeCompare(b));
+
+  // so dumb
+  const icon = (colon: Colon) => {
+    const [, item] = fromColon(colon);
+    const [, name] = splitColon(colon);
+    return <ItemIcon name={name} alt={item.localised_name} />;
+  };
+
+  const countItem = (colon: Colon, count: number) => {
+    return (
+      <>
+        {humanise(count)} {icon(colon)}
+      </>
+    );
+  };
+
+  const consumesItems = consumes.map(([colon, count]) =>
+    countItem(colon, Math.abs(count)),
+  );
+  const producesItems = produces.map(([colon, count]) =>
+    countItem(colon, count),
+  );
+
+  return (
+    <span
+      class={'action-pill badge rounded-pill'}
+      style={'vertical-align: middle; margin: 1px'}
+    >
+      {intersperse(consumesItems, <> + </>)} 🠚{' '}
+      {intersperse(producesItems, <> + </>)}
+    </span>
+  );
+};
+
+function intersperse<T>(arr: T[], sep: T): T[] {
+  return arr.reduce((a: T[], v: T) => [...a, v, sep], []).slice(0, -1);
 }
