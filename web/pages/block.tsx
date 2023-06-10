@@ -11,7 +11,6 @@ import type { BlockContent } from '../../scripts/load-recs';
 import { makeUpRecipe } from '../muffler/walk-recipes';
 import { actualSpeed, effectsOf } from './plan';
 import { Colon, fromColon, splitColon, tupleToColon } from '../muffler/colon';
-import { ltnSummary } from '../ltn-summary';
 import { sortByKeys } from '../muffler/deter';
 import { ItemIcon } from '../lists';
 import { colonMapCombinator } from '../muffler/stations';
@@ -170,6 +169,26 @@ interface BlockState {
   calcModes: Record<Colon, 'import' | 'export' | 'internal' | 'shrug'>;
 }
 
+function ltnSummaryHarsh(obj: BlockContent) {
+  const requested: Record<string, number> = {};
+  for (const stop of obj.stop) {
+    for (const [colon, count] of Object.entries(colonMapCombinator(stop))) {
+      if (colon.startsWith('virtual:')) continue;
+      requested[colon] = (requested[colon] || 0) + count;
+    }
+  }
+
+  const provides: Record<string, string[]> = {};
+  for (const stop of obj.stop) {
+    for (const provision of stop.provides) {
+      const item = tupleToColon(provision);
+      provides[item] = provides[item] || [];
+      provides[item].push(stop.name);
+    }
+  }
+  return { requested, provides };
+}
+
 export class BlockPage extends Component<{ loc: string }, BlockState> {
   state = {
     calcModes: {},
@@ -218,84 +237,46 @@ export class BlockPage extends Component<{ loc: string }, BlockState> {
       actions.push({ 'item:biomass': -(1 / 1.8), 'fluid:steam': 60 });
     }
 
-    let guessy, efficiencies: ReturnType<typeof findEfficiencies>;
-    {
-      const outputs = new Set<Colon>();
-      const inputs = new Set<Colon>();
-      for (const action of actions) {
-        for (const [colon, count] of Object.entries(action)) {
-          if (count > 0) {
-            outputs.add(colon);
-          } else {
-            inputs.add(colon);
-          }
-        }
-      }
+    const modes: Modes = {
+      inputs: new Set(
+        Object.entries(state.calcModes)
+          .filter(([, v]) => v === 'import')
+          .map(([k]) => k),
+      ),
+      outputs: new Set(
+        Object.entries(state.calcModes)
+          .filter(([, v]) => v === 'export')
+          .map(([k]) => k),
+      ),
+    };
 
-      const wanted = [...inputs].filter((input) => !outputs.has(input));
-      const produced = [...outputs].filter((output) => !inputs.has(output));
+    const efficiencies = findEfficiencies(actions, modes);
+    const effTable = (
+      <ul>
+        {efficiencies.actions.map((action, i) => (
+          <li>
+            <span class={'amount'}>
+              {Math.round(efficiencies.bestEfficiency[i] * 100)}%
+            </span>{' '}
+            {Object.entries(action)
+              .sort(([, a], [, b]) => a - b)
+              .map(([colon, count]) => {
+                const [, item] = fromColon(colon);
+                const [, name] = splitColon(colon);
+                return (
+                  <>
+                    <span class={'amount'}>{humanise(count)}</span>{' '}
+                    <ItemIcon name={name} alt={item.localised_name} />
+                  </>
+                );
+              })}
+          </li>
+        ))}
+      </ul>
+    );
 
-      const ltn = ltnSummary(obj);
-
-      const modes: Modes = {
-        inputs: new Set(wanted),
-        outputs: new Set(produced),
-      };
-
-      for (const req of Object.keys(ltn.requests)) {
-        modes.inputs.add(req);
-      }
-
-      for (const prov of Object.keys(ltn.provides)) {
-        modes.outputs.add(prov);
-      }
-
-      efficiencies = findEfficiencies(actions, modes);
-      guessy = (
-        <>
-          <ul>
-            {efficiencies.actions.map((action, i) => (
-              <li>
-                <span class={'amount'}>
-                  {Math.round(efficiencies.bestEfficiency[i] * 100)}%
-                </span>{' '}
-                {Object.entries(action)
-                  .sort(([, a], [, b]) => a - b)
-                  .map(([colon, count]) => {
-                    const [, item] = fromColon(colon);
-                    const [, name] = splitColon(colon);
-                    return (
-                      <>
-                        <span class={'amount'}>{humanise(count)}</span>{' '}
-                        <ItemIcon name={name} alt={item.localised_name} />
-                      </>
-                    );
-                  })}
-              </li>
-            ))}
-          </ul>
-        </>
-      );
-    }
-
+    const { requested, provides } = ltnSummaryHarsh(obj);
     const { wanted, intermediates, exports } = recipeDifference(obj);
-
-    const requested: Record<string, number> = {};
-    for (const stop of obj.stop) {
-      for (const [colon, count] of Object.entries(colonMapCombinator(stop))) {
-        if (colon.startsWith('virtual:')) continue;
-        requested[colon] = (requested[colon] || 0) + count;
-      }
-    }
-
-    const provides: Record<string, string[]> = {};
-    for (const stop of obj.stop) {
-      for (const provision of stop.provides) {
-        const item = tupleToColon(provision);
-        provides[item] = provides[item] || [];
-        provides[item].push(stop.name);
-      }
-    }
 
     const wantedMissing = wanted.filter((x) => !requested[x]);
     const exportsUnused = exports.filter((x) => !provides[x]);
@@ -305,39 +286,29 @@ export class BlockPage extends Component<{ loc: string }, BlockState> {
 
     const newCalcModes = { ...state.calcModes };
 
+    const setIfNotSet = (colon: Colon, mode: (typeof newCalcModes)[string]) => {
+      if (newCalcModes[colon]) return;
+      newCalcModes[colon] = mode;
+    };
+
     for (const colon of Object.keys(requested)) {
-      if (newCalcModes[colon]) {
-        continue;
-      }
-      if (colon in provides) {
-        newCalcModes[colon] = 'shrug';
-        continue;
-      }
-      newCalcModes[colon] = 'import';
+      setIfNotSet(colon, colon in provides ? 'shrug' : 'import');
     }
 
     for (const colon of Object.keys(provides)) {
-      if (!newCalcModes[colon]) {
-        newCalcModes[colon] = 'export';
-      }
+      setIfNotSet(colon, 'export');
     }
 
     for (const colon of intermediatesNotMentioned) {
-      if (!newCalcModes[colon]) {
-        newCalcModes[colon] = 'internal';
-      }
+      setIfNotSet(colon, 'internal');
     }
 
     for (const colon of wantedMissing) {
-      if (!newCalcModes[colon]) {
-        newCalcModes[colon] = 'shrug';
-      }
+      setIfNotSet(colon, 'shrug');
     }
 
     for (const colon of exportsUnused) {
-      if (!newCalcModes[colon]) {
-        newCalcModes[colon] = 'shrug';
-      }
+      setIfNotSet(colon, 'shrug');
     }
 
     if (!isEqual(newCalcModes, state.calcModes)) {
@@ -349,7 +320,7 @@ export class BlockPage extends Component<{ loc: string }, BlockState> {
       export: '⬅',
       internal: '🩻',
       shrug: '🤷',
-    };
+    } as const;
 
     const opts = (colon: string) => {
       return (['import', 'internal', 'export', 'shrug'] as const).map(
@@ -443,6 +414,12 @@ export class BlockPage extends Component<{ loc: string }, BlockState> {
               <ColonJoined colon={colon} />
             </td>
             {opts(colon)}
+            <td>
+              <span class={'amount'}>
+                {humanise(efficiencies.result[colon], { altSuffix: '/s' })}
+              </span>
+              /s
+            </td>
           </tr>,
         );
       }
@@ -458,6 +435,7 @@ export class BlockPage extends Component<{ loc: string }, BlockState> {
             <th title={'internal'}>🩻</th>
             <th title={'export'}>⬅</th>
             <th title={'ignore'}>🤷‍♀️</th>
+            <th title={'production (net)'}>net</th>
           </tr>
         </thead>
         <tbody>{rows}</tbody>
@@ -524,13 +502,40 @@ export class BlockPage extends Component<{ loc: string }, BlockState> {
         <div class="row">
           <div class={'col'}>
             <h3>Understanding</h3>
+            <p>
+              The search algorithm here is trying to maximise the quantity of
+              every output (⬅), while none of the internals (intermediates?) (🩻)
+              go into runaway.
+            </p>
+            <p>
+              Turning 5 <ColonJoined colon={'item:wood'} /> into 2{' '}
+              <ColonJoined colon={'item:diamond'} /> and 130{' '}
+              <ColonJoined colon={'item:sand'} /> every second is no good if you
+              can only dispose of 50 of those{' '}
+              <ColonJoined colon={'item:sand'} />, so this tries to report that
+              only (50/130)*2 = 0.76
+              <ColonJoined colon={'item:diamond'} /> is being produced.
+            </p>
+            <p>
+              If the <ColonJoined colon={'item:sand'} /> is being disposed of
+              some other way (e.g. heresy belted away, or put in a{' '}
+              <ColonJoined colon={'item:py-burner'} /> (which aren't
+              supported)), then you can ignore (🤷‍♀️) it for the calculation, and
+              get a different result.
+            </p>
+            <p>
+              The guesses for 'provides' are based entirely on the station name,
+              which must contain (for everything provided) the icon, the icon of
+              the fluid, or no icons and the exact English item name. Changes
+              here are not persisted, you must rename the station in-game.
+            </p>
             {understanding}
           </div>
         </div>
         <div class={'row'}>
           <div class={'col'}>
             <h3>Internal efficiencies</h3>
-            {guessy}
+            {effTable}
           </div>
         </div>
         <div class="row">
