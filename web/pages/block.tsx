@@ -1,6 +1,6 @@
-import { Component } from 'preact';
 import type { JSX } from 'preact';
-import { isEqual } from 'lodash';
+import { Component } from 'preact';
+import { cloneDeep, isEqual } from 'lodash';
 
 import { ColonJoined, Item, TagList } from '../objects';
 import { Assemblers, recipeDifference, TrainStops } from '../block-renderers';
@@ -52,6 +52,108 @@ function applyEfficiencies(
     }
   }
   return result;
+}
+
+function inlineActions(actions: Record<Colon, number>[], modes) {
+  let now = actions;
+  const inlines = [];
+  for (let i = 0; i < 100; ++i) {
+    now = mergeDuplicateActions(now);
+    const ret = inlineStep(now, modes);
+    if (!ret) break;
+    now = ret.actions;
+    inlines.push(ret.inlined);
+  }
+
+  return { actions: now, inlines };
+}
+
+function inlineStep(realActions: Record<Colon, number>[], modes) {
+  let actions = cloneDeep(realActions);
+  const singularProducersOf: Record<Colon, number[]> = {};
+  for (let i = 0; i < actions.length; i++) {
+    const action = actions[i];
+    const produces = Object.keys(action).filter((k) => action[k] > 0);
+    if (produces.length !== 1) {
+      continue;
+    }
+    const product = produces[0];
+    if (modes[product] === 'import') continue;
+    if (!singularProducersOf[product]) {
+      singularProducersOf[product] = [];
+    }
+    singularProducersOf[product].push(i);
+  }
+
+  const candidates = Object.entries(singularProducersOf)
+    .filter(([k, v]) => v.length === 1)
+    .map(([k, v]) => [k, v[0]] as const);
+  // if (candidates.length === 0) break;
+
+  for (const [colon, producer] of candidates) {
+    const consumers: number[] = [];
+    for (let i = 0; i < actions.length; i++) {
+      const action = actions[i];
+      for (const k of Object.keys(action)) {
+        if (k === colon && action[k] < 0) {
+          consumers.push(i);
+        }
+      }
+    }
+    if (consumers.length !== 1) {
+      continue;
+    }
+    const consumer = consumers[0];
+    const consumerAction = actions[consumer];
+    const producerAction = actions[producer];
+
+    const consumerQuantity = consumerAction[colon];
+    const productionQuantity = producerAction[colon];
+
+    const efficiency = productionQuantity / -consumerQuantity;
+    const consumerEfficiency = Math.min(1, efficiency);
+    const producerEfficiency = Math.min(1, 1 / efficiency);
+
+    console.log(
+      'inlining',
+      colon,
+      'from',
+      producerAction,
+      'into',
+      consumerAction,
+      'at',
+      efficiency,
+    );
+    actions.splice(producer, 1);
+    const originalConsumerAction = { ...consumerAction };
+    const originalProducerAction = { ...producerAction };
+
+    delete consumerAction[colon];
+    delete producerAction[colon];
+    for (const k of Object.keys(consumerAction)) {
+      consumerAction[k] *= consumerEfficiency;
+    }
+
+    for (const k of Object.keys(producerAction)) {
+      consumerAction[k] =
+        (consumerAction[k] ?? 0) + producerAction[k] * producerEfficiency;
+    }
+
+    console.log('result', consumerAction);
+
+    return {
+      actions,
+      inlined: {
+        colon,
+        producer: originalProducerAction,
+        consumer: originalConsumerAction,
+        efficiency,
+        result: { ...consumerAction },
+      },
+    };
+  }
+
+  return undefined;
 }
 
 function mergeDuplicateActions(realActions: Record<Colon, number>[]) {
@@ -123,7 +225,7 @@ export function findEfficiencies(
     }
     return result;
   });
-  const actions = mergeDuplicateActions(withoutShrugs);
+  const { actions: actions, inlines } = inlineActions(withoutShrugs, modes);
 
   const contributions = toContributions(actions);
 
@@ -165,6 +267,7 @@ export function findEfficiencies(
     bestScore,
     bestEfficiency,
     result: applyEfficiencies(actions, bestEfficiency),
+    inlines,
   };
 }
 
@@ -251,6 +354,17 @@ export class BlockPage extends Component<{ loc: string }, BlockState> {
             <Action action={action} />
           </li>
         ))}
+        <hr />
+        {efficiencies.inlines.map(
+          ({ colon, producer, consumer, result, efficiency }) => (
+            <li>
+              {' '}
+              <span class={'amount'}>{Math.round(efficiency * 100)}%</span>{' '}
+              <Action action={producer} /> into <Action action={consumer} />{' '}
+              giving <Action action={result} />
+            </li>
+          ),
+        )}
       </ul>
     );
 
@@ -269,6 +383,10 @@ export class BlockPage extends Component<{ loc: string }, BlockState> {
       if (newCalcModes[colon]) return;
       newCalcModes[colon] = mode;
     };
+
+    for (const colon of ['item:empty-barrel', 'fluid:water']) {
+      setIfNotSet(colon, 'shrug');
+    }
 
     for (const colon of Object.keys(requested)) {
       setIfNotSet(colon, colon in provides ? 'shrug' : 'import');
