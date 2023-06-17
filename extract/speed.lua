@@ -19,6 +19,12 @@ end
 for _, v in pairs(surface.find_entities_filtered({ type = "ammo-turret" })) do
     v.destroy()
 end
+for _, v in pairs(surface.find_entities_filtered({ type = "electric-turret" })) do
+    v.destroy()
+end
+for _, v in pairs(surface.find_entities_filtered({ type = "fluid-turret" })) do
+    v.destroy()
+end
 
 game.player.surface.clear_pollution()
 game.map_settings.pollution.enabled = false
