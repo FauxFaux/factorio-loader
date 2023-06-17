@@ -9,37 +9,37 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 40)">
 <title>%3</title>
 <polygon fill="white" stroke="transparent" points="-4,4 -4,-40 1122.91,-40 1122.91,4 -4,4"/>
-<!-- 7,&#45;1 (Aromatics, Need more Benzene? Look no further!) -->
+<!-- 4,10 (Fluid Recycling) -->
 <g id="node1" class="node">
-<title>7,&#45;1 (Aromatics, Need more Benzene? Look no further!)</title>
-<ellipse fill="none" stroke="black" cx="268.43" cy="-18" rx="268.35" ry="18"/>
-<text text-anchor="middle" x="268.43" y="-14.3" font-family="Times,serif" font-size="14.00">7,&#45;1 (Aromatics, Need more Benzene? Look no further!)</text>
+<title>4,10 (Fluid Recycling)</title>
+<ellipse fill="none" stroke="black" cx="112.44" cy="-18" rx="112.38" ry="18"/>
+<text text-anchor="middle" x="112.44" y="-14.3" font-family="Times,serif" font-size="14.00">4,10 (Fluid Recycling)</text>
 </g>
 <!-- 2,13 (Polybutadiene) -->
 <g id="node2" class="node">
 <title>2,13 (Polybutadiene)</title>
-<ellipse fill="none" stroke="black" cx="715.44" cy="-18" rx="106.68" ry="18"/>
-<text text-anchor="middle" x="715.44" y="-14.3" font-family="Times,serif" font-size="14.00">2,13 (Polybutadiene)</text>
-</g>
-<!-- 7,&#45;1 (Aromatics, Need more Benzene? Look no further!)&#45;&gt;2,13 (Polybutadiene) -->
-<g id="edge1" class="edge">
-<title>7,&#45;1 (Aromatics, Need more Benzene? Look no further!)&#45;&gt;2,13 (Polybutadiene)</title>
-<path fill="none" stroke="black" stroke-width="1.82" d="M537.16,-18C558.35,-18 578.98,-18 598.23,-18"/>
-<polygon fill="black" stroke="black" stroke-width="1.82" points="598.47,-21.5 608.47,-18 598.47,-14.5 598.47,-21.5"/>
-<text text-anchor="middle" x="567.7" y="-6.8" font-family="Times,serif" font-size="14.00">aromatics&#45;barrel*156957</text>
-</g>
-<!-- 4,10 (Fluid Recycling) -->
-<g id="node3" class="node">
-<title>4,10 (Fluid Recycling)</title>
-<ellipse fill="none" stroke="black" cx="1006.47" cy="-18" rx="112.38" ry="18"/>
-<text text-anchor="middle" x="1006.47" y="-14.3" font-family="Times,serif" font-size="14.00">4,10 (Fluid Recycling)</text>
+<ellipse fill="none" stroke="black" cx="403.47" cy="-18" rx="106.68" ry="18"/>
+<text text-anchor="middle" x="403.47" y="-14.3" font-family="Times,serif" font-size="14.00">2,13 (Polybutadiene)</text>
 </g>
 <!-- 4,10 (Fluid Recycling)&#45;&gt;2,13 (Polybutadiene) -->
-<g id="edge2" class="edge">
+<g id="edge1" class="edge">
 <title>4,10 (Fluid Recycling)&#45;&gt;2,13 (Polybutadiene)</title>
-<path fill="none" stroke="black" stroke-width="0.18" d="M893.95,-18C873.84,-18 852.84,-18 832.6,-18"/>
-<polygon fill="black" stroke="black" stroke-width="0.18" points="832.41,-14.5 822.41,-18 832.41,-21.5 832.41,-14.5"/>
-<text text-anchor="middle" x="820.52" y="-6.8" font-family="Times,serif" font-size="14.00">aromatics&#45;barrel*15850</text>
+<path fill="none" stroke="black" stroke-width="0.45" d="M224.96,-18C245.07,-18 266.08,-18 286.32,-18"/>
+<polygon fill="black" stroke="black" stroke-width="0.45" points="286.5,-21.5 296.5,-18 286.5,-14.5 286.5,-21.5"/>
+<text text-anchor="middle" x="255.64" y="-6.8" font-family="Times,serif" font-size="14.00">aromatics&#45;barrel*18625</text>
+</g>
+<!-- 7,&#45;1 (Aromatics, Need more Benzene? Look no further!) -->
+<g id="node3" class="node">
+<title>7,&#45;1 (Aromatics, Need more Benzene? Look no further!)</title>
+<ellipse fill="none" stroke="black" cx="850.49" cy="-18" rx="268.35" ry="18"/>
+<text text-anchor="middle" x="850.49" y="-14.3" font-family="Times,serif" font-size="14.00">7,&#45;1 (Aromatics, Need more Benzene? Look no further!)</text>
+</g>
+<!-- 7,&#45;1 (Aromatics, Need more Benzene? Look no further!)&#45;&gt;2,13 (Polybutadiene) -->
+<g id="edge2" class="edge">
+<title>7,&#45;1 (Aromatics, Need more Benzene? Look no further!)&#45;&gt;2,13 (Polybutadiene)</title>
+<path fill="none" stroke="black" stroke-width="1.55" d="M581.75,-18C560.56,-18 539.94,-18 520.69,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1.55" points="520.44,-14.5 510.44,-18 520.44,-21.5 520.44,-14.5"/>
+<text text-anchor="middle" x="508.47" y="-6.8" font-family="Times,serif" font-size="14.00">aromatics&#45;barrel*65000</text>
 </g>
 </g>
 </svg>

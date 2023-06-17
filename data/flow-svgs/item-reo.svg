@@ -24,9 +24,9 @@
 <!-- &#45;2,5 (Rare Earth Oxides)&#45;&gt;4,6 (Circuit substrate and Doped silicon) -->
 <g id="edge1" class="edge">
 <title>&#45;2,5 (Rare Earth Oxides)&#45;&gt;4,6 (Circuit substrate and Doped silicon)</title>
-<path fill="none" stroke="black" stroke-width="1.47" d="M661.74,-18C681.49,-18 702.39,-18 723.46,-18"/>
-<polygon fill="black" stroke="black" stroke-width="1.47" points="723.48,-21.5 733.48,-18 723.48,-14.5 723.48,-21.5"/>
-<text text-anchor="middle" x="692.6" y="-6.8" font-family="Times,serif" font-size="14.00">reo*12752</text>
+<path fill="none" stroke="black" stroke-width="1.08" d="M661.74,-18C681.49,-18 702.39,-18 723.46,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1.08" points="723.48,-21.5 733.48,-18 723.48,-14.5 723.48,-21.5"/>
+<text text-anchor="middle" x="692.6" y="-6.8" font-family="Times,serif" font-size="14.00">reo*53392</text>
 </g>
 <!-- 6,4 (Electronic components) -->
 <g id="node3" class="node">
@@ -37,9 +37,9 @@
 <!-- &#45;2,5 (Rare Earth Oxides)&#45;&gt;6,4 (Electronic components) -->
 <g id="edge2" class="edge">
 <title>&#45;2,5 (Rare Earth Oxides)&#45;&gt;6,4 (Electronic components)</title>
-<path fill="none" stroke="black" stroke-width="0.53" d="M412.98,-18C375.15,-18 333.14,-18 293.7,-18"/>
-<polygon fill="black" stroke="black" stroke-width="0.53" points="293.47,-14.5 283.47,-18 293.47,-21.5 293.47,-14.5"/>
-<text text-anchor="middle" x="319.84" y="-21.8" font-family="Times,serif" font-size="14.00">reo*4592</text>
+<path fill="none" stroke="black" stroke-width="0.92" d="M412.98,-18C375.15,-18 333.14,-18 293.7,-18"/>
+<polygon fill="black" stroke="black" stroke-width="0.92" points="293.47,-14.5 283.47,-18 293.47,-21.5 293.47,-14.5"/>
+<text text-anchor="middle" x="372.34" y="-6.8" font-family="Times,serif" font-size="14.00">reo*45712</text>
 </g>
 </g>
 </svg>

@@ -24,9 +24,9 @@
 <!-- 4,2 (More fiberboard)&#45;&gt;0,0 (LE BUS) -->
 <g id="edge1" class="edge">
 <title>4,2 (More fiberboard)&#45;&gt;0,0 (LE BUS)</title>
-<path fill="none" stroke="black" stroke-width="0.65" d="M683.02,-18C742.06,-18 813.36,-18 867.31,-18"/>
-<polygon fill="black" stroke="black" stroke-width="0.65" points="867.52,-21.5 877.52,-18 867.52,-14.5 867.52,-21.5"/>
-<text text-anchor="middle" x="775.16" y="-6.8" font-family="Times,serif" font-size="14.00">treated&#45;wood*2016</text>
+<path fill="none" stroke="black" stroke-width="1.11" d="M683.02,-18C742.06,-18 813.36,-18 867.31,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1.11" points="867.52,-21.5 877.52,-18 867.52,-14.5 867.52,-21.5"/>
+<text text-anchor="middle" x="775.16" y="-6.8" font-family="Times,serif" font-size="14.00">treated&#45;wood*12688</text>
 </g>
 <!-- 4,3 (item=nexelit&#45;plate Nexelit platery) -->
 <g id="node3" class="node">
@@ -37,9 +37,9 @@
 <!-- 4,2 (More fiberboard)&#45;&gt;4,3 (item=nexelit&#45;plate Nexelit platery) -->
 <g id="edge2" class="edge">
 <title>4,2 (More fiberboard)&#45;&gt;4,3 (item=nexelit&#45;plate Nexelit platery)</title>
-<path fill="none" stroke="black" stroke-width="1.35" d="M460.59,-18C441.07,-18 420.2,-18 399.07,-18"/>
-<polygon fill="black" stroke="black" stroke-width="1.35" points="399.01,-14.5 389.01,-18 399.01,-21.5 399.01,-14.5"/>
-<text text-anchor="middle" x="395.33" y="-6.8" font-family="Times,serif" font-size="14.00">treated&#45;wood*4208</text>
+<path fill="none" stroke="black" stroke-width="0.89" d="M460.59,-18C441.07,-18 420.2,-18 399.07,-18"/>
+<polygon fill="black" stroke="black" stroke-width="0.89" points="399.01,-14.5 389.01,-18 399.01,-21.5 399.01,-14.5"/>
+<text text-anchor="middle" x="393.08" y="-6.8" font-family="Times,serif" font-size="14.00">treated&#45;wood*10080</text>
 </g>
 </g>
 </svg>
