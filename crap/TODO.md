@@ -1,9 +1,4 @@
-* chitin is deadlocked on cage-positive
-  -> 0eNqdlluPqjAQx7/LPMNGrioP+0VODCkwYhNoOW0xawzffadyFvEIiPti09tvLvxn6hWyqsVGcWEguQLPpdCQ/LmC5qVglV0zlwYhAW6wBgcEq+3MKCZ0I5VxM6wMdA5wUeAXJF53cACF4YZjT7pNLqlo6wwVHRgYNRa8rV2sMDeK524jKyQLjdR0WQpr2wI/IgcukLjbffwRdZ3zRPQHIhcalaG1J0rwSHGg4IrM3g6EE8xgYFZSlO6JUXSFO88P3+SHK3yOXkYejbwsuTaUxPyE2riMTJ/RbZQ882KKPcpqOM2O5771Eiv6P3Z/grxdTQ4evXwgxxPk3Yqs+gtMUhIVgFGySjM8sTOXyt7KucpbblLaKwbUkStt0hdlkrMSbXHYsjLM1tjGTuqGKWYsHD6h6/dF74S2LM/+KCzG9cNp5vndoZv6WPvBYktCVaWSNM4k1V/6XM4Qh2haW9fP9buZE53Cvy2NL8qvt/nvbHrkFV3oG8VPB7lnT+aSEDY9rc1dtKHwJzzyVgsqfFNQnr8aHS2h39DVolSc4Q4KllWYFlzbEZIjqzTetxWyIrVdy8INRUUpNqodnfhZ74/WskDbvFdLcTejRC/4TcZW9Q0vfEPl4SqVy9bMyTxaHUf8rqji36DXpejeW/vKWniyRuzg6clyYLkyb33tYN/6W8NLRn8jHDjTvd7FnRdu9/428iIviDdd9w3TtMvJ
-* microorganism mines need moving and an output limiter
-* shopping centre to import lamps (-7500?)
-* kmaut blood is using the wrong recipe
-* upgrader the cridren plantations, module inserter the result
+* duplicate fetal serurm?
 
 * no agar as request sizes are wrong for e.g. salt
 * would probably be better using seaweed mk2 and water based recipes

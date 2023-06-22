@@ -67,7 +67,9 @@ export interface FlowStats {
 
 export const computed = {
   ltnSummary: {} as Record<string, LtnSummary>,
+  /** fluid -> item ({ "fetal-serum": "fetal-serum-barrel" }) */
   fluidBarrel: {} as Record<string, string>,
+  /** item -> fluid ({ "fetal-serum-barrel": "fetal-serum" }) */
   barrelFluid: {} as Record<string, string>,
   recipeExecs: {} as Record<string, number>,
 };

@@ -16,14 +16,38 @@ interface Filters {
 }
 
 export function isBuilding(colon: Colon) {
-  if (['item:concrete-wall'].includes(colon)) return true;
+  if (
+    [
+      'item:concrete-wall',
+      'item:cooling-tower-mk01',
+      'item:cooling-tower-mk02',
+      'item:co2-absorber',
+      'item:tailings-pond',
+      'item:accumulator-mk01',
+      'item:megadar',
+      'item:pumpjack-hightech',
+      'item:py-heat-exchanger',
+      'item:py-check-valve',
+      'item:py-underflow-valve',
+      'item:py-overflow-valve',
+      'item:py-sinkhole',
+      'item:py-gas-vent',
+      'item:py-local-radar',
+      'item:py-burner',
+    ].includes(colon)
+  )
+    return true;
+  if (colon.startsWith('item:moondrop-greenhouse-')) return true;
   const [kind, obj] = fromColon(colon);
   if (kind !== 'item') return false;
   return (
     obj.subgroup.name.includes('-buildings-') || // e.g. crystal mine
     obj.subgroup.name === 'py-rawores-mines' || // e.g. aluminium mine
     obj.subgroup.name === 'py-extraction' ||
-    obj.subgroup.name === 'py-power'
+    obj.subgroup.name === 'py-power' ||
+    obj.subgroup.name === 'py-hightech-buildings' ||
+    obj.subgroup.name === 'py-storage-tanks' ||
+    obj.subgroup.name.startsWith('py-containers-')
   );
 }
 

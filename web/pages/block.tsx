@@ -16,7 +16,9 @@ import { ItemIcon } from '../lists';
 import { colonMapCombinator } from '../muffler/stations';
 import { stackSize } from './chestify';
 
-function toActions(asms: BlockContent['asms']): Record<string, number>[] {
+export function toActions(
+  asms: BlockContent['asms'],
+): Record<string, number>[] {
   const actions: Record<Colon, number>[] = [];
   for (const [factory, recipeName, modules] of asms) {
     if (!recipeName) continue;
@@ -174,6 +176,23 @@ function mergeDuplicateActions(realActions: Record<Colon, number>[]) {
     actions.push(action);
   }
   return actions;
+}
+
+// the above converts {a:1,b:2},{a:1,b:2},{a:1,b:18823812} to {a:2,b:4},{a:1,b:18823812} (i.e. maintains assembler info)
+// this converts {a:1,b:2},{a:1,b:2},{a:1,b:18823812} to {a:3,b:18823816}, so just the raw action
+export function mergeDuplicateActions2(realActions: Record<Colon, number>[]) {
+  type Keys = string;
+  const merged: Record<Keys, Record<Colon, number>> = {};
+  for (const action of realActions) {
+    if (Object.keys(action).length === 0) continue;
+    const keys: Keys = Object.keys(action).sort().join(',');
+    merged[keys] = merged[keys] || {};
+    for (const [k, v] of Object.entries(action)) {
+      merged[keys][k] = (merged[keys][k] || 0) + v;
+    }
+  }
+
+  return Object.values(merged);
 }
 
 function hillClimbMutates(
@@ -655,7 +674,7 @@ export class BlockPage extends Component<{ loc: string }, BlockState> {
   }
 }
 
-const Action = (props: { action: Record<Colon, number> }) => {
+export const Action = (props: { action: Record<Colon, number> }) => {
   const consumes = Object.entries(props.action).filter(([, v]) => v < 0);
   const produces = Object.entries(props.action).filter(([, v]) => v > 0);
   // TODO: this is colon sorted, not localised_name sorted
@@ -670,6 +689,7 @@ const Action = (props: { action: Record<Colon, number> }) => {
   };
 
   const countItem = (colon: Colon, count: number) => {
+    if (colon.startsWith('hack:')) return <i>hack</i>;
     return (
       <>
         {humanise(count)} {icon(colon)}

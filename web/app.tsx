@@ -29,6 +29,7 @@ import { TrainTraffic } from './pages/train-traffic';
 import { ReqChests } from './pages/req-chests';
 import { Mall } from './pages/mall';
 import RedirectIof from './pages/redirect-iof';
+import { Peakers } from './pages/peakers';
 
 export class App extends Component {
   render() {
@@ -69,6 +70,7 @@ export class App extends Component {
           <TrainTraffic path="/an/train-traffic" />
           <ReqChests path="/an/req-chests/:brick" brick={'from the path'} />
           <Mall path="/an/mall" />
+          <Peakers path="/an/peakers" />
         </Router>
       </div>
     );
