@@ -56,12 +56,15 @@ function applyEfficiencies(
   return result;
 }
 
-function inlineActions(actions: Record<Colon, number>[], modes) {
+export function inlineActions(
+  actions: Record<Colon, number>[],
+  imports: Colon[],
+) {
   let now = actions;
   const inlines = [];
   for (let i = 0; i < 100; ++i) {
     now = mergeDuplicateActions(now);
-    const ret = inlineStep(now, modes);
+    const ret = inlineStep(now, imports);
     if (!ret) break;
     now = ret.actions;
     inlines.push(ret.inlined);
@@ -70,7 +73,7 @@ function inlineActions(actions: Record<Colon, number>[], modes) {
   return { actions: now, inlines };
 }
 
-function inlineStep(realActions: Record<Colon, number>[], modes) {
+function inlineStep(realActions: Record<Colon, number>[], imports: Colon[]) {
   let actions = cloneDeep(realActions);
   const singularProducersOf: Record<Colon, number[]> = {};
   for (let i = 0; i < actions.length; i++) {
@@ -80,7 +83,7 @@ function inlineStep(realActions: Record<Colon, number>[], modes) {
       continue;
     }
     const product = produces[0];
-    if (modes[product] === 'import') continue;
+    if (imports.includes(product)) continue;
     if (!singularProducersOf[product]) {
       singularProducersOf[product] = [];
     }
@@ -103,6 +106,22 @@ function inlineStep(realActions: Record<Colon, number>[], modes) {
       }
     }
     if (consumers.length !== 1) {
+      const available = actions[producer][colon];
+      const required = -consumers.reduce((a, b) => a + actions[b][colon], 0);
+      if (available >= required) {
+        console.log(
+          'needlessly skipping',
+          colon,
+          'from',
+          actions[producer],
+          'at',
+          available,
+          'because',
+          consumers.map((i) => actions[i]),
+          'only needs',
+          required,
+        );
+      }
       continue;
     }
     const consumer = consumers[0];
@@ -244,7 +263,12 @@ export function findEfficiencies(
     }
     return result;
   });
-  const { actions: actions, inlines } = inlineActions(withoutShrugs, modes);
+  const { actions: actions, inlines } = inlineActions(
+    withoutShrugs,
+    Object.entries(modes)
+      .filter(([k, v]) => v === 'import')
+      .map(([k]) => k),
+  );
 
   const contributions = toContributions(actions);
 
@@ -290,8 +314,10 @@ export function findEfficiencies(
   };
 }
 
+type ModeConfig = Record<Colon, 'import' | 'export' | 'internal' | 'shrug'>;
+
 interface BlockState {
-  calcModes: Record<Colon, 'import' | 'export' | 'internal' | 'shrug'>;
+  calcModes: ModeConfig;
 }
 
 function ltnSummaryHarsh(obj: BlockContent) {

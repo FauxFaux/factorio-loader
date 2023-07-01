@@ -30,6 +30,7 @@ import { ReqChests } from './pages/req-chests';
 import { Mall } from './pages/mall';
 import RedirectIof from './pages/redirect-iof';
 import { Peakers } from './pages/peakers';
+import { Chainer } from './pages/chainer';
 
 export class App extends Component {
   render() {
@@ -71,6 +72,7 @@ export class App extends Component {
           <ReqChests path="/an/req-chests/:brick" brick={'from the path'} />
           <Mall path="/an/mall" />
           <Peakers path="/an/peakers" />
+          <Chainer path="/an/chainer" />
         </Router>
       </div>
     );

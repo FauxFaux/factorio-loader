@@ -26,24 +26,9 @@ export class Peakers extends Component {
       .filter((action) => Object.keys(action).length >= 1);
 
     const scienceRate = -(1 / 60) * 6;
-    actions.push({
-      'item:automation-science-pack': scienceRate,
-      'item:chemical-science-pack': scienceRate,
-      'item:military-science-pack': scienceRate,
-      'item:production-science-pack': scienceRate,
-      'item:space-science-pack': scienceRate,
-      'item:utility-science-pack': scienceRate,
-      'item:logistic-science-pack': scienceRate,
-      'hack:victory': -scienceRate,
-    });
+    actions.push(labAction(scienceRate));
 
-    const consumed = new Set(
-      actions.flatMap((action) =>
-        Object.entries(action)
-          .filter(([colon, amount]) => amount < 0)
-          .map(([colon]) => colon),
-      ),
-    );
+    const consumed = objectsConsumed(actions);
 
     consumed.add('hack:victory');
 
@@ -170,7 +155,9 @@ export class Peakers extends Component {
   }
 }
 
-function embedBarrelling(orig: Record<Colon, number>): Record<Colon, number> {
+export function embedBarrelling(
+  orig: Record<Colon, number>,
+): Record<Colon, number> {
   const action = { ...orig };
   for (const [colon, amount] of Object.entries(orig)) {
     const [kind, name] = splitColon(colon);
@@ -202,7 +189,7 @@ const caging: Record<Colon, Colon> = {
   'item:caged-xeno': 'item:xeno',
 };
 
-function embedCages(orig: Record<Colon, number>): Record<Colon, number> {
+export function embedCages(orig: Record<Colon, number>): Record<Colon, number> {
   const action = { ...orig };
   for (const [colon, amount] of Object.entries(orig)) {
     const uncaged = caging[colon];
@@ -215,7 +202,7 @@ function embedCages(orig: Record<Colon, number>): Record<Colon, number> {
   return action;
 }
 
-function removeNearlyZeroEntries(action: Record<string, number>) {
+export function removeNearlyZeroEntries(action: Record<string, number>) {
   return Object.fromEntries(
     Object.entries(action).filter(
       ([colon, amount]) => Math.abs(amount) > Number.EPSILON,
@@ -223,10 +210,20 @@ function removeNearlyZeroEntries(action: Record<string, number>) {
   );
 }
 
-function makesExcluded(action: Record<Colon, number>) {
-  const makes = Object.entries(action)
+export function actionMakes(action: Record<string, number>) {
+  return Object.entries(action)
     .filter(([, amount]) => amount > 0)
     .map(([colon]) => colon);
+}
+
+export function actionConsumes(action: Record<string, number>) {
+  return Object.entries(action)
+    .filter(([, amount]) => amount < 0)
+    .map(([colon]) => colon);
+}
+
+function makesExcluded(action: Record<Colon, number>) {
+  const makes = actionMakes(action);
   if (makes.length !== 1) return false;
   const made = makes[0];
   if (
@@ -259,4 +256,27 @@ function makesExcluded(action: Record<Colon, number>) {
   // production: mines, pumps, accumulators, repair packs, modules, etc.
   // combat: turrets, walls, guns, bullets, etc.
   return ['logistics', 'production', 'combat'].includes(item.group.name);
+}
+
+export function labAction(scienceRate: number): Record<Colon, number> {
+  return {
+    'item:automation-science-pack': scienceRate,
+    'item:chemical-science-pack': scienceRate,
+    'item:military-science-pack': scienceRate,
+    'item:production-science-pack': scienceRate,
+    'item:space-science-pack': scienceRate,
+    'item:utility-science-pack': scienceRate,
+    'item:logistic-science-pack': scienceRate,
+    'hack:victory': -scienceRate,
+  };
+}
+
+export function objectsConsumed(actions: Record<Colon, number>[]) {
+  return new Set(
+    actions.flatMap((action) =>
+      Object.entries(action)
+        .filter(([colon, amount]) => amount < 0)
+        .map(([colon]) => colon),
+    ),
+  );
 }
