@@ -2,7 +2,7 @@ import type { JSX } from 'preact';
 import { Component } from 'preact';
 import { cloneDeep, isEqual } from 'lodash';
 
-import { ColonJoined, Item, TagList } from '../objects';
+import { ColonJoined, Item, JRecipe, TagList } from '../objects';
 import { Assemblers, recipeDifference, TrainStops } from '../block-renderers';
 import { data } from '../datae';
 import { humanise } from '../muffler/human';
@@ -16,21 +16,25 @@ import { ItemIcon } from '../lists';
 import { colonMapCombinator } from '../muffler/stations';
 import { stackSize } from './chestify';
 
+type Action = Record<Colon, number>;
+
 export function toActions(
   asms: BlockContent['asms'],
+  banRecp: (name: string, recp: JRecipe) => boolean = () => false,
 ): Record<string, number>[] {
-  const actions: Record<Colon, number>[] = [];
+  const actions: Action[] = [];
   for (const [factory, recipeName, modules] of asms) {
     if (!recipeName) continue;
     const recp = makeUpRecipe(recipeName);
     if (!recp) continue;
+    if (banRecp(recipeName, recp)) continue;
     const scale = actualSpeed(factory, modules) / recp.time;
     actions.push(effectsOf(recp, scale));
   }
   return actions;
 }
 
-function toContributions(actions: Record<Colon, number>[]) {
+function toContributions(actions: Action[]) {
   const result: Record<string, Record<number, number>> = {};
   for (let i = 0; i < actions.length; i++) {
     const action = actions[i];
@@ -42,10 +46,7 @@ function toContributions(actions: Record<Colon, number>[]) {
   return result;
 }
 
-function applyEfficiencies(
-  actions: Record<Colon, number>[],
-  efficiencies: number[],
-) {
+function applyEfficiencies(actions: Action[], efficiencies: number[]) {
   const result: Record<string, number> = {};
   for (let act = 0; act < actions.length; act++) {
     const action = actions[act];
@@ -56,14 +57,11 @@ function applyEfficiencies(
   return result;
 }
 
-export function inlineActions(
-  actions: Record<Colon, number>[],
-  imports: Colon[],
-) {
+export function inlineActions(actions: Action[], imports: Colon[]) {
   let now = actions;
   const inlines = [];
   for (let i = 0; i < 100; ++i) {
-    now = mergeDuplicateActions(now);
+    now = mergeDuplicateActions2(now);
     const ret = inlineStep(now, imports);
     if (!ret) break;
     now = ret.actions;
@@ -73,7 +71,7 @@ export function inlineActions(
   return { actions: now, inlines };
 }
 
-function inlineStep(realActions: Record<Colon, number>[], imports: Colon[]) {
+function inlineStep(realActions: Action[], imports: Colon[]) {
   let actions = cloneDeep(realActions);
   const singularProducersOf: Record<Colon, number[]> = {};
   for (let i = 0; i < actions.length; i++) {
@@ -105,71 +103,65 @@ function inlineStep(realActions: Record<Colon, number>[], imports: Colon[]) {
         }
       }
     }
-    if (consumers.length !== 1) {
-      const available = actions[producer][colon];
-      const required = -consumers.reduce((a, b) => a + actions[b][colon], 0);
-      if (available >= required) {
-        console.log(
-          'needlessly skipping',
-          colon,
-          'from',
-          actions[producer],
-          'at',
-          available,
-          'because',
-          consumers.map((i) => actions[i]),
-          'only needs',
-          required,
-        );
-      }
+    if (consumers.length === 0) {
       continue;
     }
-    const consumer = consumers[0];
-    const consumerAction = actions[consumer];
+    if (consumers.length > 1) {
+      const available = actions[producer][colon];
+      const required = -consumers.reduce((a, b) => a + actions[b][colon], 0);
+      if (available < required) {
+        // actually needs optimisation
+        console.log('needs optimisation', colon, available, required);
+        continue;
+      }
+    }
+
     const producerAction = actions[producer];
-
-    const consumerQuantity = consumerAction[colon];
     const productionQuantity = producerAction[colon];
-
-    const efficiency = productionQuantity / -consumerQuantity;
-    const consumerEfficiency = Math.min(1, efficiency);
-    const producerEfficiency = Math.min(1, 1 / efficiency);
-
-    console.log(
-      'inlining',
-      colon,
-      'from',
-      producerAction,
-      'into',
-      consumerAction,
-      'at',
-      efficiency,
-    );
-    actions.splice(producer, 1);
-    const originalConsumerAction = { ...consumerAction };
     const originalProducerAction = { ...producerAction };
-
-    delete consumerAction[colon];
     delete producerAction[colon];
-    for (const k of Object.keys(consumerAction)) {
-      consumerAction[k] *= consumerEfficiency;
+
+    const efficiencies: number[] = [];
+    const originalConsumption: Action[] = [];
+    const newConsumption: Action[] = [];
+
+    for (const consumer of consumers) {
+      const consumerAction = actions[consumer];
+
+      const consumerQuantity = consumerAction[colon];
+
+      const efficiency = productionQuantity / -consumerQuantity;
+      const consumerEfficiency = Math.min(1, efficiency);
+      const producerEfficiency = Math.min(1, 1 / efficiency);
+
+      originalConsumption.push({ ...consumerAction });
+      efficiencies.push(efficiency);
+
+      delete consumerAction[colon];
+      for (const k of Object.keys(consumerAction)) {
+        consumerAction[k] *= consumerEfficiency;
+      }
+
+      for (const k of Object.keys(producerAction)) {
+        consumerAction[k] =
+          (consumerAction[k] ?? 0) + producerAction[k] * producerEfficiency;
+      }
+
+      newConsumption.push({ ...consumerAction });
     }
 
-    for (const k of Object.keys(producerAction)) {
-      consumerAction[k] =
-        (consumerAction[k] ?? 0) + producerAction[k] * producerEfficiency;
-    }
+    actions.splice(producer, 1);
 
-    console.log('result', consumerAction);
+    console.log('inlined', colon, originalConsumption, originalProducerAction);
 
     return {
       actions,
       inlined: {
         colon,
         producer: originalProducerAction,
-        consumer: originalConsumerAction,
-        efficiency,
-        result: { ...consumerAction },
+        originalConsumption,
+        efficiencies,
+        newConsumption,
       },
     };
   }
@@ -177,7 +169,7 @@ function inlineStep(realActions: Record<Colon, number>[], imports: Colon[]) {
   return undefined;
 }
 
-function mergeDuplicateActions(realActions: Record<Colon, number>[]) {
+function mergeDuplicateActions(realActions: Action[]) {
   const actionCount: Record<string, number> = {};
   for (const action of realActions) {
     if (Object.keys(action).length === 0) continue;
@@ -186,9 +178,9 @@ function mergeDuplicateActions(realActions: Record<Colon, number>[]) {
     actionCount[k] = (actionCount[k] || 0) + 1;
   }
 
-  const actions: Record<Colon, number>[] = [];
+  const actions: Action[] = [];
   for (const [k, count] of Object.entries(actionCount)) {
-    const action: Record<Colon, number> = JSON.parse(k);
+    const action: Action = JSON.parse(k);
     for (const k of Object.keys(action)) {
       action[k] *= count;
     }
@@ -199,9 +191,9 @@ function mergeDuplicateActions(realActions: Record<Colon, number>[]) {
 
 // the above converts {a:1,b:2},{a:1,b:2},{a:1,b:18823812} to {a:2,b:4},{a:1,b:18823812} (i.e. maintains assembler info)
 // this converts {a:1,b:2},{a:1,b:2},{a:1,b:18823812} to {a:3,b:18823816}, so just the raw action
-export function mergeDuplicateActions2(realActions: Record<Colon, number>[]) {
+export function mergeDuplicateActions2(realActions: Action[]) {
   type Keys = string;
-  const merged: Record<Keys, Record<Colon, number>> = {};
+  const merged: Record<Keys, Action> = {};
   for (const action of realActions) {
     if (Object.keys(action).length === 0) continue;
     const keys: Keys = Object.keys(action).sort().join(',');
@@ -250,14 +242,14 @@ function hillClimbMutates(
 }
 
 export function findEfficiencies(
-  realActions: Record<Colon, number>[],
+  realActions: Action[],
   modes: BlockState['calcModes'],
 ) {
   const shrugs = Object.entries(modes)
     .filter(([k, v]) => v === 'shrug')
     .map(([k]) => k);
   const withoutShrugs = realActions.map((action) => {
-    const result: Record<Colon, number> = { ...action };
+    const result: Action = { ...action };
     for (const shrug of shrugs) {
       delete result[shrug];
     }
@@ -401,12 +393,28 @@ export class BlockPage extends Component<{ loc: string }, BlockState> {
         ))}
         <hr />
         {efficiencies.inlines.map(
-          ({ colon, producer, consumer, result, efficiency }) => (
+          ({
+            colon,
+            producer,
+            originalConsumption,
+            newConsumption,
+            efficiencies,
+          }) => (
             <li>
               {' '}
-              <span class={'amount'}>{Math.round(efficiency * 100)}%</span>{' '}
-              <Action action={producer} /> into <Action action={consumer} />{' '}
-              giving <Action action={result} />
+              <span class={'amount'}>
+                {efficiencies.map((eff) => (
+                  <>{Math.round(eff * 100)}%</>
+                ))}
+              </span>{' '}
+              <Action action={producer} /> into{' '}
+              {originalConsumption.map((cons) => (
+                <Action action={cons} />
+              ))}{' '}
+              giving{' '}
+              {newConsumption.map((res) => (
+                <Action action={res} />
+              ))}
             </li>
           ),
         )}
@@ -700,7 +708,7 @@ export class BlockPage extends Component<{ loc: string }, BlockState> {
   }
 }
 
-export const Action = (props: { action: Record<Colon, number> }) => {
+export const Action = (props: { action: Action }) => {
   const consumes = Object.entries(props.action).filter(([, v]) => v < 0);
   const produces = Object.entries(props.action).filter(([, v]) => v > 0);
   // TODO: this is colon sorted, not localised_name sorted
@@ -711,7 +719,12 @@ export const Action = (props: { action: Record<Colon, number> }) => {
   const icon = (colon: Colon) => {
     const [, item] = fromColon(colon);
     const [, name] = splitColon(colon);
-    return <ItemIcon name={name} alt={item.localised_name} />;
+    return (
+      <>
+        <ItemIcon name={name} alt={item.localised_name} />
+        {item.localised_name}
+      </>
+    );
   };
 
   const countItem = (colon: Colon, count: number) => {

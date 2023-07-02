@@ -38,23 +38,7 @@ export class Peakers extends Component {
     //     .some(([colon]) => consumed.has(colon)),
     // );
     // actions = validActions;
-
-    const totalProduction: Record<Colon, number> = {};
-    for (const action of actions) {
-      for (const [colon, amount] of Object.entries(action)) {
-        if (amount < 0) continue;
-        totalProduction[colon] = (totalProduction[colon] || 0) + amount;
-      }
-    }
-
-    const totalConsumption: Record<Colon, number> = {};
-    for (const action of actions) {
-      for (const [colon, amount] of Object.entries(action)) {
-        if (amount > 0) continue;
-        totalConsumption[colon] =
-          (totalConsumption[colon] || 0) + Math.abs(amount);
-      }
-    }
+    const { totalProduction, totalConsumption } = actionStats(actions);
 
     totalConsumption['hack:victory'] = -scienceRate;
 
@@ -204,9 +188,7 @@ export function embedCages(orig: Record<Colon, number>): Record<Colon, number> {
 
 export function removeNearlyZeroEntries(action: Record<string, number>) {
   return Object.fromEntries(
-    Object.entries(action).filter(
-      ([colon, amount]) => Math.abs(amount) > Number.EPSILON,
-    ),
+    Object.entries(action).filter(([colon, amount]) => Math.abs(amount) > 1e-9),
   );
 }
 
@@ -279,4 +261,24 @@ export function objectsConsumed(actions: Record<Colon, number>[]) {
         .map(([colon]) => colon),
     ),
   );
+}
+
+export function actionStats(actions: Record<Colon, number>[]) {
+  const totalProduction: Record<Colon, number> = {};
+  for (const action of actions) {
+    for (const [colon, amount] of Object.entries(action)) {
+      if (amount < 0) continue;
+      totalProduction[colon] = (totalProduction[colon] || 0) + amount;
+    }
+  }
+
+  const totalConsumption: Record<Colon, number> = {};
+  for (const action of actions) {
+    for (const [colon, amount] of Object.entries(action)) {
+      if (amount > 0) continue;
+      totalConsumption[colon] =
+        (totalConsumption[colon] || 0) + Math.abs(amount);
+    }
+  }
+  return { totalProduction, totalConsumption };
 }
