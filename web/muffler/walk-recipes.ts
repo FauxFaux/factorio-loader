@@ -199,6 +199,7 @@ export const limitations: Record<string, Limitation> = {
   'cridren-enclosure': 'cridren',
   'dhilmos-pool': 'dhilmos',
   'dingrits-pack': 'dingrits',
+  'ez-ranch': 'korlex',
   'fawogae-plantation': 'fawogae',
   'fish-farm': 'fish',
   fwf: 'tree-mk01',
