@@ -206,6 +206,7 @@ export const limitations: Record<string, Limitation> = {
   'grods-swamp': 'grod',
   'kicalk-plantation': 'kicalk',
   'kmauts-enclosure': 'kmauts',
+  'moondrop-greenhouse': 'moondrop',
   'moss-farm': 'moss',
   'mukmoux-pasture': 'mukmoux',
   'navens-culture': 'navens',
