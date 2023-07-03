@@ -16,7 +16,7 @@ import { ItemIcon } from '../lists';
 import { colonMapCombinator } from '../muffler/stations';
 import { stackSize } from './chestify';
 
-type Action = Record<Colon, number>;
+export type Action = Record<Colon, number>;
 
 export function toActions(
   asms: BlockContent['asms'],
@@ -60,7 +60,7 @@ function applyEfficiencies(actions: Action[], efficiencies: number[]) {
 export function inlineActions(actions: Action[], imports: Colon[]) {
   let now = actions;
   const inlines = [];
-  for (let i = 0; i < 100; ++i) {
+  for (let i = 0; i < 500; ++i) {
     now = mergeDuplicateActions2(now);
     const ret = inlineStep(now, imports);
     if (!ret) break;
@@ -80,12 +80,13 @@ function inlineStep(realActions: Action[], imports: Colon[]) {
     if (produces.length !== 1) {
       continue;
     }
-    const product = produces[0];
-    if (imports.includes(product)) continue;
-    if (!singularProducersOf[product]) {
-      singularProducersOf[product] = [];
+    for (const product of produces) {
+      if (imports.includes(product)) continue;
+      if (!singularProducersOf[product]) {
+        singularProducersOf[product] = [];
+      }
+      singularProducersOf[product].push(i);
     }
-    singularProducersOf[product].push(i);
   }
 
   const candidates = Object.entries(singularProducersOf)
@@ -388,7 +389,7 @@ export class BlockPage extends Component<{ loc: string }, BlockState> {
             <span class={'amount'}>
               {Math.round(efficiencies.bestEfficiency[i] * 100)}%
             </span>{' '}
-            <Action action={action} />
+            <ActionPill action={action} />
           </li>
         ))}
         <hr />
@@ -407,13 +408,13 @@ export class BlockPage extends Component<{ loc: string }, BlockState> {
                   <>{Math.round(eff * 100)}%</>
                 ))}
               </span>{' '}
-              <Action action={producer} /> into{' '}
+              <ActionPill action={producer} /> into{' '}
               {originalConsumption.map((cons) => (
-                <Action action={cons} />
+                <ActionPill action={cons} />
               ))}{' '}
               giving{' '}
               {newConsumption.map((res) => (
-                <Action action={res} />
+                <ActionPill action={res} />
               ))}
             </li>
           ),
@@ -576,7 +577,7 @@ export class BlockPage extends Component<{ loc: string }, BlockState> {
               {relevantActions.map((action, i) => (
                 <span style={'margin-left: 0.6em'}>
                   {Math.round(efficiencies.bestEfficiency[i] * 100)}%{' '}
-                  <Action action={action} />
+                  <ActionPill action={action} />
                 </span>
               ))}
             </td>
@@ -708,12 +709,15 @@ export class BlockPage extends Component<{ loc: string }, BlockState> {
   }
 }
 
-export const Action = (props: { action: Action }) => {
+export const ActionPill = (props: { action: Action }) => {
   const consumes = Object.entries(props.action).filter(([, v]) => v < 0);
   const produces = Object.entries(props.action).filter(([, v]) => v > 0);
-  // TODO: this is colon sorted, not localised_name sorted
-  consumes.sort(([a], [b]) => a.localeCompare(b));
-  produces.sort(([a], [b]) => a.localeCompare(b));
+  const compareNames = (a: Colon, b: Colon) =>
+    fromColon(a)[1].localised_name.localeCompare(
+      fromColon(b)[1].localised_name,
+    );
+  consumes.sort(([a], [b]) => compareNames(a, b));
+  produces.sort(([a], [b]) => compareNames(a, b));
 
   // so dumb
   const icon = (colon: Colon) => {
@@ -722,7 +726,6 @@ export const Action = (props: { action: Action }) => {
     return (
       <>
         <ItemIcon name={name} alt={item.localised_name} />
-        {item.localised_name}
       </>
     );
   };
@@ -754,6 +757,6 @@ export const Action = (props: { action: Action }) => {
   );
 };
 
-function intersperse<T>(arr: T[], sep: T): T[] {
+export function intersperse<T>(arr: T[], sep: T): T[] {
   return arr.reduce((a: T[], v: T) => [...a, v, sep], []).slice(0, -1);
 }

@@ -72,7 +72,7 @@ export class App extends Component {
           <ReqChests path="/an/req-chests/:brick" brick={'from the path'} />
           <Mall path="/an/mall" />
           <Peakers path="/an/peakers" />
-          <Chainer path="/an/chainer" />
+          <Chainer path="/an/chainer/:wanted" wanted={'from the path'} />
         </Router>
       </div>
     );
