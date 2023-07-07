@@ -31,6 +31,7 @@ import { Mall } from './pages/mall';
 import RedirectIof from './pages/redirect-iof';
 import { Peakers } from './pages/peakers';
 import { Chainer } from './pages/chainer';
+import { Craftings } from './pages/craftings';
 
 export class App extends Component {
   render() {
@@ -73,6 +74,7 @@ export class App extends Component {
           <Mall path="/an/mall" />
           <Peakers path="/an/peakers" />
           <Chainer path="/an/chainer/:wanted" wanted={'from the path'} />
+          <Craftings path="/an/craftings/:units" units={'from the path'} />
         </Router>
       </div>
     );

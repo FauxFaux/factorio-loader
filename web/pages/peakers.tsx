@@ -2,7 +2,7 @@ import _partition from 'lodash/partition';
 import { Component, JSX } from 'preact';
 import { computed, data } from '../datae';
 import { Colon, fromColon, splitColon } from '../muffler/colon';
-import { Action, mergeDuplicateActions2, toActions } from './block';
+import { ActionPill, mergeDuplicateActions2, toActions } from './block';
 import { isBuilding } from './recipes';
 import { ColonJoined } from '../objects';
 import { humanise } from '../muffler/human';
@@ -83,7 +83,7 @@ export class Peakers extends Component {
           processed += share;
           built.push(
             <div>
-              {(share * 100).toFixed(0)}% <Action action={action} />
+              {(share * 100).toFixed(0)}% <ActionPill action={action} />
             </div>,
           );
           if (processed > 0.8) break;

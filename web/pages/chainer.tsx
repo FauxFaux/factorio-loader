@@ -3,7 +3,6 @@ import { data } from '../datae';
 import { Colon, fromColon, splitColon } from '../muffler/colon';
 import {
   Action,
-  ActionPill,
   inlineActions,
   intersperse,
   mergeDuplicateActions2,

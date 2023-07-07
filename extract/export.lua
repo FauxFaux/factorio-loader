@@ -35,9 +35,11 @@ for _, ty in ipairs({
         if ty == "tags" then
             a[#a + 1] = 0
             a[#a + 1] = v.text
+            a[#a + 1] = 0
         else
             a[#a + 1] = v.direction
             a[#a + 1] = v.name
+            a[#a + 1] = v.unit_number
         end
         if ty == "assembling-machine" then
             local recp = nil

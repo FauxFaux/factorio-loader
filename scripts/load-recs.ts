@@ -49,8 +49,8 @@ export type BlockContent = {
   tags: string[];
   /** @deprecated read from asms */
   asm: Record<string, { count: number; locations: Coord[] }>;
-  // automated-factory-mk04	/ iron-stick / { speed-module: 4 }
-  asms: [Factory, RecipeName | null, Record<string, number>, Coord][];
+  // automated-factory-mk04	/ iron-stick / { speed-module: 4 } / unit-number
+  asms: [Factory, RecipeName | null, Record<string, number>, Coord, number][];
   stop: Stop[];
   colons: Record<Colon, number>;
   /** @deprecated read from colons */
@@ -268,7 +268,7 @@ function main() {
     block.asm[label].locations.push(obj.pos);
 
     const modules = addItems({}, obj.ext.slice(1));
-    block.asms.push([obj.name, recp, modules, obj.pos]);
+    block.asms.push([obj.name, recp, modules, obj.pos, obj.unitNumber]);
   }
 
   // close enough, eh
@@ -282,7 +282,7 @@ function main() {
     block.asm[label].count++;
     block.asm[label].locations.push(obj.pos);
 
-    block.asms.push([obj.name, recp, {}, obj.pos]);
+    block.asms.push([obj.name, recp, {}, obj.pos, obj.unitNumber]);
   }
 
   for (const block of Object.values(byBlock)) {

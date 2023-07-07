@@ -23,17 +23,22 @@ export function loadSamples(kind: string): string[] {
 }
 
 export function loadRec(kind: string) {
-  const items: { block: BlockId; name: string; ext: string[]; pos: Coord }[] =
-    [];
+  const items: {
+    block: BlockId;
+    name: string;
+    ext: string[];
+    pos: Coord;
+    unitNumber: number;
+  }[] = [];
   for (const line of loadCells(kind)) {
     // (\036)
-    const [x, y, _dir, name, ...ext] = line;
+    const [x, y, _dir, name, unitNumber, ...ext] = line;
     const pos = [parseFloat(x), parseFloat(y)] as const;
     if (!Number.isFinite(pos[0]) || !Number.isFinite(pos[1])) {
       throw new Error(`invalid x/y: ${x}/${y}`);
     }
     const block = toBlock(pos);
-    items.push({ block, name, ext, pos });
+    items.push({ block, name, ext, pos, unitNumber: parseInt(unitNumber) });
   }
   return items;
 }

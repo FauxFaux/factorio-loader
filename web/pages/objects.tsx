@@ -255,20 +255,25 @@ class RecipeUsage extends Component<RecipeUsageProps> {
     const dataByRecipe: Record<
       string,
       {
-        asms: Record<string, { count: number; locations: Coord[] }>;
+        asms: Record<
+          string,
+          { count: number; locations: Coord[]; units: number[] }
+        >;
         blocks: Set<string>;
       }
     > = {};
-    for (const [block, { asm }] of Object.entries(data.doc)) {
-      for (const [label, { count }] of Object.entries(asm)) {
-        const [machine, recipe] = label.split('\0');
-        if (!inUse.has(recipe)) continue;
-        if (!dataByRecipe[recipe])
+    for (const [block, { asms }] of Object.entries(data.doc)) {
+      for (const [machine, recipe, _modules, pos, unit] of asms) {
+        if (!recipe || !inUse.has(recipe)) continue;
+        if (!dataByRecipe[recipe]) {
           dataByRecipe[recipe] = { asms: {}, blocks: new Set() };
+        }
         const d = dataByRecipe[recipe];
-        if (!d.asms[machine]) d.asms[machine] = { count: 0, locations: [] };
-        d.asms[machine].count += count;
-        d.asms[machine].locations.push(...asm[label].locations);
+        if (!d.asms[machine])
+          d.asms[machine] = { count: 0, locations: [], units: [] };
+        d.asms[machine].count += 1;
+        d.asms[machine].locations.push(pos);
+        d.asms[machine].units.push(unit);
         d.blocks.add(block);
       }
     }
@@ -295,6 +300,13 @@ class RecipeUsage extends Component<RecipeUsageProps> {
               <span class="font-monospace">{name}</span>
               <br />
               {executions[name] ?? 0}
+              <a
+                href={`/an/craftings/${Object.values(counts.asms)
+                  .flatMap((asms) => asms.units)
+                  .join(',')}`}
+              >
+                graph
+              </a>
             </td>
             <td>
               <ul>
