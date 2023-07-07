@@ -11,20 +11,23 @@ interface Data {
 
 interface State {
   data?: Data | null;
+  gap?: number;
 }
 
 export class Craftings extends Component<{ units: string }, State> {
   render(props: { units: string }, state: State) {
     const units = props.units.split(',').map((u) => parseInt(u));
+    const list = units.join(',');
 
     useEffect(() => {
       // already filled
       if (state.data !== undefined) return;
       void (async () => {
         try {
-          const list = units.join(',');
           const resp = await fetch(
-            `https://facto-exporter.goeswhere.com/api/query?units=${list}&gap=120&steps=10`,
+            `https://facto-exporter.goeswhere.com/api/query?units=${list}&gap=${
+              state.gap ?? 120
+            }&steps=10`,
           );
           if (!resp.ok) throw new Error(`fetch failure: ${resp.status}`);
           const data = await resp.json();
@@ -34,7 +37,7 @@ export class Craftings extends Component<{ units: string }, State> {
           this.setState({ data: null });
         }
       })();
-    }, [units]);
+    }, [list, state.gap]);
 
     if (!state.data) {
       return <div>Loading or failed...</div>;
@@ -56,6 +59,30 @@ export class Craftings extends Component<{ units: string }, State> {
 
     return (
       <div>
+        <p>
+          <button
+            class={'btn btn-primary'}
+            onClick={() =>
+              this.setState(({ gap }) => ({
+                gap: (gap ?? 120) + 10,
+                data: undefined,
+              }))
+            }
+          >
+            Moar time
+          </button>
+          <button
+            class={'btn btn-primary'}
+            onClick={() =>
+              this.setState(({ gap }) => ({
+                gap: (gap ?? 120) - 10,
+                data: undefined,
+              }))
+            }
+          >
+            Less time
+          </button>
+        </p>
         <ul>
           {asms.map(([block, factory, recipe, modules, pos, unit]) => {
             return (
