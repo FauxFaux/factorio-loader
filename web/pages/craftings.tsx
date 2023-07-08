@@ -6,6 +6,7 @@ import { GpsLink } from '../lists';
 interface Data {
   units: number[];
   deltas: number[][];
+  statuses: number[][];
   times: number[];
 }
 
@@ -13,6 +14,28 @@ interface State {
   data?: Data | null;
   gap?: number;
 }
+
+const KNOWN_STATUS: Record<number, string> = {
+  1: 'working',
+  2: 'normal',
+  37: 'no power',
+  12: 'low power',
+  36: 'no fuel',
+  38: 'disabled by control behaviour',
+  41: 'disabled by script',
+  43: 'marked for deconstruction',
+  15: 'no recipe',
+  20: 'fluid ingredient shortage',
+  22: 'output full',
+  21: 'item ingredient shortage',
+};
+
+const STATUS_FILLS: Record<number, string> = {
+  1: 'rgb(0, 255, 0, 0.2)',
+  20: 'rgb(192, 0, 0, 0.2)',
+  21: 'rgb(255, 0, 63, 0.2)',
+  22: 'rgba(255, 128, 0, 0.2)',
+};
 
 export class Craftings extends Component<{ units: string }, State> {
   render(props: { units: string }, state: State) {
@@ -47,10 +70,10 @@ export class Craftings extends Component<{ units: string }, State> {
       .flatMap(([block, v]) => v.asms.map((asm) => [block, ...asm] as const))
       .filter(([, , , , , unit]) => units.includes(unit));
 
-    const byUnit: Record<number, number[]> = {};
+    const byUnit: Record<number, { deltas: number[]; statuses: number[] }> = {};
     const d = state.data!;
     for (let i = 0; i < d.units.length; i++) {
-      byUnit[d.units[i]] = d.deltas[i];
+      byUnit[d.units[i]] = { deltas: d.deltas[i], statuses: d.statuses[i] };
     }
     const start = new Date(d.times[0] * 1000).toTimeString().slice(0, 5);
     const end = new Date(d.times[d.times.length - 1] * 1000)
@@ -59,7 +82,18 @@ export class Craftings extends Component<{ units: string }, State> {
 
     return (
       <div>
+        <h3>Key</h3>
+        <table>
+          {Object.entries(STATUS_FILLS).map(([num, fill]) => (
+            <tr>
+              <td style={`background-color: ${fill}`}>
+                {KNOWN_STATUS[parseInt(num)]}
+              </td>{' '}
+            </tr>
+          ))}
+        </table>
         <p>
+          <h3>Controls</h3>
           <button
             class={'btn btn-primary'}
             onClick={() =>
@@ -83,11 +117,12 @@ export class Craftings extends Component<{ units: string }, State> {
             Less time
           </button>
         </p>
+        <h3>Graphs</h3>
         <ul>
           {asms.map(([block, factory, recipe, modules, pos, unit]) => {
             return (
               <li>
-                <ProdGraph vals={byUnit[unit]} labels={{ start, end }} />
+                <ProdGraph unit={byUnit[unit]} labels={{ start, end }} />
                 <GpsLink caption={`TODO ${factory}`} gps={pos} /> {factory}{' '}
                 making {recipe}{' '}
               </li>
@@ -99,8 +134,11 @@ export class Craftings extends Component<{ units: string }, State> {
   }
 }
 
-function ProdGraph(props: { vals: number[]; labels: Record<string, string> }) {
-  const vs = props.vals;
+function ProdGraph(props: {
+  unit: { deltas: number[]; statuses: number[] };
+  labels: Record<string, string>;
+}) {
+  const vs = props.unit.deltas;
 
   const max = Math.max(...vs);
   const count = vs.length;
@@ -111,6 +149,8 @@ function ProdGraph(props: { vals: number[]; labels: Record<string, string> }) {
     (v, i) => [(i / (count - 1)) * W, H - (v / max) * H] as const,
   );
   const ox = 100;
+
+  const boxWidth = W / (points.length - 1) - 2;
 
   return (
     <svg viewBox="0 0 600 300" width="300" height="150">
@@ -163,16 +203,27 @@ function ProdGraph(props: { vals: number[]; labels: Record<string, string> }) {
       {points.map((v, i) => {
         if (i === 0) return null;
 
+        const fillColour = STATUS_FILLS[props.unit.statuses[i]] ?? 'white';
+
         const o = points[i - 1];
         return (
-          <line
-            x1={ox + o[0]}
-            y1={o[1]}
-            x2={ox + v[0]}
-            y2={v[1]}
-            stroke={'orange'}
-            stroke-width={2}
-          />
+          <>
+            <rect
+              x={ox + v[0] - boxWidth / 2}
+              y={0}
+              width={boxWidth}
+              height={H}
+              fill={fillColour}
+            />
+            <line
+              x1={ox + o[0]}
+              y1={o[1]}
+              x2={ox + v[0]}
+              y2={v[1]}
+              stroke={'orange'}
+              stroke-width={2}
+            />
+          </>
         );
       })}
     </svg>
