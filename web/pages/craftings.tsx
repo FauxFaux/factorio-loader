@@ -31,10 +31,11 @@ const KNOWN_STATUS: Record<number, string> = {
 };
 
 const STATUS_FILLS: Record<number, string> = {
-  1: 'rgb(0, 255, 0, 0.2)',
-  20: 'rgb(192, 0, 0, 0.2)',
-  21: 'rgb(255, 0, 63, 0.2)',
+  1: 'rgba(0, 255, 0, 0.2)',
+  20: 'rgba(192, 0, 0, 0.2)',
+  21: 'rgba(255, 0, 63, 0.2)',
   22: 'rgba(255, 128, 0, 0.2)',
+  36: 'rgba(0, 0, 255, 0.2)',
 };
 
 export class Craftings extends Component<{ units: string }, State> {
