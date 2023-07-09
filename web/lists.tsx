@@ -102,9 +102,8 @@ export class RenderIcons extends Component<{ text: string }> {
         parts.push(
           <ItemIcon
             name={name}
-            alt={`${type} ${name} (${
-              (data as any)[`${type}s`]?.[name]?.localised_name
-            })`}
+            alt={`${type} ${name} (${(data as any)[`${type}s`]?.[name]
+              ?.localised_name})`}
           />,
         );
       } else {

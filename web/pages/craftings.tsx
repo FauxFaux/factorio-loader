@@ -1,5 +1,5 @@
 import { Component } from 'preact';
-import { useEffect } from 'preact/hooks';
+import { useQuery } from 'preact-fetching';
 import { data } from '../datae';
 import { GpsLink } from '../lists';
 
@@ -11,8 +11,8 @@ interface Data {
 }
 
 interface State {
-  data?: Data | null;
   gap?: number;
+  steps?: number;
 }
 
 const KNOWN_STATUS: Record<number, string> = {
@@ -43,36 +43,33 @@ export class Craftings extends Component<{ units: string }, State> {
     const units = props.units.split(',').map((u) => parseInt(u));
     const list = units.join(',');
 
-    useEffect(() => {
-      // already filled
-      if (state.data !== undefined) return;
-      void (async () => {
-        try {
-          const resp = await fetch(
-            `https://facto-exporter.goeswhere.com/api/query?units=${list}&gap=${
-              state.gap ?? 120
-            }&steps=10`,
-          );
-          if (!resp.ok) throw new Error(`fetch failure: ${resp.status}`);
-          const data = await resp.json();
-          this.setState({ data });
-        } catch (err) {
-          console.error(err);
-          this.setState({ data: null });
-        }
-      })();
-    }, [list, state.gap]);
+    const quantisation = 15; // seconds
+    const now =
+      (Math.floor(Date.now() / 1000 / quantisation) + 1) * quantisation;
 
-    if (!state.data) {
-      return <div>Loading or failed...</div>;
-    }
+    const url = `https://facto-exporter.goeswhere.com/api/query?units=${list}&gap=${
+      state.gap ?? 120
+    }&steps=${state.steps ?? 10}&end=${now}`;
+
+    const {
+      isLoading,
+      isError,
+      error,
+      data: fetched,
+    } = useQuery(url, async () => {
+      const resp = await fetch(url);
+      if (!resp.ok) throw new Error(`fetch failure: ${resp.status}`);
+      const data: Data = await resp.json();
+      return data;
+    });
+
+    const d = fetched ?? { units: [], deltas: [], statuses: [], times: [] };
 
     const asms = Object.entries(data.doc)
       .flatMap(([block, v]) => v.asms.map((asm) => [block, ...asm] as const))
-      .filter(([, , , , , unit]) => units.includes(unit));
+      .filter(([, , , , , unit]) => d.units.includes(unit));
 
     const byUnit: Record<number, { deltas: number[]; statuses: number[] }> = {};
-    const d = state.data!;
     for (let i = 0; i < d.units.length; i++) {
       byUnit[d.units[i]] = { deltas: d.deltas[i], statuses: d.statuses[i] };
     }
@@ -81,9 +78,19 @@ export class Craftings extends Component<{ units: string }, State> {
       .toTimeString()
       .slice(0, 5);
 
+    if (isError) {
+      console.error(error);
+    }
+
     return (
       <div>
-        <h3>Key</h3>
+        {isError && (
+          <p class={'alert alert-danger'}>There was an error: {error?.name}</p>
+        )}
+        <h3>
+          Key
+          {isLoading && <span> - A fetch is occurring...</span>}
+        </h3>
         <table>
           {Object.entries(STATUS_FILLS).map(([num, fill]) => (
             <tr>

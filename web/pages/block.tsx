@@ -666,8 +666,8 @@ export class BlockPage extends Component<{ loc: string }, BlockState> {
             <h3>Understanding</h3>
             <p>
               The search algorithm here is trying to maximise the quantity of
-              every output (⬅), while none of the internals (intermediates?) (🩻)
-              go into runaway.
+              every output (⬅), while none of the internals (intermediates?)
+              (🩻) go into runaway.
             </p>
             <p>
               Turning 5 <ColonJoined colon={'item:wood'} /> into 2{' '}
