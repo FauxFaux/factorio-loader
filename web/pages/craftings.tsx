@@ -2,6 +2,8 @@ import { Component } from 'preact';
 import { useQuery } from 'preact-fetching';
 import { data } from '../datae';
 import { GpsLink } from '../lists';
+import { Recipe } from '../objects';
+import { BlockLink } from './station-status';
 
 interface Data {
   units: number[];
@@ -34,8 +36,8 @@ const STATUS_FILLS: Record<number, string> = {
   1: 'rgba(0, 255, 0, 0.2)',
   20: 'rgba(192, 0, 0, 0.2)',
   21: 'rgba(255, 0, 63, 0.2)',
-  22: 'rgba(255, 128, 0, 0.2)',
-  36: 'rgba(0, 0, 255, 0.2)',
+  36: 'rgba(255, 128, 0, 0.2)',
+  22: 'rgba(0, 0, 255, 0.2)',
 };
 
 export class Craftings extends Component<{ units: string }, State> {
@@ -49,7 +51,7 @@ export class Craftings extends Component<{ units: string }, State> {
 
     const url = `https://facto-exporter.goeswhere.com/api/query?units=${list}&gap=${
       state.gap ?? 120
-    }&steps=${state.steps ?? 10}&end=${now}`;
+    }&steps=${state.steps ?? 20}&end=${now}`;
 
     const {
       isLoading,
@@ -77,6 +79,8 @@ export class Craftings extends Component<{ units: string }, State> {
     const end = new Date(d.times[d.times.length - 1] * 1000)
       .toTimeString()
       .slice(0, 5);
+
+    const globalMax = d.deltas.reduce((a, b) => Math.max(a, ...b), 1);
 
     if (isError) {
       console.error(error);
@@ -128,12 +132,24 @@ export class Craftings extends Component<{ units: string }, State> {
         <h3>Graphs</h3>
         <ul>
           {asms.map(([block, factory, recipe, modules, pos, unit]) => {
+            const factoryName = (
+              data.items[factory]?.localised_name ?? factory
+            ).replace(/mk ?\d+$/i, '');
             return (
-              <li>
-                <ProdGraph unit={byUnit[unit]} labels={{ start, end }} />
-                <GpsLink caption={`TODO ${factory}`} gps={pos} /> {factory}{' '}
-                making {recipe}{' '}
-              </li>
+              <p
+                style={
+                  'float: left; padding: 5px; max-width: 310px; text-align: center'
+                }
+              >
+                <ProdGraph
+                  unit={byUnit[unit]}
+                  labels={{ start, end }}
+                  pinMax={globalMax}
+                />
+                <br />
+                <GpsLink caption={`${factoryName} `} gps={pos} />
+                <Recipe name={recipe} /> in <BlockLink loc={block} />
+              </p>
             );
           })}
         </ul>
@@ -145,65 +161,73 @@ export class Craftings extends Component<{ units: string }, State> {
 function ProdGraph(props: {
   unit: { deltas: number[]; statuses: number[] };
   labels: Record<string, string>;
+  pinMax?: number;
 }) {
   const vs = props.unit.deltas;
 
-  const max = Math.max(...vs);
+  const max = props.pinMax ?? (Math.max(...vs) || 1);
   const count = vs.length;
-  const W = 500;
-  const H = 200;
+  const W = 260;
+  const H = 130;
 
   const points = vs.map(
     (v, i) => [(i / (count - 1)) * W, H - (v / max) * H] as const,
   );
-  const ox = 100;
+  const XOFF = 40;
+  const PT = 14;
 
   const boxWidth = W / (points.length - 1) - 2;
 
   return (
-    <svg viewBox="0 0 600 300" width="300" height="150">
+    <svg viewBox="0 0 300 150" width="300" height="150">
       <line
-        x1={100 - 5}
+        x1={XOFF - 5}
         y1={H}
-        x2={ox + W}
+        x2={XOFF + W}
         y2={H}
         stroke={'white'}
         stroke-width={2}
       />
       <line
-        x1={100}
+        x1={XOFF}
         y1={0}
-        x2={ox}
+        x2={XOFF}
         y2={H + 5}
         stroke={'white'}
         stroke-width={2}
       />
-      <text x={100 - 10} y={15} fill="white" font-size={20} text-anchor={'end'}>
+      <text
+        x={XOFF - 10}
+        y={14}
+        fill="white"
+        font-size={PT}
+        text-anchor={'end'}
+      >
         {max}
       </text>
       <text
-        x={100 - 10}
-        y={H + 7}
+        x={XOFF - 10}
+        y={H + 5}
         fill="white"
-        font-size={20}
+        font-size={PT}
         text-anchor={'end'}
       >
         {0}
       </text>
       <text
-        x={ox + 5}
-        y={H + 20}
+        x={XOFF + 2}
+        y={H + PT}
         fill="white"
-        font-size={20}
+        font-size={PT}
         text-anchor={'start'}
       >
         {props.labels.start}
       </text>
       <text
-        x={ox + W}
-        y={H + 20}
+        x={XOFF + W}
+        y={H + PT}
         fill="white"
-        font-size={20}
+        font-size={PT}
         text-anchor={'end'}
       >
         {props.labels.end}
@@ -214,20 +238,22 @@ function ProdGraph(props: {
         const fillColour = STATUS_FILLS[props.unit.statuses[i]] ?? 'white';
 
         const o = points[i - 1];
+        const [ox, oy] = o;
+        const [vx, vy] = v;
         return (
           <>
             <rect
-              x={ox + v[0] - boxWidth / 2}
+              x={XOFF + vx - boxWidth}
               y={0}
               width={boxWidth}
               height={H}
               fill={fillColour}
             />
             <line
-              x1={ox + o[0]}
-              y1={o[1]}
-              x2={ox + v[0]}
-              y2={v[1]}
+              x1={XOFF + ox}
+              y1={oy}
+              x2={XOFF + vx}
+              y2={vy}
               stroke={'orange'}
               stroke-width={2}
             />
