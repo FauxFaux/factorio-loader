@@ -11,7 +11,6 @@ import type { BlockContent } from '../../scripts/load-recs';
 import { makeUpRecipe } from '../muffler/walk-recipes';
 import { actualSpeed, effectsOf } from './plan';
 import { Colon, fromColon, splitColon, tupleToColon } from '../muffler/colon';
-import { sortByKeys } from '../muffler/deter';
 import { ItemIcon } from '../lists';
 import { colonMapCombinator } from '../muffler/stations';
 import { stackSize } from './chestify';
@@ -170,27 +169,6 @@ function inlineStep(realActions: Action[], imports: Colon[]) {
   return undefined;
 }
 
-function mergeDuplicateActions(realActions: Action[]) {
-  const actionCount: Record<string, number> = {};
-  for (const action of realActions) {
-    if (Object.keys(action).length === 0) continue;
-    // oh yes I did
-    const k = JSON.stringify(sortByKeys(action));
-    actionCount[k] = (actionCount[k] || 0) + 1;
-  }
-
-  const actions: Action[] = [];
-  for (const [k, count] of Object.entries(actionCount)) {
-    const action: Action = JSON.parse(k);
-    for (const k of Object.keys(action)) {
-      action[k] *= count;
-    }
-    actions.push(action);
-  }
-  return actions;
-}
-
-// the above converts {a:1,b:2},{a:1,b:2},{a:1,b:18823812} to {a:2,b:4},{a:1,b:18823812} (i.e. maintains assembler info)
 // this converts {a:1,b:2},{a:1,b:2},{a:1,b:18823812} to {a:3,b:18823816}, so just the raw action
 export function mergeDuplicateActions2(realActions: Action[]) {
   type Keys = string;

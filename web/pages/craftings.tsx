@@ -71,6 +71,12 @@ export class Craftings extends Component<{ units: string }, State> {
       .flatMap(([block, v]) => v.asms.map((asm) => [block, ...asm] as const))
       .filter(([, , , , , unit]) => d.units.includes(unit));
 
+    // restore the requested order
+    asms.sort(
+      ([, , , , , a], [, , , , , b]) =>
+        units.findIndex((u) => u === a) - units.findIndex((u) => u === b),
+    );
+
     const byUnit: Record<number, { deltas: number[]; statuses: number[] }> = {};
     for (let i = 0; i < d.units.length; i++) {
       byUnit[d.units[i]] = { deltas: d.deltas[i], statuses: d.statuses[i] };
@@ -131,7 +137,7 @@ export class Craftings extends Component<{ units: string }, State> {
         </p>
         <h3>Graphs</h3>
         <ul>
-          {asms.map(([block, factory, recipe, modules, pos, unit]) => {
+          {asms.map(([block, factory, recipe, _modules, pos, unit]) => {
             const factoryName = (
               data.items[factory]?.localised_name ?? factory
             ).replace(/mk ?\d+$/i, '');
@@ -148,7 +154,7 @@ export class Craftings extends Component<{ units: string }, State> {
                 />
                 <br />
                 <GpsLink caption={`${factoryName} `} gps={pos} />
-                <Recipe name={recipe} /> in <BlockLink loc={block} />
+                <Recipe name={recipe!} /> in <BlockLink loc={block} />
               </p>
             );
           })}

@@ -1,10 +1,11 @@
+import type { JSX } from 'preact';
 import { minBy } from 'lodash';
 
 import { Component } from 'preact';
 import { Colon, fromColon, splitColon } from '../muffler/colon';
 import { BlockLine, ColonJoined } from '../objects';
 import { buildMaking, makeUpRecipe, RecipeName } from '../muffler/walk-recipes';
-import { computed, Coord, data } from '../datae';
+import { Coord, data } from '../datae';
 import { TempRange } from '../components/how-to-make';
 import { GpsLink } from '../lists';
 import { BRICK_H, BRICK_W, toBlock } from '../../scripts/magic';
@@ -25,39 +26,12 @@ export class CurrentChain extends Component<{ colon: Colon }> {
     if (!recipes) return <div>no recipes</div>;
     const locsByRecipe = countRecipeUsers();
 
-    for (const [recipe, data] of Object.entries(locsByRecipe)) {
-      if (data.locs.length === 0) delete locsByRecipe[recipe];
-    }
-
-    const dataByRecipe: Record<RecipeName, { locs: Coord[]; execs: number }> =
-      {};
+    const dataByRecipe: Record<RecipeName, { locs: Coord[] }> = {};
     for (const recipe of recipes) {
       dataByRecipe[recipe] = {
         locs: locsByRecipe[recipe]?.locs ?? [],
-        execs: computed.recipeExecs[recipe] ?? 0,
       };
     }
-
-    const totalUsage = Object.keys(dataByRecipe).reduce(
-      (a, name) => a + computed.recipeExecs[name] ?? 0,
-      0,
-    );
-
-    const [[using, usingD]] = Object.entries(dataByRecipe).sort(
-      ([, a], [, b]) => b.execs - a.execs,
-    );
-
-    const page = [];
-
-    const recp = makeUpRecipe(using)!;
-    const percNo = ((usingD.execs / totalUsage) * 100).toFixed(0);
-    const perc = totalUsage > 0 ? `(${percNo}%)` : null;
-    page.push(
-      <li>
-        Made using recipe name: {recp.localised_name} (
-        <span class={'font-monospace'}>{using}</span>) {perc}
-      </li>,
-    );
 
     const wayPointData: [number, number, string][] = [
       [0, 0, 'spawn point'],
@@ -72,26 +46,6 @@ export class CurrentChain extends Component<{ colon: Colon }> {
       [279, -493, 'shopping centre (alien life)'],
     ];
 
-    const wayPoints = [...wayPointData];
-
-    const maybeAddWaypoints = (locs: Coord[], colon: Colon) => {
-      if (locs.length <= 2) {
-        for (const [lx, ly] of locs) {
-          const [, item] = fromColon(colon);
-          wayPoints.push([lx, ly, `where ${item.localised_name} is made`]);
-        }
-      }
-    };
-
-    const refs = usingD.locs;
-    const locsForColon = (colon: Colon) => {
-      const locs: Coord[] = [];
-      for (const recipe of waysToMake[colon] ?? []) {
-        locs.push(...(locsByRecipe[recipe]?.locs ?? []));
-      }
-      return locs;
-    };
-
     const inBus = (colon: Colon) => {
       const [kind, item] = splitColon(colon);
       switch (kind) {
@@ -104,45 +58,103 @@ export class CurrentChain extends Component<{ colon: Colon }> {
       }
     };
 
-    page.push(pickLocation(usingD.locs, wayPoints, recp.localised_name));
-    maybeAddWaypoints(usingD.locs, props.colon);
+    const wayPoints = [...wayPointData];
 
-    for (const ing of recp.ingredients.sort(
-      (a, b) =>
-        // minDist(locsForColon(a.colon), refs) -
-        // minDist(locsForColon(b.colon), refs),
-        (inBus(a.colon) ?? 0) / a.amount - (inBus(b.colon) ?? 0) / b.amount,
-    )) {
-      const locs = locsForColon(ing.colon).sort(
-        (a, b) => minDist([a], refs) - minDist([b], refs),
-      );
-      const busHas = inBus(ing.colon) ?? 0;
-      const avail = busHas / ing.amount;
+    const maybeAddWaypoints = (locs: Coord[], colon: Colon) => {
+      if (locs.length <= 2) {
+        for (const [lx, ly] of locs) {
+          const [, item] = fromColon(colon);
+          wayPoints.push([lx, ly, `where ${item.localised_name} is made`]);
+        }
+      }
+    };
+
+    const pages: JSX.Element[][] = [];
+    const units: number[] = [];
+
+    for (const [using, usingD] of Object.entries(dataByRecipe)
+      .filter(([, { locs }]) => locs.length > 0)
+      .sort(([, a], [, b]) => b.locs.length - a.locs.length)) {
+      const page: JSX.Element[] = [];
+
+      units.push(...(locsByRecipe[using]?.units ?? []));
+
+      const recp = makeUpRecipe(using)!;
       page.push(
         <li>
-          <a
-            href={`/an/current-chain/${ing.colon}`}
-            title="focus in on this item"
-            style="text-decoration: none; color: inherit; font-size: 75%; vertical-align: middle"
-          >
-            🎯
-          </a>{' '}
-          <ColonJoined colon={ing.colon} />
-          <TempRange ing={ing} /> (
-          <span style={avail > 1 ? 'color: #4f4' : 'color: #f44'}>
-            {humanise(busHas)} / {ing.amount}{' '}
-            {ing.colon.startsWith('fluid:') ? ' in a tank' : 'stored'}
-          </span>{' '}
-          in bus)
-          {pickLocation(
-            locs,
-            wayPoints,
-            fromColon(ing.colon)[1].localised_name,
-          )}
+          Made using recipe name: {recp.localised_name} (
+          <span class={'font-monospace'}>{using}</span>)
         </li>,
       );
 
-      maybeAddWaypoints(locs, ing.colon);
+      const refs = usingD.locs;
+      const locsForColon = (colon: Colon) => {
+        const locs: Coord[] = [];
+        for (const recipe of waysToMake[colon] ?? []) {
+          locs.push(...(locsByRecipe[recipe]?.locs ?? []));
+        }
+        return locs;
+      };
+
+      const unitsForColon = (colon: Colon) => {
+        const units: number[] = [];
+        for (const recipe of waysToMake[colon] ?? []) {
+          units.push(...(locsByRecipe[recipe]?.units ?? []));
+        }
+        return units;
+      };
+
+      page.push(pickLocation(usingD.locs, wayPoints, recp.localised_name));
+      maybeAddWaypoints(usingD.locs, props.colon);
+
+      for (const ing of recp.ingredients.sort(
+        (a, b) =>
+          // minDist(locsForColon(a.colon), refs) -
+          // minDist(locsForColon(b.colon), refs),
+          (inBus(a.colon) ?? 0) / a.amount - (inBus(b.colon) ?? 0) / b.amount,
+      )) {
+        const locs = locsForColon(ing.colon).sort(
+          (a, b) => minDist([a], refs) - minDist([b], refs),
+        );
+        for (const u of unitsForColon(ing.colon).slice(0, 100)) {
+          if (!units.includes(u)) {
+            if (!Number.isFinite(u)) {
+              // furnaces have undefined unit numbers in some cases apparently
+              continue;
+            }
+            units.push(u);
+          }
+        }
+        const busHas = inBus(ing.colon) ?? 0;
+        const avail = busHas / ing.amount;
+        page.push(
+          <li>
+            <a
+              href={`/an/current-chain/${ing.colon}`}
+              title="focus in on this item"
+              style="text-decoration: none; color: inherit; font-size: 75%; vertical-align: middle"
+            >
+              🎯
+            </a>{' '}
+            <ColonJoined colon={ing.colon} />
+            <TempRange ing={ing} /> (
+            <span style={avail > 1 ? 'color: #4f4' : 'color: #f44'}>
+              {humanise(busHas)} / {ing.amount}{' '}
+              {ing.colon.startsWith('fluid:') ? ' in a tank' : 'stored'}
+            </span>{' '}
+            in bus)
+            {pickLocation(
+              locs,
+              wayPoints,
+              fromColon(ing.colon)[1].localised_name,
+            )}
+          </li>,
+        );
+
+        maybeAddWaypoints(locs, ing.colon);
+      }
+
+      pages.push(page);
     }
 
     return (
@@ -152,7 +164,12 @@ export class CurrentChain extends Component<{ colon: Colon }> {
             <h2>
               <ColonJoined colon={props.colon} />
             </h2>
-            <ul class={'current-chain-ul'}>{page}</ul>
+            <p>
+              <a href={`/an/craftings/${units.join(',')}`}>graph</a>
+            </p>
+            {pages.map((page) => (
+              <ul class={'current-chain-ul'}>{page}</ul>
+            ))}
           </div>
         </div>
         <div class="row">
@@ -169,12 +186,13 @@ export class CurrentChain extends Component<{ colon: Colon }> {
 }
 
 function countRecipeUsers() {
-  const dataByRecipe: Record<string, { locs: Coord[] }> = {};
+  const dataByRecipe: Record<string, { locs: Coord[]; units: number[] }> = {};
   for (const brick of Object.values(data.doc)) {
-    for (const [label, { locations }] of Object.entries(brick.asm)) {
-      const recipe = label.split('\0')[1];
-      if (!dataByRecipe[recipe]) dataByRecipe[recipe] = { locs: [] };
-      dataByRecipe[recipe].locs.push(...locations);
+    for (const [_factory, recipe, _modules, loc, unit] of brick.asms) {
+      if (!recipe) continue;
+      if (!dataByRecipe[recipe]) dataByRecipe[recipe] = { locs: [], units: [] };
+      dataByRecipe[recipe].locs.push(loc);
+      dataByRecipe[recipe].units.push(unit);
     }
   }
   return dataByRecipe;
@@ -214,7 +232,14 @@ function pickLocation(
   wayPoints: [number, number, string][],
   caption: string,
 ) {
-  if (locs.length > 4) {
+  if (locs.length === 0)
+    return (
+      <ul>
+        <li>Production not understood (e.g. furnace, mine, rocket).</li>
+      </ul>
+    );
+
+  if (locs.length > 10) {
     return (
       <ul>
         <li>Made in many locations, see item page for details.</li>

@@ -17,7 +17,6 @@ import {
   labAction,
   removeNearlyZeroEntries,
 } from './peakers';
-import { cloneDeep } from 'lodash';
 import { ColonJoined } from '../objects';
 import { humanise } from '../muffler/human';
 import { ItemIcon } from '../lists';
@@ -179,7 +178,6 @@ export class Chainer extends Component<{ wanted: string }> {
       return makes.some((colon) => wantedProducts.has(colon));
     });
 
-    const beforeInlining = cloneDeep(actions);
     const { actions: validActions, inlines } = inlineActions(actions, []);
 
     actions = validActions.map((action) => removeNearlyZeroEntries(action));
