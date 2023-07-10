@@ -133,7 +133,7 @@ export class BulkCraftings extends Component<{}, State> {
         a.statusTransTime - b.statusTransTime,
     );
 
-    return (
+    const table = (
       <table class={'table'}>
         <thead>
           <tr>
@@ -187,6 +187,30 @@ export class BulkCraftings extends Component<{}, State> {
           )}
         </tbody>
       </table>
+    );
+    return (
+      <>
+        <p>Yet more confusing numbers.</p>
+        <ul>
+          <li>
+            <dfn>Last made</dfn>: when was the last time this product could have
+            been made (when did some assembler producing it last complete an
+            execution).
+          </li>
+          <li>
+            <dfn>Least broken status</dfn>: what is the least broken status of
+            any assembler producing this product, where working &lt; full &lt;
+            ingredient missing &lt; recipe missing. <Status status={21} /> means{' '}
+            <i>every</i> assembler that <i>could</i> make this product is at
+            least that broken.
+          </li>
+          <li>
+            <dfn>Status transition</dfn>: when did some assembler most recently
+            transition into this status, and what status were they in before.
+          </li>
+        </ul>
+        {table}
+      </>
     );
   }
 }
