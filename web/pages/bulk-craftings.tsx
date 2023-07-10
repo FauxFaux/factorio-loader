@@ -13,7 +13,7 @@ interface State {}
 
 export class BulkCraftings extends Component<{}, State> {
   render(props: {}, state: State) {
-    const now = cacheableNow();
+    const now = cacheableNow(120);
     const url = `https://facto-exporter.goeswhere.com/api/bulk-status?__cachebust=${now}`;
     const {
       isLoading,

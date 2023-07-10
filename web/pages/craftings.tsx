@@ -51,9 +51,8 @@ export const STATUS_FILLS: Record<number, string> = {
   22: 'rgba(0, 0, 255, 0.2)',
 };
 
-export function cacheableNow() {
-  const quantisation = 15; // seconds
-  return (Math.floor(Date.now() / 1000 / quantisation) + 1) * quantisation;
+export function cacheableNow(quantSecs = 15) {
+  return (Math.floor(Date.now() / 1000 / quantSecs) + 1) * quantSecs;
 }
 
 export class Craftings extends Component<{ units: string }, State> {
