@@ -88,9 +88,11 @@ export class BulkCraftings extends Component<{}, State> {
           .map(([, producedChanged]) => producedChanged)
           .filter((x) => x > 0),
       );
-      const bestStatus = Math.min(
-        ...have.map(([, , , status]) => status).filter((x) => x > 0),
-      );
+      const bestStatus =
+        have
+          .map(([, , , status]) => status)
+          .filter((x) => x > 0)
+          .sort((a, b) => statusSort(a) - statusSort(b))[0] ?? 0;
       const statusTransTime = Math.max(
         ...have
           .filter(
@@ -112,12 +114,6 @@ export class BulkCraftings extends Component<{}, State> {
         exemplar,
       };
     });
-
-    const statusSort = (status: number) => {
-      const proposal = STATUS_ORDER.indexOf(status);
-      if (proposal === -1) return STATUS_ORDER.length + status;
-      return proposal;
-    };
 
     const ts = (v: number | undefined) => {
       if (!v) return '??';
@@ -214,3 +210,9 @@ export class BulkCraftings extends Component<{}, State> {
     );
   }
 }
+
+const statusSort = (status: number) => {
+  const proposal = STATUS_ORDER.indexOf(status);
+  if (proposal === -1) return STATUS_ORDER.length + status;
+  return proposal;
+};
