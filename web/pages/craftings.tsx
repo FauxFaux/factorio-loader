@@ -17,7 +17,7 @@ interface State {
   steps?: number;
 }
 
-const KNOWN_STATUS: Record<number, string> = {
+export const KNOWN_STATUS: Record<number, string> = {
   1: 'working',
   2: 'normal',
   37: 'no power',
@@ -32,7 +32,18 @@ const KNOWN_STATUS: Record<number, string> = {
   21: 'item ingredient shortage',
 };
 
-const STATUS_FILLS: Record<number, string> = {
+export const STATUS_ORDER = [
+  // working
+  1, 2,
+  // not working because it's turned off
+  22, 38,
+  // not working because there's an apparent shortage
+  20, 21, 36, 12,
+  // not working because it's not built properly
+  41, 43, 15, 37,
+];
+
+export const STATUS_FILLS: Record<number, string> = {
   1: 'rgba(0, 255, 0, 0.2)',
   20: 'rgba(192, 0, 0, 0.2)',
   21: 'rgba(255, 0, 63, 0.2)',
@@ -40,14 +51,17 @@ const STATUS_FILLS: Record<number, string> = {
   22: 'rgba(0, 0, 255, 0.2)',
 };
 
+export function cacheableNow() {
+  const quantisation = 15; // seconds
+  return (Math.floor(Date.now() / 1000 / quantisation) + 1) * quantisation;
+}
+
 export class Craftings extends Component<{ units: string }, State> {
   render(props: { units: string }, state: State) {
     const units = props.units.split(',').map((u) => parseInt(u));
     const list = units.join(',');
 
-    const quantisation = 15; // seconds
-    const now =
-      (Math.floor(Date.now() / 1000 / quantisation) + 1) * quantisation;
+    const now = cacheableNow();
 
     const url = `https://facto-exporter.goeswhere.com/api/query?units=${list}&gap=${
       state.gap ?? 120

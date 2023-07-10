@@ -32,6 +32,7 @@ import RedirectIof from './pages/redirect-iof';
 import { Peakers } from './pages/peakers';
 import { Chainer } from './pages/chainer';
 import { Craftings } from './pages/craftings';
+import { BulkCraftings } from './pages/bulk-craftings';
 
 export class App extends Component {
   render() {
@@ -75,6 +76,7 @@ export class App extends Component {
           <Peakers path="/an/peakers" />
           <Chainer path="/an/chainer/:wanted" wanted={'from the path'} />
           <Craftings path="/an/craftings/:units" units={'from the path'} />
+          <BulkCraftings path="/an/bulk-craftings" />
         </Router>
       </div>
     );

@@ -1,15 +1,17 @@
 import type { JSX } from 'preact';
 import { minBy } from 'lodash';
-
+import { useQuery } from 'preact-fetching';
 import { Component } from 'preact';
+
 import { Colon, fromColon, splitColon } from '../muffler/colon';
 import { BlockLine, ColonJoined } from '../objects';
-import { buildMaking, makeUpRecipe, RecipeName } from '../muffler/walk-recipes';
+import { buildMaking, makeUpRecipe } from '../muffler/walk-recipes';
 import { Coord, data } from '../datae';
 import { TempRange } from '../components/how-to-make';
 import { GpsLink } from '../lists';
 import { BRICK_H, BRICK_W, toBlock } from '../../scripts/magic';
 import { humanise } from '../muffler/human';
+import { cacheableNow, KNOWN_STATUS, STATUS_FILLS } from './craftings';
 
 function minDist(a: Coord[], b: Coord[]) {
   return Math.min(
@@ -25,13 +27,6 @@ export class CurrentChain extends Component<{ colon: Colon }> {
     const recipes = waysToMake[props.colon];
     if (!recipes) return <div>no recipes</div>;
     const locsByRecipe = countRecipeUsers();
-
-    const dataByRecipe: Record<RecipeName, { locs: Coord[] }> = {};
-    for (const recipe of recipes) {
-      dataByRecipe[recipe] = {
-        locs: locsByRecipe[recipe]?.locs ?? [],
-      };
-    }
 
     const wayPointData: [number, number, string][] = [
       [0, 0, 'spawn point'],
@@ -58,6 +53,8 @@ export class CurrentChain extends Component<{ colon: Colon }> {
       }
     };
 
+    const now = cacheableNow();
+
     const wayPoints = [...wayPointData];
 
     const maybeAddWaypoints = (locs: Coord[], colon: Colon) => {
@@ -72,12 +69,14 @@ export class CurrentChain extends Component<{ colon: Colon }> {
     const pages: JSX.Element[][] = [];
     const units: number[] = [];
 
-    for (const [using, usingD] of Object.entries(dataByRecipe)
-      .filter(([, { locs }]) => locs.length > 0)
+    for (const [using, usingD] of recipes
+      .map((r) => [r, locsByRecipe[r]] as const)
+      // also removes nulls:
+      .filter(([, usingD]) => usingD?.locs?.length > 0)
       .sort(([, a], [, b]) => b.locs.length - a.locs.length)) {
       const page: JSX.Element[] = [];
 
-      units.push(...(locsByRecipe[using]?.units ?? []));
+      units.push(...usingD.units);
 
       const recp = makeUpRecipe(using)!;
       page.push(
@@ -104,7 +103,7 @@ export class CurrentChain extends Component<{ colon: Colon }> {
         return units;
       };
 
-      page.push(pickLocation(usingD.locs, wayPoints, recp.localised_name));
+      page.push(pickLocation(usingD, wayPoints, recp.localised_name, now));
       maybeAddWaypoints(usingD.locs, props.colon);
 
       for (const ing of recp.ingredients.sort(
@@ -144,9 +143,10 @@ export class CurrentChain extends Component<{ colon: Colon }> {
             </span>{' '}
             in bus)
             {pickLocation(
-              locs,
+              { locs, units: unitsForColon(ing.colon) },
               wayPoints,
               fromColon(ing.colon)[1].localised_name,
+              now,
             )}
           </li>,
         );
@@ -227,11 +227,25 @@ const compass = (x: number, y: number) => {
   return 'E';
 };
 
+interface Last {
+  changes: {
+    [unit: number]: {
+      producedChange: number;
+      lastStatus: number;
+      lastStatusChange: number;
+      previousStatus: number;
+    };
+  };
+}
+
 function pickLocation(
-  locs: Coord[],
+  usingD: { locs: Coord[]; units: number[] },
   wayPoints: [number, number, string][],
   caption: string,
+  now: number,
 ) {
+  const { locs, units } = usingD;
+
   if (locs.length === 0)
     return (
       <ul>
@@ -239,17 +253,49 @@ function pickLocation(
       </ul>
     );
 
-  if (locs.length > 10) {
+  if (locs.length > 20) {
     return (
       <ul>
-        <li>Made in many locations, see item page for details.</li>
+        <li>Made in way too many locations, see item page for details.</li>
       </ul>
     );
   }
 
+  const url = `https://facto-exporter.goeswhere.com/api/last?units=${units
+    .sort()
+    .join(',')}&__cachebust=${now}`;
+  const {
+    isLoading,
+    isError,
+    error,
+    data: fetched,
+  } = useQuery(url, async () => {
+    const resp = await fetch(url);
+    if (!resp.ok) throw new Error(`fetch failure: ${resp.status}`);
+    return (await resp.json()) as Last;
+  });
+
+  const change = (unit: number) => {
+    const c = fetched?.changes?.[unit];
+    if (!c) return null;
+    const ts = (v: number | undefined) =>
+      v ? new Date(v * 1000).toTimeString().slice(0, 5) : '??';
+    const lastProduced = ts(c.producedChange);
+    const statusChange = ts(c.lastStatusChange);
+    // const status = KNOWN_STATUS[c.lastStatus] ?? '??';
+    // const previousStatus = KNOWN_STATUS[c.previousStatus] ?? '??';
+    return (
+      <p>
+        last ran: {lastProduced}, currently: <Status status={c.lastStatus} />{' '}
+        since {statusChange}, was <Status status={c.previousStatus} />
+      </p>
+    );
+  };
+
   return (
     <ul>
-      {locs.map(([lx, ly]) => {
+      {locs.map(([lx, ly], i) => {
+        const unit = units[i];
         const brick = String(toBlock([lx, ly]));
         if (
           !data.meta.isSpawn.includes(brick) &&
@@ -264,6 +310,7 @@ function pickLocation(
                 )}`}
               />
               somewhere in <BlockLine block={brick} />
+              {change(unit)}
             </li>
           );
         }
@@ -281,6 +328,7 @@ function pickLocation(
           <li>
             <GpsLink gps={[lx, ly]} caption={`${caption} ${desc}`} />
             {desc}
+            {change(unit)}
             {/*{data.cp.byPos[String([lx.toFixed(0),ly.toFixed(0)])]?.runs?.join(',')}*/}
           </li>
         );
@@ -288,3 +336,17 @@ function pickLocation(
     </ul>
   );
 }
+
+export const Status = (props: { status: number }) => {
+  const name = KNOWN_STATUS[props.status];
+  if (!name) return <>??</>;
+  return (
+    <span
+      style={`border-radius: 2px; padding: 2px; background-color: ${
+        STATUS_FILLS[props.status]
+      }`}
+    >
+      {name}
+    </span>
+  );
+};
