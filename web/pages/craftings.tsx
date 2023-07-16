@@ -22,6 +22,7 @@ export const KNOWN_STATUS: Record<number, string> = {
   2: 'normal',
   37: 'no power',
   12: 'low power',
+  19: 'no liquid fuel',
   36: 'no fuel',
   38: 'disabled by control behaviour',
   41: 'disabled by script',
@@ -38,7 +39,7 @@ export const STATUS_ORDER = [
   // not working because it's turned off
   22, 38,
   // not working because there's an apparent shortage
-  20, 21, 36, 12,
+  20, 21, 36, 19, 12,
   // not working because it's not built properly
   41, 43, 15, 37,
 ];
@@ -47,6 +48,7 @@ export const STATUS_FILLS: Record<number, string> = {
   1: 'rgba(0, 255, 0, 0.2)',
   20: 'rgba(192, 0, 0, 0.2)',
   21: 'rgba(255, 0, 63, 0.2)',
+  19: 'rgba(255, 128, 0, 0.2)',
   36: 'rgba(255, 128, 0, 0.2)',
   22: 'rgba(0, 0, 255, 0.2)',
 };

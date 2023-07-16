@@ -211,7 +211,7 @@ export class BulkCraftings extends Component<{}, State> {
   }
 }
 
-const statusSort = (status: number) => {
+export const statusSort = (status: number) => {
   const proposal = STATUS_ORDER.indexOf(status);
   if (proposal === -1) return STATUS_ORDER.length + status;
   return proposal;

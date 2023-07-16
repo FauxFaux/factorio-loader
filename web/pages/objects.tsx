@@ -11,6 +11,7 @@ import {
   ProductAmount,
 } from '../components/how-to-make';
 import { AssemblerCount } from '../block-renderers';
+import { CombiGraph } from '../components/combi-graph';
 
 export class IoFDetail extends Component<{
   colon: Colon;
@@ -292,21 +293,18 @@ class RecipeUsage extends Component<RecipeUsageProps> {
       .map(([name, recipe]) => {
         const counts = dataByRecipe[name];
 
-        return (
-          <tr>
+        const units = Object.values(
+          Object.values(counts.asms).flatMap((asms) => asms.units),
+        );
+        const firstRow = (
+          <>
             <td>
               {recipe.localised_name}
               <br />
               <span class="font-monospace">{name}</span>
               <br />
               {executions[name] ?? 0}
-              <a
-                href={`/an/craftings/${Object.values(counts.asms)
-                  .flatMap((asms) => asms.units)
-                  .join(',')}`}
-              >
-                graph
-              </a>
+              <a href={`/an/craftings/${units.join(',')}`}>graph</a>
             </td>
             <td>
               <ul>
@@ -351,7 +349,18 @@ class RecipeUsage extends Component<RecipeUsageProps> {
                 })}
               </ul>
             </td>
-          </tr>
+          </>
+        );
+
+        return (
+          <>
+            <tr>{firstRow}</tr>
+            <tr>
+              <td colSpan={5}>
+                <CombiGraph units={units} />
+              </td>
+            </tr>
+          </>
         );
       });
 
