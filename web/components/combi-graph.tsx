@@ -4,15 +4,26 @@ import * as qs from 'qs';
 import { KNOWN_STATUS, STATUS_FILLS } from '../pages/craftings';
 import { statusSort } from '../pages/bulk-craftings';
 
-export class CombiGraph extends Component<{ units: number[] }> {
-  render(props: { units: number[] }) {
+export interface GraphRange {
+  start: Date;
+  end: Date;
+  steps: number;
+}
+
+interface Props {
+  units: number[];
+  range: GraphRange;
+}
+
+export class CombiGraph extends Component<Props> {
+  render(props: Props) {
     const url =
       'https://facto-exporter.goeswhere.com/api/long?' +
       qs.stringify({
         units: props.units.join(','),
-        start: '2023-07-11T18:00:00Z',
-        end: '2023-07-12T01:00:00Z',
-        steps: 100,
+        start: props.range.start.toISOString(),
+        end: props.range.end.toISOString(),
+        steps: props.range.steps,
       });
     const {
       isLoading,
@@ -147,7 +158,7 @@ export class CombiGraph extends Component<{ units: number[] }> {
           let currentH = 0;
 
           Object.entries(statuses)
-            .sort(([a], [b]) => statusSort(a) - statusSort(b))
+            .sort(([a], [b]) => statusSort(a as any) - statusSort(b as any))
             .map(([status, count]) => {
               const fillColour = STATUS_FILLS[status as any] ?? 'white';
               const ourH = (count / statusTotal) * H;
@@ -161,7 +172,7 @@ export class CombiGraph extends Component<{ units: number[] }> {
                 >
                   <title>
                     {count} assemblers in{' '}
-                    {KNOWN_STATUS[status] ?? `?${status}?`}
+                    {KNOWN_STATUS[status as any] ?? `?${status}?`}
                   </title>
                 </rect>,
               );

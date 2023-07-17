@@ -11,12 +11,36 @@ import {
   ProductAmount,
 } from '../components/how-to-make';
 import { AssemblerCount } from '../block-renderers';
-import { CombiGraph } from '../components/combi-graph';
+import { CombiGraph, GraphRange } from '../components/combi-graph';
 
-export class IoFDetail extends Component<{
-  colon: Colon;
-}> {
-  render(props: { colon: Colon }) {
+interface IoFState {
+  range: GraphRange;
+}
+
+export function defaultRange(): GraphRange {
+  // yeah, but, have you seen the state of the date library ecosystem?
+  const H = 60 * 60 * 1000;
+  const D = 24 * H;
+  const now = Date.now() + D;
+  const tuesday23599999 = now - (now % (7 * D)) - D;
+  return {
+    // I have arbitrarily decided this is the interesting period
+    start: new Date(tuesday23599999 - 4 * H),
+    end: new Date(tuesday23599999 + 2 * H),
+    steps: 100,
+  };
+}
+
+export class IoFDetail extends Component<
+  {
+    colon: Colon;
+  },
+  IoFState
+> {
+  state: IoFState = {
+    range: defaultRange(),
+  };
+  render(props: { colon: Colon }, state: IoFState) {
     const [kind, name] = splitColon(props.colon);
     const obj = (kind === 'item' ? data.items : data.fluids)[name];
     if (!obj)
@@ -176,12 +200,18 @@ export class IoFDetail extends Component<{
         </div>
 
         <div className="row">
+          <DatePicker
+            range={state.range}
+            setRange={(range) => this.setState({ range })}
+          />
+        </div>
+        <div className="row">
           <h3>Producers</h3>
-          <RecipeUsage colon={colon} producers={true} />
+          <RecipeUsage colon={colon} producers={true} range={state.range} />
         </div>
         <div className="row">
           <h3>Consumers</h3>
-          <RecipeUsage colon={colon} producers={false} />
+          <RecipeUsage colon={colon} producers={false} range={state.range} />
         </div>
 
         <div className="row">
@@ -230,6 +260,7 @@ class Storage extends Component<{ type: 'item' | 'fluid'; name: string }> {
 interface RecipeUsageProps {
   colon: string;
   producers: boolean;
+  range: GraphRange;
 }
 
 class RecipeUsage extends Component<RecipeUsageProps> {
@@ -357,7 +388,7 @@ class RecipeUsage extends Component<RecipeUsageProps> {
             <tr>{firstRow}</tr>
             <tr>
               <td colSpan={5}>
-                <CombiGraph units={units} />
+                <CombiGraph units={units} range={props.range} />
               </td>
             </tr>
           </>
@@ -377,6 +408,66 @@ class RecipeUsage extends Component<RecipeUsageProps> {
         </thead>
         <tbody>{rows}</tbody>
       </table>
+    );
+  }
+}
+
+interface DPProps {
+  range: GraphRange;
+  setRange: (range: GraphRange) => void;
+}
+
+interface DPState {}
+
+class DatePicker extends Component<DPProps, DPState> {
+  render(props: DPProps, state: DPState) {
+    // I literally cannot believe that this is real
+    const ts = (d: Date) => d.toISOString().slice(0, 16);
+    const unTs = (s: string) => new Date(s + 'Z');
+    return (
+      <form class={'date-picker-form'}>
+        <label>
+          Graph start:
+          <input
+            class={'date-picker-input'}
+            type={'datetime-local'}
+            value={ts(props.range.start)}
+            min={'2023-07-11T12:35'}
+            max={ts(props.range.end)}
+            onChange={(e: any) => {
+              props.setRange({ ...props.range, start: unTs(e.target.value) });
+            }}
+          />
+        </label>
+        <label>
+          end:
+          <input
+            class={'date-picker-input'}
+            type={'datetime-local'}
+            value={ts(props.range.end)}
+            min={ts(props.range.start)}
+            max={ts(new Date())}
+            onChange={(e: any) => {
+              props.setRange({ ...props.range, end: unTs(e.target.value) });
+            }}
+          />
+        </label>
+        <label>
+          steps:
+          <input
+            class={'date-picker-input'}
+            width={4}
+            type={'number'}
+            step={5}
+            min={5}
+            max={500}
+            value={props.range.steps}
+            onChange={(e: any) => {
+              props.setRange({ ...props.range, steps: Number(e.target.value) });
+            }}
+          />
+        </label>
+      </form>
     );
   }
 }
