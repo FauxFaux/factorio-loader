@@ -193,6 +193,15 @@ function main() {
     };
   }
 
+  regular['empty-arqad-jelly-barrel'] = {
+    category: 'hacks',
+    ingredients: [{ colon: 'item:arqad-jelly-barrel', amount: 1 }],
+    products: [{ colon: 'item:empty-barrel', amount: 1 }, { colon: 'fluid:arqad-jelly', amount: 50 }],
+    producerClass: 'automated-factory',
+    time: 1,
+    localised_name: 'Empty Arqad Jelly Barrel (hack)',
+  };
+
   const recipes = {
     regular: sortByKeys(regular),
     voidableItems: Array.from(voidableItems).sort(),

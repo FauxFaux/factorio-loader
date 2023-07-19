@@ -3,6 +3,7 @@ import { Colon, splitColon } from './colon';
 import { JIngredient, JProduct, JRecipe } from '../objects';
 
 export function recipeBan(name: string): boolean {
+  if (name === 'empty-arqad-jelly-barrel') return false;
   return (
     name.endsWith('-barrel') ||
     name.endsWith('-pyvoid') ||
