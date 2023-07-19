@@ -3,7 +3,11 @@ import { computed, data } from '../datae';
 import { Colon, splitColon } from '../muffler/colon';
 import { ColonJoined, JIngredient, JProduct, JRecipe } from '../objects';
 import { haveMade } from '../muffler/walk-techs';
-import { stepsToUnlockRecipe, techToUnlock } from '../pages/next';
+import {
+  stepsToUnlockRecipe,
+  techToUnlock,
+  UNRECOGNISED_TECH,
+} from '../pages/next';
 import {
   buildMaking,
   buildMissingIngredients,
@@ -87,6 +91,8 @@ export class HowToMake extends Component<{ colon: Colon }> {
               const toUnlock = techToUnlock(name) ?? '??';
               const missing = missingIngredients[name];
               const factoryName = factoryFriendlyName(recipe.producerClass);
+              const lockedTechsLabel =
+                lockedTechs === UNRECOGNISED_TECH ? '??' : lockedTechs;
               return (
                 <tr>
                   <td>
@@ -120,9 +126,9 @@ export class HowToMake extends Component<{ colon: Colon }> {
                           </abbr>
                         ) : (
                           <abbr
-                            title={`requires ${lockedTechs} technologies to unlock, up to "${toUnlock}"`}
+                            title={`requires ${lockedTechsLabel} technologies to unlock, up to "${toUnlock}"`}
                           >
-                            {lockedTechs} 🔒🔒
+                            {lockedTechsLabel} 🔒🔒
                           </abbr>
                         )}
                       </li>

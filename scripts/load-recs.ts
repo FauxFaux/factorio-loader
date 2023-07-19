@@ -11,7 +11,7 @@ import {
 } from '../web/muffler/stations';
 import { Colon, objToColon, tupleToColon } from '../web/muffler/colon';
 import { sortByKeys } from '../web/muffler/deter';
-import { JIngredient, JProduct, JRecipe } from '../web/objects';
+import { JColon, JIngredient, JProduct, JRecipe } from '../web/objects';
 import { BlockId, loadCells, loadRec } from './loaders';
 import { stripProducer, stripProducers } from '../web/muffler/blueprints';
 import { RecipeName } from '../web/muffler/walk-recipes';
@@ -171,6 +171,26 @@ function main() {
     if (rec.enabled) {
       regular[name].unlocked_from_start = true;
     }
+  }
+
+  for (const recp of lab.recipes.filter((rec) =>
+    rec.producers.includes('rocket-silo'),
+  )) {
+    const labItemsToColon = (
+      items: Record<string, number>,
+    ): Array<JColon & { amount: number }> =>
+      Object.entries(items).map(([name, amount]) => ({
+        colon: `item:${name}`,
+        amount,
+      }));
+    regular[recp.id] = {
+      category: recp.category,
+      ingredients: labItemsToColon(recp.in),
+      products: labItemsToColon(recp.out),
+      producerClass: 'rocket-silo',
+      time: recp.time,
+      localised_name: recp.name,
+    };
   }
 
   const recipes = {
@@ -545,7 +565,16 @@ interface Lab {
     };
     // incomplete
   }[];
-  recipes: { id: string; producers: string[]; time: number }[];
+  recipes: {
+    id: string;
+    producers: string[];
+    time: number;
+    category: string;
+    in: Record<string, number>;
+    out: Record<string, number>;
+    part?: string;
+    name: string;
+  }[];
 }
 
 main();
