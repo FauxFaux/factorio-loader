@@ -24,9 +24,9 @@
 <!-- &#45;5,2 (Optical fiber)&#45;&gt;0,0 (LE BUS) -->
 <g id="edge1" class="edge">
 <title>&#45;5,2 (Optical fiber)&#45;&gt;0,0 (LE BUS)</title>
-<path fill="none" stroke="black" stroke-width="1.49" d="M490.78,-18C524.22,-18 561.37,-18 593.54,-18"/>
-<polygon fill="black" stroke="black" stroke-width="1.49" points="593.8,-21.5 603.8,-18 593.8,-14.5 593.8,-21.5"/>
-<text text-anchor="middle" x="542.16" y="-6.8" font-family="Times,serif" font-size="14.00">optical&#45;fiber*29488</text>
+<path fill="none" stroke="black" stroke-width="1.66" d="M490.78,-18C524.22,-18 561.37,-18 593.54,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1.66" points="593.8,-21.5 603.8,-18 593.8,-14.5 593.8,-21.5"/>
+<text text-anchor="middle" x="542.16" y="-6.8" font-family="Times,serif" font-size="14.00">optical&#45;fiber*49580</text>
 </g>
 <!-- 5,1 (Complex circuits) -->
 <g id="node3" class="node">
@@ -37,9 +37,9 @@
 <!-- &#45;5,2 (Optical fiber)&#45;&gt;5,1 (Complex circuits) -->
 <g id="edge2" class="edge">
 <title>&#45;5,2 (Optical fiber)&#45;&gt;5,1 (Complex circuits)</title>
-<path fill="none" stroke="black" stroke-width="0.51" d="M297.96,-18C278.15,-18 257.03,-18 236.41,-18"/>
-<polygon fill="black" stroke="black" stroke-width="0.51" points="236.34,-14.5 226.34,-18 236.33,-21.5 236.34,-14.5"/>
-<text text-anchor="middle" x="232.44" y="-6.8" font-family="Times,serif" font-size="14.00">optical&#45;fiber*10192</text>
+<path fill="none" stroke="black" stroke-width="0.34" d="M297.96,-18C278.15,-18 257.03,-18 236.41,-18"/>
+<polygon fill="black" stroke="black" stroke-width="0.34" points="236.34,-14.5 226.34,-18 236.33,-21.5 236.34,-14.5"/>
+<text text-anchor="middle" x="232.44" y="-6.8" font-family="Times,serif" font-size="14.00">optical&#45;fiber*10080</text>
 </g>
 </g>
 </svg>

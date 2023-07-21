@@ -24,9 +24,9 @@
 <!-- &#45;1,7 (Rayon)&#45;&gt;3,3 (Random electronic components, Small Parts) -->
 <g id="edge1" class="edge">
 <title>&#45;1,7 (Rayon)&#45;&gt;3,3 (Random electronic components, Small Parts)</title>
-<path fill="none" stroke="black" stroke-width="1.45" d="M517.88,-18C536.14,-18 557.07,-18 579.24,-18"/>
-<polygon fill="black" stroke="black" stroke-width="1.45" points="579.52,-21.5 589.52,-18 579.52,-14.5 579.52,-21.5"/>
-<text text-anchor="middle" x="548.56" y="-6.8" font-family="Times,serif" font-size="14.00">rayon*16048</text>
+<path fill="none" stroke="black" stroke-width="1.47" d="M517.88,-18C536.14,-18 557.07,-18 579.24,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1.47" points="579.52,-21.5 589.52,-18 579.52,-14.5 579.52,-21.5"/>
+<text text-anchor="middle" x="548.56" y="-6.8" font-family="Times,serif" font-size="14.00">rayon*19680</text>
 </g>
 <!-- 0,0 (LE BUS) -->
 <g id="node3" class="node">
@@ -37,9 +37,9 @@
 <!-- &#45;1,7 (Rayon)&#45;&gt;0,0 (LE BUS) -->
 <g id="edge2" class="edge">
 <title>&#45;1,7 (Rayon)&#45;&gt;0,0 (LE BUS)</title>
-<path fill="none" stroke="black" stroke-width="0.55" d="M383.96,-18C319.71,-18 222.54,-18 153.65,-18"/>
-<polygon fill="black" stroke="black" stroke-width="0.55" points="153.27,-14.5 143.27,-18 153.27,-21.5 153.27,-14.5"/>
-<text text-anchor="middle" x="226.8" y="-21.8" font-family="Times,serif" font-size="14.00">rayon*6048</text>
+<path fill="none" stroke="black" stroke-width="0.53" d="M383.96,-18C319.71,-18 222.54,-18 153.65,-18"/>
+<polygon fill="black" stroke="black" stroke-width="0.53" points="153.27,-14.5 143.27,-18 153.27,-21.5 153.27,-14.5"/>
+<text text-anchor="middle" x="226.8" y="-21.8" font-family="Times,serif" font-size="14.00">rayon*7184</text>
 </g>
 </g>
 </svg>

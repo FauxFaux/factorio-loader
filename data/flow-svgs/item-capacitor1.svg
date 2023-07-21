@@ -24,9 +24,9 @@
 <!-- &#45;6,&#45;4 (High&#45;Power Resistors, Ceramic Capacitor, Inductor)&#45;&gt;0,0 (LE BUS) -->
 <g id="edge1" class="edge">
 <title>&#45;6,&#45;4 (High&#45;Power Resistors, Ceramic Capacitor, Inductor)&#45;&gt;0,0 (LE BUS)</title>
-<path fill="none" stroke="black" stroke-width="0.35" d="M665.89,-443.97C713.97,-443.97 760.38,-443.97 797.58,-443.97"/>
-<polygon fill="black" stroke="black" stroke-width="0.35" points="797.82,-447.47 807.82,-443.97 797.82,-440.47 797.82,-447.47"/>
-<text text-anchor="middle" x="731.73" y="-432.77" font-family="Times,serif" font-size="14.00">capacitor1*4028</text>
+<path fill="none" stroke="black" stroke-width="0.33" d="M665.89,-443.97C713.97,-443.97 760.38,-443.97 797.58,-443.97"/>
+<polygon fill="black" stroke="black" stroke-width="0.33" points="797.82,-447.47 807.82,-443.97 797.82,-440.47 797.82,-447.47"/>
+<text text-anchor="middle" x="731.73" y="-432.77" font-family="Times,serif" font-size="14.00">capacitor1*9921</text>
 </g>
 <!-- 2,5 (Simple Circuits) -->
 <g id="node3" class="node">
@@ -37,9 +37,9 @@
 <!-- &#45;6,&#45;4 (High&#45;Power Resistors, Ceramic Capacitor, Inductor)&#45;&gt;2,5 (Simple Circuits) -->
 <g id="edge2" class="edge">
 <title>&#45;6,&#45;4 (High&#45;Power Resistors, Ceramic Capacitor, Inductor)&#45;&gt;2,5 (Simple Circuits)</title>
-<path fill="none" stroke="black" stroke-width="1.32" d="M378.79,-462.13C345.32,-531.04 226.06,-776.51 185.95,-859.07"/>
-<polygon fill="black" stroke="black" stroke-width="1.32" points="182.69,-857.78 181.46,-868.31 188.98,-860.84 182.69,-857.78"/>
-<text text-anchor="middle" x="218.87" y="-664.4" font-family="Times,serif" font-size="14.00">capacitor1*15249</text>
+<path fill="none" stroke="black" stroke-width="1.71" d="M378.79,-462.13C345.32,-531.04 226.06,-776.51 185.95,-859.07"/>
+<polygon fill="black" stroke="black" stroke-width="1.71" points="182.69,-857.78 181.46,-868.31 188.98,-860.84 182.69,-857.78"/>
+<text text-anchor="middle" x="218.87" y="-664.4" font-family="Times,serif" font-size="14.00">capacitor1*51779</text>
 </g>
 <!-- 6,4 (Electronic components) -->
 <g id="node4" class="node">
@@ -50,9 +50,9 @@
 <!-- &#45;6,&#45;4 (High&#45;Power Resistors, Ceramic Capacitor, Inductor)&#45;&gt;6,4 (Electronic components) -->
 <g id="edge3" class="edge">
 <title>&#45;6,&#45;4 (High&#45;Power Resistors, Ceramic Capacitor, Inductor)&#45;&gt;6,4 (Electronic components)</title>
-<path fill="none" stroke="black" stroke-width="1.33" d="M377.21,-425.93C338.64,-359.13 203.74,-125.48 157.43,-45.27"/>
-<polygon fill="black" stroke="black" stroke-width="1.33" points="160.27,-43.18 152.24,-36.27 154.21,-46.68 160.27,-43.18"/>
-<text text-anchor="middle" x="203.82" y="-239.4" font-family="Times,serif" font-size="14.00">capacitor1*15320</text>
+<path fill="none" stroke="black" stroke-width="0.96" d="M377.21,-425.93C338.64,-359.13 203.74,-125.48 157.43,-45.27"/>
+<polygon fill="black" stroke="black" stroke-width="0.96" points="160.27,-43.18 152.24,-36.27 154.21,-46.68 160.27,-43.18"/>
+<text text-anchor="middle" x="203.82" y="-239.4" font-family="Times,serif" font-size="14.00">capacitor1*28899</text>
 </g>
 </g>
 </svg>

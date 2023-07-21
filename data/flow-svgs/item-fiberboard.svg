@@ -24,9 +24,9 @@
 <!-- 4,2 (More fiberboard)&#45;&gt;2,4 (Formica and Phenolic boards) -->
 <g id="edge1" class="edge">
 <title>4,2 (More fiberboard)&#45;&gt;2,4 (Formica and Phenolic boards)</title>
-<path fill="none" stroke="black" stroke-width="1.78" d="M858.72,-18C910.69,-18 973.85,-18 1032.34,-18"/>
-<polygon fill="black" stroke="black" stroke-width="1.78" points="1032.44,-21.5 1042.44,-18 1032.44,-14.5 1032.44,-21.5"/>
-<text text-anchor="middle" x="945.53" y="-6.8" font-family="Times,serif" font-size="14.00">fiberboard*118848</text>
+<path fill="none" stroke="black" stroke-width="1.49" d="M858.72,-18C910.69,-18 973.85,-18 1032.34,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1.49" points="1032.44,-21.5 1042.44,-18 1032.44,-14.5 1032.44,-21.5"/>
+<text text-anchor="middle" x="977.28" y="-6.8" font-family="Times,serif" font-size="14.00">fiberboard*29488</text>
 </g>
 <!-- 5,&#45;1 (Drilling Fluid Type 2, I think my maths is backwards) -->
 <g id="node3" class="node">
@@ -37,9 +37,9 @@
 <!-- 4,2 (More fiberboard)&#45;&gt;5,&#45;1 (Drilling Fluid Type 2, I think my maths is backwards) -->
 <g id="edge2" class="edge">
 <title>4,2 (More fiberboard)&#45;&gt;5,&#45;1 (Drilling Fluid Type 2, I think my maths is backwards)</title>
-<path fill="none" stroke="black" stroke-width="0.22" d="M635.86,-18C616.71,-18 596.05,-18 574.66,-18"/>
-<polygon fill="black" stroke="black" stroke-width="0.22" points="574.45,-14.5 564.45,-18 574.45,-21.5 574.45,-14.5"/>
-<text text-anchor="middle" x="573.51" y="-6.8" font-family="Times,serif" font-size="14.00">fiberboard*15040</text>
+<path fill="none" stroke="black" stroke-width="0.51" d="M635.86,-18C616.71,-18 596.05,-18 574.66,-18"/>
+<polygon fill="black" stroke="black" stroke-width="0.51" points="574.45,-14.5 564.45,-18 574.45,-21.5 574.45,-14.5"/>
+<text text-anchor="middle" x="573.51" y="-6.8" font-family="Times,serif" font-size="14.00">fiberboard*10016</text>
 </g>
 </g>
 </svg>

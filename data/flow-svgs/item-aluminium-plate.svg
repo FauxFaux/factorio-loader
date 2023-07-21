@@ -24,9 +24,9 @@
 <!-- &#45;4,&#45;4 (Aluminium)&#45;&gt;0,0 (LE BUS) -->
 <g id="edge1" class="edge">
 <title>&#45;4,&#45;4 (Aluminium)&#45;&gt;0,0 (LE BUS)</title>
-<path fill="none" stroke="black" stroke-width="2.07" d="M389.14,-279.44C431,-279.44 480.29,-279.44 520.97,-279.44"/>
-<polygon fill="black" stroke="black" stroke-width="2.07" points="521.12,-282.94 531.12,-279.44 521.12,-275.94 521.12,-282.94"/>
-<text text-anchor="middle" x="455.06" y="-268.24" font-family="Times,serif" font-size="14.00">aluminium&#45;plate*93392</text>
+<path fill="none" stroke="black" stroke-width="1.77" d="M389.14,-279.44C431,-279.44 480.29,-279.44 520.97,-279.44"/>
+<polygon fill="black" stroke="black" stroke-width="1.77" points="521.12,-282.94 531.12,-279.44 521.12,-275.94 521.12,-282.94"/>
+<text text-anchor="middle" x="455.06" y="-268.24" font-family="Times,serif" font-size="14.00">aluminium&#45;plate*91552</text>
 </g>
 <!-- &#45;1,&#45;2 (Aramid fiber) -->
 <g id="node3" class="node">
@@ -37,9 +37,9 @@
 <!-- &#45;4,&#45;4 (Aluminium)&#45;&gt;&#45;1,&#45;2 (Aramid fiber) -->
 <g id="edge2" class="edge">
 <title>&#45;4,&#45;4 (Aluminium)&#45;&gt;&#45;1,&#45;2 (Aramid fiber)</title>
-<path fill="none" stroke="black" stroke-width="0.2" d="M290.52,-297.42C270.33,-345.11 215.28,-475.09 191.05,-532.33"/>
-<polygon fill="black" stroke="black" stroke-width="0.2" points="187.7,-531.24 187.03,-541.81 194.15,-533.97 187.7,-531.24"/>
-<text text-anchor="middle" x="160.78" y="-418.67" font-family="Times,serif" font-size="14.00">aluminium&#45;plate*8976</text>
+<path fill="none" stroke="black" stroke-width="0.17" d="M290.52,-297.42C270.33,-345.11 215.28,-475.09 191.05,-532.33"/>
+<polygon fill="black" stroke="black" stroke-width="0.17" points="187.7,-531.24 187.03,-541.81 194.15,-533.97 187.7,-531.24"/>
+<text text-anchor="middle" x="160.78" y="-418.67" font-family="Times,serif" font-size="14.00">aluminium&#45;plate*8656</text>
 </g>
 <!-- 6,4 (Electronic components) -->
 <g id="node4" class="node">
@@ -50,9 +50,9 @@
 <!-- &#45;4,&#45;4 (Aluminium)&#45;&gt;6,4 (Electronic components) -->
 <g id="edge3" class="edge">
 <title>&#45;4,&#45;4 (Aluminium)&#45;&gt;6,4 (Electronic components)</title>
-<path fill="none" stroke="black" stroke-width="0.73" d="M287.38,-261.47C260.42,-216.42 189.82,-98.43 157.84,-44.99"/>
-<polygon fill="black" stroke="black" stroke-width="0.73" points="160.65,-42.88 152.52,-36.1 154.65,-46.47 160.65,-42.88"/>
-<text text-anchor="middle" x="138.11" y="-157.03" font-family="Times,serif" font-size="14.00">aluminium&#45;plate*33104</text>
+<path fill="none" stroke="black" stroke-width="1.06" d="M287.38,-261.47C260.42,-216.42 189.82,-98.43 157.84,-44.99"/>
+<polygon fill="black" stroke="black" stroke-width="1.06" points="160.65,-42.88 152.52,-36.1 154.65,-46.47 160.65,-42.88"/>
+<text text-anchor="middle" x="138.11" y="-157.03" font-family="Times,serif" font-size="14.00">aluminium&#45;plate*54768</text>
 </g>
 </g>
 </svg>

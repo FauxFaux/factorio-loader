@@ -24,9 +24,9 @@
 <!-- 4,13 (Chromium processing)&#45;&gt;0,0 (LE BUS) -->
 <g id="edge1" class="edge">
 <title>4,13 (Chromium processing)&#45;&gt;0,0 (LE BUS)</title>
-<path fill="none" stroke="black" stroke-width="0.9" d="M839.12,-18C915.13,-18 1005.78,-18 1069.78,-18"/>
-<polygon fill="black" stroke="black" stroke-width="0.9" points="1069.82,-21.5 1079.82,-18 1069.82,-14.5 1069.82,-21.5"/>
-<text text-anchor="middle" x="1013.45" y="-21.8" font-family="Times,serif" font-size="14.00">fecr&#45;alloy*29520</text>
+<path fill="none" stroke="black" stroke-width="0.78" d="M839.12,-18C915.13,-18 1005.78,-18 1069.78,-18"/>
+<polygon fill="black" stroke="black" stroke-width="0.78" points="1069.82,-21.5 1079.82,-18 1069.82,-14.5 1069.82,-21.5"/>
+<text text-anchor="middle" x="1013.45" y="-21.8" font-family="Times,serif" font-size="14.00">fecr&#45;alloy*37440</text>
 </g>
 <!-- 3,3 (Random electronic components, Small Parts) -->
 <g id="node3" class="node">
@@ -37,9 +37,9 @@
 <!-- 4,13 (Chromium processing)&#45;&gt;3,3 (Random electronic components, Small Parts) -->
 <g id="edge2" class="edge">
 <title>4,13 (Chromium processing)&#45;&gt;3,3 (Random electronic components, Small Parts)</title>
-<path fill="none" stroke="black" stroke-width="1.1" d="M552.77,-18C532.96,-18 512.15,-18 491.07,-18"/>
-<polygon fill="black" stroke="black" stroke-width="1.1" points="491.04,-14.5 481.04,-18 491.04,-21.5 491.04,-14.5"/>
-<text text-anchor="middle" x="492.42" y="-6.8" font-family="Times,serif" font-size="14.00">fecr&#45;alloy*36160</text>
+<path fill="none" stroke="black" stroke-width="1.22" d="M552.77,-18C532.96,-18 512.15,-18 491.07,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1.22" points="491.04,-14.5 481.04,-18 491.04,-21.5 491.04,-14.5"/>
+<text text-anchor="middle" x="492.42" y="-6.8" font-family="Times,serif" font-size="14.00">fecr&#45;alloy*58880</text>
 </g>
 </g>
 </svg>

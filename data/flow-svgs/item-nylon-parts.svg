@@ -24,9 +24,9 @@
 <!-- 4,4 (Hydrogen Chloride, item=nylon Nylon/Nylon parts)&#45;&gt;4,6 (Circuit substrate and Doped silicon) -->
 <g id="edge1" class="edge">
 <title>4,4 (Hydrogen Chloride, item=nylon Nylon/Nylon parts)&#45;&gt;4,6 (Circuit substrate and Doped silicon)</title>
-<path fill="none" stroke="black" stroke-width="1.01" d="M885.33,-18C905.95,-18 926.58,-18 946.72,-18"/>
-<polygon fill="black" stroke="black" stroke-width="1.01" points="946.89,-21.5 956.89,-18 946.89,-14.5 946.89,-21.5"/>
-<text text-anchor="middle" x="916.03" y="-6.8" font-family="Times,serif" font-size="14.00">nylon&#45;parts*14960</text>
+<path fill="none" stroke="black" stroke-width="0.73" d="M885.33,-18C905.95,-18 926.58,-18 946.72,-18"/>
+<polygon fill="black" stroke="black" stroke-width="0.73" points="946.89,-21.5 956.89,-18 946.89,-14.5 946.89,-21.5"/>
+<text text-anchor="middle" x="916.03" y="-6.8" font-family="Times,serif" font-size="14.00">nylon&#45;parts*13600</text>
 </g>
 <!-- 0,0 (LE BUS) -->
 <g id="node3" class="node">
@@ -37,9 +37,9 @@
 <!-- 4,4 (Hydrogen Chloride, item=nylon Nylon/Nylon parts)&#45;&gt;0,0 (LE BUS) -->
 <g id="edge2" class="edge">
 <title>4,4 (Hydrogen Chloride, item=nylon Nylon/Nylon parts)&#45;&gt;0,0 (LE BUS)</title>
-<path fill="none" stroke="black" stroke-width="0.99" d="M342.77,-18C273.75,-18 204.72,-18 153.57,-18"/>
-<polygon fill="black" stroke="black" stroke-width="0.99" points="153.26,-14.5 143.26,-18 153.26,-21.5 153.26,-14.5"/>
-<text text-anchor="middle" x="248.17" y="-6.8" font-family="Times,serif" font-size="14.00">nylon&#45;parts*14800</text>
+<path fill="none" stroke="black" stroke-width="1.27" d="M342.77,-18C273.75,-18 204.72,-18 153.57,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1.27" points="153.26,-14.5 143.26,-18 153.26,-21.5 153.26,-14.5"/>
+<text text-anchor="middle" x="248.17" y="-6.8" font-family="Times,serif" font-size="14.00">nylon&#45;parts*23680</text>
 </g>
 </g>
 </svg>

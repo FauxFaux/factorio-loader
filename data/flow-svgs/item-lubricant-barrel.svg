@@ -12,34 +12,34 @@
 <!-- 5,&#45;2 (Lubricant) -->
 <g id="node1" class="node">
 <title>5,&#45;2 (Lubricant)</title>
-<ellipse fill="none" stroke="black" cx="303.38" cy="-18" rx="83.39" ry="18"/>
-<text text-anchor="middle" x="303.38" y="-14.3" font-family="Times,serif" font-size="14.00">5,&#45;2 (Lubricant)</text>
-</g>
-<!-- 4,&#45;2 (Ceramic) -->
-<g id="node2" class="node">
-<title>4,&#45;2 (Ceramic)</title>
-<ellipse fill="none" stroke="black" cx="535.27" cy="-18" rx="76.89" ry="18"/>
-<text text-anchor="middle" x="535.27" y="-14.3" font-family="Times,serif" font-size="14.00">4,&#45;2 (Ceramic)</text>
-</g>
-<!-- 5,&#45;2 (Lubricant)&#45;&gt;4,&#45;2 (Ceramic) -->
-<g id="edge1" class="edge">
-<title>5,&#45;2 (Lubricant)&#45;&gt;4,&#45;2 (Ceramic)</title>
-<path fill="none" stroke="black" stroke-width="1.68" d="M386.77,-18C406.76,-18 428.16,-18 448.31,-18"/>
-<polygon fill="black" stroke="black" stroke-width="1.68" points="448.41,-21.5 458.41,-18 448.41,-14.5 448.41,-21.5"/>
-<text text-anchor="middle" x="417.54" y="-6.8" font-family="Times,serif" font-size="14.00">lubricant&#45;barrel*80309</text>
+<ellipse fill="none" stroke="black" cx="308.58" cy="-18" rx="83.39" ry="18"/>
+<text text-anchor="middle" x="308.58" y="-14.3" font-family="Times,serif" font-size="14.00">5,&#45;2 (Lubricant)</text>
 </g>
 <!-- 0,0 (LE BUS) -->
-<g id="node3" class="node">
+<g id="node2" class="node">
 <title>0,0 (LE BUS)</title>
-<ellipse fill="none" stroke="black" cx="71.49" cy="-18" rx="71.49" ry="18"/>
-<text text-anchor="middle" x="71.49" y="-14.3" font-family="Times,serif" font-size="14.00">0,0 (LE BUS)</text>
+<ellipse fill="none" stroke="black" cx="540.46" cy="-18" rx="71.49" ry="18"/>
+<text text-anchor="middle" x="540.46" y="-14.3" font-family="Times,serif" font-size="14.00">0,0 (LE BUS)</text>
 </g>
 <!-- 5,&#45;2 (Lubricant)&#45;&gt;0,0 (LE BUS) -->
-<g id="edge2" class="edge">
+<g id="edge1" class="edge">
 <title>5,&#45;2 (Lubricant)&#45;&gt;0,0 (LE BUS)</title>
-<path fill="none" stroke="black" stroke-width="0.32" d="M219.99,-18C198.25,-18 174.84,-18 153.18,-18"/>
-<polygon fill="black" stroke="black" stroke-width="0.32" points="153.04,-14.5 143.04,-18 153.04,-21.5 153.04,-14.5"/>
-<text text-anchor="middle" x="145.34" y="-6.8" font-family="Times,serif" font-size="14.00">lubricant&#45;barrel*15120</text>
+<path fill="none" stroke="black" stroke-width="0.24" d="M391.97,-18C413.71,-18 437.12,-18 458.78,-18"/>
+<polygon fill="black" stroke="black" stroke-width="0.24" points="458.92,-21.5 468.92,-18 458.92,-14.5 458.92,-21.5"/>
+<text text-anchor="middle" x="425.37" y="-6.8" font-family="Times,serif" font-size="14.00">lubricant&#45;barrel*8854</text>
+</g>
+<!-- 4,&#45;2 (Ceramic) -->
+<g id="node3" class="node">
+<title>4,&#45;2 (Ceramic)</title>
+<ellipse fill="none" stroke="black" cx="76.69" cy="-18" rx="76.89" ry="18"/>
+<text text-anchor="middle" x="76.69" y="-14.3" font-family="Times,serif" font-size="14.00">4,&#45;2 (Ceramic)</text>
+</g>
+<!-- 5,&#45;2 (Lubricant)&#45;&gt;4,&#45;2 (Ceramic) -->
+<g id="edge2" class="edge">
+<title>5,&#45;2 (Lubricant)&#45;&gt;4,&#45;2 (Ceramic)</title>
+<path fill="none" stroke="black" stroke-width="1.76" d="M225.19,-18C205.2,-18 183.8,-18 163.65,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1.76" points="163.55,-14.5 153.55,-18 163.55,-21.5 163.55,-14.5"/>
+<text text-anchor="middle" x="235.67" y="-6.8" font-family="Times,serif" font-size="14.00">lubricant&#45;barrel*63445</text>
 </g>
 </g>
 </svg>

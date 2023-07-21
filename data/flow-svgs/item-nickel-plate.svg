@@ -24,9 +24,9 @@
 <!-- 2,10 (Nickel plate and Nichrome)&#45;&gt;4,&#45;1 (Fluid) -->
 <g id="edge1" class="edge">
 <title>2,10 (Nickel plate and Nichrome)&#45;&gt;4,&#45;1 (Fluid)</title>
-<path fill="none" stroke="black" stroke-width="0.74" d="M471.76,-319.4C513.16,-319.4 555.46,-319.4 589.63,-319.4"/>
-<polygon fill="black" stroke="black" stroke-width="0.74" points="589.96,-322.9 599.96,-319.4 589.96,-315.9 589.96,-322.9"/>
-<text text-anchor="middle" x="530.7" y="-308.2" font-family="Times,serif" font-size="14.00">nickel&#45;plate*42720</text>
+<path fill="none" stroke="black" stroke-width="0.39" d="M471.76,-319.4C513.16,-319.4 555.46,-319.4 589.63,-319.4"/>
+<polygon fill="black" stroke="black" stroke-width="0.39" points="589.96,-322.9 599.96,-319.4 589.96,-315.9 589.96,-322.9"/>
+<text text-anchor="middle" x="530.7" y="-308.2" font-family="Times,serif" font-size="14.00">nickel&#45;plate*24000</text>
 </g>
 <!-- 0,0 (LE BUS) -->
 <g id="node3" class="node">
@@ -37,9 +37,9 @@
 <!-- 2,10 (Nickel plate and Nichrome)&#45;&gt;0,0 (LE BUS) -->
 <g id="edge2" class="edge">
 <title>2,10 (Nickel plate and Nichrome)&#45;&gt;0,0 (LE BUS)</title>
-<path fill="none" stroke="black" stroke-width="1.74" d="M298.23,-337.73C273.61,-391.89 201.07,-551.47 171.87,-615.69"/>
-<polygon fill="black" stroke="black" stroke-width="1.74" points="168.68,-614.25 167.73,-624.8 175.06,-617.15 168.68,-614.25"/>
-<text text-anchor="middle" x="163.05" y="-480.51" font-family="Times,serif" font-size="14.00">nickel&#45;plate*101280</text>
+<path fill="none" stroke="black" stroke-width="2.11" d="M298.23,-337.73C273.61,-391.89 201.07,-551.47 171.87,-615.69"/>
+<polygon fill="black" stroke="black" stroke-width="2.11" points="168.68,-614.25 167.73,-624.8 175.06,-617.15 168.68,-614.25"/>
+<text text-anchor="middle" x="163.05" y="-480.51" font-family="Times,serif" font-size="14.00">nickel&#45;plate*129600</text>
 </g>
 <!-- 9,0 (Iron / Nickel mine) -->
 <g id="node4" class="node">
@@ -50,8 +50,8 @@
 <!-- 2,10 (Nickel plate and Nichrome)&#45;&gt;9,0 (Iron / Nickel mine) -->
 <g id="edge3" class="edge">
 <title>2,10 (Nickel plate and Nichrome)&#45;&gt;9,0 (Iron / Nickel mine)</title>
-<path fill="none" stroke="black" stroke-width="0.52" d="M295.07,-301C263.02,-249.7 172.57,-104.9 134.99,-44.73"/>
-<polygon fill="black" stroke="black" stroke-width="0.52" points="137.9,-42.79 129.63,-36.16 131.96,-46.5 137.9,-42.79"/>
+<path fill="none" stroke="black" stroke-width="0.49" d="M295.07,-301C263.02,-249.7 172.57,-104.9 134.99,-44.73"/>
+<polygon fill="black" stroke="black" stroke-width="0.49" points="137.9,-42.79 129.63,-36.16 131.96,-46.5 137.9,-42.79"/>
 <text text-anchor="middle" x="147.53" y="-176.67" font-family="Times,serif" font-size="14.00">nickel&#45;plate*30240</text>
 </g>
 </g>

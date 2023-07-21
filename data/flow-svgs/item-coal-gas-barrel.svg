@@ -24,9 +24,9 @@
 <!-- 0,7 (Coal Gas)&#45;&gt;0,0 (LE BUS) -->
 <g id="edge1" class="edge">
 <title>0,7 (Coal Gas)&#45;&gt;0,0 (LE BUS)</title>
-<path fill="none" stroke="black" stroke-width="2.85" d="M523.44,-18C543.35,-18 564.91,-18 585.1,-18"/>
-<polygon fill="black" stroke="black" stroke-width="2.85" points="585.2,-21.5 595.2,-18 585.2,-14.5 585.2,-21.5"/>
-<text text-anchor="middle" x="554.27" y="-6.8" font-family="Times,serif" font-size="14.00">coal&#45;gas&#45;barrel*74269</text>
+<path fill="none" stroke="black" stroke-width="2.76" d="M523.44,-18C543.35,-18 564.91,-18 585.1,-18"/>
+<polygon fill="black" stroke="black" stroke-width="2.76" points="585.2,-21.5 595.2,-18 585.2,-14.5 585.2,-21.5"/>
+<text text-anchor="middle" x="554.27" y="-6.8" font-family="Times,serif" font-size="14.00">coal&#45;gas&#45;barrel*41768</text>
 </g>
 <!-- &#45;4,&#45;4 (Aluminium) -->
 <g id="node4" class="node">
@@ -39,7 +39,7 @@
 <title>0,7 (Coal Gas)&#45;&gt;&#45;4,&#45;4 (Aluminium)</title>
 <path fill="none" stroke="black" stroke-width="0.03" d="M370.84,-18C318.66,-18 248.98,-18 192.21,-18"/>
 <polygon fill="black" stroke="black" stroke-width="0.03" points="192.13,-14.5 182.13,-18 192.13,-21.5 192.13,-14.5"/>
-<text text-anchor="middle" x="281.52" y="-6.8" font-family="Times,serif" font-size="14.00">coal&#45;gas&#45;barrel*695</text>
+<text text-anchor="middle" x="281.52" y="-6.8" font-family="Times,serif" font-size="14.00">coal&#45;gas&#45;barrel*384</text>
 </g>
 <!-- 0,8 (Tar from Coke) -->
 <g id="node3" class="node">
@@ -50,9 +50,9 @@
 <!-- 0,8 (Tar from Coke)&#45;&gt;0,0 (LE BUS) -->
 <g id="edge2" class="edge">
 <title>0,8 (Tar from Coke)&#45;&gt;0,0 (LE BUS)</title>
-<path fill="none" stroke="black" stroke-width="0.12" d="M810.29,-18C789.81,-18 768.51,-18 748.78,-18"/>
-<polygon fill="black" stroke="black" stroke-width="0.12" points="748.62,-14.5 738.62,-18 748.62,-21.5 748.62,-14.5"/>
-<text text-anchor="middle" x="742.29" y="-6.8" font-family="Times,serif" font-size="14.00">coal&#45;gas&#45;barrel*3248</text>
+<path fill="none" stroke="black" stroke-width="0.21" d="M810.29,-18C789.81,-18 768.51,-18 748.78,-18"/>
+<polygon fill="black" stroke="black" stroke-width="0.21" points="748.62,-14.5 738.62,-18 748.62,-21.5 748.62,-14.5"/>
+<text text-anchor="middle" x="742.29" y="-6.8" font-family="Times,serif" font-size="14.00">coal&#45;gas&#45;barrel*3241</text>
 </g>
 </g>
 </svg>

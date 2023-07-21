@@ -24,9 +24,9 @@
 <!-- 5,5 (Silicon)&#45;&gt;0,0 (LE BUS) -->
 <g id="edge1" class="edge">
 <title>5,5 (Silicon)&#45;&gt;0,0 (LE BUS)</title>
-<path fill="none" stroke="black" stroke-width="1.23" d="M468.62,-18C505.35,-18 551.29,-18 590.25,-18"/>
-<polygon fill="black" stroke="black" stroke-width="1.23" points="590.52,-21.5 600.52,-18 590.52,-14.5 590.52,-21.5"/>
-<text text-anchor="middle" x="529.44" y="-6.8" font-family="Times,serif" font-size="14.00">silicon*20304</text>
+<path fill="none" stroke="black" stroke-width="1.61" d="M468.62,-18C505.35,-18 551.29,-18 590.25,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1.61" points="590.52,-21.5 600.52,-18 590.52,-14.5 590.52,-21.5"/>
+<text text-anchor="middle" x="529.44" y="-6.8" font-family="Times,serif" font-size="14.00">silicon*18368</text>
 </g>
 <!-- 2,6 (Refined Syngas, Nisi) -->
 <g id="node3" class="node">
@@ -37,9 +37,9 @@
 <!-- 5,5 (Silicon)&#45;&gt;2,6 (Refined Syngas, Nisi) -->
 <g id="edge2" class="edge">
 <title>5,5 (Silicon)&#45;&gt;2,6 (Refined Syngas, Nisi)</title>
-<path fill="none" stroke="black" stroke-width="0.77" d="M335.72,-18C316.9,-18 295.66,-18 274.18,-18"/>
-<polygon fill="black" stroke="black" stroke-width="0.77" points="273.96,-14.5 263.96,-18 273.96,-21.5 273.96,-14.5"/>
-<text text-anchor="middle" x="280.45" y="-6.8" font-family="Times,serif" font-size="14.00">silicon*12768</text>
+<path fill="none" stroke="black" stroke-width="0.39" d="M335.72,-18C316.9,-18 295.66,-18 274.18,-18"/>
+<polygon fill="black" stroke="black" stroke-width="0.39" points="273.96,-14.5 263.96,-18 273.96,-21.5 273.96,-14.5"/>
+<text text-anchor="middle" x="282.7" y="-6.8" font-family="Times,serif" font-size="14.00">silicon*4416</text>
 </g>
 </g>
 </svg>

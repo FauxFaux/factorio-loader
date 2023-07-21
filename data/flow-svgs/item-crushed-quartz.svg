@@ -24,9 +24,9 @@
 <!-- &#45;3,&#45;8 ()&#45;&gt;0,0 (LE BUS) -->
 <g id="edge1" class="edge">
 <title>&#45;3,&#45;8 ()&#45;&gt;0,0 (LE BUS)</title>
-<path fill="none" stroke="black" stroke-width="0.5" d="M361.99,-18C388.48,-18 423.86,-18 455.94,-18"/>
-<polygon fill="black" stroke="black" stroke-width="0.5" points="456.22,-21.5 466.22,-18 456.22,-14.5 456.22,-21.5"/>
-<text text-anchor="middle" x="408.96" y="-6.8" font-family="Times,serif" font-size="14.00">crushed&#45;quartz*10320</text>
+<path fill="none" stroke="black" stroke-width="0.45" d="M361.99,-18C388.48,-18 423.86,-18 455.94,-18"/>
+<polygon fill="black" stroke="black" stroke-width="0.45" points="456.22,-21.5 466.22,-18 456.22,-14.5 456.22,-21.5"/>
+<text text-anchor="middle" x="408.96" y="-6.8" font-family="Times,serif" font-size="14.00">crushed&#45;quartz*4440</text>
 </g>
 <!-- &#45;3,9 (Silicon Wafers) -->
 <g id="node3" class="node">
@@ -37,9 +37,9 @@
 <!-- &#45;3,&#45;8 ()&#45;&gt;&#45;3,9 (Silicon Wafers) -->
 <g id="edge2" class="edge">
 <title>&#45;3,&#45;8 ()&#45;&gt;&#45;3,9 (Silicon Wafers)</title>
-<path fill="none" stroke="black" stroke-width="1.5" d="M279.87,-18C262.08,-18 240.28,-18 218.17,-18"/>
-<polygon fill="black" stroke="black" stroke-width="1.5" points="218,-14.5 208,-18 218,-21.5 218,-14.5"/>
-<text text-anchor="middle" x="329.02" y="-21.8" font-family="Times,serif" font-size="14.00">crushed&#45;quartz*30720</text>
+<path fill="none" stroke="black" stroke-width="1.55" d="M279.87,-18C262.08,-18 240.28,-18 218.17,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1.55" points="218,-14.5 208,-18 218,-21.5 218,-14.5"/>
+<text text-anchor="middle" x="329.02" y="-21.8" font-family="Times,serif" font-size="14.00">crushed&#45;quartz*15360</text>
 </g>
 </g>
 </svg>

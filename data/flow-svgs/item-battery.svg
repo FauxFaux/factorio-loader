@@ -24,9 +24,9 @@
 <!-- 3,3 (Random electronic components, Small Parts)&#45;&gt;0,0 (LE BUS) -->
 <g id="edge1" class="edge">
 <title>3,3 (Random electronic components, Small Parts)&#45;&gt;0,0 (LE BUS)</title>
-<path fill="none" stroke="black" stroke-width="0.56" d="M779.42,-18C816.27,-18 851.97,-18 882.01,-18"/>
-<polygon fill="black" stroke="black" stroke-width="0.56" points="882.4,-21.5 892.4,-18 882.4,-14.5 882.4,-21.5"/>
-<text text-anchor="middle" x="830.72" y="-6.8" font-family="Times,serif" font-size="14.00">battery*4000</text>
+<path fill="none" stroke="black" stroke-width="0.47" d="M779.42,-18C816.27,-18 851.97,-18 882.01,-18"/>
+<polygon fill="black" stroke="black" stroke-width="0.47" points="882.4,-21.5 892.4,-18 882.4,-14.5 882.4,-21.5"/>
+<text text-anchor="middle" x="830.72" y="-6.8" font-family="Times,serif" font-size="14.00">battery*6320</text>
 </g>
 <!-- 5,1 (Complex circuits) -->
 <g id="node3" class="node">
@@ -37,9 +37,9 @@
 <!-- 3,3 (Random electronic components, Small Parts)&#45;&gt;5,1 (Complex circuits) -->
 <g id="edge2" class="edge">
 <title>3,3 (Random electronic components, Small Parts)&#45;&gt;5,1 (Complex circuits)</title>
-<path fill="none" stroke="black" stroke-width="1.44" d="M297.89,-18C276.75,-18 255.99,-18 236.45,-18"/>
-<polygon fill="black" stroke="black" stroke-width="1.44" points="236.35,-14.5 226.35,-18 236.35,-21.5 236.35,-14.5"/>
-<text text-anchor="middle" x="240.92" y="-6.8" font-family="Times,serif" font-size="14.00">battery*10240</text>
+<path fill="none" stroke="black" stroke-width="1.53" d="M297.89,-18C276.75,-18 255.99,-18 236.45,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1.53" points="236.35,-14.5 226.35,-18 236.35,-21.5 236.35,-14.5"/>
+<text text-anchor="middle" x="240.92" y="-6.8" font-family="Times,serif" font-size="14.00">battery*20320</text>
 </g>
 </g>
 </svg>

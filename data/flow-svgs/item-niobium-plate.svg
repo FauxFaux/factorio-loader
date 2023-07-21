@@ -24,9 +24,9 @@
 <!-- 2,1 (Niobium plates)&#45;&gt;0,0 (LE BUS) -->
 <g id="edge1" class="edge">
 <title>2,1 (Niobium plates)&#45;&gt;0,0 (LE BUS)</title>
-<path fill="none" stroke="black" stroke-width="1.91" d="M555.85,-18C596.98,-18 643.31,-18 681.74,-18"/>
-<polygon fill="black" stroke="black" stroke-width="1.91" points="681.85,-21.5 691.85,-18 681.85,-14.5 681.85,-21.5"/>
-<text text-anchor="middle" x="618.8" y="-6.8" font-family="Times,serif" font-size="14.00">niobium&#45;plate*42192</text>
+<path fill="none" stroke="black" stroke-width="1.8" d="M555.85,-18C596.98,-18 643.31,-18 681.74,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1.8" points="681.85,-21.5 691.85,-18 681.85,-14.5 681.85,-21.5"/>
+<text text-anchor="middle" x="618.8" y="-6.8" font-family="Times,serif" font-size="14.00">niobium&#45;plate*53872</text>
 </g>
 <!-- &#45;7,&#45;2 (Uranium Processing) -->
 <g id="node3" class="node">
@@ -37,9 +37,9 @@
 <!-- 2,1 (Niobium plates)&#45;&gt;&#45;7,&#45;2 (Uranium Processing) -->
 <g id="edge2" class="edge">
 <title>2,1 (Niobium plates)&#45;&gt;&#45;7,&#45;2 (Uranium Processing)</title>
-<path fill="none" stroke="black" stroke-width="0.09" d="M343.39,-18C323.6,-18 302.61,-18 281.87,-18"/>
-<polygon fill="black" stroke="black" stroke-width="0.09" points="281.72,-14.5 271.72,-18 281.72,-21.5 281.72,-14.5"/>
-<text text-anchor="middle" x="277.13" y="-6.8" font-family="Times,serif" font-size="14.00">niobium&#45;plate*2032</text>
+<path fill="none" stroke="black" stroke-width="0.2" d="M343.39,-18C323.6,-18 302.61,-18 281.87,-18"/>
+<polygon fill="black" stroke="black" stroke-width="0.2" points="281.72,-14.5 271.72,-18 281.72,-21.5 281.72,-14.5"/>
+<text text-anchor="middle" x="277.13" y="-6.8" font-family="Times,serif" font-size="14.00">niobium&#45;plate*6032</text>
 </g>
 </g>
 </svg>

@@ -24,9 +24,9 @@
 <!-- 1,2 (Korlex milking)&#45;&gt;1,4 (Casein and Melamine) -->
 <g id="edge1" class="edge">
 <title>1,2 (Korlex milking)&#45;&gt;1,4 (Casein and Melamine)</title>
-<path fill="none" stroke="black" stroke-width="1.06" d="M484.13,-18C503.89,-18 524.93,-18 545.74,-18"/>
-<polygon fill="black" stroke="black" stroke-width="1.06" points="545.93,-21.5 555.93,-18 545.93,-14.5 545.93,-21.5"/>
-<text text-anchor="middle" x="545.43" y="-6.8" font-family="Times,serif" font-size="14.00">milk&#45;barrel*3368</text>
+<path fill="none" stroke="black" stroke-width="1.57" d="M484.13,-18C503.89,-18 524.93,-18 545.74,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1.57" points="545.93,-21.5 555.93,-18 545.93,-14.5 545.93,-21.5"/>
+<text text-anchor="middle" x="545.43" y="-6.8" font-family="Times,serif" font-size="14.00">milk&#45;barrel*7216</text>
 </g>
 <!-- 0,0 (LE BUS) -->
 <g id="node3" class="node">
@@ -37,9 +37,9 @@
 <!-- 1,2 (Korlex milking)&#45;&gt;0,0 (LE BUS) -->
 <g id="edge2" class="edge">
 <title>1,2 (Korlex milking)&#45;&gt;0,0 (LE BUS)</title>
-<path fill="none" stroke="black" stroke-width="0.94" d="M278.62,-18C237.86,-18 191.65,-18 153.24,-18"/>
-<polygon fill="black" stroke="black" stroke-width="0.94" points="153.14,-14.5 143.14,-18 153.14,-21.5 153.14,-14.5"/>
-<text text-anchor="middle" x="215.93" y="-6.8" font-family="Times,serif" font-size="14.00">milk&#45;barrel*3000</text>
+<path fill="none" stroke="black" stroke-width="0.43" d="M278.62,-18C237.86,-18 191.65,-18 153.24,-18"/>
+<polygon fill="black" stroke="black" stroke-width="0.43" points="153.14,-14.5 143.14,-18 153.14,-21.5 153.14,-14.5"/>
+<text text-anchor="middle" x="215.93" y="-6.8" font-family="Times,serif" font-size="14.00">milk&#45;barrel*2000</text>
 </g>
 </g>
 </svg>

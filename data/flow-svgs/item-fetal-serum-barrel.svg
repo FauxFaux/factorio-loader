@@ -12,34 +12,34 @@
 <!-- &#45;8,&#45;11 (Fetal serum) -->
 <g id="node1" class="node">
 <title>&#45;8,&#45;11 (Fetal serum)</title>
-<ellipse fill="none" stroke="black" cx="344.33" cy="-18" rx="102.88" ry="18"/>
-<text text-anchor="middle" x="344.33" y="-14.3" font-family="Times,serif" font-size="14.00">&#45;8,&#45;11 (Fetal serum)</text>
-</g>
-<!-- &#45;9,&#45;11 (Bones mk2) -->
-<g id="node2" class="node">
-<title>&#45;9,&#45;11 (Bones mk2)</title>
-<ellipse fill="none" stroke="black" cx="617.16" cy="-18" rx="98.28" ry="18"/>
-<text text-anchor="middle" x="617.16" y="-14.3" font-family="Times,serif" font-size="14.00">&#45;9,&#45;11 (Bones mk2)</text>
-</g>
-<!-- &#45;8,&#45;11 (Fetal serum)&#45;&gt;&#45;9,&#45;11 (Bones mk2) -->
-<g id="edge1" class="edge">
-<title>&#45;8,&#45;11 (Fetal serum)&#45;&gt;&#45;9,&#45;11 (Bones mk2)</title>
-<path fill="none" stroke="black" stroke-width="0.93" d="M447.08,-18C467.24,-18 488.45,-18 508.78,-18"/>
-<polygon fill="black" stroke="black" stroke-width="0.93" points="509.01,-21.5 519.01,-18 509.01,-14.5 509.01,-21.5"/>
-<text text-anchor="middle" x="477.93" y="-6.8" font-family="Times,serif" font-size="14.00">fetal&#45;serum&#45;barrel*2048</text>
+<ellipse fill="none" stroke="black" cx="370.97" cy="-18" rx="102.88" ry="18"/>
+<text text-anchor="middle" x="370.97" y="-14.3" font-family="Times,serif" font-size="14.00">&#45;8,&#45;11 (Fetal serum)</text>
 </g>
 <!-- 0,0 (LE BUS) -->
-<g id="node3" class="node">
+<g id="node2" class="node">
 <title>0,0 (LE BUS)</title>
-<ellipse fill="none" stroke="black" cx="71.49" cy="-18" rx="71.49" ry="18"/>
-<text text-anchor="middle" x="71.49" y="-14.3" font-family="Times,serif" font-size="14.00">0,0 (LE BUS)</text>
+<ellipse fill="none" stroke="black" cx="643.81" cy="-18" rx="71.49" ry="18"/>
+<text text-anchor="middle" x="643.81" y="-14.3" font-family="Times,serif" font-size="14.00">0,0 (LE BUS)</text>
 </g>
 <!-- &#45;8,&#45;11 (Fetal serum)&#45;&gt;0,0 (LE BUS) -->
-<g id="edge2" class="edge">
+<g id="edge1" class="edge">
 <title>&#45;8,&#45;11 (Fetal serum)&#45;&gt;0,0 (LE BUS)</title>
-<path fill="none" stroke="black" stroke-width="1.07" d="M241.57,-18C212.37,-18 180.99,-18 153.22,-18"/>
-<polygon fill="black" stroke="black" stroke-width="1.07" points="153.17,-14.5 143.17,-18 153.17,-21.5 153.17,-14.5"/>
-<text text-anchor="middle" x="154.15" y="-6.8" font-family="Times,serif" font-size="14.00">fetal&#45;serum&#45;barrel*2360</text>
+<path fill="none" stroke="black" stroke-width="1.03" d="M473.73,-18C502.92,-18 534.31,-18 562.08,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1.03" points="562.13,-21.5 572.13,-18 562.13,-14.5 562.13,-21.5"/>
+<text text-anchor="middle" x="517.9" y="-6.8" font-family="Times,serif" font-size="14.00">fetal&#45;serum&#45;barrel*2694</text>
+</g>
+<!-- &#45;9,&#45;11 (Bones mk2) -->
+<g id="node3" class="node">
+<title>&#45;9,&#45;11 (Bones mk2)</title>
+<ellipse fill="none" stroke="black" cx="98.14" cy="-18" rx="98.28" ry="18"/>
+<text text-anchor="middle" x="98.14" y="-14.3" font-family="Times,serif" font-size="14.00">&#45;9,&#45;11 (Bones mk2)</text>
+</g>
+<!-- &#45;8,&#45;11 (Fetal serum)&#45;&gt;&#45;9,&#45;11 (Bones mk2) -->
+<g id="edge2" class="edge">
+<title>&#45;8,&#45;11 (Fetal serum)&#45;&gt;&#45;9,&#45;11 (Bones mk2)</title>
+<path fill="none" stroke="black" stroke-width="0.97" d="M268.22,-18C248.06,-18 226.85,-18 206.52,-18"/>
+<polygon fill="black" stroke="black" stroke-width="0.97" points="206.29,-14.5 196.29,-18 206.29,-21.5 206.29,-14.5"/>
+<text text-anchor="middle" x="194.12" y="-6.8" font-family="Times,serif" font-size="14.00">fetal&#45;serum&#45;barrel*2532</text>
 </g>
 </g>
 </svg>

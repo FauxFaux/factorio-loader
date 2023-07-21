@@ -24,9 +24,9 @@
 <!-- &#45;6,&#45;4 (High&#45;Power Resistors, Ceramic Capacitor, Inductor)&#45;&gt;0,0 (LE BUS) -->
 <g id="edge1" class="edge">
 <title>&#45;6,&#45;4 (High&#45;Power Resistors, Ceramic Capacitor, Inductor)&#45;&gt;0,0 (LE BUS)</title>
-<path fill="none" stroke="black" stroke-width="1.19" d="M842.31,-512.27C926.39,-512.27 1012.29,-512.27 1072.65,-512.27"/>
-<polygon fill="black" stroke="black" stroke-width="1.19" points="1072.86,-515.77 1082.86,-512.27 1072.86,-508.77 1072.86,-515.77"/>
-<text text-anchor="middle" x="1017.98" y="-516.07" font-family="Times,serif" font-size="14.00">inductor1*10368</text>
+<path fill="none" stroke="black" stroke-width="0.84" d="M842.31,-512.27C926.39,-512.27 1012.29,-512.27 1072.65,-512.27"/>
+<polygon fill="black" stroke="black" stroke-width="0.84" points="1072.86,-515.77 1082.86,-512.27 1072.86,-508.77 1072.86,-515.77"/>
+<text text-anchor="middle" x="1017.98" y="-516.07" font-family="Times,serif" font-size="14.00">inductor1*14941</text>
 </g>
 <!-- 2,5 (Simple Circuits) -->
 <g id="node3" class="node">
@@ -37,9 +37,9 @@
 <!-- &#45;6,&#45;4 (High&#45;Power Resistors, Ceramic Capacitor, Inductor)&#45;&gt;2,5 (Simple Circuits) -->
 <g id="edge2" class="edge">
 <title>&#45;6,&#45;4 (High&#45;Power Resistors, Ceramic Capacitor, Inductor)&#45;&gt;2,5 (Simple Circuits)</title>
-<path fill="none" stroke="black" stroke-width="0.98" d="M557.18,-530.4C527.33,-611.49 405.96,-941.26 369.95,-1039.09"/>
-<polygon fill="black" stroke="black" stroke-width="0.98" points="366.62,-1037.99 366.46,-1048.58 373.19,-1040.41 366.62,-1037.99"/>
-<text text-anchor="middle" x="407.56" y="-788.54" font-family="Times,serif" font-size="14.00">inductor1*8488</text>
+<path fill="none" stroke="black" stroke-width="1.43" d="M557.18,-530.4C527.33,-611.49 405.96,-941.26 369.95,-1039.09"/>
+<polygon fill="black" stroke="black" stroke-width="1.43" points="366.62,-1037.99 366.46,-1048.58 373.19,-1040.41 366.62,-1037.99"/>
+<text text-anchor="middle" x="403.06" y="-788.54" font-family="Times,serif" font-size="14.00">inductor1*25280</text>
 </g>
 <!-- 3,3 (Random electronic components, Small Parts) -->
 <g id="node4" class="node">
@@ -50,9 +50,9 @@
 <!-- &#45;6,&#45;4 (High&#45;Power Resistors, Ceramic Capacitor, Inductor)&#45;&gt;3,3 (Random electronic components, Small Parts) -->
 <g id="edge3" class="edge">
 <title>&#45;6,&#45;4 (High&#45;Power Resistors, Ceramic Capacitor, Inductor)&#45;&gt;3,3 (Random electronic components, Small Parts)</title>
-<path fill="none" stroke="black" stroke-width="0.83" d="M551.96,-494.09C502.88,-419.08 315.95,-133.36 257.83,-44.52"/>
-<polygon fill="black" stroke="black" stroke-width="0.83" points="260.71,-42.53 252.31,-36.08 254.85,-46.37 260.71,-42.53"/>
-<text text-anchor="middle" x="348.89" y="-273.11" font-family="Times,serif" font-size="14.00">inductor1*7224</text>
+<path fill="none" stroke="black" stroke-width="0.73" d="M551.96,-494.09C502.88,-419.08 315.95,-133.36 257.83,-44.52"/>
+<polygon fill="black" stroke="black" stroke-width="0.73" points="260.71,-42.53 252.31,-36.08 254.85,-46.37 260.71,-42.53"/>
+<text text-anchor="middle" x="344.39" y="-273.11" font-family="Times,serif" font-size="14.00">inductor1*12829</text>
 </g>
 </g>
 </svg>

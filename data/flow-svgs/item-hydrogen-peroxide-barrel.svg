@@ -24,9 +24,9 @@
 <!-- 4,&#45;1 (Fluid)&#45;&gt;0,0 (LE BUS) -->
 <g id="edge1" class="edge">
 <title>4,&#45;1 (Fluid)&#45;&gt;0,0 (LE BUS)</title>
-<path fill="none" stroke="black" stroke-width="0.95" d="M594.71,-18C648.08,-18 725.54,-18 784.06,-18"/>
-<polygon fill="black" stroke="black" stroke-width="0.95" points="784.38,-21.5 794.38,-18 784.38,-14.5 784.38,-21.5"/>
-<text text-anchor="middle" x="689.38" y="-6.8" font-family="Times,serif" font-size="14.00">hydrogen&#45;peroxide&#45;barrel*2256</text>
+<path fill="none" stroke="black" stroke-width="1.5" d="M594.71,-18C648.08,-18 725.54,-18 784.06,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1.5" points="784.38,-21.5 794.38,-18 784.38,-14.5 784.38,-21.5"/>
+<text text-anchor="middle" x="689.38" y="-6.8" font-family="Times,serif" font-size="14.00">hydrogen&#45;peroxide&#45;barrel*3000</text>
 </g>
 <!-- 4,6 (Circuit substrate and Doped silicon) -->
 <g id="node3" class="node">
@@ -37,9 +37,9 @@
 <!-- 4,&#45;1 (Fluid)&#45;&gt;4,6 (Circuit substrate and Doped silicon) -->
 <g id="edge2" class="edge">
 <title>4,&#45;1 (Fluid)&#45;&gt;4,6 (Circuit substrate and Doped silicon)</title>
-<path fill="none" stroke="black" stroke-width="1.05" d="M470.9,-18C452.7,-18 431.7,-18 409.6,-18"/>
-<polygon fill="black" stroke="black" stroke-width="1.05" points="409.37,-14.5 399.37,-18 409.37,-21.5 409.37,-14.5"/>
-<text text-anchor="middle" x="553.25" y="-21.8" font-family="Times,serif" font-size="14.00">hydrogen&#45;peroxide&#45;barrel*2512</text>
+<path fill="none" stroke="black" stroke-width="0.5" d="M470.9,-18C452.7,-18 431.7,-18 409.6,-18"/>
+<polygon fill="black" stroke="black" stroke-width="0.5" points="409.37,-14.5 399.37,-18 409.37,-21.5 409.37,-14.5"/>
+<text text-anchor="middle" x="553.25" y="-21.8" font-family="Times,serif" font-size="14.00">hydrogen&#45;peroxide&#45;barrel*1000</text>
 </g>
 </g>
 </svg>

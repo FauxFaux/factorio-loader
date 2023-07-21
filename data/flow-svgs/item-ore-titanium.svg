@@ -24,9 +24,9 @@
 <!-- 0,6 (Flue Gas Disposal, Syngas From Flue Gas)&#45;&gt;0,5 (Titanium Processing (Grade 4)) -->
 <g id="edge1" class="edge">
 <title>0,6 (Flue Gas Disposal, Syngas From Flue Gas)&#45;&gt;0,5 (Titanium Processing (Grade 4))</title>
-<path fill="none" stroke="black" stroke-width="1.52" d="M459.08,-18C479.67,-18 500.36,-18 520.52,-18"/>
-<polygon fill="black" stroke="black" stroke-width="1.52" points="520.7,-21.5 530.7,-18 520.7,-14.5 520.7,-21.5"/>
-<text text-anchor="middle" x="489.8" y="-6.8" font-family="Times,serif" font-size="14.00">ore&#45;titanium*1136688</text>
+<path fill="none" stroke="black" stroke-width="0.56" d="M459.08,-18C479.67,-18 500.36,-18 520.52,-18"/>
+<polygon fill="black" stroke="black" stroke-width="0.56" points="520.7,-21.5 530.7,-18 520.7,-14.5 520.7,-21.5"/>
+<text text-anchor="middle" x="489.8" y="-6.8" font-family="Times,serif" font-size="14.00">ore&#45;titanium*422583</text>
 </g>
 <!-- &#45;6,6 (coal pickup train station, item=ore&#45;chromium The loneliest chromium, titanium pickup station) -->
 <g id="node3" class="node">
@@ -37,9 +37,9 @@
 <!-- &#45;6,6 (coal pickup train station, item=ore&#45;chromium The loneliest chromium, titanium pickup station)&#45;&gt;0,5 (Titanium Processing (Grade 4)) -->
 <g id="edge2" class="edge">
 <title>&#45;6,6 (coal pickup train station, item=ore&#45;chromium The loneliest chromium, titanium pickup station)&#45;&gt;0,5 (Titanium Processing (Grade 4))</title>
-<path fill="none" stroke="black" stroke-width="0.48" d="M956.2,-18C935.01,-18 914.41,-18 894.71,-18"/>
-<polygon fill="black" stroke="black" stroke-width="0.48" points="894.49,-14.5 884.49,-18 894.49,-21.5 894.49,-14.5"/>
-<text text-anchor="middle" x="887.95" y="-6.8" font-family="Times,serif" font-size="14.00">ore&#45;titanium*360256</text>
+<path fill="none" stroke="black" stroke-width="1.44" d="M956.2,-18C935.01,-18 914.41,-18 894.71,-18"/>
+<polygon fill="black" stroke="black" stroke-width="1.44" points="894.49,-14.5 884.49,-18 894.49,-21.5 894.49,-14.5"/>
+<text text-anchor="middle" x="885.7" y="-6.8" font-family="Times,serif" font-size="14.00">ore&#45;titanium*1090522</text>
 </g>
 </g>
 </svg>
