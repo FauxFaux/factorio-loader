@@ -570,7 +570,7 @@ interface PickRecipeProps {
   colon?: Colon;
 }
 
-class PickRecipe extends Component<PickRecipeProps> {
+export class PickRecipe extends Component<PickRecipeProps> {
   onChange = (e: Event) => {
     const recipe = (e.target as HTMLInputElement).value;
     this.setState({ recipe });
