@@ -39,10 +39,14 @@ for _, ty in ipairs({
         else
             a[#a + 1] = v.direction
             a[#a + 1] = v.name
-            a[#a + 1] = v.unit_number
+            if v.unit_number ~= nil then
+                a[#a + 1] = v.unit_number
+            else
+                a[#a + 1] = 0
+            end
         end
         if ty == "assembling-machine" then
-            local recp = nil
+            local recp = ''
             pcall(function()
                 recp = v.get_recipe().name
             end)

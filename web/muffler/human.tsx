@@ -14,7 +14,8 @@ export function humanise(
   count: number | undefined,
   opts?: { altSuffix: string },
 ) {
-  if (count === undefined) return <abbr title="data absent">?</abbr>;
+  if (count === undefined || count === null)
+    return <abbr title="data absent">?</abbr>;
   const title = (n: string) => `${n}${opts?.altSuffix ?? ''}`;
 
   if (count > 1e6)

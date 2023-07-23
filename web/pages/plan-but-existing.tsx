@@ -21,9 +21,7 @@ interface State {
 
 export class PlanButExisting extends Component<Props> {
   render(props: Props, state: State) {
-    const input = (props.recipes ?? '')
-      .split(',')
-      .filter((x) => x);
+    const input = (props.recipes ?? '').split(',').filter((x) => x);
 
     const recipes: [RecipeName, JRecipe][] = input
       .map((name) => [name, makeUpRecipe(name)] as const)
@@ -128,7 +126,8 @@ export class PlanButExisting extends Component<Props> {
       );
     });
 
-    const condemned = input.filter((name) => name.startsWith('condemn:'))
+    const condemned = input
+      .filter((name) => name.startsWith('condemn:'))
       .map((name) => name.slice('condemn:'.length));
 
     const missing = Object.entries(soFar)
@@ -155,14 +154,12 @@ export class PlanButExisting extends Component<Props> {
         .map(([name, recp]) => (
           <tr>
             <td>
-            <button
-              class="btn btn-sm"
-              onClick={() =>
-                this.setRecipes([...input, name])
-              }
-            >
-              ➕
-            </button>
+              <button
+                class="btn btn-sm"
+                onClick={() => this.setRecipes([...input, name])}
+              >
+                ➕
+              </button>
             </td>
             <td>
               {' '}
@@ -185,9 +182,7 @@ export class PlanButExisting extends Component<Props> {
           <td colSpan={3}>
             <button
               class="btn btn-sm btn-secondary"
-              onClick={() =>
-                this.setRecipes([...input, `condemn:${colon}`])
-              }
+              onClick={() => this.setRecipes([...input, `condemn:${colon}`])}
             >
               CONDEMN
             </button>
