@@ -10,7 +10,7 @@ import {
   productAsFloat,
   RecipeName,
 } from '../muffler/walk-recipes';
-import { data, Factory } from '../datae';
+import { data, Factory, FactoryClass } from '../datae';
 import { ColonJoined, JRecipe } from '../objects';
 import { Colon, fromColon, splitColon } from '../muffler/colon';
 import { humanise } from '../muffler/human';
@@ -188,6 +188,12 @@ export class Plan extends Component<{ encoded?: string }, PlanState> {
       </div>
     );
 
+    const andleTb = new TextEncoder().encode(
+      JSON.stringify(packandle(state.manifest)),
+    );
+    const andleB64 = base64.encode(andleTb, 0, andleTb.length);
+    const procMgmt = `https://proc.candle.me.uk/#${andleB64}`;
+
     return (
       <>
         <div className={'row'}>
@@ -210,6 +216,11 @@ export class Plan extends Component<{ encoded?: string }, PlanState> {
                 {((area / 12000) * 100).toFixed()}%
               </abbr>
             </h3>
+          </div>
+          <div class={'col'}>
+            <a target={'_blank'} href={procMgmt}>
+              view in procmgmt
+            </a>
           </div>
           <div class={'col'}>
             <button
@@ -712,4 +723,71 @@ function areaGuess(jobs: Job[]) {
     area += w * h * job.count;
   }
   return area;
+}
+
+type ItemName = string;
+
+type AndleFactoryClass = FactoryClass;
+
+interface Andle {
+  v: 1;
+  game_id: 'factorio-py-1.1.53';
+  // q: quantity per second
+  requirements: { id: ItemName; q: number }[];
+  imports: ItemName[];
+  exports: ItemName[];
+  processes: RecipeName[];
+  default_factory_groups: Record<AndleFactoryClass, Factory>;
+  process_modifiers: {};
+}
+
+function packandle(manifest: Manifest): Andle {
+  const wanted = new Set<ItemName>();
+  const produced = new Set<ItemName>();
+  const addIfItem = (set: Set<ItemName>, colon: Colon) => {
+    const [kind, item] = splitColon(colon);
+    if (kind !== 'item') {
+      return;
+    }
+    set.add(item);
+  };
+
+  const effects = jobsEffects(manifest.jobs);
+
+  for (const job of manifest.jobs) {
+    const recp = makeRecipe(job);
+    for (const prod of recp.ingredients) {
+      addIfItem(wanted, prod.colon);
+    }
+    for (const ing of recp.products) {
+      addIfItem(produced, ing.colon);
+    }
+  }
+
+  const requirements: Andle['requirements'] = [];
+  if (manifest.jobs[0]) {
+    for (const prod of makeUpRecipe(manifest.jobs[0].recipe)?.products ?? []) {
+      const [kind, id] = splitColon(prod.colon);
+      produced.delete(id);
+      // TODO: fluids?
+      requirements.push({
+        id,
+        q: effects[prod.colon] ?? 0,
+      });
+    }
+  }
+
+  const imports = [...wanted].filter((item) => !produced.has(item));
+  const exports = [...produced].filter((item) => !wanted.has(item));
+
+  return {
+    v: 1,
+    game_id: 'factorio-py-1.1.53',
+    requirements,
+    imports,
+    exports,
+    processes: manifest.jobs.map((job) => job.recipe),
+    default_factory_groups: {},
+    process_modifiers: {},
+  };
 }
