@@ -744,30 +744,25 @@ interface Andle {
 function packandle(manifest: Manifest): Andle {
   const wanted = new Set<ItemName>();
   const produced = new Set<ItemName>();
-  const addIfItem = (set: Set<ItemName>, colon: Colon) => {
-    const [kind, item] = splitColon(colon);
-    if (kind !== 'item') {
-      return;
-    }
-    set.add(item);
-  };
+
+  const idOf = (colon: Colon) => splitColon(colon)[1];
 
   const effects = jobsEffects(manifest.jobs);
 
   for (const job of manifest.jobs) {
     const recp = makeRecipe(job);
     for (const prod of recp.ingredients) {
-      addIfItem(wanted, prod.colon);
+      wanted.add(idOf(prod.colon));
     }
     for (const ing of recp.products) {
-      addIfItem(produced, ing.colon);
+      produced.add(idOf(ing.colon));
     }
   }
 
   const requirements: Andle['requirements'] = [];
   if (manifest.jobs[0]) {
     for (const prod of makeUpRecipe(manifest.jobs[0].recipe)?.products ?? []) {
-      const [kind, id] = splitColon(prod.colon);
+      const id = idOf(prod.colon);
       produced.delete(id);
       // TODO: fluids?
       requirements.push({
