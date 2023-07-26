@@ -2,14 +2,8 @@
 * hot air duplicate is incorrectly primed
 * more hot air bricks?
 * tin brick needs to not export nexelit when there's barrels to export
-* aerogel brick is full of tailings
-* unlock utility science
-* productivity module 3s in the labs
 * empty the kimberlite brick for fun
 * severe chromite sand shortage
-* import molten chromium barrels (-5000 tested)
-* import molten tin barrels (-5000 tested)
-* duplicate fetal serurm?
 
 * no agar as request sizes are wrong for e.g. salt
 * would probably be better using seaweed mk2 and water based recipes
