@@ -5,13 +5,16 @@ import { serializeError } from 'serialize-error';
 import type { BrotliWasmType } from 'brotli-wasm';
 import type Leaflet from 'leaflet';
 import type * as ProcessMgmt from '../stubs/process-mgmt';
+import * as base64 from '@protobufjs/base64';
 
 type Lib = 'brotli-wasm' | 'leaflet' | 'process-mgmt';
 
 async function load(lib: Lib) {
   switch (lib) {
     case 'brotli-wasm':
-      return import(/* webpackPrefetch: true */ 'brotli-wasm');
+      return import(/* webpackPrefetch: true */ 'brotli-wasm').then(
+        (lib) => lib.default,
+      );
     case 'leaflet':
       return import(/* webpackPrefetch: true */ 'leaflet');
     case 'process-mgmt':
@@ -51,4 +54,25 @@ export function useLib(lib: Lib): LibState<unknown> {
 
 function assertUnreachable(_value: never): never {
   throw new Error('Statement should be unreachable');
+}
+
+export function unpack(encoded: string, brotli: BrotliWasmType): unknown {
+  const deWeb = encoded.replace(/-/g, '+').replace(/_/g, '/');
+  const padded = deWeb.padEnd(
+    deWeb.length + ((4 - (deWeb.length % 4)) % 4),
+    '=',
+  );
+  const len = base64.length(padded);
+  const buffer = new Uint8Array(len);
+  base64.decode(padded, buffer, 0);
+  return JSON.parse(new TextDecoder().decode(brotli.decompress(buffer)));
+}
+
+export function pack(obj: unknown, brotli: BrotliWasmType): string {
+  const buffer = brotli.compress(new TextEncoder().encode(JSON.stringify(obj)));
+  return base64
+    .encode(buffer, 0, buffer.length)
+    .replace(/=/g, '')
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_');
 }

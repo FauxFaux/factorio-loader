@@ -298,6 +298,7 @@ export function factoryFriendlyName(producerClass: string) {
 interface BuildSpeedProps {
   recipe: JRecipe;
   speedsNotTimes?: boolean;
+  highlight?: number;
   onClick?: (speed: number) => void;
 }
 
@@ -315,19 +316,30 @@ export class BuildTime extends Component<BuildSpeedProps> {
     const limitation = limitations[recipe.producerClass];
     const modules = limitation ? data.meta.modules[limitation] : {};
 
+    const forUs = (speed: number) =>
+      props.highlight && Math.abs(speed - props.highlight) < 0.1;
+    const highlight = { 'font-weight': 'bold' };
+
     const speedo = props.speedsNotTimes
       ? (speed: number) => (
-          <a
-            onClick={() => props.onClick?.(speed)}
-            style={
-              props.onClick ? 'cursor: pointer; text-decoration: underline' : ''
-            }
-          >
-            {speed.toFixed(3).replace(/\.?0+$/, '')}
-          </a>
+          <span style={forUs(speed) ? highlight : ''}>
+            <a
+              onClick={() => props.onClick?.(speed)}
+              style={
+                props.onClick
+                  ? 'cursor: pointer; text-decoration: underline'
+                  : ''
+              }
+            >
+              {speed.toFixed(3).replace(/\.?0+$/, '')}
+            </a>
+          </span>
         )
-      : (speed: number) =>
-          humanise(recipe.time / speed, { altSuffix: 's/exec' });
+      : (speed: number) => (
+          <span style={forUs(speed) ? highlight : ''}>
+            {humanise(recipe.time / speed, { altSuffix: 's/exec' })}
+          </span>
+        );
 
     return (
       <table class={'build-speed'}>

@@ -34,6 +34,7 @@ import { Chainer } from './pages/chainer';
 import { Craftings } from './pages/craftings';
 import { BulkCraftings } from './pages/bulk-craftings';
 import { PlanButExisting } from './pages/plan-but-existing';
+import { ProcMgmt, ProcMgmtPage } from './pages/proc-mgmt';
 
 export class App extends Component {
   render() {
@@ -70,6 +71,7 @@ export class App extends Component {
           <Resources path="/an/resources/:resource?" />
           <Plan path="/an/plan/:encoded?" />
           <PlanButExisting path="/an/plan-but-existing/:recipes?" />
+          <ProcMgmtPage path="/an/proc-mgmt/:encoded?" />
           <BusyTrains path="/an/busy-trains" />
           <StationConfig path="/an/station-config" />
           <TrainTraffic path="/an/train-traffic" />

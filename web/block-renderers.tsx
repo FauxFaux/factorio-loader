@@ -12,24 +12,10 @@ import {
 import { humanise } from './muffler/human';
 import { compareWithoutIcons } from './muffler/names';
 import { expActLtn, LtnFlow, LtnPercent } from './ltn-avail';
-import { makeUpRecipe } from './muffler/walk-recipes';
+import { recipeSummary } from './muffler/walk-recipes';
 
 export function recipeDifference(brick: BlockContent) {
-  const inputs: Set<string> = new Set();
-  const outputs: Set<string> = new Set();
-  for (const [, recipe] of brick.asms) {
-    if (!recipe) continue;
-    const recp = makeUpRecipe(recipe);
-    if (!recp) continue;
-
-    for (const ing of recp.ingredients ?? []) {
-      inputs.add(ing.colon);
-    }
-
-    for (const prod of recp.products ?? []) {
-      outputs.add(prod.colon);
-    }
-  }
+  const { inputs, outputs } = recipeSummary(brick.asms.map(([, r]) => r));
 
   if (brick.boilers > 0) {
     inputs.add('fluid:water');

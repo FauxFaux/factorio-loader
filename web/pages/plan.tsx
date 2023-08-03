@@ -1,5 +1,4 @@
 import { Component, createRef } from 'preact';
-import type { BrotliWasmType } from 'brotli-wasm';
 import * as base64 from '@protobufjs/base64';
 import _cloneDeep from 'lodash.clonedeep';
 
@@ -18,7 +17,7 @@ import { ItemIcon, ItemList } from '../lists';
 import { stackSize } from './chestify';
 import { decode, stripProducer } from '../muffler/blueprints';
 import { BuildTime, factoryFriendlyName } from '../components/how-to-make';
-import { useLib } from '../muffler/libs';
+import { pack, unpack, useLib } from '../muffler/libs';
 
 interface Job {
   recipe: RecipeName;
@@ -66,7 +65,7 @@ export function effectsOf(
   return effects;
 }
 
-function jobsEffects(jobs: Job[]) {
+export function jobsEffects(jobs: Job[]) {
   const effects: Record<Colon, number> = {};
   for (const job of jobs) {
     const recp = makeRecipe(job);
@@ -81,7 +80,11 @@ export class Plan extends Component<{ encoded?: string }, PlanState> {
     const [brotliErr, brotli] = useLib('brotli-wasm');
     if (brotliErr) return brotliErr;
     if (!state.manifest) {
-      const manifest = unpack(props.encoded, brotli);
+      const manifest = props.encoded
+        ? (unpack(props.encoded, brotli) as Manifest)
+        : {
+            jobs: [],
+          };
       this.setState({ manifest });
       return <div>Too lazy to fix the flow control...</div>;
     }
@@ -277,33 +280,6 @@ export class Plan extends Component<{ encoded?: string }, PlanState> {
     }
     this.setState({ manifest });
   }
-}
-
-function unpack(encoded: string | undefined, brotli: BrotliWasmType): Manifest {
-  if (!encoded)
-    return {
-      jobs: [],
-    };
-  const deWeb = encoded.replace(/-/g, '+').replace(/_/g, '/');
-  const padded = deWeb.padEnd(
-    deWeb.length + ((4 - (deWeb.length % 4)) % 4),
-    '=',
-  );
-  const len = base64.length(padded);
-  const buffer = new Uint8Array(len);
-  base64.decode(padded, buffer, 0);
-  return JSON.parse(new TextDecoder().decode(brotli.decompress(buffer)));
-}
-
-function pack(manifest: Manifest, brotli: BrotliWasmType): string {
-  const buffer = brotli.compress(
-    new TextEncoder().encode(JSON.stringify(manifest)),
-  );
-  return base64
-    .encode(buffer, 0, buffer.length)
-    .replace(/=/g, '')
-    .replace(/\+/g, '-')
-    .replace(/\//g, '_');
 }
 
 interface ManifestTableProps {

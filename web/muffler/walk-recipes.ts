@@ -261,3 +261,23 @@ export function productAsFloat(prod: JProduct): number {
   mid *= prob;
   return mid;
 }
+
+export function recipeSummary(names: (RecipeName | null | undefined)[]) {
+  const inputs: Set<Colon> = new Set();
+  const outputs: Set<Colon> = new Set();
+  for (const recipe of names) {
+    if (!recipe) continue;
+    const recp = makeUpRecipe(recipe);
+    if (!recp) continue;
+
+    for (const ing of recp.ingredients ?? []) {
+      inputs.add(ing.colon);
+    }
+
+    for (const prod of recp.products ?? []) {
+      outputs.add(prod.colon);
+    }
+  }
+
+  return { inputs, outputs };
+}
