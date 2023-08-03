@@ -6,6 +6,7 @@ import type Leaflet from 'leaflet';
 import { BRICK_H, BRICK_W, fromLoc, toBlock } from '../../scripts/magic';
 import { TagList } from '../objects';
 import { data } from '../datae';
+import { useLib } from '../muffler/libs';
 
 interface MapProps {
   gps?: string;
@@ -40,33 +41,15 @@ function leafletMap(
   return map;
 }
 
-interface LeafletState {
-  L?: typeof Leaflet | null;
-}
-
-function loadLeaflet(component: Component<unknown, LeafletState>['setState']) {
-  useEffect(() => {
-    void (async () => {
-      try {
-        const L = await import('leaflet');
-        component({ L });
-      } catch (err) {
-        console.error(err);
-        component({ L: null });
-      }
-    })();
-  }, []);
-}
+interface LeafletState {}
 
 export class Map extends Component<MapProps, LeafletState> {
   map = createRef();
 
   render(props: MapProps, state: LeafletState) {
-    loadLeaflet(this.setState.bind(this));
-    const L = state.L;
-
-    if (!L) {
-      return <div class="slippy">Loading map...</div>;
+    const [lErr, L] = useLib('leaflet');
+    if (lErr) {
+      return <div class="slippy">{lErr}</div>;
     }
 
     const transformation = leafletTransform(L);
@@ -122,12 +105,9 @@ export class BlockThumb extends Component<{ loc: string }, LeafletState> {
   map = createRef();
 
   render(props: { loc: string }, state: LeafletState) {
-    loadLeaflet(this.setState.bind(this));
-    const L = state.L;
+    const [lErr, L] = useLib('leaflet');
+    if (lErr) return lErr;
 
-    if (!L) {
-      return <span>Loading map...</span>;
-    }
     const transformation = leafletTransform(L);
     const [bx, by] = fromLoc(props);
 

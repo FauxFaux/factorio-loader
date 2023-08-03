@@ -1,29 +1,54 @@
-import { JSX } from "preact";
-import { BrotliWasmType } from "brotli-wasm";
-import { useState } from "preact/hooks";
-import { serializeError } from "serialize-error";
+import { JSX } from 'preact';
+import { useState } from 'preact/hooks';
+import { serializeError } from 'serialize-error';
 
-export function useBrotli():
-  | ['message', JSX.Element]
-  | ['ready', BrotliWasmType] {
+import type { BrotliWasmType } from 'brotli-wasm';
+import type Leaflet from 'leaflet';
+import type * as ProcessMgmt from '../stubs/process-mgmt';
+
+type Lib = 'brotli-wasm' | 'leaflet' | 'process-mgmt';
+
+async function load(lib: Lib) {
+  switch (lib) {
+    case 'brotli-wasm':
+      return import(/* webpackPrefetch: true */ 'brotli-wasm');
+    case 'leaflet':
+      return import(/* webpackPrefetch: true */ 'leaflet');
+    case 'process-mgmt':
+      return import(/* webpackPrefetch: true */ '../stubs/process-mgmt');
+    default:
+      return assertUnreachable(lib);
+  }
+}
+
+export type LibState<T> = [JSX.Element, null] | [null, T];
+
+export function useLib(lib: 'leaflet'): LibState<typeof Leaflet>;
+export function useLib(lib: 'brotli-wasm'): LibState<BrotliWasmType>;
+export function useLib(lib: 'process-mgmt'): LibState<typeof ProcessMgmt>;
+export function useLib(lib: Lib): LibState<unknown> {
   const [state, setState] = useState({ lib: null, error: null } as {
-    lib: BrotliWasmType | null;
+    lib: unknown | null;
     error: Error | null;
   });
   if (state.error) {
-    return ['message', <>Loading failed: {serializeError(state.error)}</>];
+    return [<>Loading failed: {serializeError(state.error)}</>, null];
   }
   if (state.lib) {
-    return ['ready', state.lib];
+    return [null, state.lib];
   }
-  import('brotli-wasm')
+  load(lib)
     .then((lib) => {
       setState({ lib, error: null });
     })
     .catch((error) => {
-      console.error('Failed to load brotli-wasm', error);
+      console.error(`Failed to load ${lib}`, error);
       setState({ lib: null, error });
     });
 
-  return ['message', <>Loading brotli...</>];
+  return [<>Loading {lib}...</>, null];
+}
+
+function assertUnreachable(_value: never): never {
+  throw new Error('Statement should be unreachable');
 }

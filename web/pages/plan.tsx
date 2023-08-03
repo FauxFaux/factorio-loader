@@ -1,6 +1,5 @@
 import { Component, createRef } from 'preact';
 import type { BrotliWasmType } from 'brotli-wasm';
-import { useEffect } from 'preact/hooks';
 import * as base64 from '@protobufjs/base64';
 import _cloneDeep from 'lodash.clonedeep';
 
@@ -19,6 +18,7 @@ import { ItemIcon, ItemList } from '../lists';
 import { stackSize } from './chestify';
 import { decode, stripProducer } from '../muffler/blueprints';
 import { BuildTime, factoryFriendlyName } from '../components/how-to-make';
+import { useLib } from '../muffler/libs';
 
 interface Job {
   recipe: RecipeName;
@@ -33,7 +33,6 @@ interface Manifest {
 const US = '/an/plan/';
 
 interface PlanState {
-  brotli: BrotliWasmType | null;
   manifest: Manifest;
 }
 
@@ -79,14 +78,8 @@ function jobsEffects(jobs: Job[]) {
 
 export class Plan extends Component<{ encoded?: string }, PlanState> {
   render(props: { encoded?: string }, state: PlanState) {
-    const brotli = state.brotli;
-    if (brotli === undefined) {
-      loadBrotli(this.setState.bind(this));
-      return <div>Downloading unnecessary dependency...</div>;
-    }
-    if (brotli === null) {
-      return <div>Failed to load brotli-wasm, see console for details</div>;
-    }
+    const [brotliErr, brotli] = useLib('brotli-wasm');
+    if (brotliErr) return brotliErr;
     if (!state.manifest) {
       const manifest = unpack(props.encoded, brotli);
       this.setState({ manifest });
@@ -311,22 +304,6 @@ function pack(manifest: Manifest, brotli: BrotliWasmType): string {
     .replace(/=/g, '')
     .replace(/\+/g, '-')
     .replace(/\//g, '_');
-}
-
-function loadBrotli(
-  setState: Component<unknown, { brotli: BrotliWasmType | null }>['setState'],
-) {
-  useEffect(() => {
-    void (async () => {
-      try {
-        const brotli = await (await import('brotli-wasm')).default;
-        setState({ brotli });
-      } catch (err) {
-        console.error(err);
-        setState({ brotli: null });
-      }
-    })();
-  }, []);
 }
 
 interface ManifestTableProps {
