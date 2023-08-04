@@ -1,9 +1,8 @@
 import { Component } from 'preact';
-import _uniq from 'lodash/uniq';
 
 import { pack, unpack, useLib } from '../muffler/libs';
 import { route } from 'preact-router';
-import { jobsEffects, PickRecipe } from './plan';
+import { effectsOf, jobsEffects, PickRecipe } from './plan';
 import { Colon } from '../muffler/colon';
 import {
   makeUpRecipe,
@@ -13,6 +12,7 @@ import {
 import { Factory, FactoryClass } from '../datae';
 import { ColonJoined } from '../objects';
 import { BuildTime } from '../components/how-to-make';
+import { ActionPill } from './block';
 
 const US = '/an/proc-mgmt/';
 
@@ -145,7 +145,7 @@ export class ProcMgmt extends Component<ProcMgmtProps, ProcMgmtState> {
     );
 
     const recipeRows = Object.entries(props.manifest.recipes || {}).map(
-      ([recipeName]) => {
+      ([recipeName, obj]) => {
         const recp = makeUpRecipe(recipeName)!;
         return (
           <tr>
@@ -169,12 +169,21 @@ export class ProcMgmt extends Component<ProcMgmtProps, ProcMgmtState> {
             <td>
               <BuildTime
                 speedsNotTimes={true}
-                highlight={props.manifest.recipes![recipeName].craftingSpeed}
-                recipe={makeUpRecipe(recipeName)!}
+                highlight={obj.craftingSpeed}
+                recipe={recp}
                 onClick={(newSpeed) => {
                   props.manifest.recipes![recipeName].craftingSpeed = newSpeed;
                   props.setManifest(props.manifest);
                 }}
+              />
+            </td>
+            <td>
+              <ActionPill
+                action={effectsOf(
+                  recp,
+                  (obj.craftingSpeed * (recipeCounts?.[recipeName] ?? 1)) /
+                    recp.time,
+                )}
               />
             </td>
           </tr>
@@ -186,7 +195,17 @@ export class ProcMgmt extends Component<ProcMgmtProps, ProcMgmtState> {
       <>
         {summary}
         <table class={'table'}>
-          <thead />
+          <thead>
+            <tr>
+              <th></th>
+              <th>Recipe</th>
+              <th>
+                <abbr title={'Computed assemblers'}>Asms</abbr>
+              </th>
+              <th>Speed</th>
+              <th>Effect</th>
+            </tr>
+          </thead>
           <tbody>{recipeRows}</tbody>
         </table>
         <PickRecipe
