@@ -2,7 +2,13 @@ import { Component } from 'preact';
 
 import { pack, unpack, useLib } from '../muffler/libs';
 import { route } from 'preact-router';
-import { effectsOf, jobsEffects, NumberTableRow, PickRecipe } from './plan';
+import {
+  effectsOf,
+  jobsEffects,
+  NumberTableRow,
+  PickRecipe,
+  typicalClassSpeed,
+} from './plan';
 import { Colon, fromColon } from '../muffler/colon';
 import {
   buildConsuming,
@@ -217,7 +223,7 @@ export class ProcMgmt extends Component<ProcMgmtProps, ProcMgmtState> {
                     onClick={() => {
                       props.manifest.recipes = props.manifest.recipes || {};
                       props.manifest.recipes[recipeName] = {
-                        craftingSpeed: 1,
+                        craftingSpeed: typicalClassSpeed(recp.producerClass),
                       };
                       props.setManifest(props.manifest);
                     }}
@@ -360,7 +366,9 @@ export class ProcMgmt extends Component<ProcMgmtProps, ProcMgmtState> {
           puck={(recipe) => {
             props.manifest.recipes = props.manifest.recipes || {};
             props.manifest.recipes[recipe] = {
-              craftingSpeed: 1,
+              craftingSpeed: typicalClassSpeed(
+                makeUpRecipe(recipe)!.producerClass,
+              ),
             };
             this.setState({ recipeColon: undefined });
             props.setManifest(props.manifest);

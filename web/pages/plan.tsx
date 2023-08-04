@@ -35,6 +35,18 @@ interface PlanState {
   manifest: Manifest;
 }
 
+export function typicalClassSpeed(clazz: FactoryClass) {
+  const factory = Object.values(data.meta.factories[clazz] ?? {})[0];
+  if (!factory) return 1;
+  const mods = data.meta.modules[limitations[clazz]] ?? {};
+  // speed modules aren't supposed to be in this list, but they are
+  const modMultiplier = Object.entries(mods).filter(
+    ([name]) => !name.startsWith('speed-module'),
+  )[0]?.[1];
+  if (!modMultiplier) return factory.speed;
+  return factory.speed * (1 + factory.modules * modMultiplier);
+}
+
 export function actualSpeed(name: Factory, modules: Record<string, number>) {
   const clazz = stripProducer(name);
   const factory = data.meta.factories[clazz]?.[name];
