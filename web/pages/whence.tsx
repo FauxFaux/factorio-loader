@@ -3,7 +3,7 @@ import { computed, data } from '../datae';
 import { ColonJoined } from '../objects';
 import { buildMaking, productAsFloat } from '../muffler/walk-recipes';
 import { Colon } from '../muffler/colon';
-import { minBy } from 'lodash';
+import minBy from 'lodash/minBy';
 
 export class Whence extends Component<{ colon: string }> {
   render(props: { colon: string }) {

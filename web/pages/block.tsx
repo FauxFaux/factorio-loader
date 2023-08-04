@@ -1,6 +1,7 @@
 import type { JSX } from 'preact';
 import { Component } from 'preact';
-import { cloneDeep, isEqual } from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
+import isEqual from 'lodash/isEqual';
 
 import { ColonJoined, Item, JRecipe, TagList } from '../objects';
 import { Assemblers, recipeDifference, TrainStops } from '../block-renderers';

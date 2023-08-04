@@ -1,5 +1,5 @@
 import type { JSX } from 'preact';
-import { minBy } from 'lodash';
+import minBy from 'lodash/minBy';
 import { useQuery } from 'preact-fetching';
 import { Component } from 'preact';
 

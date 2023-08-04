@@ -1,7 +1,7 @@
 import { Component } from 'preact';
 import { mallAssemblers, toBlueprint } from '../muffler/blueprints';
 import * as blueprint from '../muffler/blueprints';
-import { range } from 'lodash';
+import range from 'lodash/range';
 import { data } from '../datae';
 import { makeUpRecipe } from '../muffler/walk-recipes';
 import { splitColon } from '../muffler/colon';

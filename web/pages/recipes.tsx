@@ -1,4 +1,4 @@
-import { cloneDeep } from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import { Colon, fromColon, splitColon } from '../muffler/colon';
 import { Component } from 'preact';
 import { data } from '../datae';
