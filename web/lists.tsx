@@ -130,12 +130,12 @@ export class ItemList extends Component<ItemListProps, { search?: string }> {
   constructor() {
     super();
     for (const block of Object.values(data.doc)) {
-      for (const [label, { count }] of Object.entries(block.asm)) {
-        const [, recipe] = label.split('\0');
+      for (const [, recipe] of block.asms) {
+        if (!recipe) continue;
         for (const product of data.recipes.regular[recipe]?.products ?? []) {
           const colon = product.colon;
           if (!this.itemAsms[colon]) this.itemAsms[colon] = 0;
-          this.itemAsms[colon] += count;
+          this.itemAsms[colon] += 1;
         }
       }
     }

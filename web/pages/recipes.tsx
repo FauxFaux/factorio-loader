@@ -288,8 +288,7 @@ export const LongName = ({
 
 function inUse(name: string): boolean {
   for (const brick of Object.values(data.doc)) {
-    for (const label of Object.keys(brick.asm)) {
-      const [, recipe] = label.split('\0');
+    for (const [, recipe] of brick.asms) {
       if (recipe === name) return true;
     }
   }

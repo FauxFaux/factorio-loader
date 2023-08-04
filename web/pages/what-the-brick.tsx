@@ -25,7 +25,7 @@ export class WhatTheBrick extends Component {
               ([, brick]) =>
                 brick.tags.length > 0 ||
                 brick.stop.length > 0 ||
-                Object.keys(brick.asm).length > 0,
+                brick.asms.length > 0,
             )
             .sort(([, ba], [, bb]) => {
               const a = ba.tags.length;

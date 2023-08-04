@@ -49,7 +49,7 @@ export type BlockContent = {
   tags: string[];
   /** @deprecated read from asms */
   asm: Record<string, { count: number; locations: Coord[] }>;
-  // automated-factory-mk04	/ iron-stick / { speed-module: 4 } / unit-number
+  // automated-factory-mk04	/ iron-stick / { speed-module: 4 } / location / unit-number
   asms: [Factory, RecipeName | null, Record<string, number>, Coord, number][];
   stop: Stop[];
   colons: Record<Colon, number>;

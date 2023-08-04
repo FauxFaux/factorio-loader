@@ -31,7 +31,14 @@ export function recipeDifference(brick: BlockContent) {
 
 export class Assemblers extends Component<{ brick: BlockContent }> {
   render(props: { brick: BlockContent }) {
-    const sorted = Object.entries(props.brick.asm).sort(
+    const legacy: Record<string, { count: number; locations: Coord[] }> = {};
+    for (const [assembler, recipe, , loc] of props.brick.asms) {
+      const key = `${assembler}\0${recipe}`;
+      if (!legacy[key]) legacy[key] = { count: 0, locations: [] };
+      legacy[key].count += 1;
+      legacy[key].locations.push(loc);
+    }
+    const sorted = Object.entries(legacy).sort(
       ([, { count: a }], [, { count: b }]) => b - a,
     );
     return (

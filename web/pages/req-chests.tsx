@@ -4,22 +4,22 @@ import { GpsLink } from '../lists';
 import { stacks } from './chestify';
 import { ColonJoined } from '../objects';
 import { distSq } from '../muffler/stations';
+import { RecipeName } from '../muffler/walk-recipes';
 
 export class ReqChests extends Component<{ brick: string }> {
   render(props: { brick: string }) {
     const brick = data.doc[props.brick];
-    const locs: [Coord, string][] = [];
-    for (const [label, { locations }] of Object.entries(brick.asm)) {
-      for (const loc of locations) {
-        locs.push([loc, label.split('\0', 2)[1]]);
-      }
+    const locs: [Coord, RecipeName][] = [];
+    for (const [, recipe, , loc] of brick.asms) {
+      if (!recipe) continue;
+      locs.push([loc, recipe]);
     }
 
     const nearest = (loc: Coord) => {
-      let best: [string, number] = ['???', Infinity];
-      for (const [other, label] of locs) {
+      let best: [RecipeName, number] = ['???', Infinity];
+      for (const [other, recipe] of locs) {
         const dist = distSq(loc, other);
-        if (dist < best[1]) best = [label, dist];
+        if (dist < best[1]) best = [recipe, dist];
       }
       return best;
     };
