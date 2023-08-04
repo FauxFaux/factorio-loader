@@ -130,6 +130,19 @@ export function buildMaking() {
   return recipesMaking;
 }
 
+export function buildConsuming() {
+  const consuming: Record<Colon, RecipeName[]> = {};
+  for (const [name, recipe] of Object.entries(data.recipes.regular)) {
+    if (recipeBan(name)) continue;
+    for (const ing of recipe.ingredients) {
+      const colon = ing.colon;
+      if (!consuming[colon]) consuming[colon] = [];
+      consuming[colon].push(name);
+    }
+  }
+  return consuming;
+}
+
 export function buildMissingIngredients(
   canMake: Set<string>,
   recipesMaking: Record<string, string[]>,

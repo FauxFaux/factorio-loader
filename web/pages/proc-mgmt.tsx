@@ -3,11 +3,11 @@ import { Component } from 'preact';
 import { pack, unpack, useLib } from '../muffler/libs';
 import { route } from 'preact-router';
 import { effectsOf, jobsEffects, NumberTableRow, PickRecipe } from './plan';
-import { Colon } from '../muffler/colon';
+import { Colon, fromColon } from '../muffler/colon';
 import {
+  buildConsuming,
   buildMaking,
   makeUpRecipe,
-  productAsFloat,
   RecipeName,
   recipeSummary,
 } from '../muffler/walk-recipes';
@@ -97,6 +97,18 @@ export class ProcMgmt extends Component<ProcMgmtProps, ProcMgmtState> {
       })),
     );
 
+    const exportSort = (a: Colon, b: Colon) => {
+      const explict = (colon: Colon) => !!props.manifest.requirements?.[colon];
+      if (explict(a) && explict(b)) {
+        return fromColon(a)[1].localised_name.localeCompare(
+          fromColon(b)[1].localised_name,
+        );
+      }
+      if (explict(a)) return -1;
+      if (explict(b)) return 1;
+      return effects[a] - effects[b];
+    };
+
     const summary = (
       <div class={'row'}>
         <div class={'col'}>
@@ -126,50 +138,65 @@ export class ProcMgmt extends Component<ProcMgmtProps, ProcMgmtState> {
           )}
           <table>
             <tbody>
-              {[...exports].map((colon) => (
-                <tr>
-                  <td>
-                    <input
-                      class={'form-control'}
-                      type={'number'}
-                      min={0}
-                      step={'any'}
-                      size={4}
-                      style={'width: 5em'}
-                      value={props.manifest.requirements?.[colon] ?? 0}
-                      onChange={(e: any) => {
-                        const val = parseFloat(e.target.value);
-                        if (!val) {
-                          delete props.manifest.requirements?.[colon];
-                        } else {
-                          props.manifest.requirements =
-                            props.manifest.requirements || {};
-                          props.manifest.requirements[colon] = val;
-                        }
-                        props.setManifest(props.manifest);
-                      }}
-                    />
-                  </td>
-                  <td>
-                    <ColonJoined colon={colon} />
-                  </td>
-                </tr>
-              ))}
+              {[...exports].sort(exportSort).map((colon) => {
+                const extraStyle =
+                  props.manifest.requirements?.[colon] !== undefined
+                    ? { 'font-weight': 'bold' }
+                    : { 'font-style': 'italic' };
+                const onChange = (e: any) => {
+                  const val = parseFloat(e.target.value);
+                  if (!val) {
+                    delete props.manifest.requirements?.[colon];
+                  } else {
+                    props.manifest.requirements =
+                      props.manifest.requirements || {};
+                    props.manifest.requirements[colon] = val;
+                  }
+                  props.setManifest(props.manifest);
+                };
+                return (
+                  <tr>
+                    <td>
+                      <input
+                        class={'form-control'}
+                        type={'number'}
+                        min={0}
+                        step={'any'}
+                        size={4}
+                        style={{
+                          width: '5em',
+                          'text-align': 'right',
+                          ...extraStyle,
+                        }}
+                        value={props.manifest.requirements?.[colon] ?? ''}
+                        placeholder={effects[colon]?.toFixed(1) ?? '??'}
+                        onChange={onChange}
+                      />
+                    </td>
+                    <td>
+                      <ColonJoined colon={colon} />
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
       </div>
     );
 
-    // const missing = new Set([...inputs].filter((input) => !outputs.has(input)));
-    // Object.keys(props.manifest.explicitImports ?? {}).forEach((colon) => missing.delete(colon));
-
     const waysToMake = buildMaking();
+    const waysToConsume = buildConsuming();
+
     const fixes = Object.entries(effects)
-      .filter(([, effect]) => effect < -1e-5)
-      .sort(([, a], [, b]) => a - b)
+      .filter(([colon]) => props.manifest.requirements?.[colon] === undefined)
+      .filter(([, effect]) => Math.abs(effect) > 1e-5)
+      .sort(([, a], [, b]) => Math.abs(b) - Math.abs(a))
       .map(([colon]) => {
-        const candidates = waysToMake[colon] ?? [];
+        const missing = effects[colon] < 0;
+        const candidates = missing
+          ? waysToMake[colon] ?? []
+          : waysToConsume[colon] ?? [];
         const total = candidates.length;
 
         const recipeBlobs = candidates
@@ -214,7 +241,8 @@ export class ProcMgmt extends Component<ProcMgmtProps, ProcMgmtState> {
         const item = (
           <td rowSpan={count}>
             <p>
-              Missing {humanise(-effects[colon])} &times;{' '}
+              {missing ? 'Missing' : 'Surplus'}{' '}
+              {humanise((missing ? -1 : 1) * effects[colon])} &times;{' '}
               <ColonJoined colon={colon} />
             </p>
             {count !== total && (

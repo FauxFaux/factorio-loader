@@ -238,6 +238,7 @@
 
 .build-speed th, .build-speed td {
   text-align: right;
+  padding-left: 0.3em;
 }
 
 .action-pill {
