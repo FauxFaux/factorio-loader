@@ -47,8 +47,6 @@ export type Stop = {
 
 export type BlockContent = {
   tags: string[];
-  /** @deprecated read from asms */
-  asm: Record<string, { count: number; locations: Coord[] }>;
   // automated-factory-mk04	/ iron-stick / { speed-module: 4 } / location / unit-number
   asms: [Factory, RecipeName | null, Record<string, number>, Coord, number][];
   stop: Stop[];
@@ -266,7 +264,6 @@ function main() {
     if (!byBlock[sid]) {
       byBlock[sid] = {
         tags: [],
-        asm: {},
         asms: [],
         stop: [],
         items: {},
@@ -292,12 +289,6 @@ function main() {
   for (const obj of loadRec('assembling-machine')) {
     const block = getBlock(obj.block);
     const recp = obj.ext[0];
-    const label = `${obj.name}\0${recp}`;
-    if (!block.asm[label]) {
-      block.asm[label] = { count: 0, locations: [] };
-    }
-    block.asm[label].count++;
-    block.asm[label].locations.push(obj.pos);
 
     const modules = addItems({}, obj.ext.slice(1));
     block.asms.push([obj.name, recp, modules, obj.pos, obj.unitNumber]);
@@ -307,21 +298,11 @@ function main() {
   for (const obj of loadRec('furnace')) {
     const block = getBlock(obj.block);
     const recp = obj.ext[0];
-    const label = `${obj.name}\0${recp}`;
-    if (!block.asm[label]) {
-      block.asm[label] = { count: 0, locations: [] };
-    }
-    block.asm[label].count++;
-    block.asm[label].locations.push(obj.pos);
 
     block.asms.push([obj.name, recp, {}, obj.pos, obj.unitNumber]);
   }
 
   for (const block of Object.values(byBlock)) {
-    for (const obj of Object.values(block.asm)) {
-      obj.locations.sort();
-      obj.locations = obj.locations.slice(0, 6);
-    }
     block.asms.sort();
   }
 
