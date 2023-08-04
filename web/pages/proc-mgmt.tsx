@@ -118,11 +118,12 @@ export class ProcMgmt extends Component<ProcMgmtProps, ProcMgmtState> {
                       class={'form-control'}
                       type={'number'}
                       min={0}
+                      step={'any'}
                       size={4}
                       style={'width: 5em'}
                       value={props.manifest.requirements?.[colon] ?? 0}
                       onChange={(e: any) => {
-                        const val = parseInt(e.target.value);
+                        const val = parseFloat(e.target.value);
                         if (!val) {
                           delete props.manifest.requirements?.[colon];
                         } else {

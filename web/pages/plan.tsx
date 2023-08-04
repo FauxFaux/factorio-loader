@@ -92,42 +92,6 @@ export class Plan extends Component<{ encoded?: string }, PlanState> {
     const effects = jobsEffects(state.manifest.jobs);
     const area = areaGuess(state.manifest.jobs);
 
-    const NumberTableRow = ({
-      colon,
-      amount,
-    }: {
-      colon: Colon;
-      amount: number;
-    }) => {
-      // 50: typical LTN load
-      const fullTrain = stackSize(colon) * 50;
-      const filterInserterSpeed = 4.62; // items per second
-      const hour = 60 * 60;
-      const maxTrainsPerHour = hour / (fullTrain / (8 * filterInserterSpeed));
-      const tph = (amount * hour) / fullTrain;
-      return (
-        <tr>
-          <td style={'text-align: right'}>{humanise(amount)} &times;</td>
-          <td>
-            <ColonJoined colon={colon} />
-          </td>
-          <td
-            style={'text-align: right'}
-            class={
-              tph > 15
-                ? 'plan-number-table--naughty'
-                : tph > maxTrainsPerHour
-                ? 'plan-number-table--risky'
-                : ''
-            }
-          >
-            {tph.toFixed(1)}
-            <abbr title={'trains per hour, at 50 stacks (barrelled)'}>tph</abbr>
-          </td>
-        </tr>
-      );
-    };
-
     const effectsSection = (
       <div class={'row'}>
         <div class={'col plan-table-col'}>
@@ -739,3 +703,39 @@ function packandle(manifest: Manifest): Andle {
     process_modifiers: {},
   };
 }
+
+export const NumberTableRow = ({
+  colon,
+  amount,
+}: {
+  colon: Colon;
+  amount: number;
+}) => {
+  // 50: typical LTN load
+  const fullTrain = stackSize(colon) * 50;
+  const filterInserterSpeed = 4.62; // items per second
+  const hour = 60 * 60;
+  const maxTrainsPerHour = hour / (fullTrain / (8 * filterInserterSpeed));
+  const tph = (amount * hour) / fullTrain;
+  return (
+    <tr>
+      <td style={'text-align: right'}>{humanise(amount)} &times;</td>
+      <td>
+        <ColonJoined colon={colon} />
+      </td>
+      <td
+        style={'text-align: right'}
+        class={
+          tph > 15
+            ? 'plan-number-table--naughty'
+            : tph > maxTrainsPerHour
+            ? 'plan-number-table--risky'
+            : ''
+        }
+      >
+        {tph.toFixed(1)}
+        <abbr title={'trains per hour, at 50 stacks (barrelled)'}>tph</abbr>
+      </td>
+    </tr>
+  );
+};
