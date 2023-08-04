@@ -306,7 +306,7 @@ export class Chainer extends Component<{ wanted: string }> {
   }
 }
 
-const ActionList = (props: { action: Action }) => {
+export const ActionList = (props: { action: Action }) => {
   const consumes = Object.entries(props.action).filter(([, v]) => v < 0);
   const produces = Object.entries(props.action).filter(([, v]) => v > 0);
   const compareNames = (a: Colon, b: Colon) =>

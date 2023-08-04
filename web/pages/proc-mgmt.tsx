@@ -2,18 +2,20 @@ import { Component } from 'preact';
 
 import { pack, unpack, useLib } from '../muffler/libs';
 import { route } from 'preact-router';
-import { effectsOf, jobsEffects, PickRecipe } from './plan';
+import { effectsOf, jobsEffects, NumberTableRow, PickRecipe } from './plan';
 import { Colon } from '../muffler/colon';
 import {
   buildMaking,
   makeUpRecipe,
+  productAsFloat,
   RecipeName,
   recipeSummary,
 } from '../muffler/walk-recipes';
 import { Factory, FactoryClass } from '../datae';
-import { ColonJoined } from '../objects';
+import { ColonJoined, JRecipe } from '../objects';
 import { BuildTime } from '../components/how-to-make';
-import { ActionPill } from './block';
+import { Action, ActionPill } from './block';
+import { humanise } from '../muffler/human';
 
 const US = '/an/proc-mgmt/';
 
@@ -99,16 +101,29 @@ export class ProcMgmt extends Component<ProcMgmtProps, ProcMgmtState> {
       <div class={'row'}>
         <div class={'col'}>
           <h2>Imports</h2>
-          <ul>
-            {[...imports].map((colon) => (
-              <li>
-                {effects[colon]} <ColonJoined colon={colon} />
-              </li>
-            ))}
-          </ul>
+          <table
+            className={'plan-number-table'}
+            style={{ width: 'auto', minWidth: '20em' }}
+          >
+            <tbody>
+              {[...imports]
+                .sort((a, b) => effects[a] - effects[b])
+                .map((colon) => (
+                  <NumberTableRow colon={colon} amount={-effects[colon]} />
+                ))}
+            </tbody>
+          </table>
         </div>
         <div class={'col'}>
           <h2>Exports</h2>
+          {Object.values(props.manifest.requirements ?? {}).some(
+            (req) => req > 0,
+          ) || (
+            <div class={'alert alert-warning'}>
+              Choose at least one required amount of output, by entering a
+              number here, or everything will compute as zero.
+            </div>
+          )}
           <table>
             <tbody>
               {[...exports].map((colon) => (
@@ -151,40 +166,71 @@ export class ProcMgmt extends Component<ProcMgmtProps, ProcMgmtState> {
 
     const waysToMake = buildMaking();
     const fixes = Object.entries(effects)
-      .filter(([colon, effect]) => effect < 0)
+      .filter(([, effect]) => effect < -1e-5)
       .sort(([, a], [, b]) => a - b)
       .map(([colon]) => {
-        const candidates = waysToMake[colon];
-        return candidates.map((recipeName) => {
-          const recp = makeUpRecipe(recipeName)!;
+        const candidates = waysToMake[colon] ?? [];
+        const total = candidates.length;
 
-          return (
-            <tr>
-              <td>
-                <button
-                  class={'btn btn-sm btn-success'}
-                  onClick={() => {
-                    props.manifest.recipes = props.manifest.recipes || {};
-                    props.manifest.recipes[recipeName] = {
-                      craftingSpeed: 1,
-                    };
-                    props.setManifest(props.manifest);
-                  }}
-                  title={'Add recipe'}
-                >
-                  ✅️
-                </button>
-              </td>
-              <td>
-                {recp.localised_name} (
-                <span class={'text-muted'}>{recipeName}</span>)
-              </td>
-              <td>
-                <ActionPill action={effectsOf(recp, 1)} />
-              </td>
-            </tr>
-          );
-        });
+        const recipeBlobs = candidates
+          .sort(
+            (a, b) =>
+              recipeScore(makeUpRecipe(b)!, effects) -
+              recipeScore(makeUpRecipe(a)!, effects),
+          )
+          .slice(0, 6)
+          .map((recipeName) => {
+            const recp = makeUpRecipe(recipeName)!;
+
+            return (
+              <>
+                <td>
+                  <button
+                    class={'btn btn-sm btn-success'}
+                    onClick={() => {
+                      props.manifest.recipes = props.manifest.recipes || {};
+                      props.manifest.recipes[recipeName] = {
+                        craftingSpeed: 1,
+                      };
+                      props.setManifest(props.manifest);
+                    }}
+                    title={'Add recipe'}
+                  >
+                    ➕
+                  </button>
+                </td>
+                <td>
+                  {recp.localised_name} (
+                  <span class={'text-muted'}>{recipeName}</span>)
+                </td>
+                <td>
+                  <ActionPill action={effectsOf(recp, 1 / recp.time)} />
+                </td>
+              </>
+            );
+          });
+
+        const count = recipeBlobs.length;
+        const item = (
+          <td rowSpan={count}>
+            <p>
+              Missing {humanise(-effects[colon])} &times;{' '}
+              <ColonJoined colon={colon} />
+            </p>
+            {count !== total && (
+              <p>
+                Showing top {count}/{total} recipes.
+              </p>
+            )}
+          </td>
+        );
+
+        return recipeBlobs.map((blob, i) => (
+          <tr>
+            {i === 0 && item}
+            {blob}
+          </tr>
+        ));
       });
 
     const recipeRows = Object.entries(props.manifest.recipes || {}).map(
@@ -234,26 +280,52 @@ export class ProcMgmt extends Component<ProcMgmtProps, ProcMgmtState> {
       },
     );
 
-    return (
+    const mainPage = Object.keys(props.manifest.recipes ?? {}).length ? (
       <>
         {summary}
-        <table class={'table'}>
-          <thead>
-            <tr>
-              <th></th>
-              <th>Recipe</th>
-              <th>
-                <abbr title={'Computed assemblers'}>Asms</abbr>
-              </th>
-              <th>Speed</th>
-              <th>Effect</th>
-            </tr>
-          </thead>
-          <tbody>{recipeRows}</tbody>
-        </table>
-        <table>
-          <tbody>{fixes}</tbody>
-        </table>
+        <div class={'row'}>
+          <h2>Current recipes, computed counts, and speeds</h2>
+          <table class={'table'}>
+            <thead>
+              <tr>
+                <th colSpan={2}>Recipe</th>
+                <th>
+                  <abbr title={'Computed assemblers'}>Asms</abbr>
+                </th>
+                <th>Speed</th>
+                <th>Effect</th>
+              </tr>
+            </thead>
+            <tbody>{recipeRows}</tbody>
+          </table>
+        </div>
+        {!!fixes.length && (
+          <div class={'row'}>
+            <h2>Proposed fixes</h2>
+            <table class={'table'}>
+              <thead>
+                <tr>
+                  <th>Problem</th>
+                  <th />
+                  <th>Recipe</th>
+                  <th>Effect</th>
+                </tr>
+              </thead>
+              <tbody>{fixes}</tbody>
+            </table>
+          </div>
+        )}
+      </>
+    ) : (
+      <div class={'row'}>
+        <h2>Let's manage a process</h2>
+        <p>First up, let's pick a recipe based on a target item.</p>
+      </div>
+    );
+
+    return (
+      <>
+        {mainPage}
         <PickRecipe
           colon={state.recipeColon}
           setColon={(recipeColon) => this.setState({ recipeColon })}
@@ -288,4 +360,37 @@ export class ProcMgmtPage extends Component<{ encoded?: string }> {
       />
     );
   }
+}
+
+function recipeScore(recp: JRecipe, globalEffect: Action): number {
+  const E = 1e-5;
+
+  // TODO: typical speed?
+  const oneAssembler = effectsOf(recp, 1 / recp.time);
+
+  let score = 0;
+  for (const ing of recp.ingredients) {
+    const effect = globalEffect[ing.colon];
+    if (effect === undefined) {
+      // needs something we don't have
+      score -= 100;
+    } else if (effect > E) {
+      score += 50 - effect / oneAssembler[ing.colon];
+    } else {
+      score += 10;
+    }
+  }
+
+  for (const prod of recp.products) {
+    const effect = globalEffect[prod.colon];
+    if (effect === undefined) {
+      score -= 100;
+    } else if (effect < -E) {
+      score += 50 + effect / oneAssembler[prod.colon];
+    } else {
+      score += 10;
+    }
+  }
+
+  return score;
 }

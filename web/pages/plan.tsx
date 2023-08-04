@@ -711,30 +711,43 @@ export const NumberTableRow = ({
   colon: Colon;
   amount: number;
 }) => {
-  // 50: typical LTN load
-  const fullTrain = stackSize(colon) * 50;
+  const itemStackSize = stackSize(colon);
+  const typicalStacksPerTrain = 50;
+  const fullTrain = itemStackSize * typicalStacksPerTrain;
+  const isFluid = colon.startsWith('fluid:');
   const filterInserterSpeed = 4.62; // items per second
   const hour = 60 * 60;
   const maxTrainsPerHour = hour / (fullTrain / (8 * filterInserterSpeed));
   const tph = (amount * hour) / fullTrain;
+  const [clazz, tip] =
+    tph > 15
+      ? [
+          'plan-number-table--naughty',
+          'which is too many for LTN with a single station',
+        ]
+      : tph > maxTrainsPerHour
+      ? [
+          'plan-number-table--risky',
+          'which is too many for a regular filter inserter station',
+        ]
+      : ['', null];
   return (
     <tr>
       <td style={'text-align: right'}>{humanise(amount)} &times;</td>
       <td>
         <ColonJoined colon={colon} />
       </td>
-      <td
-        style={'text-align: right'}
-        class={
-          tph > 15
-            ? 'plan-number-table--naughty'
-            : tph > maxTrainsPerHour
-            ? 'plan-number-table--risky'
-            : ''
-        }
-      >
+      <td style={'text-align: right'} class={clazz}>
         {tph.toFixed(1)}
-        <abbr title={'trains per hour, at 50 stacks (barrelled)'}>tph</abbr>
+        <abbr
+          title={
+            `trains per hour, at ${typicalStacksPerTrain} stacks per train` +
+            (isFluid ? ', barrelled' : '') +
+            (tip ? `, ${tip}` : '')
+          }
+        >
+          tph
+        </abbr>
       </td>
     </tr>
   );

@@ -107,6 +107,26 @@ export function buildMaking() {
       recipesMaking[colon].push(name);
     }
   }
+  // restore recipes for barrels used as real inputs
+  // gron data/recipes.json | fgrep ingredients | fgrep item | fgrep -- -barrel | cut -d'"' -f 4 | sortuniq -c
+  for (const thing of [
+    'btx',
+    'wax',
+    'oleochemicals',
+    'naphtha',
+    'phosphoric-acid',
+    'syrup-01',
+    'mutant-enzymes',
+    'arqad-honey',
+    'tall-oil',
+    'natural-gas',
+    'olefin',
+    'water',
+  ]) {
+    const key = `item:${thing}-barrel`;
+    if (!recipesMaking[key]) recipesMaking[key] = [];
+    recipesMaking[key].push(`fill-${thing}-barrel`);
+  }
   return recipesMaking;
 }
 
