@@ -5,6 +5,7 @@ import { route } from 'preact-router';
 import { effectsOf, jobsEffects, PickRecipe } from './plan';
 import { Colon } from '../muffler/colon';
 import {
+  buildMaking,
   makeUpRecipe,
   RecipeName,
   recipeSummary,
@@ -144,6 +145,47 @@ export class ProcMgmt extends Component<ProcMgmtProps, ProcMgmtState> {
       </div>
     );
 
+    // const missing = new Set([...inputs].filter((input) => !outputs.has(input)));
+    // Object.keys(props.manifest.explicitImports ?? {}).forEach((colon) => missing.delete(colon));
+
+    const waysToMake = buildMaking();
+    const fixes = Object.entries(effects)
+      .filter(([colon, effect]) => effect < 0)
+      .sort(([, a], [, b]) => a - b)
+      .map(([colon]) => {
+        const candidates = waysToMake[colon];
+        return candidates.map((recipeName) => {
+          const recp = makeUpRecipe(recipeName)!;
+
+          return (
+            <tr>
+              <td>
+                <button
+                  class={'btn btn-sm btn-success'}
+                  onClick={() => {
+                    props.manifest.recipes = props.manifest.recipes || {};
+                    props.manifest.recipes[recipeName] = {
+                      craftingSpeed: 1,
+                    };
+                    props.setManifest(props.manifest);
+                  }}
+                  title={'Add recipe'}
+                >
+                  ✅️
+                </button>
+              </td>
+              <td>
+                {recp.localised_name} (
+                <span class={'text-muted'}>{recipeName}</span>)
+              </td>
+              <td>
+                <ActionPill action={effectsOf(recp, 1)} />
+              </td>
+            </tr>
+          );
+        });
+      });
+
     const recipeRows = Object.entries(props.manifest.recipes || {}).map(
       ([recipeName, obj]) => {
         const recp = makeUpRecipe(recipeName)!;
@@ -207,6 +249,9 @@ export class ProcMgmt extends Component<ProcMgmtProps, ProcMgmtState> {
             </tr>
           </thead>
           <tbody>{recipeRows}</tbody>
+        </table>
+        <table>
+          <tbody>{fixes}</tbody>
         </table>
         <PickRecipe
           colon={state.recipeColon}
