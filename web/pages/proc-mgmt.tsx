@@ -187,6 +187,15 @@ export class ProcMgmt extends Component<ProcMgmtProps, ProcMgmtState> {
               })}
             </tbody>
           </table>
+          <hr/>
+          <button class={'btn btn-danger'} onClick={() => {
+            delete props.manifest.requirements;
+            delete props.manifest.explicitImports;
+            delete props.manifest.explicitExports;
+            props.setManifest(props.manifest);
+          }}>
+            Clear all customisations
+          </button>
         </div>
       </div>
     );
@@ -195,9 +204,15 @@ export class ProcMgmt extends Component<ProcMgmtProps, ProcMgmtState> {
     const waysToConsume = buildConsuming();
 
     const fixes = Object.entries(effects)
-      .filter(([colon]) => props.manifest.requirements?.[colon] === undefined)
+      .filter(
+        ([colon]) =>
+          props.manifest.requirements?.[colon] === undefined &&
+          props.manifest.explicitImports?.[colon] === undefined &&
+          props.manifest.explicitExports?.[colon] === undefined,
+      )
       .filter(([, effect]) => Math.abs(effect) > 1e-5)
       .sort(([, a], [, b]) => Math.abs(b) - Math.abs(a))
+      .slice(0, 6)
       .map(([colon]) => {
         const missing = effects[colon] < 0;
         const candidates = missing
@@ -256,6 +271,18 @@ export class ProcMgmt extends Component<ProcMgmtProps, ProcMgmtState> {
                 Showing top {count}/{total} recipes.
               </p>
             )}
+            {missing && (
+            <button
+              class={'btn btn-sm btn-info'}
+              onClick={() => {
+                props.manifest.explicitImports =
+                  props.manifest.explicitImports || {};
+                props.manifest.explicitImports[colon] = {};
+                props.setManifest(props.manifest);
+              }}
+            >
+              Mark as explicit import
+            </button>)}
           </td>
         );
 
