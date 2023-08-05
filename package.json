@@ -35,7 +35,7 @@
     "preact-fetching": "^0.1.1",
     "preact-render-to-string": "^6.0.3",
     "preact-router": "^4.1.0",
-    "process-mgmt": "github:CandleCandle/process-mgmt#301221952b64e90e99c2b5cf90af2f0bc0a650b0",
+    "process-mgmt": "github:FauxFaux/process-mgmt#7b747ec786546c0eec7e95ceaa909658ec831146",
     "qs": "^6.11.2",
     "serialize-error": "^11.0.0"
   },
