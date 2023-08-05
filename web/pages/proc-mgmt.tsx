@@ -1,7 +1,8 @@
 import { Component } from 'preact';
+import { serializeError } from 'serialize-error';
+import { route } from 'preact-router';
 
 import { pack, unpack, useLib } from '../muffler/libs';
-import { route } from 'preact-router';
 import {
   effectsOf,
   jobsEffects,
@@ -17,8 +18,8 @@ import {
   RecipeName,
   recipeSummary,
 } from '../muffler/walk-recipes';
-import { Factory, FactoryClass } from '../datae';
-import { ColonJoined, JRecipe } from '../objects';
+import { data, Factory, FactoryClass } from '../datae';
+import { ColonJoined } from '../objects';
 import { BuildTime } from '../components/how-to-make';
 import { Action, ActionPill } from './block';
 import { humanise } from '../muffler/human';
@@ -88,7 +89,7 @@ export class ProcMgmt extends Component<ProcMgmtProps, ProcMgmtState> {
         recipes: props.manifest.recipes ?? {},
       });
     } catch (err) {
-      console.error(err);
+      var procMgmtErr = err;
     }
 
     Object.keys(props.manifest.requirements ?? {}).forEach((colon) =>
@@ -187,14 +188,26 @@ export class ProcMgmt extends Component<ProcMgmtProps, ProcMgmtState> {
               })}
             </tbody>
           </table>
-          <hr/>
-          <button class={'btn btn-danger'} onClick={() => {
-            delete props.manifest.requirements;
-            delete props.manifest.explicitImports;
-            delete props.manifest.explicitExports;
-            props.setManifest(props.manifest);
-          }}>
+          <hr />
+          <button
+            class={'btn btn-danger'}
+            onClick={() => {
+              delete props.manifest.requirements;
+              delete props.manifest.explicitImports;
+              delete props.manifest.explicitExports;
+              props.setManifest(props.manifest);
+            }}
+          >
             Clear all customisations
+          </button>
+
+          <button
+            class={'btn btn-danger'}
+            onClick={() => {
+              props.setManifest({});
+            }}
+          >
+            Clear everything
           </button>
         </div>
       </div>
@@ -202,29 +215,47 @@ export class ProcMgmt extends Component<ProcMgmtProps, ProcMgmtState> {
 
     const waysToMake = buildMaking();
     const waysToConsume = buildConsuming();
+    const recipeUsage = Object.values(data.doc)
+      .flatMap(({ asms }) => asms.flatMap(([, recipe]) => recipe))
+      .reduce(
+        (acc, recipe) => {
+          if (recipe) acc[recipe] = (acc[recipe] || 0) + 1;
+          return acc;
+        },
+        {} as Record<RecipeName, number>,
+      );
 
-    const fixes = Object.entries(effects)
+    const candidateRecipes = (missing: boolean) =>
+      missing ? waysToMake : waysToConsume;
+
+    const availableFixes = Object.entries(effects)
       .filter(
         ([colon]) =>
           props.manifest.requirements?.[colon] === undefined &&
           props.manifest.explicitImports?.[colon] === undefined &&
           props.manifest.explicitExports?.[colon] === undefined,
       )
-      .filter(([, effect]) => Math.abs(effect) > 1e-5)
-      .sort(([, a], [, b]) => Math.abs(b) - Math.abs(a))
+      .filter(([, effect]) => Math.abs(effect) > 1e-5);
+    const fixes = availableFixes
+      .sort(([aColon, a], [bColon, b]) => {
+        let score = Math.abs(b) - Math.abs(a);
+        const oneA = candidateRecipes(a < 0)[aColon]?.length === 1;
+        const oneB = candidateRecipes(b < 0)[bColon]?.length === 1;
+        if (oneA && !oneB) score -= 1000;
+        if (oneB && !oneA) score += 1000;
+        return score;
+      })
       .slice(0, 6)
-      .map(([colon]) => {
+      .map(([colon], fixi) => {
         const missing = effects[colon] < 0;
-        const candidates = missing
-          ? waysToMake[colon] ?? []
-          : waysToConsume[colon] ?? [];
+        const candidates = candidateRecipes(missing)[colon] ?? [];
         const total = candidates.length;
 
         const recipeBlobs = candidates
           .sort(
             (a, b) =>
-              recipeScore(makeUpRecipe(b)!, effects) -
-              recipeScore(makeUpRecipe(a)!, effects),
+              recipeScore(b, effects, recipeUsage) -
+              recipeScore(a, effects, recipeUsage),
           )
           .slice(0, 6)
           .map((recipeName) => {
@@ -272,22 +303,34 @@ export class ProcMgmt extends Component<ProcMgmtProps, ProcMgmtState> {
               </p>
             )}
             {missing && (
-            <button
-              class={'btn btn-sm btn-info'}
-              onClick={() => {
-                props.manifest.explicitImports =
-                  props.manifest.explicitImports || {};
-                props.manifest.explicitImports[colon] = {};
-                props.setManifest(props.manifest);
-              }}
-            >
-              Mark as explicit import
-            </button>)}
+              <button
+                class={'btn btn-sm btn-info'}
+                onClick={() => {
+                  props.manifest.explicitImports =
+                    props.manifest.explicitImports || {};
+                  props.manifest.explicitImports[colon] = {};
+                  props.setManifest(props.manifest);
+                }}
+              >
+                Mark as explicit import
+              </button>
+            )}
           </td>
         );
 
+        const style: Record<string, string> = {};
+        if (fixi % 2 === 1) {
+          style['background-color'] = '#2c3034';
+        }
         return recipeBlobs.map((blob, i) => (
-          <tr>
+          <tr
+            style={{
+              ...style,
+              ...(i === 0
+                ? { 'border-spacing': '1em', 'border-collapse': 'separate' }
+                : {}),
+            }}
+          >
             {i === 0 && item}
             {blob}
           </tr>
@@ -343,6 +386,11 @@ export class ProcMgmt extends Component<ProcMgmtProps, ProcMgmtState> {
 
     const mainPage = Object.keys(props.manifest.recipes ?? {}).length ? (
       <>
+        {procMgmtErr && (
+          <div class={'alert alert-danger'}>
+            process-mgmt error: {renderError(procMgmtErr)}
+          </div>
+        )}
         {summary}
         <div class={'row'}>
           <h2>Current recipes, computed counts, and speeds</h2>
@@ -362,7 +410,16 @@ export class ProcMgmt extends Component<ProcMgmtProps, ProcMgmtState> {
         </div>
         {!!fixes.length && (
           <div class={'row'}>
-            <h2>Proposed fixes</h2>
+            <h2>
+              Proposed fixes{' '}
+              {fixes.length !== availableFixes.length ? (
+                <>
+                  (top {fixes.length} of {availableFixes.length} shown)
+                </>
+              ) : (
+                <></>
+              )}
+            </h2>
             <table class={'table'}>
               <thead>
                 <tr>
@@ -425,7 +482,12 @@ export class ProcMgmtPage extends Component<{ encoded?: string }> {
   }
 }
 
-function recipeScore(recp: JRecipe, globalEffect: Action): number {
+function recipeScore(
+  recipeName: RecipeName,
+  globalEffect: Action,
+  usage: Record<RecipeName, number>,
+): number {
+  const recp = makeUpRecipe(recipeName)!;
   const E = 1e-5;
 
   // TODO: typical speed?
@@ -455,5 +517,30 @@ function recipeScore(recp: JRecipe, globalEffect: Action): number {
     }
   }
 
+  score += 10 * (usage[recipeName] ?? 0);
+  if (recp.unlocked_from_start) score += 50;
+  else if (
+    Object.values(data.technologies).some(
+      (t) => t.researched && t.unlocks.includes(recipeName),
+    )
+  ) {
+    score += 25;
+  }
+
   return score;
+}
+
+function renderError(err: any) {
+  if ('name' in err && 'message' in err)
+    return (
+      <div>
+        {err.name}: {err.message}
+        <pre>{err.stack}</pre>
+      </div>
+    );
+  return (
+    <div>
+      <pre>{JSON.stringify(serializeError(err), null, 2)}</pre>
+    </div>
+  );
 }
