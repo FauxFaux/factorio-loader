@@ -23,6 +23,7 @@ import { ColonJoined } from '../objects';
 import { BuildTime } from '../components/how-to-make';
 import { Action, ActionPill } from './block';
 import { humanise } from '../muffler/human';
+import { Layout } from '../components/layout';
 
 const US = '/an/proc-mgmt/';
 
@@ -433,6 +434,9 @@ export class ProcMgmt extends Component<ProcMgmtProps, ProcMgmtState> {
             </table>
           </div>
         )}
+        <div class={'row'}>
+          <Layout config={{}} />
+        </div>
       </>
     ) : (
       <div class={'row'}>
