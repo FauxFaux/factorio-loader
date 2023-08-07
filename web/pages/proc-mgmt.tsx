@@ -4,6 +4,7 @@ import { route } from 'preact-router';
 
 import { pack, unpack, useLib } from '../muffler/libs';
 import {
+  assemblerDims,
   effectsOf,
   jobsEffects,
   NumberTableRow,
@@ -19,11 +20,11 @@ import {
   recipeSummary,
 } from '../muffler/walk-recipes';
 import { data, Factory, FactoryClass } from '../datae';
-import { ColonJoined } from '../objects';
+import { ColonJoined, JRecipe } from '../objects';
 import { BuildTime } from '../components/how-to-make';
 import { Action, ActionPill } from './block';
 import { humanise } from '../muffler/human';
-import { Layout } from '../components/layout';
+import { Lanes, Layout, LayoutConfig } from '../components/layout';
 
 const US = '/an/proc-mgmt/';
 
@@ -338,6 +339,17 @@ export class ProcMgmt extends Component<ProcMgmtProps, ProcMgmtState> {
         ));
       });
 
+    // sigh name and obj
+    function jobScale(
+      obj: { craftingSpeed: number },
+      recipeName: string,
+      recp: JRecipe,
+    ) {
+      return (
+        (obj.craftingSpeed * (recipeCounts?.[recipeName] ?? 1)) / recp.time
+      );
+    }
+
     const recipeRows = Object.entries(props.manifest.recipes || {}).map(
       ([recipeName, obj]) => {
         const recp = makeUpRecipe(recipeName)!;
@@ -373,17 +385,46 @@ export class ProcMgmt extends Component<ProcMgmtProps, ProcMgmtState> {
             </td>
             <td>
               <ActionPill
-                action={effectsOf(
-                  recp,
-                  (obj.craftingSpeed * (recipeCounts?.[recipeName] ?? 1)) /
-                    recp.time,
-                )}
+                action={effectsOf(recp, jobScale(obj, recipeName, recp))}
               />
             </td>
           </tr>
         );
       },
     );
+
+    const layout: LayoutConfig = {
+      districts: Object.entries(this.props.manifest.recipes ?? {}).map(
+        ([name]) => {
+          const recp = makeUpRecipe(name)!;
+          const effects = effectsOf(
+            recp,
+            jobScale(props.manifest.recipes![name], name, recp),
+          );
+          const toLanes = (perSec: [Colon, number][]): Record<Colon, Lanes> =>
+            Object.fromEntries(
+              perSec.map(([colon, perSec]) => [
+                colon,
+                Math.ceil(Math.abs(perSec) / 15),
+              ]),
+            );
+
+          return {
+            recipe: name,
+            count: recipeCounts?.[name] ?? 0,
+            assembler: assemblerDims(recp),
+            portsIn: toLanes(Object.entries(effects).filter(([, v]) => v < 0)),
+            portsOut: toLanes(Object.entries(effects).filter(([, v]) => v > 0)),
+          };
+        },
+      ),
+      inPerSec: Object.fromEntries(
+        [...imports].map((colon) => [colon, effects[colon]]),
+      ),
+      outPerSec: Object.fromEntries(
+        [...exports].map((colon) => [colon, effects[colon]]),
+      ),
+    };
 
     const mainPage = Object.keys(props.manifest.recipes ?? {}).length ? (
       <>
@@ -393,6 +434,9 @@ export class ProcMgmt extends Component<ProcMgmtProps, ProcMgmtState> {
           </div>
         )}
         {summary}
+        <div class={'row'}>
+          <Layout config={layout} />
+        </div>
         <div class={'row'}>
           <h2>Current recipes, computed counts, and speeds</h2>
           <table class={'table'}>
@@ -434,9 +478,6 @@ export class ProcMgmt extends Component<ProcMgmtProps, ProcMgmtState> {
             </table>
           </div>
         )}
-        <div class={'row'}>
-          <Layout config={{}} />
-        </div>
       </>
     ) : (
       <div class={'row'}>

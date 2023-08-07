@@ -637,15 +637,20 @@ function balance(manifest: Manifest): Manifest {
   throw new Error('Failed to converge');
 }
 
+export function assemblerDims(recipe: JRecipe): [number, number] {
+  const clazz = recipe.producerClass;
+  let [w, h] = Object.values(data.meta.factories[clazz])[0].dims;
+  if (h < w) {
+    [w, h] = [h, w];
+  }
+  return [w, h];
+}
+
 function areaGuess(jobs: Job[]) {
   let area = 0;
   for (const job of jobs) {
     const recp = makeRecipe(job);
-    const clazz = recp.producerClass;
-    let [w, h] = Object.values(data.meta.factories[clazz])[0].dims;
-    if (h < w) {
-      [w, h] = [h, w];
-    }
+    let [w, h] = assemblerDims(recp);
     const lanes = recp.ingredients.length + recp.products.length;
     h += Math.min(lanes, 3);
     w += Math.max(lanes - 3, 0);
