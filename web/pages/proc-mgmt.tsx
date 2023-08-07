@@ -32,6 +32,7 @@ interface Manifest {
   requirements?: Record<Colon, number>;
   explicitImports?: Record<Colon, {}>;
   explicitExports?: Record<Colon, {}>;
+  voided?: Record<Colon, {}>;
   recipes?: Record<RecipeName, { craftingSpeed: number }>;
   factories?: Record<
     FactoryClass,
@@ -70,6 +71,9 @@ export class ProcMgmt extends Component<ProcMgmtProps, ProcMgmtState> {
     Object.keys(props.manifest.explicitExports ?? {}).forEach((colon) =>
       imports.delete(colon),
     );
+    Object.keys(props.manifest.voided ?? {}).forEach((colon) =>
+      imports.delete(colon),
+    );
 
     const exports = new Set(
       [...outputs].filter(
@@ -96,6 +100,9 @@ export class ProcMgmt extends Component<ProcMgmtProps, ProcMgmtState> {
 
     Object.keys(props.manifest.requirements ?? {}).forEach((colon) =>
       exports.add(colon),
+    );
+    Object.keys(props.manifest.voided ?? {}).forEach((colon) =>
+      exports.delete(colon),
     );
 
     const effects = jobsEffects(
@@ -235,7 +242,8 @@ export class ProcMgmt extends Component<ProcMgmtProps, ProcMgmtState> {
         ([colon]) =>
           props.manifest.requirements?.[colon] === undefined &&
           props.manifest.explicitImports?.[colon] === undefined &&
-          props.manifest.explicitExports?.[colon] === undefined,
+          props.manifest.explicitExports?.[colon] === undefined &&
+          props.manifest.voided?.[colon] === undefined,
       )
       .filter(([, effect]) => Math.abs(effect) > 1e-5);
     const fixes = availableFixes
@@ -250,6 +258,7 @@ export class ProcMgmt extends Component<ProcMgmtProps, ProcMgmtState> {
       .slice(0, 6)
       .map(([colon], fixi) => {
         const missing = effects[colon] < 0;
+        const voidable = data.recipes.voidableItems.includes(colon);
         const candidates = candidateRecipes(missing)[colon] ?? [];
         const total = candidates.length;
 
@@ -315,6 +324,18 @@ export class ProcMgmt extends Component<ProcMgmtProps, ProcMgmtState> {
                 }}
               >
                 Mark as explicit import
+              </button>
+            )}
+            {!missing && voidable && (
+              <button
+                class={'btn btn-sm btn-info'}
+                onClick={() => {
+                  props.manifest.voided = props.manifest.voided || {};
+                  props.manifest.voided[colon] = {};
+                  props.setManifest(props.manifest);
+                }}
+              >
+                Mark as voided / vented
               </button>
             )}
           </td>

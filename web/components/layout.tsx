@@ -71,7 +71,7 @@ export class Layout extends Component<LayoutProps> {
       );
       if (placeIdx === -1) placeIdx = 0;
       const placing = toPlace.splice(placeIdx, 1)[0];
-      const maxH = 112;
+      const maxH = 105;
       const [w, h] = placing.assembler;
       const inLanes = Object.values(placing.portsIn).reduce(
         (a, b) => a + Math.ceil(b),
@@ -99,7 +99,7 @@ export class Layout extends Component<LayoutProps> {
 
       if (cy > maxH / 2) {
         cy = ty;
-        cx += w + sx;
+        cx += w + sxo + sxi;
       } else if (cy > 0) {
         cy = ty + maxH / 2;
       }
