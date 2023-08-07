@@ -1,3 +1,5 @@
+* borax (faster) is full of tailings
+
 * chromite sand is full of stone
 * hot air duplicate is incorrectly primed
 * more hot air bricks?

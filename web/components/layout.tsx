@@ -61,23 +61,47 @@ export class Layout extends Component<LayoutProps> {
       belts: [],
     };
 
+    const busSize = 4;
+    const [tx, ty] = [8 + 8 * radar.inStations.length, 8 + busSize];
+    let [cx, cy] = [tx, ty];
+
     while (toPlace.length > 0) {
       let placeIdx = toPlace.findIndex((d) =>
         Object.keys(d.portsIn).every((c) => currentlyAvailable.has(c)),
       );
       if (placeIdx === -1) placeIdx = 0;
       const placing = toPlace.splice(placeIdx, 1)[0];
-      const maxH = 100;
+      const maxH = 112;
       const [w, h] = placing.assembler;
-      const ourAssems = [];
-      let [cx, cy] = [0, 0];
+      const inLanes = Object.values(placing.portsIn).reduce(
+        (a, b) => a + Math.ceil(b),
+        0,
+      );
+      const outLanes = Object.values(placing.portsOut).reduce(
+        (a, b) => a + Math.ceil(b),
+        0,
+      );
+
+      const sy = 0;
+      // TODO: lanes > 2
+      const sxo = 2 * (inLanes / 2) + 1;
+      const sxi = 2 * (outLanes / 2) + 1;
+
+      const ass = radar.assemblers;
       for (let i = 0; i < placing.count; i++) {
-        ourAssems.push([cx, cy]);
-        cy += h;
+        ass.push({ loc: [cx, cy], dim: [w, h], recipe: placing.recipe });
+        cy += h + sy;
         if (cy >= maxH) {
-          cy = 0;
-          cx += w;
+          cy = ty;
+          cx += w + sxo + sxi;
         }
+      }
+
+      if (cy > maxH / 2) {
+        cy = ty;
+        cx += w + sx;
+      } else if (cy > 0) {
+        cy = ty + maxH / 2;
       }
     }
 
@@ -119,7 +143,7 @@ interface RadarConfig {
   inStations: RadarStation[];
   outStations: RadarStation[];
   belts: Path[];
-  assemblers: { loc: Pos; dim: Dim }[];
+  assemblers: { loc: Pos; dim: Dim; recipe?: RecipeName }[];
 }
 
 interface RadarProps {
@@ -129,9 +153,9 @@ interface RadarProps {
 class Grid {
   static readonly W = 192 - 8;
   static readonly H = 128 - 8;
-  inner: boolean[] = Array(this.W * this.H).fill(false);
-  get = (x: number, y: number) => this.inner[x + y * this.W];
-  set = (x: number, y: number) => (this.inner[x + y * this.W] = true);
+  inner: boolean[] = Array(Grid.W * Grid.H).fill(false);
+  get = (x: number, y: number) => this.inner[x + y * Grid.W];
+  set = (x: number, y: number) => (this.inner[x + y * Grid.W] = true);
   fill = (x: number, y: number, w: number, h: number) => {
     for (let i = 0; i < w; i++) {
       for (let j = 0; j < h; j++) {
@@ -148,8 +172,8 @@ class Grid {
 
   toString = () => {
     let s = '';
-    for (let y = 0; y < this.H; y++) {
-      for (let x = 0; x < this.W; x++) {
+    for (let y = 0; y < Grid.H; y++) {
+      for (let x = 0; x < Grid.W; x++) {
         s += this.get(x, y) ? 'X' : '.';
       }
       s += '\n';
@@ -208,6 +232,12 @@ class TileRadar extends Component<RadarProps> {
       );
     }
 
+    const asms = assemblers.map(({ loc: [x, y], dim: [w, h], recipe }) => (
+      <rect x={x} y={y} width={w} height={h} fill={'#006194'}>
+        <title>{recipe}</title>
+      </rect>
+    ));
+
     const outRail = '188 13';
     for (let i = 0; i < outStations.length; i++) {
       const off = -8 * (i + 1);
@@ -241,6 +271,7 @@ class TileRadar extends Component<RadarProps> {
           <rect x={192 - 3 - 2} y={4} width={2} height={120} fill={RAIL} />
           <rect x={0} y={4} width={192} height={2} fill={RAIL} />
           <rect x={0} y={128 - 4 - 2} width={192} height={2} fill={RAIL} />
+          {asms}
           <path
             d={rails.join(' ')}
             stroke={RAIL}

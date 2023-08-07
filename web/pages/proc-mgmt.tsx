@@ -405,7 +405,9 @@ export class ProcMgmt extends Component<ProcMgmtProps, ProcMgmtState> {
             Object.fromEntries(
               perSec.map(([colon, perSec]) => [
                 colon,
-                Math.ceil(Math.abs(perSec) / 15),
+                colon.startsWith('fluid:')
+                  ? 2
+                  : Math.ceil(Math.abs(perSec) / 15),
               ]),
             );
 
