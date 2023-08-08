@@ -77,11 +77,12 @@ export class StationList extends Component<
 
 export class ItemIcon extends Component<{ name: string; alt: string }> {
   render(props: { name: string; alt: string }): ComponentChild {
+    const found = data.icons[props.name] ?? data.icons['solid-fuel'];
     return (
       <span
         className="icon-sprite"
         title={props.alt}
-        style={`background: url("../data/icons.png") ${data.icons[props.name]}`}
+        style={`background: url("../data/icons.png") ${found}`}
       />
     );
   }

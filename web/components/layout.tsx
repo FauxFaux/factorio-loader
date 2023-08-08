@@ -1,6 +1,8 @@
 import { Component, JSX } from 'preact';
-import { RecipeName } from '../muffler/walk-recipes';
+import { makeUpRecipe, RecipeName } from '../muffler/walk-recipes';
 import { Colon } from '../muffler/colon';
+import { data } from '../datae';
+import { ItemIcon } from '../lists';
 
 export type Lanes = number;
 
@@ -59,11 +61,14 @@ export class Layout extends Component<LayoutProps> {
       outStations: outStations.map((s) => ({ label: Object.keys(s.ports) })),
       assemblers: [],
       belts: [],
+      icons: [],
     };
 
     const busSize = 4;
-    const [tx, ty] = [8 + 8 * radar.inStations.length, 8 + busSize];
+    const [tx, ty] = [8 + 8 * radar.inStations.length, 8 + 4 + busSize];
     let [cx, cy] = [tx, ty];
+
+    let firstOut = undefined;
 
     while (toPlace.length > 0) {
       let placeIdx = toPlace.findIndex((d) =>
@@ -71,8 +76,7 @@ export class Layout extends Component<LayoutProps> {
       );
       if (placeIdx === -1) placeIdx = 0;
       const placing = toPlace.splice(placeIdx, 1)[0];
-      const maxH = 105;
-      const [w, h] = placing.assembler;
+      const maxH = 100;
       const inLanes = Object.values(placing.portsIn).reduce(
         (a, b) => a + Math.ceil(b),
         0,
@@ -82,27 +86,84 @@ export class Layout extends Component<LayoutProps> {
         0,
       );
 
+      const [w, h] = placing.assembler;
       const sy = 0;
       // TODO: lanes > 2
-      const sxo = 2 * (inLanes / 2) + 1;
-      const sxi = 2 * (outLanes / 2) + 1;
+      let sxi = inLanes / 2;
+      let sxo = outLanes / 2;
+      if (sxi > 0) sxi += 1;
+      if (sxo > 0) sxo += 1;
 
-      const ass = radar.assemblers;
-      for (let i = 0; i < placing.count; i++) {
-        ass.push({ loc: [cx, cy], dim: [w, h], recipe: placing.recipe });
-        cy += h + sy;
-        if (cy >= maxH) {
-          cy = ty;
-          cx += w + sxo + sxi;
-        }
+      if (
+        firstOut === undefined &&
+        Object.keys(placing.portsOut).some((colon) => outPerSec[colon] > 0)
+      ) {
+        firstOut = cx + w + sxi + 2;
       }
 
-      if (cy > maxH / 2) {
-        cy = ty;
-        cx += w + sxo + sxi;
-      } else if (cy > 0) {
-        cy = ty + maxH / 2;
+      // const ass = radar.assemblers;
+      // for (let i = 0; i < placing.count; i++) {
+      //   ass.push({ loc: [cx, cy], dim: [w, h], recipe: placing.recipe });
+      //   cy += h + sy;
+      //   if (cy >= maxH) {
+      //     cy = ty;
+      //     cx += w + sxo + sxi;
+      //   }
+      // }
+      //
+      // if (cy > maxH / 2) {
+      //   cy = ty;
+      //   cx += w + sxo + sxi;
+      // } else if (cy > 0) {
+      //   cy = ty + maxH / 2;
+      // }
+
+      const d = oneTwo(
+        placing.count,
+        {
+          w,
+          h,
+          sxo,
+          sxi,
+          sy,
+        },
+        maxH,
+      );
+
+      console.log(placing, d);
+
+      radar.belts.push(
+        ...d.belts.map((path) =>
+          path.map(([lx, ly]) => [lx + cx, ly + cy] as Pos),
+        ),
+      );
+      radar.assemblers.push(
+        ...d.asms.map(([lx, ly]) => ({
+          loc: [lx + cx, ly + cy] as Pos,
+          dim: placing.assembler,
+          recipe: placing.recipe,
+        })),
+      );
+
+      const [dx, dy] = d.bound;
+
+      if (placing.recipe) {
+        radar.icons.push([[cx + (dx + 4) / 2, cy + dy / 2], placing.recipe]);
       }
+
+      cx += dx + 4;
+    }
+
+    for (let i = 0; i < busSize; ++i) {
+      const y = ty - busSize - 4 + i;
+      radar.belts.push([
+        [8, y],
+        [cx, y],
+      ]);
+      radar.belts.push([
+        [firstOut ?? 8, y + busSize],
+        [180, y + busSize],
+      ]);
     }
 
     return <TileRadar config={radar} />;
@@ -144,6 +205,7 @@ interface RadarConfig {
   outStations: RadarStation[];
   belts: Path[];
   assemblers: { loc: Pos; dim: Dim; recipe?: RecipeName }[];
+  icons: [Pos, RecipeName][];
 }
 
 interface RadarProps {
@@ -238,6 +300,41 @@ class TileRadar extends Component<RadarProps> {
       </rect>
     ));
 
+    // const icons = config.icons.map(([[x, y], recipe]) => (
+    //   <image
+    //     x={x - 4} y={y - 4} width={3392} height={3328}
+    //     href={'../data/icons.png'}
+    //     clip-path="url(#myClip)"
+    //   >
+    //     <title>{data.recipes.regular[recipe].localised_name}</title>
+    //   </image>
+    // ));
+    // TODO: shrink
+    const icons = config.icons.map(([[x, y], recipe]) => (
+      <foreignObject x={x - 16} y={y - 16} width={32} height={32}>
+        <ItemIcon
+          name={recipe}
+          alt={makeUpRecipe(recipe)?.localised_name ?? '??'}
+        />
+      </foreignObject>
+    ));
+
+    const belties = belts.map((path) => {
+      const [sx, sy] = path[0];
+      return (
+        <path
+          d={
+            `M ${sx} ${sy} ` +
+            path
+              .slice(1)
+              .map(([x, y]) => `L ${x} ${y}`)
+              .join(' ')
+          }
+          stroke={'#c89d40'}
+        />
+      );
+    });
+
     const outRail = '188 13';
     for (let i = 0; i < outStations.length; i++) {
       const off = -8 * (i + 1);
@@ -265,12 +362,16 @@ class TileRadar extends Component<RadarProps> {
     return (
       <svg viewBox="0 0 192 128" width={192 * 3} height={128 * 3}>
         <g>
+          {/*<clipPath id="myClip" clipPathUnits="objectBoundingBox">*/}
+          {/*  <rect x={0.02} y={0.02} width={0.01} height={0.01}/>*/}
+          {/*</clipPath>*/}
           <rect x={0} y={0} width={192} height={128} fill={FLOOR} />
           {/* border rails */}
           <rect x={3} y={4} width={2} height={120} fill={RAIL} />
           <rect x={192 - 3 - 2} y={4} width={2} height={120} fill={RAIL} />
           <rect x={0} y={4} width={192} height={2} fill={RAIL} />
           <rect x={0} y={128 - 4 - 2} width={192} height={2} fill={RAIL} />
+          {belties}
           {asms}
           <path
             d={rails.join(' ')}
@@ -279,8 +380,140 @@ class TileRadar extends Component<RadarProps> {
             fill={'transparent'}
           />
           {stops}
+          {icons}
         </g>
       </svg>
     );
   }
+}
+
+// function twoThirds(count: number, [w, h]: Dim, [sx, sy]: Dim, maxH: number): Pos[] {
+//   const out: Pos[] = [];
+//   const totalL = count * (h + sy);
+//   let fullCols = Math.floor(totalL / maxH);
+//   const rem = totalL - fullCols * maxH;
+//   let [cx, cy] = [0, 0];
+//   while (fullCols > 2) {
+//     out.push([cx, cy]);
+//     cy += h + sy;
+//     fullCols--;
+//   }
+// }
+
+interface DistrictRet {
+  asms: Pos[];
+  belts: Path[];
+  bound: Dim;
+}
+
+interface AsmSizeV {
+  w: number;
+  h: number;
+  sxo: number;
+  sxi: number;
+  sy: number;
+}
+
+function oneTwo(count: number, size: AsmSizeV, maxH: number): DistrictRet {
+  const { w, h, sxo, sxi, sy } = size;
+
+  const totalL = count * (h + sy);
+  if (totalL <= (maxH * 2) / 3) {
+    return oneLine(count, size);
+  }
+  const biW = sxo + w + sxi + w + sxo;
+
+  const ret: DistrictRet = {
+    asms: [],
+    belts: [],
+    bound: [0, 0],
+  };
+
+  let [cx, cy] = [0, 0];
+  for (let i = 0; i < count; i++) {
+    if (i % 2 === 0) {
+      ret.asms.push([cx + sxi, cy]);
+    } else {
+      ret.asms.push([cx + sxi + w + sxo, cy]);
+      cy += h + sy;
+    }
+    if (cy >= maxH) {
+      for (let j = 0; j < sxi - 1; ++j) {
+        let x = cx + j + 1;
+        ret.belts.push([
+          [x, 0],
+          [x, cy],
+        ]);
+        x = cx + sxi + j + w + sxo + w + 1;
+        ret.belts.push([
+          [x, 0],
+          [x, cy],
+        ]);
+      }
+      for (let j = 0; j < sxo - 1; ++j) {
+        const x = cx + sxi + w + j + 1;
+        ret.belts.push([
+          [x, 0],
+          [x, cy],
+        ]);
+      }
+      cx += biW + 2;
+      cy = 0;
+    }
+  }
+
+  for (let i = 0; i < sxi - 1; ++i) {
+    let x = cx + i + 1;
+    ret.belts.push([
+      [x, 0],
+      [x, cy],
+    ]);
+    x = cx + sxi + i + w + sxo + w + 1;
+    ret.belts.push([
+      [x, 0],
+      [x, cy],
+    ]);
+  }
+
+  for (let i = 0; i < sxo - 1; ++i) {
+    const x = cx + sxi + w + i + 1;
+    ret.belts.push([
+      [x, 0],
+      [x, cy],
+    ]);
+  }
+
+  ret.bound = [cx + biW, maxH];
+
+  return ret;
+}
+
+function oneLine(count: number, size: AsmSizeV): DistrictRet {
+  const { w, h, sxo, sxi, sy } = size;
+  const ret: DistrictRet = {
+    asms: [],
+    belts: [],
+    bound: [0, 0],
+  };
+  let [cx, cy] = [0, 0];
+  for (let i = 0; i < count; i++) {
+    ret.asms.push([cx + sxi, cy]);
+    cy += h + sy;
+  }
+  for (let i = 0; i < sxi - 1; ++i) {
+    const x = cx + i;
+    ret.belts.push([
+      [x, 0],
+      [x, cy],
+    ]);
+  }
+  for (let i = 0; i < sxo - 1; ++i) {
+    const x = cx + i + w + sxi + 1;
+    ret.belts.push([
+      [x, 0],
+      [x, cy],
+    ]);
+  }
+  ret.bound = [cx + sxi + w + sxo, cy];
+  return ret;
 }
