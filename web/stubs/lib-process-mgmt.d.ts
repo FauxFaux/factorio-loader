@@ -15,18 +15,31 @@ declare module 'process-mgmt/src/structures.js' {
       duration_modifier = 1,
       output_modifier = 1,
     );
-    createStack(): Stack;
   }
+  export class FactoryGroup {
+    constructor(name: string);
+    id: string;
+    name: string;
+  }
+
   export class Stack {
     constructor(item: Item, count: number);
   }
   export class Process {
-    id: string;
+    // duration is execution seconds (as shown in game)
+    constructor(
+      id: RecipeName,
+      inputs: Stack[],
+      outputs: Stack[],
+      duration: number,
+      group: FactoryGroup,
+    );
+    id: RecipeName;
     // incomplete
   }
 
   export class ProcessChain {
-    constructor(procs: unknown[]);
+    constructor(procs: Process[]);
     accept(visitor: any): this;
     process_counts: Record<RecipeName, number>;
   }

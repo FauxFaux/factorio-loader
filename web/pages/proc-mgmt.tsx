@@ -96,6 +96,7 @@ export class ProcMgmt extends Component<ProcMgmtProps, ProcMgmtState> {
       });
     } catch (err) {
       var procMgmtErr = err;
+      console.error('proc-mgmt error', err);
     }
 
     Object.keys(props.manifest.requirements ?? {}).forEach((colon) =>

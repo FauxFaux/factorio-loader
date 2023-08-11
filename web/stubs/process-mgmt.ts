@@ -4,17 +4,47 @@ import {
   Item,
   Factory,
   Stack,
+  Process,
   ProcessChain,
+  FactoryGroup,
 } from 'process-mgmt/src/structures.js';
 import { RateVisitor } from 'process-mgmt/src/visit/rate_visitor.js';
 import { LinearAlgebra } from 'process-mgmt/src/visit/linear_algebra_visitor.js';
 import { ProcessCountVisitor } from 'process-mgmt/src/visit/process_count_visitor.js';
-import pmDb from 'process-mgmt/src/factorio-py-1.1.53/data.js';
 
-import { RecipeName } from '../muffler/walk-recipes';
+import {
+  makeUpRecipe,
+  productAsFloat,
+  RecipeName,
+} from '../muffler/walk-recipes';
 import { Colon, splitColon } from '../muffler/colon';
 
 type BareItemName = string;
+
+function processFromRecipe(p: string) {
+  const facto = makeUpRecipe(p);
+  if (!facto) {
+    throw new Error(`no recipe for ${p}`);
+  }
+  // noinspection UnnecessaryLocalVariableJS
+  const fake = new Process(
+    p,
+    facto.ingredients.map((i) => new Stack(colonToItem(i.colon), i.amount)),
+    facto.products.map(
+      (i) => new Stack(colonToItem(i.colon), productAsFloat(i)),
+    ),
+    facto.time,
+    new FactoryGroup(facto.producerClass),
+  );
+
+  // this doesn't work great, as we re-sort things,
+  // and disagree on factory group names (which I don't think anyone is looking at)
+  // const real: Process | undefined = pmDb.processes[p];
+  // if (fake.toString() !== real?.toString()) {
+  //   console.log({ fake, real });
+  // }
+  return fake;
+}
 
 export function runSomething(inputs: {
   requirements: Record<Colon, number>;
@@ -28,7 +58,7 @@ export function runSomething(inputs: {
   const laImports = inputs.imports.map((colon) => colonToItem(colon).id);
   const laExports = inputs.exports.map((colon) => colonToItem(colon).id);
   const lav = new LinearAlgebra(laReqs, laImports, laExports);
-  const pcProcs = Object.keys(inputs.recipes).map((p) => pmDb.processes[p]);
+  const pcProcs = Object.keys(inputs.recipes).map((p) => processFromRecipe(p));
   console.log({ laReqs, laImports, laExports, pcProcs });
   const chain = new ProcessChain(pcProcs)
     .accept(
@@ -49,9 +79,14 @@ export function runSomething(inputs: {
   };
 }
 
+const itemCache: Record<BareItemName, Item> = {};
+
 function colonToItem(colon: Colon): Item {
   const id = stripColon(colon);
-  return new Item(id, id);
+  if (!itemCache[id]) {
+    itemCache[id] = new Item(id, id);
+  }
+  return itemCache[id];
 }
 
 function stripColon(colon: Colon): BareItemName {
