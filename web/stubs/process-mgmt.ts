@@ -93,6 +93,6 @@ function colonToItem(colon: Colon): Item {
   return itemCache[id];
 }
 
-function stripColon(colon: Colon): BareItemName {
+export function stripColon(colon: Colon): BareItemName {
   return splitColon(colon)[1];
 }

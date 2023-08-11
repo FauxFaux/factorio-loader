@@ -5,6 +5,8 @@ import { ItemOrFluid } from './objects';
 import { compareWithoutIcons } from './muffler/names';
 import { Colon, tupleToColon } from './muffler/colon';
 import { BlockLink } from './pages/station-status';
+import { stripColon } from './stubs/process-mgmt';
+import { makeUpRecipe } from './muffler/walk-recipes';
 
 function smatch(name: string, props: { search?: string }) {
   // TODO: proper string comparison
@@ -77,7 +79,17 @@ export class StationList extends Component<
 
 export class ItemIcon extends Component<{ name: string; alt: string }> {
   render(props: { name: string; alt: string }): ComponentChild {
-    const found = data.icons[props.name] ?? data.icons['solid-fuel'];
+    let found: string | undefined = data.icons[props.name];
+    if (!found) {
+      const recp = makeUpRecipe(props.name);
+      const bestProduct = recp?.products?.[0];
+      if (bestProduct) {
+        found = data.icons[stripColon(bestProduct.colon)];
+      }
+    }
+    if (!found) {
+      found = data.icons['solid-fuel'];
+    }
     return (
       <span
         className="icon-sprite"
