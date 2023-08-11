@@ -1,7 +1,7 @@
 import { Component } from 'preact';
-import { computed, Coord, data } from '../datae';
+import { computed, Coord, data, Factory } from '../datae';
 import { LtnProvides, LtnRequests } from '../ltn-avail';
-import { ItemIcon } from '../lists';
+import { GpsLink, ItemIcon } from '../lists';
 import { BlockLine, ColonJoined, Fluid, Item } from '../objects';
 import { Colon, splitColon } from '../muffler/colon';
 import { humanise } from '../muffler/human';
@@ -40,6 +40,7 @@ export class IoFDetail extends Component<
   state: IoFState = {
     range: defaultRange(),
   };
+
   render(props: { colon: Colon }, state: IoFState) {
     const [kind, name] = splitColon(props.colon);
     const obj = (kind === 'item' ? data.items : data.fluids)[name];
@@ -292,13 +293,14 @@ class RecipeUsage extends Component<RecipeUsageProps> {
           { count: number; locations: Coord[]; units: number[] }
         >;
         blocks: Set<string>;
+        brickAsm: Record<string, Record<Factory, Coord[]>>;
       }
     > = {};
     for (const [block, { asms }] of Object.entries(data.doc)) {
       for (const [machine, recipe, _modules, pos, unit] of asms) {
         if (!recipe || !inUse.has(recipe)) continue;
         if (!dataByRecipe[recipe]) {
-          dataByRecipe[recipe] = { asms: {}, blocks: new Set() };
+          dataByRecipe[recipe] = { asms: {}, blocks: new Set(), brickAsm: {} };
         }
         const d = dataByRecipe[recipe];
         if (!d.asms[machine])
@@ -307,6 +309,9 @@ class RecipeUsage extends Component<RecipeUsageProps> {
         d.asms[machine].locations.push(pos);
         d.asms[machine].units.push(unit);
         d.blocks.add(block);
+        if (!d.brickAsm[block]) d.brickAsm[block] = {};
+        if (!d.brickAsm[block][machine]) d.brickAsm[block][machine] = [];
+        d.brickAsm[block][machine].push(pos);
       }
     }
 
@@ -339,22 +344,19 @@ class RecipeUsage extends Component<RecipeUsageProps> {
             </td>
             <td>
               <ul>
-                {Object.entries(counts.asms).map(([machine, props]) => (
+                {Object.entries(counts.brickAsm).map(([loc, asms]) => (
                   <li>
-                    {/*'machine' here lacks the 'label' \0 insanity, so restore it */}
-                    <AssemblerCount
-                      label={`${machine}\0${name}`}
-                      props={props}
-                    />
-                  </li>
-                ))}
-              </ul>
-            </td>
-            <td>
-              <ul>
-                {[...counts.blocks].map((block) => (
-                  <li>
-                    <BlockLine block={block} />
+                    <BlockLine block={loc} />
+                    <ul>
+                      {Object.entries(asms).map(([machine, coords]) => (
+                        <li>
+                          {coords.map((coord) => (
+                            <GpsLink caption={machine} gps={coord} />
+                          ))}
+                          <Item name={machine} />
+                        </li>
+                      ))}
+                    </ul>
                   </li>
                 ))}
               </ul>
@@ -368,6 +370,7 @@ class RecipeUsage extends Component<RecipeUsageProps> {
                 ))}
               </ul>
             </td>
+            ;
             <td>
               <ul>
                 {recipe.products?.map((prod) => {
@@ -380,6 +383,7 @@ class RecipeUsage extends Component<RecipeUsageProps> {
                 })}
               </ul>
             </td>
+            ;
           </>
         );
 
@@ -401,7 +405,6 @@ class RecipeUsage extends Component<RecipeUsageProps> {
           <tr>
             <th>Recipe name</th>
             <th>Assemblers making</th>
-            <th>Bricks</th>
             <th>Inputs</th>
             <th>Outputs</th>
           </tr>
