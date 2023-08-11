@@ -66,8 +66,10 @@ export function effectsOf(
   recp: FRecipe,
   scale: number,
   effects: Record<string, number> = {},
+  // only affects fuel 'calculations'
+  craftingSpeed = 1,
 ) {
-  for (const ing of recp.ingredients()) {
+  for (const ing of recp.ingredients(craftingSpeed)) {
     effects[ing.colon] = (effects[ing.colon] || 0) - ing.amount * scale;
   }
   for (const prod of recp.products) {
@@ -82,7 +84,7 @@ export function jobsEffects(jobs: Job[]) {
   for (const job of jobs) {
     const recp = makeRecipe(job);
     const scale = (job.count * job.craftingSpeed) / recp.time;
-    effectsOf(recp, scale, effects);
+    effectsOf(recp, scale, effects, job.craftingSpeed);
   }
   return effects;
 }

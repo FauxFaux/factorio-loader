@@ -40,12 +40,87 @@ function fillBarrel(fluidName: string): FRecipe {
   };
 }
 
+function atomizerKw(speed: number): number {
+  switch (Math.round(speed)) {
+    case 1:
+      return 800;
+    case 2:
+      return 900;
+    case 3:
+      return 1100;
+    case 4:
+      return 1300;
+  }
+
+  // wildly made up
+  return speed * (1300 / 4);
+}
+
+function glassworksKw(speed: number): number {
+  const MW = 1_000;
+  switch (Math.round(speed)) {
+    case 1:
+      return 10 * MW;
+    case 2:
+      return 30 * MW;
+    case 3:
+      return 40 * MW;
+    case 4:
+      return 50 * MW;
+  }
+
+  // wildly made up
+  return speed * ((50 * MW) / 4);
+}
+
+function inferFueling(
+  recp: Pick<FRecipe, 'producerClass' | 'time'>,
+  speed: number,
+): JIngredient[] {
+  const biomassFor = (kW: number): JIngredient[] => {
+    const biomasskJ = 1_000;
+    const energyNeededkJ = (kW * recp.time) / speed;
+    const biomassNeeded = energyNeededkJ / biomasskJ;
+
+    return [
+      {
+        colon: 'item:biomass',
+        amount: biomassNeeded,
+      },
+    ];
+  };
+
+  const comboFor = (kW: number): JIngredient[] => {
+    const combokJ = 100;
+    const energyNeededkJ = (kW * recp.time) / speed;
+    const comboNeeded = energyNeededkJ / combokJ;
+    return [
+      {
+        colon: 'fluid:combustion-mixture1',
+        amount: comboNeeded,
+      },
+    ];
+  };
+
+  switch (recp.producerClass) {
+    case 'atomizer':
+      return biomassFor(atomizerKw(speed));
+    case 'glassworks':
+      return comboFor(glassworksKw(speed));
+  }
+
+  return [];
+}
+
 export function makeUpRecipe(recipeName: string): FRecipe | undefined {
   const regular = data.recipes.regular[recipeName];
-  if (regular)
+  if (regular) {
     return {
       name: recipeName,
-      ingredients: () => regular.ingredients,
+      ingredients: (speed = 1) => [
+        ...regular.ingredients,
+        ...(inferFueling(regular, speed) ?? []),
+      ],
       products: regular.products,
       producerClass: regular.producerClass,
       localisedName: regular.localised_name,
@@ -53,6 +128,7 @@ export function makeUpRecipe(recipeName: string): FRecipe | undefined {
       unlockedFromStart: regular.unlocked_from_start,
       category: regular.category,
     };
+  }
 
   let ma = recipeName.match(/^fill-(.*)-barrel$/);
   if (ma) {

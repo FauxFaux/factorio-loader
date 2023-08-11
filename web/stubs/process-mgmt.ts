@@ -18,45 +18,8 @@ import {
   RecipeName,
 } from '../muffler/walk-recipes';
 import { Colon, splitColon } from '../muffler/colon';
-import { FRecipe } from '../objects';
 
 type BareItemName = string;
-
-function inferFueling(facto: FRecipe, speed: number) {
-  const base = facto
-    .ingredients()
-    .map((i) => new Stack(colonToItem(i.colon), i.amount));
-
-  let kW = 0;
-  switch (facto.producerClass) {
-    case 'atomizer':
-      switch (Math.round(speed)) {
-        case 1:
-          kW = 900;
-          break;
-        case 2:
-          kW = 1000;
-          break;
-        case 3:
-          kW = 1100;
-          break;
-        case 4:
-          kW = 1200;
-          break;
-      }
-  }
-
-  if (kW) {
-    base.push(
-      new Stack(
-        colonToItem('fluid:combustion-mixture'),
-        (kW * facto.time) / 3600,
-      ),
-    );
-  }
-
-  return base;
-}
 
 function processFromRecipe(p: string, speed: number) {
   const facto = makeUpRecipe(p);
@@ -66,7 +29,9 @@ function processFromRecipe(p: string, speed: number) {
   // noinspection UnnecessaryLocalVariableJS
   const fake = new Process(
     p,
-    inferFueling(facto, speed),
+    facto
+      .ingredients(speed)
+      .map((ing) => new Stack(colonToItem(ing.colon), ing.amount)),
     facto.products.map(
       (i) => new Stack(colonToItem(i.colon), productAsFloat(i)),
     ),

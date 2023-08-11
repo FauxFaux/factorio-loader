@@ -407,7 +407,12 @@ export class ProcMgmt extends Component<ProcMgmtProps, ProcMgmtState> {
             </td>
             <td>
               <ActionPill
-                action={effectsOf(recp, jobScale(obj, recipeName, recp))}
+                action={effectsOf(
+                  recp,
+                  jobScale(obj, recipeName, recp),
+                  {},
+                  obj.craftingSpeed,
+                )}
               />
             </td>
           </tr>
