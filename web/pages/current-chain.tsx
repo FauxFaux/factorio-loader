@@ -81,7 +81,7 @@ export class CurrentChain extends Component<{ colon: Colon }> {
       const recp = makeUpRecipe(using)!;
       page.push(
         <li>
-          Made using recipe name: {recp.localised_name} (
+          Made using recipe name: {recp.localisedName} (
           <span class={'font-monospace'}>{using}</span>)
         </li>,
       );
@@ -103,10 +103,10 @@ export class CurrentChain extends Component<{ colon: Colon }> {
         return units;
       };
 
-      page.push(pickLocation(usingD, wayPoints, recp.localised_name, now));
+      page.push(pickLocation(usingD, wayPoints, recp.localisedName, now));
       maybeAddWaypoints(usingD.locs, props.colon);
 
-      for (const ing of recp.ingredients.sort(
+      for (const ing of recp.ingredients().sort(
         (a, b) =>
           // minDist(locsForColon(a.colon), refs) -
           // minDist(locsForColon(b.colon), refs),
@@ -265,9 +265,9 @@ function pickLocation(
     .sort()
     .join(',')}&__cachebust=${now}`;
   const {
-    isLoading,
-    isError,
-    error,
+    // isLoading,
+    // isError,
+    // error,
     data: fetched,
   } = useQuery(url, async () => {
     const resp = await fetch(url);

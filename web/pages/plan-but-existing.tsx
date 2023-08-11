@@ -5,8 +5,8 @@ import { makeUpRecipe, recipeBan, RecipeName } from '../muffler/walk-recipes';
 import { actualSpeed, effectsOf, PickRecipe } from './plan';
 import { Colon } from '../muffler/colon';
 import { route } from 'preact-router';
-import { ColonJoined, JRecipe } from '../objects';
-import { data } from '../datae';
+import { ColonJoined, FRecipe } from '../objects';
+import { computed, data } from '../datae';
 import { Action, ActionPill } from './block';
 import { actionMakes } from './peakers';
 import { humanise } from '../muffler/human';
@@ -23,9 +23,9 @@ export class PlanButExisting extends Component<Props> {
   render(props: Props, state: State) {
     const input = (props.recipes ?? '').split(',').filter((x) => x);
 
-    const recipes: [RecipeName, JRecipe][] = input
-      .map((name) => [name, makeUpRecipe(name)] as const)
-      .filter((pair): pair is [RecipeName, JRecipe] => !!pair[1]);
+    const recipes: FRecipe[] = input
+      .map((name) => makeUpRecipe(name))
+      .filter((recp): recp is FRecipe => !!recp);
 
     const byRecp: Record<RecipeName, { assemblers: number; action: Action }> =
       {};
@@ -53,8 +53,8 @@ export class PlanButExisting extends Component<Props> {
       msg: JSX.Element;
     }[] = [];
     const soFar: Action = {};
-    for (const [name, recipe] of recipes) {
-      const us = byRecp[name].action;
+    for (const recipe of recipes) {
+      const us = byRecp[recipe.name].action;
       const ourProducts = actionMakes(us);
       const relevantProducts = ourProducts.filter((colon) =>
         Object.keys(soFar).includes(colon),
@@ -97,14 +97,14 @@ export class PlanButExisting extends Component<Props> {
       }
     }
 
-    const rows = recipes.map(([name, recipe], i) => {
+    const rows = recipes.map((recipe, i) => {
       return (
         <tr>
           <td>
             <button
               class="btn btn-sm"
               onClick={() => {
-                const existing = input.filter((x) => x !== name);
+                const existing = input.filter((x) => x !== recipe.name);
                 this.setRecipes(existing);
               }}
             >
@@ -112,14 +112,14 @@ export class PlanButExisting extends Component<Props> {
             </button>
           </td>
           <td>
-            {recipe.localised_name} ({name})
+            {recipe.localisedName} ({recipe.name})
           </td>
-          <td>{byRecp[name].assemblers}</td>
+          <td>{byRecp[recipe.name].assemblers}</td>
           <td>{(statuses[i].eff * 100).toFixed(0)}%</td>
           <td>{statuses[i].msg}</td>
           <td>
             <ActionPill
-              action={actionMul(byRecp[name].action, statuses[i].eff)}
+              action={actionMul(byRecp[recipe.name].action, statuses[i].eff)}
             />
           </td>
         </tr>
@@ -137,36 +137,36 @@ export class PlanButExisting extends Component<Props> {
 
     const missingRows = missing.map(([colon, count]) => {
       const bad = (name: RecipeName) => byRecp?.[name]?.action[colon] ?? 0;
-      const interestingRecipes = Object.entries(data.recipes.regular)
-        .filter(([name]) => !recipeBan(name))
-        .filter(([, recipe]) =>
+      const interestingRecipes = computed.recipes
+        .filter((r) => !recipeBan(r.name))
+        .filter((recipe) =>
           recipe.products.some((product) => product.colon === colon),
         )
-        .filter(([name]) => !recipes.some(([already]) => name === already))
-        .filter(([name]) => bad(name) > 0);
+        .filter((r) => !recipes.some((already) => r.name === already.name))
+        .filter((r) => bad(r.name) > 0);
 
       const maxRecipes = 5;
-      const dropped = interestingRecipes.length - maxRecipes;
+      // const dropped = interestingRecipes.length - maxRecipes;
 
       const makers = interestingRecipes
         .slice(0, maxRecipes)
-        .sort(([a], [b]) => bad(b) - bad(a))
-        .map(([name, recp]) => (
+        .sort((a, b) => bad(b.name) - bad(a.name))
+        .map((recp) => (
           <tr>
             <td>
               <button
                 class="btn btn-sm"
-                onClick={() => this.setRecipes([...input, name])}
+                onClick={() => this.setRecipes([...input, recp.name])}
               >
                 ➕
               </button>
             </td>
             <td>
               {' '}
-              {recp.localised_name} <span class={'text-muted'}>{name}</span>
+              {recp.localisedName} <span class={'text-muted'}>{recp.name}</span>
             </td>
             <td>
-              <ActionPill action={byRecp[name].action} />
+              <ActionPill action={byRecp[recp.name].action} />
             </td>
           </tr>
         ));

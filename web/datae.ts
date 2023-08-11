@@ -1,7 +1,8 @@
 import { BlockContent } from '../scripts/load-recs';
-import { JFluid, JItem, JRecipe } from './objects';
+import { FRecipe, JFluid, JItem, JRecipe } from './objects';
 import { Colon } from './muffler/colon';
 import { LtnSummary, precomputeLtnSummary } from './ltn-summary';
+import { makeUpRecipe } from './muffler/walk-recipes';
 
 export type Coord = readonly [number, number];
 // concatenated positions; i.e. `${x},${y}`
@@ -72,6 +73,7 @@ export const computed = {
   /** item -> fluid ({ "fetal-serum-barrel": "fetal-serum" }) */
   barrelFluid: {} as Record<string, string>,
   recipeExecs: {} as Record<string, number>,
+  recipes: [] as FRecipe[],
 };
 
 export type Loc = string;
@@ -93,4 +95,8 @@ export function precompute() {
       (computed.recipeExecs[dat.recipe] ?? 0) +
       (dat.runs.reduce((a, b) => a + b, 0) ?? 0);
   }
+
+  computed.recipes = Object.keys(data.recipes.regular)
+    .map((name) => makeUpRecipe(name))
+    .filter((r): r is FRecipe => !!r);
 }

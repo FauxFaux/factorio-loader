@@ -18,10 +18,47 @@ import {
   RecipeName,
 } from '../muffler/walk-recipes';
 import { Colon, splitColon } from '../muffler/colon';
+import { FRecipe } from '../objects';
 
 type BareItemName = string;
 
-function processFromRecipe(p: string) {
+function inferFueling(facto: FRecipe, speed: number) {
+  const base = facto
+    .ingredients()
+    .map((i) => new Stack(colonToItem(i.colon), i.amount));
+
+  let kW = 0;
+  switch (facto.producerClass) {
+    case 'atomizer':
+      switch (Math.round(speed)) {
+        case 1:
+          kW = 900;
+          break;
+        case 2:
+          kW = 1000;
+          break;
+        case 3:
+          kW = 1100;
+          break;
+        case 4:
+          kW = 1200;
+          break;
+      }
+  }
+
+  if (kW) {
+    base.push(
+      new Stack(
+        colonToItem('fluid:combustion-mixture'),
+        (kW * facto.time) / 3600,
+      ),
+    );
+  }
+
+  return base;
+}
+
+function processFromRecipe(p: string, speed: number) {
   const facto = makeUpRecipe(p);
   if (!facto) {
     throw new Error(`no recipe for ${p}`);
@@ -29,7 +66,7 @@ function processFromRecipe(p: string) {
   // noinspection UnnecessaryLocalVariableJS
   const fake = new Process(
     p,
-    facto.ingredients.map((i) => new Stack(colonToItem(i.colon), i.amount)),
+    inferFueling(facto, speed),
     facto.products.map(
       (i) => new Stack(colonToItem(i.colon), productAsFloat(i)),
     ),
@@ -58,7 +95,9 @@ export function runSomething(inputs: {
   const laImports = inputs.imports.map((colon) => colonToItem(colon).id);
   const laExports = inputs.exports.map((colon) => colonToItem(colon).id);
   const lav = new LinearAlgebra(laReqs, laImports, laExports);
-  const pcProcs = Object.keys(inputs.recipes).map((p) => processFromRecipe(p));
+  const pcProcs = Object.entries(inputs.recipes).map(([p, { craftingSpeed }]) =>
+    processFromRecipe(p, craftingSpeed),
+  );
   console.log({ laReqs, laImports, laExports, pcProcs });
   const chain = new ProcessChain(pcProcs)
     .accept(

@@ -1,6 +1,6 @@
 import { data, Limitation } from '../datae';
 import { Colon, splitColon } from './colon';
-import { JIngredient, JProduct, JRecipe } from '../objects';
+import { FRecipe, JIngredient, JProduct } from '../objects';
 
 export function recipeBan(name: string): boolean {
   if (name === 'empty-arqad-jelly-barrel') return false;
@@ -12,9 +12,10 @@ export function recipeBan(name: string): boolean {
   );
 }
 
-function fillBarrel(fluidName: string): JRecipe {
+function fillBarrel(fluidName: string): FRecipe {
   return {
-    ingredients: [
+    name: `fill-${fluidName}-barrel`,
+    ingredients: () => [
       {
         colon: 'item:empty-barrel',
         amount: 1,
@@ -32,16 +33,26 @@ function fillBarrel(fluidName: string): JRecipe {
       },
     ],
     producerClass: 'automated-factory',
-    localised_name: `Fill \`${fluidName}\` Barrel`,
+    localisedName: `Fill \`${fluidName}\` Barrel`,
     time: 0.2,
-    unlocked_from_start: true,
+    unlockedFromStart: true,
     category: 'intermediate-products',
   };
 }
 
-export function makeUpRecipe(recipeName: string): JRecipe | undefined {
+export function makeUpRecipe(recipeName: string): FRecipe | undefined {
   const regular = data.recipes.regular[recipeName];
-  if (regular) return regular;
+  if (regular)
+    return {
+      name: recipeName,
+      ingredients: () => regular.ingredients,
+      products: regular.products,
+      producerClass: regular.producerClass,
+      localisedName: regular.localised_name,
+      time: regular.time,
+      unlockedFromStart: regular.unlocked_from_start,
+      category: regular.category,
+    };
 
   let ma = recipeName.match(/^fill-(.*)-barrel$/);
   if (ma) {
@@ -50,10 +61,12 @@ export function makeUpRecipe(recipeName: string): JRecipe | undefined {
 
   ma = recipeName.match(/^(.*)-pyvoid$/);
   if (ma) {
+    const colon = `item:${ma[1]}`;
     return {
-      ingredients: [
+      name: recipeName,
+      ingredients: () => [
         {
-          colon: `item:${ma[1]}`,
+          colon,
           amount: 1,
         },
       ],
@@ -66,8 +79,8 @@ export function makeUpRecipe(recipeName: string): JRecipe | undefined {
       ],
       // as in, the building named Burner
       producerClass: 'burner',
-      localised_name: `Void \`${ma[1]}\``,
-      unlocked_from_start: true,
+      localisedName: `Void \`${ma[1]}\``,
+      unlockedFromStart: true,
       category: 'void',
       // guess
       time: 0.2,
@@ -76,17 +89,19 @@ export function makeUpRecipe(recipeName: string): JRecipe | undefined {
 
   ma = recipeName.match(/^(.*)-pyvoid(?:-fluid|-gas)?$/);
   if (ma) {
+    const colon = `fluid:${ma[1]}`;
     return {
-      ingredients: [
+      name: recipeName,
+      ingredients: () => [
         {
-          colon: `fluid:${ma[1]}`,
+          colon,
           amount: 20_000,
         },
       ],
       products: [],
       producerClass: 'sinkhole',
-      localised_name: `Void \`${ma[1]}\``,
-      unlocked_from_start: true,
+      localisedName: `Void \`${ma[1]}\``,
+      unlockedFromStart: true,
       category: 'void',
       // guess
       time: 0.2,
@@ -272,7 +287,7 @@ export function ingredients(name: string): JIngredient[] {
   if (!rec) return [];
   const producers = rec.producerClass;
 
-  const base = rec.ingredients ?? [];
+  const base = rec.ingredients() ?? [];
 
   if (producers in hiddenByProducer) {
     return base.concat([{ colon: hiddenByProducer[producers], amount: 0 }]);
@@ -303,7 +318,7 @@ export function recipeSummary(names: (RecipeName | null | undefined)[]) {
     const recp = makeUpRecipe(recipe);
     if (!recp) continue;
 
-    for (const ing of recp.ingredients ?? []) {
+    for (const ing of recp.ingredients() ?? []) {
       inputs.add(ing.colon);
     }
 

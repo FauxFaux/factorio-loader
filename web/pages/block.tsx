@@ -3,7 +3,7 @@ import { Component } from 'preact';
 import cloneDeep from 'lodash/cloneDeep';
 import isEqual from 'lodash/isEqual';
 
-import { ColonJoined, Item, JRecipe, TagList } from '../objects';
+import { ColonJoined, FRecipe, Item, TagList } from '../objects';
 import { Assemblers, recipeDifference, TrainStops } from '../block-renderers';
 import { data } from '../datae';
 import { humanise } from '../muffler/human';
@@ -20,7 +20,7 @@ export type Action = Record<Colon, number>;
 
 export function toActions(
   asms: BlockContent['asms'],
-  banRecp: (name: string, recp: JRecipe) => boolean = () => false,
+  banRecp: (name: string, recp: FRecipe) => boolean = () => false,
 ): Record<string, number>[] {
   const actions: Action[] = [];
   for (const [factory, recipeName, modules] of asms) {

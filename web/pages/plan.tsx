@@ -8,8 +8,8 @@ import {
   productAsFloat,
   RecipeName,
 } from '../muffler/walk-recipes';
-import { data, Factory, FactoryClass } from '../datae';
-import { ColonJoined, JRecipe } from '../objects';
+import { computed, data, Factory, FactoryClass } from '../datae';
+import { ColonJoined, FRecipe } from '../objects';
 import { Colon, fromColon, splitColon } from '../muffler/colon';
 import { humanise } from '../muffler/human';
 import { route } from 'preact-router';
@@ -63,11 +63,11 @@ export function actualSpeed(name: Factory, modules: Record<string, number>) {
 }
 
 export function effectsOf(
-  recp: JRecipe,
+  recp: FRecipe,
   scale: number,
   effects: Record<string, number> = {},
 ) {
-  for (const ing of recp.ingredients) {
+  for (const ing of recp.ingredients()) {
     effects[ing.colon] = (effects[ing.colon] || 0) - ing.amount * scale;
   }
   for (const prod of recp.products) {
@@ -268,11 +268,12 @@ interface ManifestState {
   recipeColon?: Colon;
 }
 
-function makeRecipe(job: Job): JRecipe {
+function makeRecipe(job: Job): FRecipe {
   if (job.recipe === 'boiler:biomass') {
     return {
+      name: 'boiler:biomass',
       time: 1,
-      ingredients: [
+      ingredients: () => [
         {
           colon: 'fluid:water',
           amount: 60,
@@ -291,9 +292,9 @@ function makeRecipe(job: Job): JRecipe {
         },
       ],
       producerClass: 'boiler',
-      localised_name: 'Boiler consuming biomass (fake)',
+      localisedName: 'Boiler consuming biomass (fake)',
       category: 'fake',
-      unlocked_from_start: true,
+      unlockedFromStart: true,
     };
   }
   const recp = makeUpRecipe(job.recipe);
@@ -364,7 +365,7 @@ export class ManifestTable extends Component<
                   </button>
                 </td>
                 <td>
-                  {recp.localised_name}{' '}
+                  {recp.localisedName}{' '}
                   <span class={'text-muted'} style={'font-size: 70%'}>
                     (<span class={'font-monospace'}>{job.recipe}</span> in{' '}
                     {factoryFriendlyName(recp.producerClass)})
@@ -415,25 +416,27 @@ export class ManifestTable extends Component<
                 </td>
                 <td>
                   <ul style={'list-style-type: none; padding: 0; margin: 0'}>
-                    {makeRecipe(job).ingredients.map((ing) => (
-                      <li>
-                        <a
-                          title={'find a producer'}
-                          style={'cursor: pointer'}
-                          onClick={() => {
-                            this.setState({ recipeColon: ing.colon });
-                            this.pickRecipe.current?.scrollIntoView();
-                          }}
-                        >
-                          +
-                        </a>
-                        {colourAmount(
-                          props.effects[ing.colon],
-                          ing.amount * scale,
-                        )}{' '}
-                        &times; <ColonJoined colon={ing.colon} />
-                      </li>
-                    ))}
+                    {makeRecipe(job)
+                      .ingredients()
+                      .map((ing) => (
+                        <li>
+                          <a
+                            title={'find a producer'}
+                            style={'cursor: pointer'}
+                            onClick={() => {
+                              this.setState({ recipeColon: ing.colon });
+                              this.pickRecipe.current?.scrollIntoView();
+                            }}
+                          >
+                            +
+                          </a>
+                          {colourAmount(
+                            props.effects[ing.colon],
+                            ing.amount * scale,
+                          )}{' '}
+                          &times; <ColonJoined colon={ing.colon} />
+                        </li>
+                      ))}
                   </ul>
                 </td>
                 <td>
@@ -526,9 +529,12 @@ export class PickRecipe extends Component<PickRecipeProps> {
         </>
       );
     }
-    const bad = (recp: JRecipe): number =>
+    const bad = (recp: FRecipe): number =>
       recp.products.length +
-      recp.ingredients.map((ing) => ing.amount).reduce((a, b) => a + b, 0) +
+      recp
+        .ingredients()
+        .map((ing) => ing.amount)
+        .reduce((a, b) => a + b, 0) +
       // mostly only relevant for AL animals, which have huge times
       recp.time / 100;
 
@@ -541,30 +547,30 @@ export class PickRecipe extends Component<PickRecipeProps> {
         <ColonJoined colon={props.colon} />
         <table class={'table'}>
           <tbody>
-            {Object.entries(data.recipes.regular)
+            {computed.recipes
               .filter(
-                ([recipe, recp]) =>
+                (recp) =>
                   undefined !==
                   recp.products.find((prod) => prod.colon === props.colon),
               )
-              .sort(([, a], [, b]) => bad(a) - bad(b))
-              .map(([recipe, recp]) => (
+              .sort((a, b) => bad(a) - bad(b))
+              .map((recp) => (
                 <tr>
                   <td>
                     <button
                       class="btn btn-sm"
-                      onClick={() => this.props.puck(recipe)}
+                      onClick={() => this.props.puck(recp.name)}
                     >
                       ➕
                     </button>
                   </td>
                   <td>
-                    {recp.localised_name}{' '}
-                    <span class={'text-muted'}>{recipe}</span>
+                    {recp.localisedName}{' '}
+                    <span class={'text-muted'}>{recp.name}</span>
                   </td>
                   <td>{recp.time}</td>
                   <td>
-                    {recp.ingredients.map((ing) => {
+                    {recp.ingredients().map((ing) => {
                       const [, item] = fromColon(ing.colon);
                       return (
                         <>
@@ -637,7 +643,7 @@ function balance(manifest: Manifest): Manifest {
   throw new Error('Failed to converge');
 }
 
-export function assemblerDims(recipe: JRecipe): [number, number] {
+export function assemblerDims(recipe: FRecipe): [number, number] {
   const clazz = recipe.producerClass;
   let [w, h] = Object.values(data.meta.factories[clazz])[0].dims;
   if (h < w) {
@@ -685,7 +691,7 @@ function packandle(manifest: Manifest): Andle {
 
   for (const job of manifest.jobs) {
     const recp = makeRecipe(job);
-    for (const prod of recp.ingredients) {
+    for (const prod of recp.ingredients()) {
       wanted.add(idOf(prod.colon));
     }
     for (const ing of recp.products) {

@@ -1,10 +1,10 @@
 import cloneDeep from 'lodash/cloneDeep';
 import { Colon, fromColon, splitColon } from '../muffler/colon';
 import { Component } from 'preact';
-import { data } from '../datae';
+import { computed, data } from '../datae';
 import { IngProd } from '../components/how-to-make';
 import { stepsToUnlockRecipe } from './next';
-import { ColonJoined, JProduct, JRecipe } from '../objects';
+import { ColonJoined, FRecipe, JProduct } from '../objects';
 import { productAsFloat } from '../muffler/walk-recipes';
 import * as bp from '../muffler/blueprints';
 import { buildRequestFilters } from '../muffler/blueprints';
@@ -67,9 +67,8 @@ export class Consumes extends Component<{ colon: Colon }, Filters> {
   };
 
   render(props: { colon: Colon }, state: Filters) {
-    const consumesThis = Object.entries(data.recipes.regular).filter(
-      ([, { ingredients }]) =>
-        !!ingredients.find((p) => p.colon === props.colon),
+    const consumesThis = computed.recipes.filter(
+      ({ ingredients }) => !!ingredients().find((p) => p.colon === props.colon),
     );
 
     let excluded = {
@@ -78,7 +77,9 @@ export class Consumes extends Component<{ colon: Colon }, Filters> {
       multipleOutputs: 0,
     };
 
-    const consumesObj = Object.fromEntries(consumesThis);
+    const consumesObj = Object.fromEntries(
+      consumesThis.map((r) => [r.name, r]),
+    );
     for (const [name, { ingredients, products }] of Object.entries(
       consumesObj,
     )) {
@@ -160,7 +161,7 @@ export class Consumes extends Component<{ colon: Colon }, Filters> {
         <div class={'row'}>
           <div class={'col'}>
             <RecipeTable
-              recipes={Object.entries(consumesObj)}
+              recipes={Object.values(consumesObj)}
               colon={props.colon}
             />
           </div>
@@ -170,18 +171,18 @@ export class Consumes extends Component<{ colon: Colon }, Filters> {
   }
 }
 
-const sortRecipes = ([a]: [string, unknown], [b]: [string, unknown]) => {
-  const use = inUse(b) ? 1 : 0 - (inUse(a) ? 1 : 0);
+const sortRecipes = (a: FRecipe, b: FRecipe) => {
+  const use = inUse(b.name) ? 1 : 0 - (inUse(a.name) ? 1 : 0);
   if (use !== 0) return use;
-  const tech = stepsToUnlockRecipe(a) - stepsToUnlockRecipe(b);
+  const tech = stepsToUnlockRecipe(a.name) - stepsToUnlockRecipe(b.name);
   if (tech !== 0) return tech;
-  return a.localeCompare(b);
+  return a.name.localeCompare(b.name);
 };
 
 export class Produces extends Component<{ colon: Colon }> {
   render(props: { colon: Colon }) {
-    const makesThis = Object.entries(data.recipes.regular).filter(
-      ([, { products }]) => !!products.find((p) => p.colon === props.colon),
+    const makesThis = computed.recipes.filter(
+      ({ products }) => !!products.find((p) => p.colon === props.colon),
     );
     return (
       <div class={'col'}>
@@ -194,7 +195,7 @@ export class Produces extends Component<{ colon: Colon }> {
   }
 }
 
-const RecipeTable = (props: { recipes: [string, JRecipe][]; colon: Colon }) => (
+const RecipeTable = (props: { recipes: FRecipe[]; colon: Colon }) => (
   <table className={'table'}>
     <thead>
       <tr>
@@ -213,11 +214,11 @@ const RecipeTable = (props: { recipes: [string, JRecipe][]; colon: Colon }) => (
       </tr>
     </thead>
     <tbody>
-      {props.recipes.sort(sortRecipes).map(([name, recipe]) => (
+      {props.recipes.sort(sortRecipes).map((recipe) => (
         <tr>
-          <LongName name={name} recipe={recipe} />
-          <td>{stepsToUnlockRecipe(name)}</td>
-          <td>{inUse(name) ? '\u2705' : '\u292B'}</td>
+          <LongName name={recipe.name} recipe={recipe} />
+          <td>{stepsToUnlockRecipe(recipe.name)}</td>
+          <td>{inUse(recipe.name) ? '\u2705' : '\u292B'}</td>
           <td style={'text-align: right'}>{recipe.time}</td>
           <IngProd recipe={recipe} colon={props.colon} />
         </tr>
@@ -233,7 +234,7 @@ export const LongName = ({
   recipe,
 }: {
   name: string;
-  recipe: JRecipe;
+  recipe: FRecipe;
 }) => {
   const madeIn = recipe.producerClass;
   let copyPrint = null;
@@ -241,7 +242,7 @@ export const LongName = ({
     madeIn === 'automated-factory' &&
     recipe.products.length === 1 &&
     recipe.products[0].colon.startsWith('item:') &&
-    recipe.ingredients.every((ing) => ing.colon.startsWith('item:'))
+    recipe.ingredients().every((ing) => ing.colon.startsWith('item:'))
   ) {
     const template = cloneDeep(BP_TEMPLATE) as DeepWriteable<
       typeof BP_TEMPLATE
@@ -253,7 +254,7 @@ export const LongName = ({
       .name as string) = productName;
     (template.entities[5].request_filters as unknown[]) = buildRequestFilters(
       Object.fromEntries(
-        recipe.ingredients.map((ing) => [ing.colon, ing.amount]),
+        recipe.ingredients().map((ing) => [ing.colon, ing.amount]),
       ),
     );
 
@@ -263,7 +264,7 @@ export const LongName = ({
   }
   return (
     <td>
-      <p>{recipe.localised_name}</p>
+      <p>{recipe.localisedName}</p>
       <p>
         <span className={'font-monospace'}>{name}</span>
       </p>

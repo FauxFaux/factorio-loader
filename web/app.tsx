@@ -34,7 +34,7 @@ import { Chainer } from './pages/chainer';
 import { Craftings } from './pages/craftings';
 import { BulkCraftings } from './pages/bulk-craftings';
 import { PlanButExisting } from './pages/plan-but-existing';
-import { ProcMgmt, ProcMgmtPage } from './pages/proc-mgmt';
+import { ProcMgmtPage } from './pages/proc-mgmt';
 
 export class App extends Component {
   render() {

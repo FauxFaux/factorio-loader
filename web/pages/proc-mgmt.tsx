@@ -20,7 +20,7 @@ import {
   recipeSummary,
 } from '../muffler/walk-recipes';
 import { data, Factory, FactoryClass } from '../datae';
-import { ColonJoined, JRecipe } from '../objects';
+import { ColonJoined, FRecipe } from '../objects';
 import { BuildTime } from '../components/how-to-make';
 import { Action, ActionPill } from './block';
 import { humanise } from '../muffler/human';
@@ -291,7 +291,7 @@ export class ProcMgmt extends Component<ProcMgmtProps, ProcMgmtState> {
                   </button>
                 </td>
                 <td>
-                  {recp.localised_name} (
+                  {recp.localisedName} (
                   <span class={'text-muted'}>{recipeName}</span>)
                 </td>
                 <td>
@@ -365,7 +365,7 @@ export class ProcMgmt extends Component<ProcMgmtProps, ProcMgmtState> {
     function jobScale(
       obj: { craftingSpeed: number },
       recipeName: string,
-      recp: JRecipe,
+      recp: FRecipe,
     ) {
       return (
         (obj.craftingSpeed * (recipeCounts?.[recipeName] ?? 1)) / recp.time
@@ -390,7 +390,7 @@ export class ProcMgmt extends Component<ProcMgmtProps, ProcMgmtState> {
               </button>
             </td>
             <td>
-              {recp.localised_name} (
+              {recp.localisedName} (
               <span class={'text-muted'}>{recipeName}</span>)
             </td>
             <td>{(recipeCounts?.[recipeName] ?? 0).toFixed(1)}</td>
@@ -563,7 +563,7 @@ function recipeScore(
   const oneAssembler = effectsOf(recp, 1 / recp.time);
 
   let score = 0;
-  for (const ing of recp.ingredients) {
+  for (const ing of recp.ingredients()) {
     const effect = globalEffect[ing.colon];
     if (effect === undefined) {
       // needs something we don't have
@@ -587,7 +587,7 @@ function recipeScore(
   }
 
   score += 10 * (usage[recipeName] ?? 0);
-  if (recp.unlocked_from_start) score += 50;
+  if (recp.unlockedFromStart) score += 50;
   else if (
     Object.values(data.technologies).some(
       (t) => t.researched && t.unlocks.includes(recipeName),

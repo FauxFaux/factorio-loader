@@ -16,7 +16,7 @@ export function techToUnlock(recipe: string): string | null {
 export const UNRECOGNISED_TECH = 98;
 
 export function stepsToUnlockRecipe(recipe: string): number {
-  if (makeUpRecipe(recipe)?.unlocked_from_start) return 0;
+  if (makeUpRecipe(recipe)?.unlockedFromStart) return 0;
   const tech = techToUnlock(recipe);
   if (!tech) return UNRECOGNISED_TECH;
   return stepsToUnlock(tech);

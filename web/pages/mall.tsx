@@ -180,7 +180,7 @@ function expensive(recpName: string) {
   const recp = makeUpRecipe(recpName);
   if (!recp) return 'invalid';
 
-  for (const ing of recp.ingredients) {
+  for (const ing of recp.ingredients()) {
     if (isBuilding(ing.colon)) continue;
     const [type, name] = splitColon(ing.colon);
     if (type !== 'item') return 'fluid';

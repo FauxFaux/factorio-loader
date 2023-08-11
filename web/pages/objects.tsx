@@ -10,7 +10,6 @@ import {
   IngredientLine,
   ProductAmount,
 } from '../components/how-to-make';
-import { AssemblerCount } from '../block-renderers';
 import { CombiGraph, GraphRange } from '../components/combi-graph';
 
 interface IoFState {

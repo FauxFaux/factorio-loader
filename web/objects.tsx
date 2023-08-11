@@ -1,7 +1,8 @@
 import { Component, ComponentChild, createRef } from 'preact';
-import { data } from './datae';
+import { data, FactoryClass } from './datae';
 import { ItemIcon, RenderIcons } from './lists';
 import { ProductAmount } from './components/how-to-make';
+import { RecipeName } from './muffler/walk-recipes';
 
 export interface JItem {
   group: { name: string };
@@ -34,14 +35,23 @@ export type JProduct = JColon &
     temperature?: number;
   };
 
+/** @deprecated */
 export interface JRecipe {
   category: string;
   ingredients: JIngredient[];
   products: JProduct[];
   localised_name: string;
-  producerClass: string;
+  producerClass: FactoryClass;
   time: number;
   unlocked_from_start?: true;
+}
+
+export interface FRecipe
+  extends Pick<JRecipe, 'category' | 'time' | 'producerClass' | 'products'> {
+  name: RecipeName;
+  ingredients: (speed?: number) => JIngredient[];
+  localisedName: string;
+  unlockedFromStart?: true;
 }
 
 export class Recipe extends Component<{ name: string }, { expando?: boolean }> {

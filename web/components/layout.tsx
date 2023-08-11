@@ -1,7 +1,6 @@
 import { Component, JSX } from 'preact';
 import { makeUpRecipe, RecipeName } from '../muffler/walk-recipes';
 import { Colon } from '../muffler/colon';
-import { data } from '../datae';
 import { ItemIcon } from '../lists';
 
 export type Lanes = number;
@@ -314,7 +313,7 @@ class TileRadar extends Component<RadarProps> {
       <foreignObject x={x - 16} y={y - 16} width={32} height={32}>
         <ItemIcon
           name={recipe}
-          alt={makeUpRecipe(recipe)?.localised_name ?? '??'}
+          alt={makeUpRecipe(recipe)?.localisedName ?? '??'}
         />
       </foreignObject>
     ));

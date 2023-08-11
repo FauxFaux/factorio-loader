@@ -70,7 +70,7 @@ function main() {
 
       const concGrid = `${gx},${gy}`;
 
-      for (const ing of recipe?.ingredients ?? []) {
+      for (const ing of recipe?.ingredients() ?? []) {
         if (!consumed[ing.colon]) consumed[ing.colon] = {};
         if (!consumed[ing.colon][concGrid]) consumed[ing.colon][concGrid] = 0;
         consumed[ing.colon][concGrid] += runs * ing.amount;

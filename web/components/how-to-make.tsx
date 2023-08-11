@@ -1,7 +1,7 @@
 import { Component } from 'preact';
 import { computed, data } from '../datae';
 import { Colon, splitColon } from '../muffler/colon';
-import { ColonJoined, JIngredient, JProduct, JRecipe } from '../objects';
+import { ColonJoined, JIngredient, JProduct, FRecipe } from '../objects';
 import { haveMade } from '../muffler/walk-techs';
 import {
   stepsToUnlockRecipe,
@@ -13,6 +13,7 @@ import {
   buildMissingIngredients,
   ingredients,
   limitations,
+  makeUpRecipe,
   productAsFloat,
 } from '../muffler/walk-recipes';
 import { ItemIcon } from '../lists';
@@ -86,7 +87,7 @@ export class HowToMake extends Component<{ colon: Colon }> {
             .filter((name) => !!data.recipes.regular[name])
             // .sort(([an, ao], [bn, bo]) => usefulness(bn, bo) - usefulness(an, ao))
             .map((name) => {
-              const recipe = data.recipes.regular[name];
+              const recipe = makeUpRecipe(name)!;
               const lockedTechs = stepsToUnlockRecipe(name);
               const toUnlock = techToUnlock(name) ?? '??';
               const missing = missingIngredients[name];
@@ -136,7 +137,7 @@ export class HowToMake extends Component<{ colon: Colon }> {
                   </td>
                   <td>
                     <p>
-                      <abbr title={name}>{recipe.localised_name}</abbr>
+                      <abbr title={name}>{recipe.localisedName}</abbr>
                     </p>
                     <p>Made in: {factoryName}</p>
                     <BuildTime recipe={recipe} />
@@ -152,11 +153,12 @@ export class HowToMake extends Component<{ colon: Colon }> {
   }
 }
 
-export const IngProd = (props: { recipe: JRecipe; colon: Colon }) => (
+export const IngProd = (props: { recipe: FRecipe; colon: Colon }) => (
   <>
     <td>
       <ul className={'ul-none'}>
-        {props.recipe.ingredients
+        {props.recipe
+          .ingredients()
           ?.sort((a, b) => {
             if (a.colon === props.colon) return -1;
             if (b.colon === props.colon) return 1;
@@ -296,7 +298,7 @@ export function factoryFriendlyName(producerClass: string) {
 }
 
 interface BuildSpeedProps {
-  recipe: JRecipe;
+  recipe: FRecipe;
   speedsNotTimes?: boolean;
   highlight?: number;
   onClick?: (speed: number) => void;
@@ -309,7 +311,7 @@ export class BuildTime extends Component<BuildSpeedProps> {
     if (!availableFactories) {
       return (
         <p class={'error'}>
-          Invalid class: {recipe.producerClass} for {recipe.localised_name}
+          Invalid class: {recipe.producerClass} for {recipe.localisedName}
         </p>
       );
     }
