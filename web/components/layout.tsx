@@ -73,8 +73,12 @@ export class Layout extends Component<LayoutProps> {
       let placeIdx = toPlace.findIndex((d) =>
         Object.keys(d.portsIn).every((c) => currentlyAvailable.has(c)),
       );
-      if (placeIdx === -1) placeIdx = 0;
+      if (placeIdx === -1) {
+        console.log('failure');
+        placeIdx = 0;
+      }
       const placing = toPlace.splice(placeIdx, 1)[0];
+      console.log('placing', placing, 'as', [...currentlyAvailable]);
       const maxH = 100;
       const inLanes = Object.values(placing.portsIn).reduce(
         (a, b) => a + Math.ceil(b),
@@ -151,6 +155,10 @@ export class Layout extends Component<LayoutProps> {
       }
 
       cx += dx + 4;
+
+      for (const colon of Object.keys(placing.portsOut)) {
+        currentlyAvailable.add(colon);
+      }
     }
 
     for (let i = 0; i < busSize; ++i) {
