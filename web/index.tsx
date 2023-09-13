@@ -10,10 +10,10 @@ export function init(element: HTMLElement) {
   (async () => {
     await fillDataWithFetch();
     element.innerHTML = 'Data downloaded, reticulating splines...';
-    await new Promise(r => setTimeout(r));
+    await new Promise((r) => setTimeout(r));
     precompute();
     element.innerHTML = 'Data downloaded, booting...';
-    await new Promise(r => setTimeout(r));
+    await new Promise((r) => setTimeout(r));
     element.innerHTML = '';
     render(<App />, element);
   })().catch(async (e) => {

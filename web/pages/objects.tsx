@@ -382,7 +382,6 @@ class RecipeUsage extends Component<RecipeUsageProps> {
                 })}
               </ul>
             </td>
-            ;
           </>
         );
 
