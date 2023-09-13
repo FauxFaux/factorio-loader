@@ -369,7 +369,6 @@ class RecipeUsage extends Component<RecipeUsageProps> {
                 ))}
               </ul>
             </td>
-            ;
             <td>
               <ul>
                 {recipe.products?.map((prod) => {
