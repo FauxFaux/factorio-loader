@@ -95,7 +95,7 @@ export function toChests(
   reference: Blueprint,
   input: Record<Colon, number>[],
 ): Blueprint {
-  const icons = input.map((_, i) => ({
+  const icons = input.slice(0, 4).map((_, i) => ({
     index: i + 1,
     signal: {
       name: 'logistic-chest-requester',
