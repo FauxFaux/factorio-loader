@@ -26,6 +26,53 @@ interface LayoutProps {
   config: LayoutConfig;
 }
 
+const IMPORT = -100;
+const EXPORT = -200;
+
+function makeGraff(
+  districts: District[],
+  inPerSec: Record<string, number>,
+  outPerSec: Record<string, number>,
+) {
+  const graff: Record<number, number[]> = {
+    [IMPORT]: [],
+  };
+  type AtoB = string;
+  const bw: Record<AtoB, number> = {};
+
+  for (let i = 0; i < districts.length; i++) {
+    graff[i] = [];
+    const us = districts[i];
+    for (const [inp, quant] of Object.entries(us.portsIn)) {
+      if (inp in inPerSec) {
+        graff[IMPORT].push(i);
+        const key = `${IMPORT}->${i}`;
+        bw[key] = (bw[key] ?? 0) + Math.abs(quant);
+      }
+    }
+
+    for (let j = 0; j < districts.length; ++j) {
+      if (i === j) continue;
+      const them = districts[j];
+      for (const [out, quant] of Object.entries(us.portsOut)) {
+        if (out in them.portsIn) {
+          graff[i].push(j);
+          const key = `${i}->${j}`;
+          bw[key] = (bw[key] ?? 0) + Math.abs(quant);
+        }
+      }
+    }
+    for (const [out, quant] of Object.entries(us.portsOut)) {
+      if (out in outPerSec) {
+        graff[i].push(EXPORT);
+        const key = `${i}->${EXPORT}`;
+        bw[key] = (bw[key] ?? 0) + Math.abs(quant);
+      }
+    }
+  }
+  return { graff, bw };
+}
+
 export class Layout extends Component<LayoutProps> {
   render(props: LayoutProps) {
     const { config } = props;
@@ -33,27 +80,50 @@ export class Layout extends Component<LayoutProps> {
     const inStations = allocStations(inPerSec);
     const outStations = allocStations(outPerSec);
 
-    const grid = new Grid();
-    grid.fill(0, 0, 8, 8);
-    grid.fill(Grid.W - 8, 0, 8, 8);
-    grid.fill(0, Grid.H - 8, 8, 8);
-    grid.fill(Grid.W - 8, Grid.H - 8, 8, 8);
-
     // some kind of determinism?
     districts.sort((a, b) => {
       let n = b.count - a.count;
       if (n !== 0) return n;
       return (b.recipe ?? '').localeCompare(a.recipe ?? '');
     });
+    const { graff, bw } = makeGraff(districts, inPerSec, outPerSec);
+    const anOrder: number[] = [];
 
-    const toPlace = [...districts];
-
-    const currentlyAvailable = new Set<Colon>();
-    for (const stat of inStations) {
-      for (const colon of Object.keys(stat.ports)) {
-        currentlyAvailable.add(colon);
+    const dfs = (i: number) => {
+      if (anOrder.includes(i)) return;
+      anOrder.push(i);
+      for (const j of graff[i] ?? []) {
+        dfs(j);
       }
+    };
+    dfs(IMPORT);
+
+    // add anything which wasn't reachable from imports (only things which have no reqs?)
+    for (const [i, js] of Object.entries(graff)) {
+      if (i === IMPORT.toString()) continue;
+      if (anOrder.includes(parseInt(i))) continue;
+      const insertBefore = Math.min(
+        ...js.map((j) => {
+          const found = anOrder.indexOf(j);
+          if (found === -1) return anOrder.length;
+          return found;
+        }),
+      );
+      anOrder.splice(insertBefore, 0, parseInt(i));
     }
+
+    const score = anOrder
+      .flatMap((i, p) =>
+        (graff[i] ?? []).map((j) => {
+          const found = anOrder.indexOf(j);
+          const dist = (found - p) * bw[`${i}->${j}`];
+          if (dist < 0) return Math.abs(2 * dist);
+          return dist;
+        }),
+      )
+      .reduce((a, b) => a + b, 0);
+
+    console.log('graff', districts, graff, anOrder, bw, score);
 
     const radar: RadarConfig = {
       inStations: inStations.map((s) => ({ label: Object.keys(s.ports) })),
@@ -69,16 +139,10 @@ export class Layout extends Component<LayoutProps> {
 
     let firstOut = undefined;
 
-    while (toPlace.length > 0) {
-      let placeIdx = toPlace.findIndex((d) =>
-        Object.keys(d.portsIn).every((c) => currentlyAvailable.has(c)),
-      );
-      if (placeIdx === -1) {
-        console.log('failure');
-        placeIdx = 0;
-      }
-      const placing = toPlace.splice(placeIdx, 1)[0];
-      console.log('placing', placing, 'as', [...currentlyAvailable]);
+    for (const placeIdx of anOrder) {
+      if (placeIdx === IMPORT) continue;
+      if (placeIdx === EXPORT) continue;
+      const placing = districts[placeIdx];
       const maxH = 100;
       const inLanes = Object.values(placing.portsIn).reduce(
         (a, b) => a + Math.ceil(b),
@@ -155,10 +219,6 @@ export class Layout extends Component<LayoutProps> {
       }
 
       cx += dx + 4;
-
-      for (const colon of Object.keys(placing.portsOut)) {
-        currentlyAvailable.add(colon);
-      }
     }
 
     for (let i = 0; i < busSize; ++i) {
