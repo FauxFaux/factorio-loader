@@ -1,4 +1,5 @@
 import { Component } from 'preact';
+import { toWords } from 'number-to-words';
 import * as blueprint from '../muffler/blueprints';
 import { ColonJoined } from '../objects';
 import { Colon, fromColon, splitColon, tupleToColon } from '../muffler/colon';
@@ -66,6 +67,31 @@ export class Chestify extends Component<{}, ChestifyState> {
           .map(([colon, count]) => stacks(colon, count))
           .reduce((a, b) => a + b, 0);
         const capacityStacks = 48;
+
+        const pickFrom = Object.entries(valid)
+          .filter(([name]) => !state.banned[name])
+          .sort(byCount);
+        const chests: Record<Colon, number>[] = [];
+        for (const [colon, items] of pickFrom) {
+          const need = stacks(colon, items);
+          const idx = chests.findIndex((chest) => {
+            const robotErrorEstimate = Object.keys(chest).length / 4;
+            const currentSlotUsage = Object.entries(chest).reduce(
+              (a, [colon, items]) => a + stacks(colon, items),
+              robotErrorEstimate,
+            );
+            return currentSlotUsage + need < capacityStacks;
+          });
+          if (idx === -1) {
+            chests.push({ [colon]: items });
+          } else {
+            chests[idx][colon] = (chests[idx][colon] || 0) + items;
+          }
+        }
+
+        const chesty = blueprint.toChests(bp, chests);
+        const chestCount = chesty.entities?.length || 0;
+
         explain = (
           <>
             <div className={'col-6'}>
@@ -80,9 +106,9 @@ export class Chestify extends Component<{}, ChestifyState> {
             </div>
             <div className={'col-6'}>
               <h2>
-                Chest{wantedStacks > capacityStacks - 8}s will request{' '}
-                {wantedStacks} (~{' '}
-                chests) stacks:
+                {toWords(chestCount).replace(/^./, (v) => v.toUpperCase())}{' '}
+                chest{chestCount === 1 ? '' : 's'} will request {wantedStacks}{' '}
+                stacks:
               </h2>
               <table class={'table chestify-summary'}>
                 <thead>
@@ -157,28 +183,6 @@ export class Chestify extends Component<{}, ChestifyState> {
           </>
         );
 
-        const pickFrom = Object.entries(valid)
-          .filter(([name]) => !state.banned[name])
-          .sort(byCount);
-        const chests: Record<Colon, number>[] = [];
-        for (const [colon, items] of pickFrom) {
-          const need = stacks(colon, items);
-          const idx = chests.findIndex((chest) => {
-            const robotErrorEstimate = Object.keys(chest).length / 4;
-            const currentSlotUsage = Object.entries(chest).reduce(
-              (a, [colon, items]) => a + stacks(colon, items),
-              robotErrorEstimate,
-            );
-            return currentSlotUsage + need < capacityStacks;
-          });
-          if (idx === -1) {
-            chests.push({ [colon]: items });
-          } else {
-            chests[idx][colon] = (chests[idx][colon] || 0) + items;
-          }
-        }
-
-        const chesty = blueprint.toChests(bp, chests);
         output = (
           <textarea
             class={'form-control big-boy'}
