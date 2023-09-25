@@ -149,7 +149,8 @@
 .chestify-summary > thead > tr > th:nth-child(2),
 .chestify-summary > thead > tr > th:nth-child(3),
 .chestify-summary > tbody > tr > td:nth-child(2),
-.chestify-summary > tbody > tr > td:nth-child(3)
+.chestify-summary > tbody > tr > td:nth-child(3),
+.chestify-summary > tbody > tr > td:nth-child(4)
 {
   text-align: right;
 }

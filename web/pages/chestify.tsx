@@ -5,6 +5,7 @@ import { ColonJoined } from '../objects';
 import { Colon, fromColon, splitColon, tupleToColon } from '../muffler/colon';
 import { data } from '../datae';
 import { ItemIcon } from '../lists';
+import { humanise } from '../muffler/human';
 
 const banned = new Set([
   'item:logistic-train-stop-output',
@@ -40,6 +41,7 @@ function fixupPlacements(
 interface ChestifyState {
   input?: string;
   banned: Record<Colon, boolean>;
+  sort?: 'stacks' | 'risk';
 }
 
 export class Chestify extends Component<{}, ChestifyState> {
@@ -62,6 +64,9 @@ export class Chestify extends Component<{}, ChestifyState> {
           [ac, an]: [Colon, number],
           [bc, bn]: [Colon, number],
         ) => stacks(bc, bn) - stacks(ac, an) || bn - an;
+        const byRisk = ([ac, an]: [Colon, number], [bc, bn]: [Colon, number]) =>
+          (busHas[ac] ?? 0) / an - (busHas[bc] ?? 0) / bn ||
+          byCount([ac, an], [bc, bn]);
         const wantedStacks = Object.entries(valid)
           .filter(([name]) => !state.banned[name])
           .map(([colon, count]) => stacks(colon, count))
@@ -92,6 +97,17 @@ export class Chestify extends Component<{}, ChestifyState> {
         const chesty = blueprint.toChests(bp, chests);
         const chestCount = chesty.entities?.length || 0;
 
+        const busHas = data.doc['0,0'].colons;
+
+        const busDesc = (colon: Colon, want: number) => {
+          const actual = busHas[colon] ?? 0;
+          const avail = actual / want;
+          if (avail < 0.01) return <span class={'text-danger'}>{actual}</span>;
+          if (avail < 1) return <span class={'text-warning'}>{actual}</span>;
+          if (avail < 2) return humanise(actual);
+          return <span class={'text-success'}>{humanise(actual)}</span>;
+        };
+
         explain = (
           <>
             <div className={'col-6'}>
@@ -114,14 +130,35 @@ export class Chestify extends Component<{}, ChestifyState> {
                 <thead>
                   <tr>
                     <th></th>
-                    <th>Stacks</th>
+                    <th
+                      class={
+                        'station-config-sorter' +
+                        (state.sort !== 'risk'
+                          ? ' station-config-sorter-active'
+                          : '')
+                      }
+                      onClick={() => this.setState({ sort: 'stacks' })}
+                    >
+                      Stacks
+                    </th>
                     <th>Items</th>
+                    <th
+                      class={
+                        'station-config-sorter' +
+                        (state.sort === 'risk'
+                          ? ' station-config-sorter-active'
+                          : '')
+                      }
+                      onClick={() => this.setState({ sort: 'risk' })}
+                    >
+                      Bus has
+                    </th>
                     <th>Item</th>
                   </tr>
                 </thead>
                 <tbody>
                   {Object.entries(valid)
-                    .sort(byCount)
+                    .sort(state.sort === 'risk' ? byRisk : byCount)
                     .map(([name, count]) => (
                       <tr class={state.banned[name] ? 'chestify-banned' : ''}>
                         <td>
@@ -138,6 +175,7 @@ export class Chestify extends Component<{}, ChestifyState> {
                         </td>
                         <td>{stacks(name, count)}</td>
                         <td>{count}</td>
+                        <td>{busDesc(name, count)}</td>
                         <td>
                           <ColonJoined colon={name} />
                         </td>
