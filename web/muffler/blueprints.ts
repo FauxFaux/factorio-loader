@@ -91,32 +91,30 @@ export function buildRequestFilters(input: Record<Colon, number>) {
   });
 }
 
-export function toChest(
+export function toChests(
   reference: Blueprint,
-  input: Record<Colon, number>,
+  input: Record<Colon, number>[],
 ): Blueprint {
-  const justChest = {
-    index: 1,
+  const icons = input.map((_, i) => ({
+    index: i + 1,
     signal: {
       name: 'logistic-chest-requester',
       type: 'item',
     },
-  };
+  }));
   return {
-    entities: [
-      {
-        entity_number: 1,
-        name: 'logistic-chest-requester',
-        position: {
-          x: 0,
-          y: 0,
-        },
-        request_filters: buildRequestFilters(input),
+    entities: input.map((input, i) => ({
+      entity_number: i + 1,
+      name: 'logistic-chest-requester',
+      position: {
+        x: i * 2,
+        y: 0,
       },
-    ],
-    icons: [justChest],
+      request_filters: buildRequestFilters(input),
+    })),
+    icons,
     item: 'blueprint',
-    version: input.version,
+    version: reference.version,
   };
 }
 

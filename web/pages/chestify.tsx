@@ -80,11 +80,9 @@ export class Chestify extends Component<{}, ChestifyState> {
             </div>
             <div className={'col-6'}>
               <h2>
-                Chest will request{' '}
-                <span style={wantedStacks > capacityStacks ? 'color: red' : ''}>
-                  {wantedStacks}/{capacityStacks}
-                </span>{' '}
-                stacks:
+                Chest{wantedStacks > capacityStacks - 8}s will request{' '}
+                {wantedStacks} (~{' '}
+                chests) stacks:
               </h2>
               <table class={'table chestify-summary'}>
                 <thead>
@@ -159,14 +157,28 @@ export class Chestify extends Component<{}, ChestifyState> {
           </>
         );
 
-        const chesty = blueprint.toChest(
-          bp,
-          Object.fromEntries(
-            Object.entries(valid)
-              .filter(([name]) => !state.banned[name])
-              .sort(byCount),
-          ),
-        );
+        const pickFrom = Object.entries(valid)
+          .filter(([name]) => !state.banned[name])
+          .sort(byCount);
+        const chests: Record<Colon, number>[] = [];
+        for (const [colon, items] of pickFrom) {
+          const need = stacks(colon, items);
+          const idx = chests.findIndex((chest) => {
+            const robotErrorEstimate = Object.keys(chest).length / 4;
+            const currentSlotUsage = Object.entries(chest).reduce(
+              (a, [colon, items]) => a + stacks(colon, items),
+              robotErrorEstimate,
+            );
+            return currentSlotUsage + need < capacityStacks;
+          });
+          if (idx === -1) {
+            chests.push({ [colon]: items });
+          } else {
+            chests[idx][colon] = (chests[idx][colon] || 0) + items;
+          }
+        }
+
+        const chesty = blueprint.toChests(bp, chests);
         output = (
           <textarea
             class={'form-control big-boy'}
