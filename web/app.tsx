@@ -113,8 +113,8 @@ const header = (
             </a>
           </li>
           <li>
-            <a href="/an/next" className="nav-link px-2 text-white">
-              Next
+            <a href="/an/proc-mgmt" className="nav-link px-2 text-white">
+              Proc Mgmt (beta)
             </a>
           </li>
           <li>
