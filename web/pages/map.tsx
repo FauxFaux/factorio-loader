@@ -41,7 +41,10 @@ function leafletMap(
   return map;
 }
 
-interface LeafletState {}
+interface LeafletState {
+  map?: Leaflet.Map;
+  lastMove?: number;
+}
 
 export class Map extends Component<MapProps, LeafletState> {
   map = createRef();
@@ -66,10 +69,23 @@ export class Map extends Component<MapProps, LeafletState> {
       zoom = parseInt(props.zoom);
     }
 
+    // honestly have no idea how state and effects interact
+    useEffect(() => {
+      // some kind of debounce?
+      if (Date.now() - (state.lastMove ?? 0) < 1000) return;
+      state.map?.setView(center, zoom);
+    }, [center, zoom]);
+
     useEffect(() => {
       const map = leafletMap(L, transformation, this.map.current);
 
       map.setView(center, zoom);
+      map.on('moveend', () => {
+        const c = map.getCenter();
+        const z = map.getZoom();
+        window.location.hash = `#/map/${c.lng.toFixed()},${c.lat.toFixed()}/${z}`;
+        this.setState({ lastMove: Date.now() });
+      });
 
       const popup = L.popup();
 
@@ -94,7 +110,12 @@ export class Map extends Component<MapProps, LeafletState> {
 
       map.on('click', onMapClick);
 
-      return () => map.remove();
+      this.setState({ map });
+
+      return () => {
+        this.setState({ map: undefined });
+        map.remove();
+      };
     }, []);
 
     return <div class="slippy" ref={this.map}></div>;
