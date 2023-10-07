@@ -36,12 +36,18 @@ import { BulkCraftings } from './pages/bulk-craftings';
 import { PlanButExisting } from './pages/plan-but-existing';
 import { ProcMgmtPage } from './pages/proc-mgmt';
 
-export class App extends Component {
-  render() {
+export class App extends Component<{}, { fluid?: boolean }> {
+  render(_: unknown, state: Readonly<{ fluid?: boolean }>) {
     return (
-      <div className="container">
+      <div className={'container' + (state.fluid ? '-fluid' : '')}>
         <div className="row">{header}</div>
-        <Router history={createHashHistory() as any}>
+        <Router
+          history={createHashHistory() as any}
+          onChange={(e) => {
+            // hack level 8000 or so
+            this.setState({ fluid: e.path?.startsWith('/map') });
+          }}
+        >
           <Home path="/" />
           <WhatTheBrick path="/what-the-brick" />
           <StationStatus path="/station-status" />
