@@ -17,9 +17,12 @@ for _, ty in ipairs({
     "train-stop",
     "roboport",
     "radar",
-    "resource",
     "train-stop-input",
     "constant-combinator",
+    "electric-pole",
+    "ammo-turret",
+    "electric-turret",
+    "fluid-turret",
     "tags" }) do
     local all
     if ty == "tags" then
@@ -181,3 +184,21 @@ for ty, ps in pairs({ item = game.player.force.item_production_statistics, fluid
         game.write_file(ty .. "-" .. direction .. ".rec", table.concat(t, "\035"))
     end
 end
+
+t = {
+    game.tick,
+    game.ticks_played,
+    game.ticks_to_run,
+    game.speed,
+    game.player.force.research_progress,
+    #game.player.force.get_trains(),
+
+}
+c = game.player.force.current_research
+if c ~= nil then
+    t[#t + 1] = c.name
+else
+    t[#t + 1] = ""
+end
+
+game.write_file("meta.rec", table.concat(t, "\035"))

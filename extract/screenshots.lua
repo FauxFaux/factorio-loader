@@ -1,16 +1,15 @@
 -- gamepershot is the number of game tiles in each screenshot
 -- zoomscalefactor is a magic number determined from inspecting screenshots; presumably related to the native resolution of the sprites
 
--- -4 -> 3 (inclusive) is 8 screenshots
+-- -4 -> 3 ( inclusive) is 8 screenshots
 -- -8 -> 7 (inclusive) is 16 screenshots
 
 local maxpx = 4096
 local zoomscalefactor = 32
 local zoom = 0.5
 local gamepershot = maxpx / (zoomscalefactor * zoom)
-local half_shots = 16
-for y = -half_shots, (half_shots -1) do
-    for x = -half_shots, (half_shots -1) do
+for y = -9, 9 do
+    for x = -10, 12 do
         local pos = { x = x * gamepershot, y = y * gamepershot }
         game.take_screenshot({
             position = pos,
