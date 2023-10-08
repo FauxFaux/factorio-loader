@@ -75,7 +75,8 @@ inventory contains just one blueprint book
  * `% for f in so-*; do (cd $f && if ! [ -d out ]; then echo $f; RUST_LOG=info nice -n19 ~/code/tiledir/target/release/tiledir -q 80 .; fi); done`
  * ^ doesn't handle dying, so cleanup any output directories if it failed
  * `scripts/load-maps.ts`
- * 
+ * `rsync -av --include='*.avif'  --include='*/' --exclude='*' so-202* fau.xxx:/srv/facto.goeswhere.com/`
+ * actually deploy it
 
 ---
 

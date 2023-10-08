@@ -11,6 +11,7 @@ import { useLib } from '../muffler/libs';
 interface MapProps {
   gps?: string;
   zoom?: string;
+  timeName?: string;
 }
 
 export function leafletTransform(L: typeof Leaflet) {
@@ -80,14 +81,15 @@ export class Map extends Component<MapProps, LeafletState> {
     }, [center, zoom]);
 
     useEffect(() => {
+      state.tl?.setUrl(`../so-${state.timeName}/out/{z}/{x}/{y}.avif`);
+    }, [state.timeName]);
+
+    useEffect(() => {
       const [map, tl] = leafletMap(L, transformation, this.map.current);
 
       map.setView(center, zoom);
       map.on('moveend', () => {
-        const c = map.getCenter();
-        const z = map.getZoom();
-        window.location.hash = `#/map/${c.lng.toFixed()},${c.lat.toFixed()}/${z}`;
-        this.setState({ lastMove: Date.now() });
+        this.updateUrl();
       });
 
       const popup = L.popup();
@@ -104,7 +106,7 @@ export class Map extends Component<MapProps, LeafletState> {
               <>
                 [gps={gps[0].toFixed()}, {gps[1].toFixed()}]{' '}
                 <a href={`#/block/${loc}`}>{loc}</a> (
-                <TagList tags={data.doc[loc]?.tags} />)
+                <TagList tags={data.doc[loc]?.tags ?? []} />)
               </>,
             ),
           )
@@ -127,7 +129,9 @@ export class Map extends Component<MapProps, LeafletState> {
     const hour = (tick: number) => Math.round(tick / TPS / 60 / 60);
     const width = (end: MapRef, start?: MapRef) =>
       (hour(end.tick - (start?.tick ?? 0)) / lastHour) * 100;
-    const lastHour = Math.max(...timeList.map((m) => hour(m.tick)));
+    const last = timeList[timeList.length - 1];
+    const lastHour = hour(last.tick);
+    const picked = state.timeName ?? last.date;
 
     return (
       <>
@@ -139,15 +143,17 @@ export class Map extends Component<MapProps, LeafletState> {
               const style: Record<string, string> = {
                 width: `${width(ref, prev)}%`,
               };
-              if (ref.date === state.timeName) {
-                style['background-color'] = 'red';
+              if (ref.date === picked) {
+                // button blue
+                style['background-color'] = '#0d6efd';
               }
               return (
                 <li
                   style={style}
-                  title={`${ref.date}: ${hour(ref.tick)} hours`}
+                  title={`${ref.date} - ${hour(ref.tick)} hours`}
                   onClick={() => {
                     this.setState({ timeName: ref.date });
+                    this.updateUrl();
                   }}
                 >
                   &nbsp;
@@ -173,6 +179,16 @@ export class Map extends Component<MapProps, LeafletState> {
         </div>
       </>
     );
+  }
+
+  private updateUrl() {
+    if (!this.state.map) return;
+    const c = this.state.map.getCenter();
+    const z = this.state.map.getZoom();
+    const timeName =
+      this.state.timeName ?? data.maps.maps[data.maps.maps.length - 1].date;
+    window.location.hash = `#/map/${c.lng.toFixed()},${c.lat.toFixed()}/${z}/${timeName}`;
+    this.setState({ lastMove: Date.now() });
   }
 }
 

@@ -61,9 +61,10 @@ export class App extends Component<{}, { fluid?: boolean }> {
             name="from the path"
           />
           <Map
-            path="/map/:gps?/:zoom?"
+            path="/map/:gps?/:zoom?/:timeName?"
             gps="from the path"
             zoom="from the path"
+            timeName="from the path"
           />
           <Next path="/an/next" />
           <Pulses path="/an/pulses/:colon" colon="from the path" />
