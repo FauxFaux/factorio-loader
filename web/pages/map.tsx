@@ -5,7 +5,7 @@ import type Leaflet from 'leaflet';
 
 import { BRICK_H, BRICK_W, fromLoc, toBlock } from '../../scripts/magic';
 import { TagList } from '../objects';
-import { data } from '../datae';
+import { data, MapRef } from '../datae';
 import { useLib } from '../muffler/libs';
 
 interface MapProps {
@@ -121,35 +121,33 @@ export class Map extends Component<MapProps, LeafletState> {
       };
     }, []);
 
-    const times: Record<number, number> = {};
+    const timeList = data.maps.maps;
 
-    let rand = 37;
-    for (let i = 0; i < 80; i++) {
-      rand = (rand * 1664525 + 1013904223) & 0xffffffff;
-      times[i] = Math.round((i + 1) * 9 + ((Math.abs(rand) % 32) / 32) * 6);
-    }
+    const TPS = 60;
+    const hour = (tick: number) => Math.round(tick / TPS / 60 / 60);
+    const width = (end: MapRef, start?: MapRef) =>
+      (hour(end.tick - (start?.tick ?? 0)) / lastHour) * 100;
+    const lastHour = Math.max(...timeList.map((m) => hour(m.tick)));
 
-    const lastHour = Math.max(...Object.values(times));
-
-    const timeList = Object.entries(times);
     return (
       <>
         <div class="slippy" ref={this.map}></div>
         <div class="slippy--time-range">
           <ol class="slippy--time-range-bar">
-            {timeList.map(([i, t], j) => {
-              const [, prev] = timeList[j - 1] ?? ['0', 0];
-              const p = ((t - prev) / lastHour) * 100;
-              const style: Record<string, string> = { width: `${p}%` };
-              if (i === state.timeName) {
+            {timeList.map((ref, i) => {
+              const prev: MapRef | undefined = timeList[i - 1];
+              const style: Record<string, string> = {
+                width: `${width(ref, prev)}%`,
+              };
+              if (ref.date === state.timeName) {
                 style['background-color'] = 'red';
               }
               return (
                 <li
                   style={style}
-                  title={`${t} hours`}
+                  title={`${ref.date}: ${hour(ref.tick)} hours`}
                   onClick={() => {
-                    this.setState({ timeName: i });
+                    this.setState({ timeName: ref.date });
                   }}
                 >
                   &nbsp;
@@ -158,14 +156,16 @@ export class Map extends Component<MapProps, LeafletState> {
             })}
           </ol>
           <ol class="slippy--time-range-legend">
-            {timeList.flatMap(([i, t], j) => {
-              if (j % 10 !== 9) return [];
-              const [, prev] = timeList[j - 10] ?? ['0', 0];
-              const p = ((t - prev) / lastHour) * 100;
-              const style = { width: `${p}%` };
+            {timeList.flatMap((ref, i) => {
+              const gap = 3;
+              if (i % gap !== gap - 1) return [];
+              const prev: MapRef | undefined = timeList[i - gap];
+              const style: Record<string, string> = {
+                width: `${width(ref, prev)}%`,
+              };
               return [
                 <li style={style}>
-                  {prev}h - {t}h
+                  {hour(prev?.tick ?? 0)}h - {hour(ref.tick)}h
                 </li>,
               ];
             })}

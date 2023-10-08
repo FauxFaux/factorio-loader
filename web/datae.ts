@@ -90,6 +90,7 @@ export interface MapRef {
   trains: number;
   researchName: string;
   researchProgress: number;
+  hasMap: boolean;
 }
 
 export function precompute() {

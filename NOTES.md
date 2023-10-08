@@ -59,15 +59,25 @@ inventory contains just one blueprint book
  * `mv ~/tiledir map-tiles && chmod a+rX -R map-tiles`
  * update the version number in `leafletMap`
 
-* sodium hydroxide provide
+### multi-screenshot drifting
 
-* empty barrel request
-* ammonia request
-* benzene request
+ * `rm -rf ~/ins/factorio/script-output`
+ * pick a date
+ * load the save
+ * run the regular export
+ * if it's after ~2023-09-01, run `radar.lua`
+ * wait a bit? lol owned, no automation for you
+ * run the `screenshots.lua` instructions
+ * `mv ~/ins/factorio/script-output so-2023-69-69` 
 
- * hydrogen chloride provide
+...
 
- * nylon provide
+ * `% for f in so-*; do (cd $f && if ! [ -d out ]; then echo $f; RUST_LOG=info nice -n19 ~/code/tiledir/target/release/tiledir -q 80 .; fi); done`
+ * ^ doesn't handle dying, so cleanup any output directories if it failed
+ * `scripts/load-maps.ts`
+ * 
+
+---
 
 moss stone vs. coarse
 https://facto.goeswhere.com/#/an/plan/G94AYI3UYs0Z7mTkttQ_Y1Y6cWaYNW6ho5MDvPK3i0UcSJgnkUaSh5jH2HM-BhI_vP9AfjzOzJcD9vN90xoJzKP8Nx9hvJyzaBIEszHEhOhTvKTmVM_rBEpV5qzSVxleoOQq9XyWZqX7-aLqsowsAg

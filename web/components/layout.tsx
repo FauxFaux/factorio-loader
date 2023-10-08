@@ -279,38 +279,6 @@ interface RadarProps {
   config: RadarConfig;
 }
 
-class Grid {
-  static readonly W = 192 - 8;
-  static readonly H = 128 - 8;
-  inner: boolean[] = Array(Grid.W * Grid.H).fill(false);
-  get = (x: number, y: number) => this.inner[x + y * Grid.W];
-  set = (x: number, y: number) => (this.inner[x + y * Grid.W] = true);
-  fill = (x: number, y: number, w: number, h: number) => {
-    for (let i = 0; i < w; i++) {
-      for (let j = 0; j < h; j++) {
-        this.set(x + i, y + j);
-      }
-    }
-  };
-
-  clone = () => {
-    const g = new Grid();
-    g.inner = this.inner.slice();
-    return g;
-  };
-
-  toString = () => {
-    let s = '';
-    for (let y = 0; y < Grid.H; y++) {
-      for (let x = 0; x < Grid.W; x++) {
-        s += this.get(x, y) ? 'X' : '.';
-      }
-      s += '\n';
-    }
-    return s;
-  };
-}
-
 class TileRadar extends Component<RadarProps> {
   render(props: RadarProps) {
     const { config } = props;
