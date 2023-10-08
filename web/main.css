@@ -106,9 +106,43 @@
 }
 
 .slippy {
-  height: 90vh;
+  height: 85vh;
   width: 100%;
   background: black;
+}
+
+.slippy--time-range {
+  width: 100%;
+  padding: 3px;
+  margin-top: 1em;
+}
+
+.slippy--time-range ol {
+  width: 100%;
+    list-style-type: none;
+    padding-left: 0;
+  margin-bottom: 0;
+}
+
+.slippy--time-range ol li {
+  display: inline-block;
+  border: 1px solid #888;
+  border-radius: 3px;
+  background-color: white;
+
+}
+
+.slippy--time-range-bar li {
+  cursor: pointer;
+  user-select: none;
+  height: 1em;
+  overflow: hidden;
+}
+
+.slippy--time-range-legend {
+  color: black;
+  text-align: center;
+  margin-top: 0;
 }
 
 .block-thumb {

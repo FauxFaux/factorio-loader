@@ -10,7 +10,7 @@ export function loadCells(kind: string): string[][] {
   return loadLines(kind).map((record) => record.split('\x1e'));
 }
 
-export function loadLines(kind: string): string[] {
+export function loadLines(kind: string, base = base): string[] {
   return fs
     .readFileSync(`${base}/${kind}.rec`, { encoding: 'utf-8' })
     .split('\x1d'); // (\035)

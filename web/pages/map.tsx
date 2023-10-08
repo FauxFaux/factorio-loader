@@ -32,17 +32,20 @@ function leafletMap(
     transformation,
   });
   const map = L.map(el, { crs });
-  L.tileLayer('../map-tiles/{z}/{x}/{y}.avif?v=9', {
+  const tl = L.tileLayer('../map-tiles/{z}/{x}/{y}.avif?v=9', {
     // 0, 9 are from map-tiles' first level directory; 12 is like my opinion man
     minZoom: 0,
     maxNativeZoom: 9,
     maxZoom: 12,
-  }).addTo(map);
-  return map;
+  });
+  tl.addTo(map);
+  return [map, tl] as const;
 }
 
 interface LeafletState {
   map?: Leaflet.Map;
+  tl?: Leaflet.TileLayer;
+  timeName?: string;
   lastMove?: number;
 }
 
@@ -77,7 +80,7 @@ export class Map extends Component<MapProps, LeafletState> {
     }, [center, zoom]);
 
     useEffect(() => {
-      const map = leafletMap(L, transformation, this.map.current);
+      const [map, tl] = leafletMap(L, transformation, this.map.current);
 
       map.setView(center, zoom);
       map.on('moveend', () => {
@@ -110,15 +113,66 @@ export class Map extends Component<MapProps, LeafletState> {
 
       map.on('click', onMapClick);
 
-      this.setState({ map });
+      this.setState({ map, tl });
 
       return () => {
-        this.setState({ map: undefined });
+        this.setState({ map: undefined, tl: undefined });
         map.remove();
       };
     }, []);
 
-    return <div class="slippy" ref={this.map}></div>;
+    const times: Record<number, number> = {};
+
+    let rand = 37;
+    for (let i = 0; i < 80; i++) {
+      rand = (rand * 1664525 + 1013904223) & 0xffffffff;
+      times[i] = Math.round((i + 1) * 9 + ((Math.abs(rand) % 32) / 32) * 6);
+    }
+
+    const lastHour = Math.max(...Object.values(times));
+
+    const timeList = Object.entries(times);
+    return (
+      <>
+        <div class="slippy" ref={this.map}></div>
+        <div class="slippy--time-range">
+          <ol class="slippy--time-range-bar">
+            {timeList.map(([i, t], j) => {
+              const [, prev] = timeList[j - 1] ?? ['0', 0];
+              const p = ((t - prev) / lastHour) * 100;
+              const style: Record<string, string> = { width: `${p}%` };
+              if (i === state.timeName) {
+                style['background-color'] = 'red';
+              }
+              return (
+                <li
+                  style={style}
+                  title={`${t} hours`}
+                  onClick={() => {
+                    this.setState({ timeName: i });
+                  }}
+                >
+                  &nbsp;
+                </li>
+              );
+            })}
+          </ol>
+          <ol class="slippy--time-range-legend">
+            {timeList.flatMap(([i, t], j) => {
+              if (j % 10 !== 9) return [];
+              const [, prev] = timeList[j - 10] ?? ['0', 0];
+              const p = ((t - prev) / lastHour) * 100;
+              const style = { width: `${p}%` };
+              return [
+                <li style={style}>
+                  {prev}h - {t}h
+                </li>,
+              ];
+            })}
+          </ol>
+        </div>
+      </>
+    );
   }
 }
 
@@ -133,7 +187,7 @@ export class BlockThumb extends Component<{ loc: string }, LeafletState> {
     const [bx, by] = fromLoc(props);
 
     useEffect(() => {
-      const map = leafletMap(L, transformation, this.map.current);
+      const [map] = leafletMap(L, transformation, this.map.current);
       const pad = 1;
       map.fitBounds(
         [

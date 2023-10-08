@@ -57,6 +57,9 @@ export const data = {
     ticks: number[];
     byPos: Record<ConcPos, { runs?: number[]; recipe?: string; name?: string }>;
   },
+  maps: {} as {
+    maps: MapRef[];
+  },
 } as const;
 
 export interface FlowStats {
@@ -79,6 +82,15 @@ export const computed = {
 export type Loc = string;
 /** from, to, start, duration, amount */
 export type Pulse = [Loc, Loc, number, number, number];
+
+export interface MapRef {
+  date: string;
+  tick: number;
+  speed: number;
+  trains: number;
+  researchName: string;
+  researchProgress: number;
+}
 
 export function precompute() {
   computed.ltnSummary = precomputeLtnSummary();
