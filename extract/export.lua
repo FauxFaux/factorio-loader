@@ -21,6 +21,7 @@ for _, ty in ipairs({
     "constant-combinator",
     "electric-pole",
     "ammo-turret",
+    "resource",
     "electric-turret",
     "fluid-turret",
     "tags" }) do
