@@ -61,14 +61,14 @@ inventory contains just one blueprint book
 
 ### multi-screenshot drifting
 
+ * delete "resource" from export.lua, but don't commit it because it will break other stuff
  * `rm -rf ~/ins/factorio/script-output`
+ * `echo $(<extract/export.lua) $(<extract/screenshots.lua | egrep -v '^\s*--') | xclip -selection clipboard`
  * pick a date
+ * type `mv ~/ins/factorio/script-output so-2023-69-69` into the terminal
  * load the save
- * run the regular export
- * if it's after ~2023-09-01, run `radar.lua`
- * wait a bit? lol owned, no automation for you
- * run the `screenshots.lua` instructions
- * `mv ~/ins/factorio/script-output so-2023-69-69` 
+ * up enter the command from the clipboard
+ * hit enter in the terminal
 
 ...
 

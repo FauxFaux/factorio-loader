@@ -8,6 +8,8 @@ local maxpx = 4096
 local zoomscalefactor = 32
 local zoom = 0.5
 local gamepershot = maxpx / (zoomscalefactor * zoom)
+-- unclear if this is a 'set', or actually a flush
+game.set_wait_for_screenshots_to_finish()
 for y = -9, 9 do
     for x = -10, 12 do
         local pos = { x = x * gamepershot, y = y * gamepershot }
@@ -21,15 +23,7 @@ for y = -9, 9 do
             daytime = 1 })
     end
 end
-
-game.take_screenshot({
-    position = { x = 320, y = 205 },
-    zoom = 0.125,
-    resolution = { x = 1024, y = 512 },
-    path = "screenshot.jpg",
-    quality = 70,
-    water_tick = 0,
-    daytime = 1 })
+game.set_wait_for_screenshots_to_finish()
 
 -- at 0.25 zoom, 8 pixels per tile
 -- at 0.125 zoom, 4 pixels per tile
