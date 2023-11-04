@@ -143,6 +143,8 @@
   color: black;
   text-align: center;
   margin-top: 0;
+  white-space: nowrap;
+  text-overflow: clip;
 }
 
 .block-thumb {

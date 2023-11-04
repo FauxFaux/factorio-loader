@@ -7,6 +7,7 @@ import { BRICK_H, BRICK_W, fromLoc, toBlock } from '../../scripts/magic';
 import { TagList } from '../objects';
 import { data, MapRef } from '../datae';
 import { useLib } from '../muffler/libs';
+import _chunk from 'lodash/chunk';
 
 interface MapProps {
   gps?: string;
@@ -144,8 +145,9 @@ export class Map extends Component<MapProps, LeafletState> {
 
     const bar = timeList.map((ref, i) => {
       const prev: MapRef | undefined = timeList[i - 1];
+      const w = width(ref, prev);
       const style: Record<string, string> = {
-        width: `${width(ref, prev)}%`,
+        width: `${w}%`,
       };
       if (ref.date === picked) {
         // button blue
@@ -163,18 +165,25 @@ export class Map extends Component<MapProps, LeafletState> {
         </li>
       );
     });
-    const legend = timeList.flatMap((ref, i) => {
-      const gap = 3;
-      if (i % gap !== gap - 1) return [];
-      const prev: MapRef | undefined = timeList[i - gap];
+
+    const timeChunks = _chunk(timeList, Math.ceil(timeList.length / 7));
+    const legend = timeChunks.flatMap((chunks, i) => {
+      const prevChunk: MapRef[] | undefined = timeChunks[i - 1];
+      const prev: MapRef | undefined = prevChunk?.[prevChunk.length - 1];
+      const ref = chunks[chunks.length - 1];
+      const w = width(ref, prev);
       const style: Record<string, string> = {
-        width: `${width(ref, prev)}%`,
+        width: `${w}%`,
       };
-      return [
-        <li style={style}>
-          {hour(prev?.tick ?? 0)}h - {hour(ref.tick)}h
-        </li>,
-      ];
+      const msg =
+        w > 8 ? (
+          <>
+            {hour(prev?.tick ?? 0)}h - {hour(ref.tick)}h
+          </>
+        ) : (
+          <>- {hour(ref.tick)}h</>
+        );
+      return [<li style={style}>{msg}</li>];
     });
     return (
       <>
