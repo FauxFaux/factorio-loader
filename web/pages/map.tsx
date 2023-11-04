@@ -138,53 +138,50 @@ export class Map extends Component<MapProps, LeafletState> {
     const TPS = 60;
     const hour = (tick: number) => Math.round(tick / TPS / 60 / 60);
     const last = timeList[timeList.length - 1];
-    const lastHour = hour(last.tick);
     const width = (end: MapRef, start?: MapRef) =>
       ((end.tick - (start?.tick ?? 0)) / last.tick) * 100;
     const picked = props.timeName;
 
+    const bar = timeList.map((ref, i) => {
+      const prev: MapRef | undefined = timeList[i - 1];
+      const style: Record<string, string> = {
+        width: `${width(ref, prev)}%`,
+      };
+      if (ref.date === picked) {
+        // button blue
+        style['background-color'] = '#0d6efd';
+      }
+      return (
+        <li
+          style={style}
+          title={`${ref.date} - ${hour(ref.tick)} hours`}
+          onClick={() => {
+            this.updateUrl(ref.date);
+          }}
+        >
+          &nbsp;
+        </li>
+      );
+    });
+    const legend = timeList.flatMap((ref, i) => {
+      const gap = 3;
+      if (i % gap !== gap - 1) return [];
+      const prev: MapRef | undefined = timeList[i - gap];
+      const style: Record<string, string> = {
+        width: `${width(ref, prev)}%`,
+      };
+      return [
+        <li style={style}>
+          {hour(prev?.tick ?? 0)}h - {hour(ref.tick)}h
+        </li>,
+      ];
+    });
     return (
       <>
         <div class="slippy" ref={this.map}></div>
         <div class="slippy--time-range">
-          <ol class="slippy--time-range-bar">
-            {timeList.map((ref, i) => {
-              const prev: MapRef | undefined = timeList[i - 1];
-              const style: Record<string, string> = {
-                width: `${width(ref, prev)}%`,
-              };
-              if (ref.date === picked) {
-                // button blue
-                style['background-color'] = '#0d6efd';
-              }
-              return (
-                <li
-                  style={style}
-                  title={`${ref.date} - ${hour(ref.tick)} hours`}
-                  onClick={() => {
-                    this.updateUrl(ref.date);
-                  }}
-                >
-                  &nbsp;
-                </li>
-              );
-            })}
-          </ol>
-          <ol class="slippy--time-range-legend">
-            {timeList.flatMap((ref, i) => {
-              const gap = 3;
-              if (i % gap !== gap - 1) return [];
-              const prev: MapRef | undefined = timeList[i - gap];
-              const style: Record<string, string> = {
-                width: `${width(ref, prev)}%`,
-              };
-              return [
-                <li style={style}>
-                  {hour(prev?.tick ?? 0)}h - {hour(ref.tick)}h
-                </li>,
-              ];
-            })}
-          </ol>
+          <ol class="slippy--time-range-bar">{bar}</ol>
+          <ol class="slippy--time-range-legend">{legend}</ol>
         </div>
       </>
     );
