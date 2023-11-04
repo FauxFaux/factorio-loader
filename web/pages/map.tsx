@@ -15,12 +15,9 @@ interface MapProps {
 }
 
 export function leafletTransform(L: typeof Leaflet) {
-  // tl;dr leaflet uses 0,0 as the top left corner, factorio uses 0,0 as the centre, and then there's a scale factor
-
-  // this is the relation between the screenshot scale (in screenshots.lua) and the leaflet coord system
-  const scale = 32;
-  // 8.5 is the `-8` in screenshots.lua, and I knew what 512 was at some point
-  const off = 16.5 * 8;
+  // these are determined experimentally because I have a very smooth brain
+  const scale = 4;
+  const off = 992;
   return new L.Transformation(1 / scale, off, 1 / scale, off);
 }
 
@@ -36,8 +33,9 @@ function leafletMap(
   const tl = L.tileLayer('../map-tiles/{z}/{x}/{y}.avif?v=9', {
     // 0, 9 are from map-tiles' first level directory; 12 is like my opinion man
     minZoom: 0,
-    maxNativeZoom: 9,
-    maxZoom: 12,
+    maxNativeZoom: 5,
+    maxZoom: 9,
+    tileSize: 2048,
   });
   tl.addTo(map);
   return [map, tl] as const;
@@ -46,8 +44,11 @@ function leafletMap(
 interface LeafletState {
   map?: Leaflet.Map;
   tl?: Leaflet.TileLayer;
-  timeName?: string;
   lastMove?: number;
+}
+
+function latestMapDate() {
+  return data.maps.maps[data.maps.maps.length - 1].date;
 }
 
 export class Map extends Component<MapProps, LeafletState> {
@@ -62,7 +63,7 @@ export class Map extends Component<MapProps, LeafletState> {
     const transformation = leafletTransform(L);
 
     let center: [number, number] = [0, 0];
-    let zoom = 6;
+    let zoom = 2;
 
     if (props.gps) {
       const [x, y] = props.gps.split(',').map(parseFloat);
@@ -73,6 +74,17 @@ export class Map extends Component<MapProps, LeafletState> {
       zoom = parseInt(props.zoom);
     }
 
+    if (!props.timeName) {
+      const timeName = latestMapDate();
+      this.setUrl(center[0], center[1], zoom, timeName, true);
+      return (
+        <div class="slippy">
+          Please enjoy this forced refresh because the author does not
+          understand (p)react.
+        </div>
+      );
+    }
+
     // honestly have no idea how state and effects interact
     useEffect(() => {
       // some kind of debounce?
@@ -80,16 +92,14 @@ export class Map extends Component<MapProps, LeafletState> {
       state.map?.setView(center, zoom);
     }, [center, zoom]);
 
-    useEffect(() => {
-      state.tl?.setUrl(`../so-${state.timeName}/out/{z}/{x}/{y}.avif`);
-    }, [state.timeName]);
+    state.tl?.setUrl(`../so-${props.timeName}/out/nih/{z}/{x}/{y}.avif`);
 
     useEffect(() => {
       const [map, tl] = leafletMap(L, transformation, this.map.current);
 
       map.setView(center, zoom);
       map.on('moveend', () => {
-        this.updateUrl();
+        this.updateUrl(this.props.timeName!);
       });
 
       const popup = L.popup();
@@ -127,11 +137,11 @@ export class Map extends Component<MapProps, LeafletState> {
 
     const TPS = 60;
     const hour = (tick: number) => Math.round(tick / TPS / 60 / 60);
-    const width = (end: MapRef, start?: MapRef) =>
-      (hour(end.tick - (start?.tick ?? 0)) / lastHour) * 100;
     const last = timeList[timeList.length - 1];
     const lastHour = hour(last.tick);
-    const picked = state.timeName ?? last.date;
+    const width = (end: MapRef, start?: MapRef) =>
+      ((end.tick - (start?.tick ?? 0)) / last.tick) * 100;
+    const picked = props.timeName;
 
     return (
       <>
@@ -152,8 +162,7 @@ export class Map extends Component<MapProps, LeafletState> {
                   style={style}
                   title={`${ref.date} - ${hour(ref.tick)} hours`}
                   onClick={() => {
-                    this.setState({ timeName: ref.date });
-                    this.updateUrl();
+                    this.updateUrl(ref.date);
                   }}
                 >
                   &nbsp;
@@ -181,14 +190,22 @@ export class Map extends Component<MapProps, LeafletState> {
     );
   }
 
-  private updateUrl() {
+  private updateUrl(timeName: string) {
     if (!this.state.map) return;
     const c = this.state.map.getCenter();
     const z = this.state.map.getZoom();
-    const timeName =
-      this.state.timeName ?? data.maps.maps[data.maps.maps.length - 1].date;
-    window.location.hash = `#/map/${c.lng.toFixed()},${c.lat.toFixed()}/${z}/${timeName}`;
-    this.setState({ lastMove: Date.now() });
+    this.setUrl(c.lng, c.lat, z, timeName);
+  }
+
+  private setUrl(
+    lng: number,
+    lat: number,
+    zoom: number,
+    timeName: string,
+    forced?: true,
+  ) {
+    window.location.hash = `#/map/${lng.toFixed()},${lat.toFixed()}/${zoom}/${timeName}`;
+    if (!forced) this.setState({ lastMove: Date.now() });
   }
 }
 
