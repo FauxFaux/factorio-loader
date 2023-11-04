@@ -1,4 +1,5 @@
 import { Component, createRef } from 'preact';
+import type { JSX } from 'preact';
 import { render as stringify } from 'preact-render-to-string';
 import { useEffect } from 'preact/hooks';
 import type Leaflet from 'leaflet';
@@ -15,6 +16,14 @@ interface MapProps {
   timeName?: string;
 }
 
+const tileOpts = {
+  // 0, 9 are from map-tiles' first level directory; 12 is like my opinion man
+  minZoom: 0,
+  maxNativeZoom: 5,
+  maxZoom: 9,
+  tileSize: 2048,
+};
+
 export function leafletTransform(L: typeof Leaflet) {
   // these are determined experimentally because I have a very smooth brain
   const scale = 4;
@@ -30,16 +39,7 @@ function leafletMap(
   const crs = L.extend({}, L.CRS.Simple, {
     transformation,
   });
-  const map = L.map(el, { crs });
-  const tl = L.tileLayer('../map-tiles/{z}/{x}/{y}.avif?v=9', {
-    // 0, 9 are from map-tiles' first level directory; 12 is like my opinion man
-    minZoom: 0,
-    maxNativeZoom: 5,
-    maxZoom: 9,
-    tileSize: 2048,
-  });
-  tl.addTo(map);
-  return [map, tl] as const;
+  return L.map(el, { crs });
 }
 
 interface LeafletState {
@@ -50,6 +50,10 @@ interface LeafletState {
 
 function latestMapDate() {
   return data.maps.maps[data.maps.maps.length - 1].date;
+}
+
+function tlUrl(timeName: string) {
+  return `../so-${timeName}/out/nih/{z}/{x}/{y}.avif`;
 }
 
 export class Map extends Component<MapProps, LeafletState> {
@@ -86,6 +90,52 @@ export class Map extends Component<MapProps, LeafletState> {
       );
     }
 
+    // if (!state.tl) {
+    //   const tl = L.tileLayer(tlUrl(props.timeName), tileOpts);
+    //   this.setState({ tl });
+    // }
+
+    useEffect(() => {
+      if (state.tl) this.state.map?.addLayer(state.tl);
+    }, [state.tl, state.map]);
+
+    useEffect(() => {
+      // const handler = (ev: Key) => {
+      //
+      // };
+      const handler = (ev: KeyboardEvent) => {
+        if ('z' !== ev.key && 'x' !== ev.key) return;
+        ev.preventDefault();
+        const delta = ev.key === 'z' ? -1 : 1;
+        const idx = timeList.findIndex(
+          (ref) => ref.date === this.props.timeName,
+        );
+        const next = timeList[idx + delta];
+        if (!next) return;
+        this.updateUrl(next.date);
+      };
+      document.addEventListener('keyup', handler);
+      return () => document.removeEventListener('keyup', handler);
+    }, []);
+
+    useEffect(() => {
+      const tl = L.tileLayer(tlUrl(this.props.timeName!), tileOpts);
+      this.setState(({ tl: prevTl }) => {
+        // remove the old layer after a delay, to avoid flicker
+        // it's almost certainly not reasonable to do this in the actual setState handler, but suck it
+        if (prevTl) {
+          const handler = () => {
+            setTimeout(() => {
+              prevTl?.remove();
+              tl.removeEventListener('load', handler);
+            }, 1000);
+          };
+          tl.addEventListener('load', handler);
+        }
+        return { tl };
+      });
+    }, [props.timeName]);
+
     // honestly have no idea how state and effects interact
     useEffect(() => {
       // some kind of debounce?
@@ -93,10 +143,8 @@ export class Map extends Component<MapProps, LeafletState> {
       state.map?.setView(center, zoom);
     }, [center, zoom]);
 
-    state.tl?.setUrl(`../so-${props.timeName}/out/nih/{z}/{x}/{y}.avif`);
-
     useEffect(() => {
-      const [map, tl] = leafletMap(L, transformation, this.map.current);
+      const map = leafletMap(L, transformation, this.map.current);
 
       map.setView(center, zoom);
       map.on('moveend', () => {
@@ -126,7 +174,7 @@ export class Map extends Component<MapProps, LeafletState> {
 
       map.on('click', onMapClick);
 
-      this.setState({ map, tl });
+      this.setState({ map });
 
       return () => {
         this.setState({ map: undefined, tl: undefined });
@@ -153,15 +201,25 @@ export class Map extends Component<MapProps, LeafletState> {
         // button blue
         style['background-color'] = '#0d6efd';
       }
+      let help: JSX.Element = <>&nbsp;</>;
+      const helpHelp = 'hit z/x keyboard shortcuts to flip times';
+      if (0 === i) help = <abbr title={helpHelp}>⬅️ z</abbr>;
+      else if (timeList.length - 1 === i)
+        help = <abbr title={helpHelp}>➡️ x</abbr>;
+      else if (w > 5) help = <>{hour(ref.tick)}h</>;
       return (
         <li
           style={style}
-          title={`${ref.date} - ${hour(ref.tick)} hours`}
+          title={`${ref.date} - ${hour(ref.tick)} hours, ${
+            ref.trains
+          } trains, ${Math.floor(ref.researchProgress * 100)}% of ${
+            ref.researchName
+          }`}
           onClick={() => {
             this.updateUrl(ref.date);
           }}
         >
-          &nbsp;
+          {help}
         </li>
       );
     });
@@ -226,7 +284,8 @@ export class BlockThumb extends Component<{ loc: string }, LeafletState> {
     const [bx, by] = fromLoc(props);
 
     useEffect(() => {
-      const [map] = leafletMap(L, transformation, this.map.current);
+      const map = leafletMap(L, transformation, this.map.current);
+      latestMapDate();
       const pad = 1;
       map.fitBounds(
         [

@@ -135,8 +135,8 @@
 .slippy--time-range-bar li {
   cursor: pointer;
   user-select: none;
-  height: 1em;
   overflow: hidden;
+  text-align: center;
 }
 
 .slippy--time-range-legend {
