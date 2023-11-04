@@ -8,7 +8,9 @@ import { data, precompute } from './datae';
 export function init(element: HTMLElement) {
   element.innerHTML = 'Loading ~10MB of unbundled JSON...';
   (async () => {
-    await fillDataWithFetch();
+    await fillDataWithFetch(
+      (msg) => (element.innerHTML = `${msg} files of ~10MB of JSON loaded...`),
+    );
     element.innerHTML = 'Data downloaded, reticulating splines...';
     await new Promise((r) => setTimeout(r));
     precompute();
@@ -27,14 +29,18 @@ export function init(element: HTMLElement) {
   });
 }
 
-async function fillDataWithFetch() {
+async function fillDataWithFetch(progress: (msg: string) => void = () => {}) {
+  const fetches = Object.keys(data) as (keyof typeof data)[];
+  let done = 0;
   const get = async (url: string) => {
     const resp = await fetch(url);
     if (!resp.ok) throw new Error(`fetch failure: ${url}: ${resp.status}`);
-    return await resp.json();
+    const json = await resp.json();
+    progress(`${++done}/${fetches.length}`);
+    return json;
   };
   await Promise.all(
-    (Object.keys(data) as (keyof typeof data)[]).map(async (k) => {
+    fetches.map(async (k) => {
       const key = `${k}.json` as const;
       (data as any)[k] = await get(`../data/${key}?v=${hashes[key]}`);
     }),
