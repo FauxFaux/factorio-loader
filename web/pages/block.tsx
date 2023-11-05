@@ -698,26 +698,6 @@ export const ActionPill = (props: { action: Action }) => {
   consumes.sort(([a], [b]) => compareNames(a, b));
   produces.sort(([a], [b]) => compareNames(a, b));
 
-  // so dumb
-  const icon = (colon: Colon) => {
-    const [, item] = fromColon(colon);
-    const [, name] = splitColon(colon);
-    return (
-      <>
-        <ItemIcon name={name} alt={item.localised_name} />
-      </>
-    );
-  };
-
-  const countItem = (colon: Colon, count: number) => {
-    if (colon.startsWith('hack:')) return <i>hack</i>;
-    return (
-      <>
-        {humanise(count)} {icon(colon)}
-      </>
-    );
-  };
-
   const consumesItems = consumes.map(([colon, count]) =>
     countItem(colon, Math.abs(count)),
   );
@@ -739,3 +719,23 @@ export const ActionPill = (props: { action: Action }) => {
 export function intersperse<T>(arr: T[], sep: T): T[] {
   return arr.reduce((a: T[], v: T) => [...a, v, sep], []).slice(0, -1);
 }
+
+export const countItem = (colon: Colon, count: number) => {
+  if (colon.startsWith('hack:')) return <i>hack</i>;
+  return (
+    <>
+      {humanise(count)} {colonIcon(colon)}
+    </>
+  );
+};
+
+// so dumb
+export const colonIcon = (colon: Colon) => {
+  const [, item] = fromColon(colon);
+  const [, name] = splitColon(colon);
+  return (
+    <>
+      <ItemIcon name={name} alt={item.localised_name} />
+    </>
+  );
+};

@@ -106,7 +106,7 @@
 }
 
 .slippy {
-  height: 85vh;
+  height: 80vh;
   width: 100%;
   background: black;
 }
@@ -146,6 +146,34 @@
   white-space: nowrap;
   text-overflow: clip;
 }
+
+.slippy--time-range-help {
+  margin-top: 1em;
+}
+
+.slippy--time-range-table td {
+  vertical-align: middle;
+}
+
+.slippy--time-range-table td:nth-child(1) {
+  white-space: nowrap;
+}
+
+.slippy--time-range-table td:nth-child(3),
+.slippy--time-range-table th:nth-child(3) {
+  text-align: right;
+}
+
+.slippy--time-range-table--picked {
+  background-color: #3a4753;
+}
+
+.slippy--time-range-help--instructions div {
+  vertical-align: middle;
+  margin: auto;
+  text-align: center;
+}
+
 
 .block-thumb {
   height: 140px;

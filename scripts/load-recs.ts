@@ -442,6 +442,7 @@ function main() {
       researched,
       requires,
       unlocks,
+      localised_name: tools.technology_prototypes[name]?.localised_name,
     };
   }
 
@@ -538,6 +539,13 @@ interface Tools {
     string,
     {
       place_result?: { name: string };
+    }
+  >;
+  technology_prototypes: Record<
+    string,
+    {
+      localised_name: string;
+      // incomplete
     }
   >;
   // incomplete

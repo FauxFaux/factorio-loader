@@ -6,8 +6,8 @@ export type BlockId = Coord;
 
 const base = process.argv[2];
 
-export function loadCells(kind: string): string[][] {
-  return loadLines(kind).map((record) => record.split('\x1e'));
+export function loadCells(kind: string, dir = base): string[][] {
+  return loadLines(kind, dir).map((record) => record.split('\x1e'));
 }
 
 export function loadLines(kind: string, dir = base): string[] {

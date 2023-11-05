@@ -4,7 +4,7 @@ import fs from 'fs';
 import _ from 'lodash';
 
 import type { MapRef } from '../web/datae';
-import { loadLines } from './loaders';
+import { loadCells, loadLines } from './loaders';
 
 function main() {
   const maps: MapRef[] = [];
@@ -24,6 +24,15 @@ function main() {
       researchName,
     ] = loadLines('meta', base);
 
+    const consumedTotal = Object.fromEntries(
+      loadCells('item-input', base)
+        .filter(
+          (line) =>
+            line[0].endsWith('-science-pack') || line[0].endsWith('-plate'),
+        )
+        .map(([name, count]) => [`item:${name}`, parseInt(count)] as const),
+    );
+
     const [tick, speed, researchProgress, trains] = [
       tickS,
       speedS,
@@ -41,6 +50,7 @@ function main() {
       researchName,
       researchProgress,
       hasMap,
+      consumedTotal,
     });
   }
 

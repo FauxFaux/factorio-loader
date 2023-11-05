@@ -51,6 +51,7 @@ export const data = {
       researched: boolean;
       requires: string[];
       unlocks: string[];
+      localised_name?: string;
     }
   >,
   cp: {} as {
@@ -91,6 +92,7 @@ export interface MapRef {
   researchName: string;
   researchProgress: number;
   hasMap: boolean;
+  consumedTotal: Record<Colon, number>;
 }
 
 export function precompute() {

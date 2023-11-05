@@ -1,5 +1,4 @@
 import { Component, createRef } from 'preact';
-import type { JSX } from 'preact';
 import { render as stringify } from 'preact-render-to-string';
 import { useEffect } from 'preact/hooks';
 import type Leaflet from 'leaflet';
@@ -9,6 +8,8 @@ import { TagList } from '../objects';
 import { data, MapRef } from '../datae';
 import { useLib } from '../muffler/libs';
 import _chunk from 'lodash/chunk';
+import { countItem, intersperse } from './block';
+import { Colon } from '../muffler/colon';
 
 interface MapProps {
   gps?: string;
@@ -194,6 +195,7 @@ export class Map extends Component<MapProps, LeafletState> {
     const bar = timeList.map((ref, i) => {
       const prev: MapRef | undefined = timeList[i - 1];
       const w = width(ref, prev);
+      if (w < 0.5) return null;
       const style: Record<string, string> = {
         width: `${w}%`,
       };
@@ -201,25 +203,18 @@ export class Map extends Component<MapProps, LeafletState> {
         // button blue
         style['background-color'] = '#0d6efd';
       }
-      let help: JSX.Element = <>&nbsp;</>;
-      const helpHelp = 'hit z/x keyboard shortcuts to flip times';
-      if (0 === i) help = <abbr title={helpHelp}>⬅️ z</abbr>;
-      else if (timeList.length - 1 === i)
-        help = <abbr title={helpHelp}>➡️ x</abbr>;
-      else if (w > 5) help = <>{hour(ref.tick)}h</>;
+      const prog = Math.floor(ref.researchProgress * 100);
       return (
         <li
           style={style}
-          title={`${ref.date} - ${hour(ref.tick)} hours, ${
-            ref.trains
-          } trains, ${Math.floor(ref.researchProgress * 100)}% of ${
+          title={`${ref.date} - ${hour(ref.tick)} hours, ${prog}% of ${
             ref.researchName
           }`}
           onClick={() => {
             this.updateUrl(ref.date);
           }}
         >
-          {help}
+          &nbsp;
         </li>
       );
     });
@@ -243,12 +238,96 @@ export class Map extends Component<MapProps, LeafletState> {
         );
       return [<li style={style}>{msg}</li>];
     });
+
+    const rows = [...timeList].reverse().map((ref) => {
+      const chosenOne = ref.date === picked;
+      const clazz = chosenOne ? 'slippy--time-range-table--picked' : '';
+
+      const itemList = (items: [Colon, number][]) =>
+        intersperse(
+          items.sort(([, a], [, b]) => b - a).map(([k, v]) => countItem(k, v)),
+          <> </>,
+        );
+
+      const scienceList = Object.entries(ref.consumedTotal).filter(([k]) =>
+        k.endsWith('-science-pack'),
+      );
+
+      const plateList = Object.entries(ref.consumedTotal).filter(([k]) =>
+        k.endsWith('-plate'),
+      );
+
+      const btn = chosenOne ? (
+        <>viewing</>
+      ) : (
+        <button
+          class={'btn btn-primary'}
+          onClick={() => this.updateUrl(ref.date)}
+        >
+          view
+        </button>
+      );
+
+      return (
+        <tr class={clazz}>
+          <td>{btn}</td>
+          <td>{ref.date}</td>
+          <td>{hour(ref.tick)}h</td>
+          <td>{itemList(scienceList)}</td>
+          <td>{itemList(plateList)}</td>
+          <td>
+            {Math.floor(ref.researchProgress * 100)}% of{' '}
+            {ref.researchName
+              ? data.technologies[
+                  ref.researchName
+                ]?.localised_name?.toLowerCase() ?? ref.researchName
+              : 'nothing'}
+          </td>
+        </tr>
+      );
+    });
+
+    const table = (
+      <table class="table slippy--time-range-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Date</th>
+            <th>
+              <abbr title={'played according to the game clock'}>Played</abbr>
+            </th>
+            <th>Science used</th>
+            <th>Plates used</th>
+            <th>Research</th>
+          </tr>
+        </thead>
+        <tbody>{rows}</tbody>
+      </table>
+    );
     return (
       <>
         <div class="slippy" ref={this.map}></div>
         <div class="slippy--time-range">
           <ol class="slippy--time-range-bar">{bar}</ol>
           <ol class="slippy--time-range-legend">{legend}</ol>
+          <div class={'container-fluid-lg slippy--time-range-help'}>
+            <div
+              class={'container-fluid slippy--time-range-help--instructions'}
+            >
+              <div class={'row'}>
+                <div className={'col-md-auto'}>
+                  <h2>Historical save browser</h2>
+                </div>
+                <div class={'col'}>
+                  Use <kbd>z</kbd> and <kbd>x</kbd> to flip through history
+                </div>
+                <div className={'col'}>
+                  Or, click the quick access bar above
+                </div>
+              </div>
+            </div>
+            {table}
+          </div>
         </div>
       </>
     );
