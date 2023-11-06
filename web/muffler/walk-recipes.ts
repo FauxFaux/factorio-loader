@@ -356,6 +356,7 @@ export const limitations: Record<string, Limitation> = {
   'yaedols-culture': 'yaedols',
   'yotoi-aloe-orchard': 'yotoi',
   'zipir-reef': 'zipir1',
+  'antelope-enclosure': 'antelope',
 };
 
 export function ingredients(name: string): JIngredient[] {
