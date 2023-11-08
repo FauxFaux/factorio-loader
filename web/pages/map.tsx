@@ -54,7 +54,9 @@ function latestMapDate() {
 }
 
 function tlUrl(timeName: string) {
-  return `../so-${timeName}/out/nih/{z}/{x}/{y}.avif`;
+  // @ts-ignore - webpack.DefinePlugin
+  const root = WEBPACK_CDN || '..';
+  return `${root}/so-${timeName}/out/nih/{z}/{x}/{y}.avif`;
 }
 
 export class Map extends Component<MapProps, LeafletState> {

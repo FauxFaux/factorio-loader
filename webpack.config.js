@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { DefinePlugin } = require('webpack');
 
 module.exports = {
   entry: './web/index.tsx',
@@ -12,6 +13,9 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './web/index.html',
+    }),
+    new DefinePlugin({
+      WEBPACK_CDN: JSON.stringify(process.env.CDN),
     }),
   ],
 
