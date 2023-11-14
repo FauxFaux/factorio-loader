@@ -7,6 +7,7 @@ for _, entity in pairs(surface.find_entities_filtered({ force = "enemy" })) do
     entity.destroy()
 end
 
+local surface = game.player.surface
 for _, v in pairs(surface.find_entities_filtered({ type = "inserter" })) do
     local d = v.drop_target
     if d ~= nil then

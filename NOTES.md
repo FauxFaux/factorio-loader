@@ -36,6 +36,12 @@ for chunk in surface.get_chunks() do
 end
 ```
 
+```lua
+for i,t in ipairs(game.player.force.get_trains()) do for j,c in ipairs(t.carriages) do c.destroy() end end
+for i,t in ipairs(game.player.surface.find_entities_filtered({type='entity-ghost'})) do t.destroy() end
+for i,t in ipairs(game.player.surface.find_entities_filtered({type='tile-ghost'})) do t.destroy() end
+```
+
 
 ### blueprints
 
