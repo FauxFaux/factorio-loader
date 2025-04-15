@@ -5,6 +5,7 @@ function tlen(T)
     end
     return count
 end
+
 for _, ty in ipairs({
     "assembling-machine",
     "mining-drill",
@@ -57,9 +58,9 @@ for _, ty in ipairs({
             a[#a + 1] = recp
             local mi = v.get_module_inventory()
             if mi ~= nil then
-                for item, count in pairs(mi.get_contents()) do
-                    a[#a + 1] = item
-                    a[#a + 1] = count
+                for _, item in ipairs(mi.get_contents()) do
+                    a[#a + 1] = item.name
+                    a[#a + 1] = item.count
                 end
             end
         end
@@ -90,7 +91,7 @@ for _, ty in ipairs({
         if ty == "furnace" then
             local prev = v.previous_recipe
             if prev ~= nil then
-                a[#a + 1] = prev.name
+                a[#a + 1] = prev.name.name
             end
         end
         if ty == "resource" then
@@ -99,9 +100,9 @@ for _, ty in ipairs({
         if ty == "container" or ty == "logistic-container" then
             local oi = v.get_output_inventory()
             if oi ~= nil then
-                for item, count in pairs(oi.get_contents()) do
-                    a[#a + 1] = item
-                    a[#a + 1] = count
+                for _, item in ipairs(oi.get_contents()) do
+                    a[#a + 1] = item.name
+                    a[#a + 1] = item.count
                 end
             end
         end
@@ -126,8 +127,9 @@ for _, ty in ipairs({
         end
         t[#t + 1] = table.concat(a, "\036")
     end
-    game.write_file(ty .. ".rec", table.concat(t, "\035"))
+    helpers.write_file(ty .. ".rec", table.concat(t, "\035"))
 end
+
 local t = {}
 for name, v in pairs(game.player.force.technologies) do
     if v.enabled then
@@ -141,7 +143,7 @@ for name, v in pairs(game.player.force.technologies) do
         for pre, _ in pairs(v.prerequisites) do
             a[#a + 1] = pre
         end
-        for _, eff in pairs(v.effects) do
+        for _, eff in pairs(v.prototype.effects) do
             if eff.type == "unlock-recipe" then
                 a[#a + 1] = eff.recipe
             end
@@ -149,10 +151,10 @@ for name, v in pairs(game.player.force.technologies) do
         t[#t + 1] = table.concat(a, "\036")
     end
 end
-game.write_file("technologies.rec", table.concat(t, "\035"))
+helpers.write_file("technologies.rec", table.concat(t, "\035"))
 
 local fpi = defines.flow_precision_index
-for ty, ps in pairs({ item = game.player.force.item_production_statistics, fluid = game.player.force.fluid_production_statistics }) do
+for ty, ps in pairs({ item = game.player.force.get_item_production_statistics("nauvis"), fluid = game.player.force.get_fluid_production_statistics("nauvis") }) do
     for _, input in pairs({ true, false }) do
         local t = {}
         local counts
@@ -178,11 +180,11 @@ for ty, ps in pairs({ item = game.player.force.item_production_statistics, fluid
                 fpi.fifty_hours,
                 fpi.two_hundred_fifty_hours,
                 fpi.one_thousand_hours }) do
-                a[#a + 1] = ps.get_flow_count({ name = k, input = input, precision_index = precision })
+                a[#a + 1] = ps.get_flow_count({ name = k, precision_index = precision, category = direction})
             end
             t[#t + 1] = table.concat(a, "\036")
         end
-        game.write_file(ty .. "-" .. direction .. ".rec", table.concat(t, "\035"))
+        helpers.write_file(ty .. "-" .. direction .. ".rec", table.concat(t, "\035"))
     end
 end
 
@@ -192,7 +194,7 @@ t = {
     game.ticks_to_run,
     game.speed,
     game.player.force.research_progress,
-    #game.player.force.get_trains(),
+    #game.train_manager.get_trains({ surface = "nauvis"}),
 
 }
 c = game.player.force.current_research
@@ -202,4 +204,4 @@ else
     t[#t + 1] = ""
 end
 
-game.write_file("meta.rec", table.concat(t, "\035"))
+helpers.write_file("meta.rec", table.concat(t, "\035"))
